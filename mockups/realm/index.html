@@ -1,0 +1,416 @@
+<meta charset="utf-8">
+<title>사신의 천하 지도 시안</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nanum+Myeongjo:wght@700;800&display=swap">
+<style>
+/* 위: 날짜·자원·이번 계절 명령 패 · 왼쪽: 천하도 · 오른쪽: 선택한 지역의 상태와 명령. 한지와 먹, 붉은 낙관의 단일 테마 */
+:root{
+  --ink:#2b2420; --ink2:#5b4a3a; --paper:#f4ead2; --paper2:#eadcb9; --card:#fbf4e2; --line:#c9b78f;
+  --top:#1d1814; --topfg:#efe2c4; --topmut:#b7a581; --gold:#d9a640;
+  --seal:#b8352a; --qing:#2c7c74; --good:#3f8a4f; --bad:#b8352a;
+  --display:"Nanum Myeongjo","Noto Serif KR",serif; --body:system-ui,"Noto Sans KR",sans-serif;
+  color-scheme:light;
+}
+[hidden]{display:none!important}
+html,body{height:100%}
+body{background:var(--top);color:var(--ink);font:14px/1.5 var(--body)}
+.app{height:100%;display:grid;grid-template-rows:auto 1fr}
+button{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+
+/* 상단 */
+.top{display:flex;align-items:center;gap:14px;flex-wrap:wrap;background:var(--top);color:var(--topfg);border-bottom:2px solid #a8823e;
+  padding-block:8px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.date{display:flex;align-items:center;gap:10px}
+.seal{display:grid;place-items:center;width:38px;height:38px;background:var(--seal);color:#fbe9d4;font:800 22px var(--display);border-radius:4px;box-shadow:inset 0 0 0 2px #fbe9d455}
+.date small{display:block;font-size:11px;color:var(--topmut);letter-spacing:.12em}
+.date b{font:800 19px var(--display)}
+.date .wx{display:block;font-size:12px;color:var(--topmut)}
+.res{display:flex;gap:6px;margin-left:auto}
+.r{display:flex;flex-direction:column;align-items:flex-start;padding:3px 10px;border-radius:6px;background:#2a231f;min-width:72px;position:relative}
+.r .k{font-size:11px;color:var(--topmut)}
+.r b{font-size:18px;font-variant-numeric:tabular-nums;display:inline-block}
+.orders{display:flex;flex-direction:column;gap:3px}
+.orders .k{font-size:11px;color:var(--topmut)}
+.tokens{display:flex;gap:5px}
+.tok{position:relative;display:flex;align-items:center;gap:5px;padding:3px 8px 3px 3px;border-radius:99px;background:#2a231f;border:1px solid #6b5a3e;font-size:12px}
+.tok i{font:800 14px var(--display);font-style:normal;width:22px;height:22px;display:grid;place-items:center;border-radius:50%;background:var(--paper);color:var(--ink)}
+.tok.used{opacity:.45}
+.tok.used::after{content:"用";position:absolute;right:-6px;top:-8px;width:20px;height:20px;display:grid;place-items:center;background:var(--seal);color:#fff;font:800 12px var(--display);border-radius:3px;transform:rotate(-12deg)}
+.tok.stamp::after{animation:stamp .5s cubic-bezier(.2,1.6,.4,1)}
+.tok.fresh{animation:fresh .6s ease-out}
+@keyframes stamp{0%{transform:scale(3) rotate(-30deg);opacity:0}100%{transform:scale(1) rotate(-12deg);opacity:1}}
+@keyframes fresh{0%{transform:rotateY(90deg)}100%{transform:rotateY(0)}}
+.endbtn{border:0;border-radius:8px;background:var(--seal);color:#fff4e4;padding:9px 14px;font-weight:700;cursor:pointer;display:flex;flex-direction:column;align-items:center;line-height:1.2}
+.endbtn small{font-size:11px;font-weight:500;opacity:.85}
+.endbtn:hover{filter:brightness(1.1)}
+
+/* 본문 */
+.body{display:grid;grid-template-columns:1fr 380px;min-height:0}
+.mapwrap{position:relative;background:#3a302a;min-height:0;overflow:hidden}
+#map{position:absolute;inset:0;width:100%;height:100%;cursor:pointer;touch-action:manipulation}
+.fxlayer{position:absolute;inset:0;pointer-events:none;overflow:hidden}
+.maphint{position:absolute;left:50%;top:10px;transform:translateX(-50%);background:#1d1814e6;color:var(--topfg);padding:6px 12px;border-radius:99px;font-size:13px;pointer-events:none;white-space:nowrap;max-width:calc(100% - 20px);overflow:hidden;text-overflow:ellipsis}
+.maphint:empty{display:none}
+.panel{background:var(--paper);border-left:3px double #8a6d3b;overflow:auto;padding:16px 18px;display:flex;flex-direction:column;gap:12px;min-width:0}
+.panel h2{font:800 21px var(--display);margin:0;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.panel h3{font:800 15px var(--display);margin:4px 0 0;color:var(--ink2);border-bottom:1px solid var(--line);padding-bottom:4px}
+.note{font-size:12px;color:var(--ink2);margin:0}
+.fseal{display:inline-grid;place-items:center;width:22px;height:22px;color:#fbf1dc;font:800 14px var(--display);border-radius:3px;flex:none}
+.fseal.big{width:36px;height:36px;font-size:22px}
+.tag{font:600 11px var(--body);padding:2px 7px;border-radius:99px;background:var(--ink);color:var(--paper)}
+.sub{font-size:12px;color:var(--ink2)}
+
+.steps{display:grid;gap:6px;margin:0;padding:0;list-style:none}
+.steps li{display:flex;gap:10px;align-items:center;background:var(--card);border:1px solid var(--line);border-radius:8px;padding:8px 10px}
+.steps li b{font:800 16px var(--display);width:26px;height:26px;display:grid;place-items:center;border-radius:50%;background:var(--ink);color:var(--paper);flex:none}
+.steps li.done b{background:var(--good)}
+.wxcard{background:#e3d5b3;border-left:4px solid var(--qing);padding:8px 10px;border-radius:4px;font-size:13px}
+
+.stats{display:grid;grid-template-columns:44px 1fr 46px;gap:6px 8px;align-items:center;font-size:13px}
+.stats .v{text-align:right;font-variant-numeric:tabular-nums;font-weight:700;display:inline-block}
+.bar{height:9px;background:#d8c9a6;border-radius:3px;overflow:hidden}
+.bar i{display:block;height:100%;transition:width .8s cubic-bezier(.2,.8,.2,1)}
+.hl{animation:hl 1.4s ease-out}
+@keyframes hl{20%{background:#f3d77a88}}
+.rowhl{border-radius:4px}
+
+.acts{display:grid;grid-template-columns:1fr 1fr;gap:7px}
+.act{all:unset;box-sizing:border-box;cursor:pointer;display:grid;grid-template-columns:34px 1fr;gap:2px 8px;align-items:center;background:var(--card);border:1px solid var(--line);border-radius:8px;padding:8px;box-shadow:0 2px 0 #b9a47966}
+.act:hover{border-color:var(--ink2)}
+.act .g{grid-row:span 3;width:34px;height:34px;display:grid;place-items:center;border-radius:6px;background:var(--ink);color:var(--paper);font:800 18px var(--display)}
+.act b{font-size:14px}
+.act .eff{font-size:12px;color:var(--qing);font-weight:600}
+.act .cost{font-size:11px;color:var(--ink2)}
+.act[aria-disabled="true"]{opacity:.5;cursor:default;box-shadow:none}
+.act[aria-disabled="true"] .eff{color:var(--bad)}
+.act.press{animation:press .35s}
+@keyframes press{40%{transform:scale(.95)}}
+.ochips{display:flex;gap:5px;flex-wrap:wrap}
+.och{all:unset;cursor:pointer;display:flex;align-items:center;gap:5px;padding:3px 9px 3px 3px;border-radius:99px;background:var(--card);border:1px solid var(--line);font-size:12px}
+.och i{font:800 13px var(--display);font-style:normal;width:22px;height:22px;display:grid;place-items:center;border-radius:50%;background:var(--ink);color:var(--paper)}
+.och.on{border-color:var(--seal);box-shadow:0 0 0 2px #b8352a33}
+.och[aria-disabled="true"]{opacity:.4;cursor:default}
+.btn{all:unset;box-sizing:border-box;cursor:pointer;text-align:center;padding:10px 14px;border-radius:8px;background:var(--ink);color:var(--paper);font-weight:700}
+.btn.ghost{background:transparent;color:var(--ink);border:1px solid var(--ink2)}
+.btn.red{background:var(--seal);color:#fff}
+.btn[aria-disabled="true"]{opacity:.45;cursor:default}
+.ftab{width:100%;border-collapse:collapse;font-size:13px}
+.ftab td{padding:5px 2px;border-bottom:1px dotted var(--line)}
+.ftab td:last-child{text-align:right;font-variant-numeric:tabular-nums}
+.ftab .fb{height:6px;background:#d8c9a6;border-radius:3px;overflow:hidden;min-width:60px}
+.ftab .fb i{display:block;height:100%}
+.loy{display:grid;grid-template-columns:auto 1fr auto;gap:8px;align-items:center;font-size:13px}
+
+/* 효과 */
+.float{position:absolute;transform:translate(-50%,-50%);font:800 16px var(--display);color:#fff;text-shadow:0 0 3px #000,0 0 8px #000;white-space:nowrap;animation:float 1.5s ease-out forwards}
+.float.good{color:#bff0c8}.float.bad{color:#ffb4a5}.float.gold{color:#ffe08a}
+@keyframes float{0%{opacity:0;margin-top:6px}15%{opacity:1}100%{opacity:0;margin-top:-56px}}
+.ripple{position:absolute;width:20px;height:20px;margin:-10px 0 0 -10px;border-radius:50%;border:3px solid var(--c,#ffd24a);animation:ripple 1.1s ease-out forwards}
+@keyframes ripple{0%{transform:scale(.3);opacity:1}100%{transform:scale(6);opacity:0}}
+.stampfx{position:absolute;transform:translate(-50%,-50%);width:64px;height:64px;display:grid;place-items:center;background:var(--c,var(--seal));color:#fff;font:800 36px var(--display);border-radius:6px;box-shadow:0 0 0 3px #fff8,0 6px 20px #0008;animation:bigstamp 1.8s ease-out forwards}
+.stampfx small{position:absolute;bottom:-22px;font:700 13px var(--body);color:#fff;text-shadow:0 0 4px #000;white-space:nowrap}
+@keyframes bigstamp{0%{transform:translate(-50%,-50%) scale(3) rotate(-25deg);opacity:0}18%{transform:translate(-50%,-50%) scale(1) rotate(-8deg);opacity:1}80%{opacity:1}100%{transform:translate(-50%,-50%) scale(1) rotate(-8deg);opacity:0}}
+.clash{position:absolute;transform:translate(-50%,-50%);font-size:42px;animation:clash .9s ease-out forwards;filter:drop-shadow(0 0 6px #000)}
+@keyframes clash{0%{transform:translate(-50%,-50%) scale(.4)}20%{transform:translate(-56%,-50%) scale(1.3)}35%{transform:translate(-44%,-50%) scale(1.2)}50%{transform:translate(-54%,-50%) scale(1.25)}100%{transform:translate(-50%,-50%) scale(1);opacity:0}}
+.spark{position:absolute;width:5px;height:5px;border-radius:50%;background:#ffd36a;box-shadow:0 0 6px #ff9a3a}
+.dot{position:absolute;width:9px;height:9px;margin:-4px 0 0 -4px;border-radius:50%;background:var(--c);box-shadow:0 0 0 2px #fff9}
+.flyg{position:fixed;left:0;top:0;z-index:90;pointer-events:none;font:800 20px var(--display);color:#ffe08a;text-shadow:0 0 6px #000}
+.resfloat{position:absolute;right:4px;bottom:-14px;font-size:12px;font-weight:800;animation:float 1.3s ease-out forwards;pointer-events:none}
+.resfloat.bad{color:#ff9d8a}.resfloat.good{color:#9ee6ad}
+.pop{animation:pop .8s ease-out}
+@keyframes pop{25%{transform:scale(1.3)}}
+.banner{position:fixed;inset:0;z-index:95;display:grid;place-content:center;justify-items:center;gap:6px;background:#140f0cd9;pointer-events:none;animation:veil 1.7s ease-in-out forwards}
+.banner span{font:800 clamp(90px,22vw,170px)/1 var(--display);color:var(--paper);text-shadow:0 6px 30px #000;animation:brush 1.7s ease-out forwards}
+.banner small{font:700 18px var(--body);color:var(--gold);letter-spacing:.1em}
+@keyframes veil{0%{opacity:0}15%,80%{opacity:1}100%{opacity:0}}
+@keyframes brush{0%{clip-path:inset(0 0 100% 0);transform:scale(1.1)}40%,100%{clip-path:inset(0 0 0 0);transform:scale(1)}}
+
+.modal{position:fixed;inset:0;z-index:80;display:grid;place-items:center;background:#140f0c99;padding:16px}
+.modal .card{background:var(--paper);border:3px double #8a6d3b;border-radius:10px;max-width:440px;width:100%;padding:18px;display:flex;flex-direction:column;gap:10px;max-height:90%;overflow:auto;animation:rise .25s ease-out}
+@keyframes rise{from{transform:translateY(12px);opacity:0}}
+.modal h2{font:800 20px var(--display);margin:0}
+.modal .btns{display:flex;gap:8px;flex-wrap:wrap}
+.modal .btns .btn{flex:1}
+.odds{display:flex;align-items:center;gap:8px;font-size:13px}
+.odds .meter{flex:1;height:10px;border-radius:5px;background:linear-gradient(90deg,var(--bad),#d9a640,var(--good));position:relative}
+.odds .meter i{position:absolute;top:-4px;width:4px;height:18px;background:var(--ink);border-radius:2px;transition:left .3s}
+input[type=range]{width:100%;accent-color:var(--seal)}
+.rlog{margin:0;padding-left:18px;display:grid;gap:4px;font-size:14px}
+.toast{position:fixed;left:50%;bottom:20px;transform:translateX(-50%) translateY(20px);background:var(--top);color:var(--topfg);padding:9px 16px;border-radius:99px;font-size:14px;opacity:0;transition:.3s;z-index:85;pointer-events:none;max-width:calc(100% - 32px);text-align:center}
+.toast.on{opacity:1;transform:translateX(-50%) translateY(0)}
+.mocknote{font-size:11px;color:var(--ink2);border-top:1px dashed var(--line);padding-top:8px;margin-top:auto}
+
+@media (max-width:760px){
+  .app{height:auto;display:block}
+  body{height:auto}
+  .top{gap:8px}
+  .res{margin-left:0;width:100%;order:3}
+  .r{flex:1;min-width:0}
+  .orders{order:4;width:100%}
+  .endbtn{margin-left:auto}
+  .body{display:block}
+  .mapwrap{aspect-ratio:10/7;width:100%}
+  .panel{border-left:0;border-top:3px double #8a6d3b}
+}
+@media (prefers-reduced-motion:reduce){
+  .float,.ripple,.stampfx,.clash,.banner,.banner span,.pop,.hl,.tok.stamp::after,.tok.fresh{animation-duration:.6s}
+}
+</style>
+
+<div class="app">
+  <header class="top">
+    <div class="date"><span class="seal">靑</span><div><small>四神戰記 · 天下</small><b id="date">1년 봄</b><span class="wx" id="wx"></span></div></div>
+    <div class="res">
+      <div class="r"><span class="k">金 금</span><b id="gold">600</b></div>
+      <div class="r"><span class="k">糧 군량</span><b id="food">900</b></div>
+      <div class="r"><span class="k">兵 병력</span><b id="troops">7,000</b></div>
+      <div class="r"><span class="k">名 명성</span><b id="fame">10</b></div>
+    </div>
+    <div class="orders"><span class="k">이번 계절 명령 · 관리 1명당 1번</span><div class="tokens" id="tokens"></div></div>
+    <button class="endbtn" id="end">계절 넘기기 ▶<small id="endhint"></small></button>
+  </header>
+  <main class="body">
+    <div class="mapwrap" id="mapwrap"><canvas id="map" aria-label="천하도. 지역을 눌러 고르세요"></canvas><div class="fxlayer" id="fx"></div><div class="maphint" id="maphint"></div></div>
+    <aside class="panel" id="panel" aria-live="polite"></aside>
+  </main>
+</div>
+<div class="modal" id="modal" hidden><div class="card" id="mcard" role="dialog" aria-modal="true"></div></div>
+<div class="toast" id="toast" role="status"></div>
+
+<script>
+'use strict';
+const $=s=>document.querySelector(s);
+const FAC={qing:{name:'청룡국',seal:'靑',rgb:[56,158,148],ink:'#2c7c74'},xuan:{name:'현무국',seal:'玄',rgb:[58,86,124],ink:'#33506f'},bai:{name:'백호국',seal:'白',rgb:[214,204,176],ink:'#857a5f'},zhu:{name:'주작국',seal:'朱',rgb:[206,84,58],ink:'#a43c28'},gui:{name:'귀왕군',seal:'鬼',rgb:[118,70,138],ink:'#5c376b'}};
+const FKEYS=['qing','xuan','bai','zhu','gui'];
+const PROV0=[["cheong","청룡성",788,355,"qing",40,50,55,4200,60,72,"",1],["beodeul","버들골",725,222,"qing",25,66,24,1500,35,68,"곡창",0],["donghae","동해포",800,505,"qing",28,32,62,1300,40,66,"항구",0],["hyeonmu","현무성",505,105,"xuan",35,48,46,4600,70,64,"",1],["bingseol","빙설령",318,150,"xuan",18,30,30,1900,45,58,"철광",0],["heuksu","흑수",668,150,"xuan",22,44,40,2000,40,60,"",0],["baekho","백호성",122,355,"bai",33,45,50,4400,65,64,"",1],["seoryang","서량",215,215,"bai",20,38,36,2200,40,60,"명마",0],["moraegwan","모래관",188,510,"bai",18,30,44,1700,50,58,"",0],["jujak","주작성",500,610,"zhu",38,55,52,4300,60,66,"",1],["namhwa","남화",318,560,"zhu",24,68,30,1700,35,62,"곡창",0],["yeomsan","염산",680,582,"zhu",20,36,46,1600,40,60,"영맥",0],["gwiwang","귀왕성",500,355,"gui",20,10,10,6800,85,50,"",1],["honryeong","혼령곡",350,345,"gui",10,10,10,2700,40,50,"",0],["mangja","망자벌",652,362,"gui",12,10,10,2900,40,50,"",0]];
+const ADJ=[[1,14,2],[5,0,14],[0,11],[4,5,12],[7,3,13],[3,1,12,14],[7,13,8],[4,6,13],[6,13,10],[12,10,11],[8,13,12,9],[14,2,9],[3,13,5,14,10,9],[4,12,7,6,8,10],[1,5,12,0,11]];
+const OFF0=[{id:'o_hero',name:'청룡 장수',str:95,int:70,pol:60,seal:'龍',loy:100},{id:'o_un',name:'운학',str:42,int:92,pol:78,seal:'雲',loy:84},{id:'o_dan',name:'단심',str:58,int:61,pol:90,seal:'丹',loy:78}];
+const TRAITS={'곡창':'농업 수확 ×1.5','항구':'상업 수입 ×1.5','철광':'징병 ×1.3','명마':'출진 시 기병 ×1.5','영맥':'명성 +2/계절'};
+const SEASONS=['봄','여름','가을','겨울'],SCHAR=['春','夏','秋','冬'];
+const WX=[{icon:'🌫',name:'봄 안개',desc:'시야 −30% · 적 은폐'},{icon:'🌧',name:'여름 장마',desc:'서쪽 여울 범람 · 화살 −20%'},{icon:'☀',name:'가을 하늘',desc:'천고마비 · 기병 +10%'},{icon:'❄',name:'겨울 결빙',desc:'강을 건널 수 있음 · 군량 소모 +30%'}];
+const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
+const fmt=n=>Math.round(n).toLocaleString('ko-KR');
+
+let R,sel=null,pick=null,roff=null,hover=-1;
+function newRealm(){return{year:1,season:0,gold:600,food:900,fame:10,provs:PROV0.map(a=>({id:a[0],name:a[1],x:a[2],y:a[3],owner:a[4],pop:a[5],farm:a[6],trade:a[7],troops:a[8],wall:a[9],morale:a[10],trait:a[11],cap:!!a[12]})),officers:OFF0.map(o=>({...o,used:false})),rel:{xuan:0,bai:-5,zhu:5},pact:{xuan:0,bai:0,zhu:0},chaos:{xuan:0,bai:0,zhu:0,gui:0},over:null}}
+R=newRealm();
+const P=id=>R.provs.find(p=>p.id===id),PI=id=>R.provs.findIndex(p=>p.id===id);
+const adjOf=p=>ADJ[PI(p.id)].map(k=>R.provs[k]);
+const owned=f=>R.provs.filter(p=>p.owner===f);
+const strength=f=>owned(f).reduce((a,p)=>a+p.troops,0);
+const freeOff=()=>R.officers.filter(o=>!o.used);
+function officerOf(stat){const av=freeOff();return (roff&&av.find(o=>o.id===roff))||av.slice().sort((a,b)=>b[stat]-a[stat])[0]||null}
+const draftAmt=(p,o)=>Math.round((250+p.pop*8+o.str*4)*(p.trait==='철광'?1.3:1)*(p.morale/70));
+const STATN={pol:'정치',str:'무력',int:'지력'};
+const ACTS={
+  farm:{g:'田',label:'개간',stat:'pol',gold:50,food:0,field:'farm',amt:(p,o)=>4+Math.round(o.pol/12),eff:'농업'},
+  trade:{g:'市',label:'상업',stat:'pol',gold:50,food:0,field:'trade',amt:(p,o)=>4+Math.round(o.pol/12),eff:'상업'},
+  draft:{g:'兵',label:'징병',stat:'str',gold:80,food:40,field:'troops',amt:draftAmt,eff:'병력',side:'민심 −5'},
+  calm:{g:'民',label:'위무',stat:'pol',gold:0,food:60,field:'morale',amt:(p,o)=>8+Math.round(o.pol/10),eff:'민심'},
+  wall:{g:'城',label:'축성',stat:'int',gold:90,food:0,field:'wall',amt:(p,o)=>6+Math.round(o.int/15),eff:'성벽'},
+  march:{g:'戰',label:'출진·이동',stat:'str',gold:0,food:50}
+};
+const STATROWS=[['farm','농업','#6f9a4f'],['trade','상업','#c49a3a'],['morale','민심','#4f98a6'],['wall','성벽','#7d6c5a']];
+
+/* ---------- 지도 ---------- */
+const MW=1000,MH=700,RS=2,RW=500,RH=350;
+const cv=$('#map'),ctx=cv.getContext('2d');
+let base=null,idx=null,edges=null,ownerLayer=null,view={s:1,ox:0,oy:0},ready=false;
+function loadImg(src){return new Promise((ok,no)=>{const i=new Image();i.onload=()=>ok(i);i.onerror=no;i.src=src})}
+Promise.all([loadImg('base.webp'),loadImg('mask.png')]).then(([b,m])=>{
+  base=b;const c=document.createElement('canvas');c.width=RW;c.height=RH;const g=c.getContext('2d');g.drawImage(m,0,0);const d=g.getImageData(0,0,RW,RH).data;
+  idx=new Int8Array(RW*RH);for(let k=0;k<RW*RH;k++)idx[k]=d[k*4]-1;
+  edges=PROV0.map(()=>[]);for(let j=1;j<RH-1;j++)for(let i=1;i<RW-1;i++){const a=idx[j*RW+i];if(a<0)continue;const n=[idx[j*RW+i+1],idx[j*RW+i-1],idx[(j+1)*RW+i],idx[(j-1)*RW+i]];if(n.some(b=>b!==a))edges[a].push(i,j)}
+  buildOwner();ready=true;
+}).catch(()=>{$('#maphint').textContent='지도 그림을 불러오지 못했습니다'});
+function buildOwner(){const img=new ImageData(RW,RH);for(let j=1;j<RH-1;j++)for(let i=1;i<RW-1;i++){const a=idx[j*RW+i];if(a<0)continue;const o=(j*RW+i)*4;let rgb=FAC[R.provs[a].owner].rgb,al=72;const nb=[idx[j*RW+i+1],idx[(j+1)*RW+i],idx[j*RW+i-1],idx[(j-1)*RW+i]];if(nb.some(b=>b>=0&&b!==a&&R.provs[b].owner!==R.provs[a].owner)){rgb=[40,28,22];al=220}else if(nb.some(b=>b>=0&&b!==a)){rgb=[70,54,40];al=120}img.data[o]=rgb[0];img.data[o+1]=rgb[1];img.data[o+2]=rgb[2];img.data[o+3]=al}
+  ownerLayer=document.createElement('canvas');ownerLayer.width=RW;ownerLayer.height=RH;ownerLayer.getContext('2d').putImageData(img,0,0)}
+function screenPt(p){return{x:view.ox+p.x*view.s,y:view.oy+p.y*view.s}}
+function draw(t){
+  requestAnimationFrame(draw);
+  const r=cv.getBoundingClientRect();if(r.width<2||!ready)return;
+  const d=Math.min(2,devicePixelRatio||1),W=Math.round(r.width*d),H=Math.round(r.height*d);if(cv.width!==W||cv.height!==H){cv.width=W;cv.height=H}
+  ctx.setTransform(1,0,0,1,0,0);ctx.fillStyle='#3a302a';ctx.fillRect(0,0,W,H);
+  const s=Math.min(r.width/MW,r.height/MH),ox=(r.width-MW*s)/2,oy=(r.height-MH*s)/2;view={s,ox,oy};
+  ctx.setTransform(d*s,0,0,d*s,d*ox,d*oy);ctx.drawImage(base,0,0,MW,MH);ctx.imageSmoothingEnabled=true;ctx.drawImage(ownerLayer,0,0,MW,MH);
+  const pulse=.5+.5*Math.sin(t/1000*4);
+  const hi=(k,col,al)=>{ctx.fillStyle=col;ctx.globalAlpha=al;const e=edges[k];for(let i=0;i<e.length;i+=2)ctx.fillRect(e[i]*RS-1,e[i+1]*RS-1,RS+2,RS+2);ctx.globalAlpha=1};
+  if(hover>=0&&hover!==PI(sel))hi(hover,'#fff4d0',.55);
+  if(sel)hi(PI(sel),'#ffd24a',.65+.35*pulse);
+  if(pick){const src=P(pick);for(const tg of adjOf(src)){const k=PI(tg.id),mine=tg.owner==='qing';hi(k,mine?'#8fe0d0':'#ff7a5a',.45+.4*pulse);ctx.strokeStyle=mine?'#2c7c74':'#b8352a';ctx.lineWidth=3.5;ctx.setLineDash([12,8]);ctx.lineDashOffset=-t/40;ctx.beginPath();ctx.moveTo(src.x,src.y);ctx.lineTo(tg.x,tg.y);ctx.stroke();ctx.setLineDash([])}}
+  const k=1/s,fs=(r.width<600?10:13)*k,anyFree=freeOff().length>0;
+  for(const p of R.provs){const f=FAC[p.owner];ctx.textAlign='center';
+    if(p.cap){ctx.fillStyle='#2b2420';const w=11*k;ctx.fillRect(p.x-w,p.y-w*1.1,w*2,w*.9);ctx.beginPath();ctx.moveTo(p.x-w*1.35,p.y-w*1.1);ctx.lineTo(p.x,p.y-w*2);ctx.lineTo(p.x+w*1.35,p.y-w*1.1);ctx.closePath();ctx.fill();ctx.fillStyle=f.ink;ctx.fillRect(p.x-w*.35,p.y-w*.9,w*.7,w*.7)}
+    else{ctx.fillStyle='#2b2420';ctx.beginPath();ctx.arc(p.x,p.y-5*k,4*k,0,7);ctx.fill()}
+    ctx.font='800 '+fs+'px "Nanum Myeongjo",serif';const tw=ctx.measureText(p.name).width,bw=tw+fs*1.35,bx=p.x-bw/2,by=p.y+3*k;
+    ctx.fillStyle='#f4ead2ee';ctx.fillRect(bx,by,bw,fs*2.45);ctx.strokeStyle=p.owner==='qing'?'#2c7c74':'#2b242055';ctx.lineWidth=k*(p.owner==='qing'?1.6:1);ctx.strokeRect(bx,by,bw,fs*2.45);
+    ctx.fillStyle=f.ink;ctx.fillRect(bx+2*k,by+2*k,fs,fs);ctx.fillStyle='#fbf1dc';ctx.font='800 '+fs*.72+'px "Nanum Myeongjo",serif';ctx.fillText(f.seal,bx+2*k+fs/2,by+2*k+fs*.78);
+    ctx.fillStyle='#2b2420';ctx.font='800 '+fs+'px "Nanum Myeongjo",serif';ctx.textAlign='left';ctx.fillText(p.name,bx+fs+5*k,by+fs*.95);
+    ctx.textAlign='center';ctx.font='700 '+fs*.82+'px system-ui';ctx.fillStyle=p.owner==='qing'?'#1f5e58':'#5a2a20';ctx.fillText('兵 '+fmt(p.troops),p.x,by+fs*2.1);
+    if(p.owner==='qing'&&anyFree&&!R.over){ctx.fillStyle='#d9a640';ctx.globalAlpha=.6+.4*pulse;ctx.beginPath();ctx.arc(bx+bw,by,4.5*k,0,7);ctx.fill();ctx.globalAlpha=1}}
+}
+requestAnimationFrame(draw);
+function provAt(e){const r=cv.getBoundingClientRect(),x=(e.clientX-r.left-view.ox)/view.s,y=(e.clientY-r.top-view.oy)/view.s,i=Math.floor(x/RS),j=Math.floor(y/RS);if(!idx||i<0||j<0||i>=RW||j>=RH)return -1;return idx[j*RW+i]}
+cv.addEventListener('pointermove',e=>{if(e.pointerType==='mouse')hover=provAt(e)});
+cv.addEventListener('pointerleave',()=>hover=-1);
+cv.addEventListener('click',e=>{const k=provAt(e);
+  if(pick){if(k>=0&&ADJ[PI(pick)].includes(k)){openMarch(R.provs[k]);return}pick=null;hint('');if(k<0){renderPanel();return}}
+  sel=k>=0?R.provs[k].id:null;roff=null;renderPanel()});
+
+/* ---------- 효과 ---------- */
+const fxl=$('#fx');
+function addFx(cls,p,html,ms,style){const el=document.createElement('div');el.className=cls;const q=screenPt(p);el.style.left=q.x+'px';el.style.top=q.y+'px';if(style)Object.assign(el.style,style);if(html!=null)el.innerHTML=html;fxl.appendChild(el);setTimeout(()=>el.remove(),ms);return el}
+const floatText=(p,txt,kind,dy=0)=>addFx('float '+(kind||''),{x:p.x,y:p.y-14/view.s+dy/view.s},txt,1600);
+const ripple=(p,col)=>addFx('ripple',p,null,1200,{'--c':col||'#ffd24a'});
+const stampAt=(p,ch,col,label)=>addFx('stampfx',{x:p.x,y:p.y-30/view.s},ch+(label?`<small>${label}</small>`:''),1900,{'--c':col||'var(--seal)'});
+function clash(p){addFx('clash',p,'⚔',950);const q=screenPt(p);for(let i=0;i<14;i++){const s=document.createElement('div');s.className='spark';s.style.left=q.x+'px';s.style.top=q.y+'px';fxl.appendChild(s);const a=Math.random()*6.28,v=30+Math.random()*50;s.animate([{transform:'translate(0,0)',opacity:1},{transform:`translate(${Math.cos(a)*v}px,${Math.sin(a)*v}px)`,opacity:0}],{duration:reduced?200:600+Math.random()*300,easing:'ease-out'}).onfinish=()=>s.remove()}}
+function marchDots(a,b,col,ms){const A=screenPt(a),B=screenPt(b);for(let i=0;i<6;i++){const d=document.createElement('div');d.className='dot';d.style.setProperty('--c',col);d.style.left=A.x+'px';d.style.top=A.y+'px';fxl.appendChild(d);d.animate([{transform:'translate(0,0)',opacity:0},{opacity:1,offset:.15},{transform:`translate(${B.x-A.x}px,${B.y-A.y}px)`,opacity:1}],{duration:reduced?150:ms,delay:reduced?0:i*90,easing:'ease-in',fill:'both'}).onfinish=()=>d.remove()}}
+function flyGlyph(fromEl,toPt,glyph,n){const a=fromEl.getBoundingClientRect(),m=cv.getBoundingClientRect(),q=screenPt(toPt),x1=m.left+q.x,y1=m.top+q.y;for(let i=0;i<n;i++){const s=document.createElement('span');s.className='flyg';s.textContent=glyph;document.body.appendChild(s);const x0=a.left+a.width/2+(Math.random()-.5)*a.width*.5,y0=a.top+a.height/2,mx=(x0+x1)/2+(Math.random()-.5)*100,my=Math.min(y0,y1)-40-Math.random()*50;s.animate([{transform:`translate(${x0}px,${y0}px) scale(.6)`,opacity:0},{transform:`translate(${mx}px,${my}px) scale(1.15)`,opacity:1,offset:.45},{transform:`translate(${x1}px,${y1}px) scale(.6)`,opacity:.3}],{duration:reduced?250:750+i*60,easing:'cubic-bezier(.3,.6,.4,1)'}).onfinish=()=>s.remove()}}
+function replay(el,c){if(!el)return;el.classList.remove(c);void el.offsetWidth;el.classList.add(c)}
+function countTo(el,from,to,ms=900){const t0=performance.now(),step=t=>{const k=Math.min(1,(t-t0)/ms);el.textContent=fmt(from+(to-from)*(1-Math.pow(1-k,3)));if(k<1)requestAnimationFrame(step)};requestAnimationFrame(step);replay(el,'pop')}
+function resDelta(id,from,to){const el=$('#'+id);countTo(el,from,to);if(from===to)return;const f=document.createElement('span');f.className='resfloat '+(to<from?'bad':'good');f.textContent=(to>from?'+':'−')+fmt(Math.abs(to-from));el.parentNode.appendChild(f);setTimeout(()=>f.remove(),1300)}
+function toast(t){const e=$('#toast');e.textContent=t;e.classList.add('on');clearTimeout(toast.t);toast.t=setTimeout(()=>e.classList.remove('on'),2600)}
+function hint(t){$('#maphint').textContent=t}
+function banner(ch,sub){const b=document.createElement('div');b.className='banner';b.innerHTML=`<span>${ch}</span><small>${sub}</small>`;document.body.appendChild(b);setTimeout(()=>b.remove(),1750)}
+
+/* ---------- 상단 ---------- */
+function renderTop(){
+  const w=WX[R.season];$('#date').textContent=R.year+'년 '+SEASONS[R.season];$('#wx').textContent=w.icon+' '+w.name+' · '+w.desc;
+  $('#gold').textContent=fmt(R.gold);$('#food').textContent=fmt(R.food);$('#troops').textContent=fmt(strength('qing'));$('#fame').textContent=R.fame;
+  const tk=$('#tokens');if(tk.children.length!==R.officers.length)tk.innerHTML=R.officers.map(o=>`<span class="tok" id="tok-${o.id}" title="${o.name}"><i>${o.seal}</i>${o.name}</span>`).join('');R.officers.forEach(o=>$('#tok-'+o.id).classList.toggle('used',o.used));
+  const left=freeOff().length;$('#endhint').textContent=left?`명령 ${left}번 남음`:'모든 명령 완료';
+}
+function useOfficer(o){o.used=true;roff=null;renderTop();const t=$('#tok-'+o.id);replay(t,'stamp')}
+
+/* ---------- 패널 ---------- */
+const sealHTML=(f,big)=>`<span class="fseal${big?' big':''}" style="background:${FAC[f].ink}">${FAC[f].seal}</span>`;
+function renderPanel(fx){
+  renderTop();const el=$('#panel');let h='';const p=sel&&P(sel);
+  if(pick){const s=P(pick);h=`<h2>출진 · ${s.name}</h2><ol class="steps"><li class="done"><b>1</b><span>출발 지역 <b style="all:unset;font-weight:700">${s.name}</b> · 병력 ${fmt(s.troops)}</span></li><li><b>2</b><span>지도에서 이웃 지역을 누르세요.<br><span style="color:var(--bad);font-weight:700">붉은 곳</span>은 공격, <span style="color:var(--qing);font-weight:700">푸른 곳</span>은 병력 이동</span></li></ol><div class="btn ghost" role="button" tabindex="0" onclick="cancelPick()">취소</div>`;el.innerHTML=h;return}
+  if(!p){
+    const st=[['지역 고르기','지도에서 청룡국(푸른 테두리) 지역을 누르세요',!!sel],['명령 내리기','관리 1명이 계절마다 1번 일합니다 · 금색 점은 명령 가능',freeOff().length<R.officers.length],['계절 넘기기','수입이 들어오고 관리가 다시 일할 수 있습니다',false]];
+    const mx=Math.max(...FKEYS.map(strength));
+    h=`<h2>사신(四神)의 천하</h2><p class="note">목표 · 중앙의 <b>귀왕성</b>을 함락하세요. 청룡성을 잃으면 패배합니다.</p>
+    <ol class="steps">${st.map((s,i)=>`<li class="${s[2]?'done':''}"><b>${s[2]?'✓':i+1}</b><span><strong>${s[0]}</strong><br><span class="sub">${s[1]}</span></span></li>`).join('')}</ol>
+    <div class="wxcard">${WX[R.season].icon} <b>이번 계절 전장 · ${WX[R.season].name}</b><br>${WX[R.season].desc}</div>
+    <h3>세력</h3><table class="ftab">${FKEYS.filter(f=>owned(f).length).map(f=>`<tr><td>${sealHTML(f)} ${FAC[f].name}</td><td style="width:38%"><div class="fb"><i style="width:${strength(f)/mx*100}%;background:${FAC[f].ink}"></i></div></td><td>兵 ${fmt(strength(f))}</td></tr>`).join('')}</table>
+    <h3>관리 · 충성</h3>${R.officers.map(o=>`<div class="loy" id="loy-${o.id}"><span class="och" style="cursor:default"><i>${o.seal}</i>${o.name}</span>${o.id==='o_hero'?'<span class="sub">군주</span><span></span>':`<div class="bar"><i style="width:${o.loy}%;background:#c49a3a"></i></div><div class="btn ghost" role="button" tabindex="0" style="padding:4px 8px;font-size:12px" onclick="reward('${o.id}',this)" aria-disabled="${R.gold<100}">포상 金100</div>`}</div>`).join('')}
+    <p class="mocknote">시안 · 수치는 실제 게임 규칙을 따르지만 적국의 침공, 사건, 실시간 전투는 생략했습니다.</p>`;
+    el.innerHTML=h;afterRender(fx);return}
+  const F=FAC[p.owner],mine=p.owner==='qing';
+  h=`<h2>${sealHTML(p.owner,true)}${p.name}${p.cap?'<span class="tag">도성</span>':''}</h2><p class="sub" style="margin:0">${F.name}${p.trait?' · '+p.trait+' — '+TRAITS[p.trait]:''}</p>
+  <div class="stats"><span>인구</span><span></span><span class="v">${p.pop}만</span><span>병력</span><span></span><span class="v" data-v="troops">${fmt(p.troops)}</span>${STATROWS.map(([k,l,c])=>`<span data-row="${k}">${l}</span><div class="bar"><i data-bar="${k}" style="width:${p[k]}%;background:${c}"></i></div><span class="v" data-v="${k}">${p[k]}</span>`).join('')}</div>`;
+  if(mine){
+    const av=freeOff();
+    h+=`<h3>명령 <span class="sub" style="font-family:var(--body);font-weight:400">· 누를 때 맡을 관리가 일합니다</span></h3><div class="acts">${Object.entries(ACTS).map(([k,a])=>{const o=officerOf(a.stat);let why='';if(R.over)why='전쟁이 끝났습니다';else if(!o)why='이번 계절 관리 모두 일함';else if(R.gold<a.gold)why='金 '+a.gold+' 필요';else if(R.food<a.food)why='糧 '+a.food+' 필요';else if(k==='march'&&p.troops<300)why='병력 300 이상 필요';
+      const eff=why||(a.field?`${a.eff} +${fmt(Math.min(a.field==='troops'?1e9:100-p[a.field],a.amt(p,o)))}${a.side?' · '+a.side:''}`:'이웃 지역 고르기');
+      return `<div class="act" role="button" tabindex="0" data-act="${k}" aria-disabled="${!!why}"><span class="g">${a.g}</span><b>${a.label}</b><span class="eff">${eff}</span><span class="cost">${[a.gold&&'金'+a.gold,a.food&&'糧'+a.food].filter(Boolean).join(' · ')||'비용 없음'}${o?' · '+o.name+' ('+STATN[a.stat]+' '+o[a.stat]+')':''}</span></div>`}).join('')}</div>
+    <div><p class="note" style="margin-bottom:5px">맡길 관리 · 고르지 않으면 가장 알맞은 관리가 맡습니다</p><div class="ochips">${R.officers.map(o=>`<span class="och${roff===o.id?' on':''}" role="button" tabindex="0" data-off="${o.id}" aria-disabled="${o.used}"><i>${o.seal}</i>${o.name}${o.used?' · 일함':''}</span>`).join('')}</div></div>`;
+  }else{
+    const near=adjOf(p).some(t=>t.owner==='qing');
+    h+=near?`<p class="note" style="background:#f3e2c0;padding:8px;border-radius:6px">⚔ 공격하려면 이웃한 <b>아군 지역</b>을 고르고 <b>출진·이동</b>을 누르세요.</p>`:`<p class="note">청룡국 영토와 붙어 있지 않아 아직 공격할 수 없습니다.</p>`;
+    if(p.owner==='gui')h+=`<h3>외교</h3><p class="note">귀왕은 말을 듣지 않습니다. 오직 칼로만 답할 뿐입니다.</p>`;
+    else{const rel=R.rel[p.owner],o=officerOf('int');h+=`<h3>외교 · ${F.name}</h3><div class="stats"><span>관계</span><div class="bar"><i data-bar="rel" style="width:${(rel+100)/2}%;background:${rel>=0?'#3f8a4f':'#b8352a'}"></i></div><span class="v" data-v="rel">${rel}</span><span>상태</span><span>${R.pact[p.owner]>0?'화친 '+R.pact[p.owner]+'계절 남음':R.chaos[p.owner]>0?'내분 중':'경계'}</span><span></span></div>
+      <div class="acts">${[['gift','禮','예물','관계 +'+(o?10+Math.round(o.int/8):'?'),'金150',R.gold<150?'金 150 필요':''],['pact','和','화친','8계절 서로 공격 안 함','성공률 '+(o?pactOdds(p.owner,o):'?')+'%',''],['sow','亂','이간','성공 시 2계절 내분','성공률 '+(o?Math.round((.25+o.int/180)*100):'?')+'%','']].map(([k,g,l,d,c,w])=>{const why=R.over?'전쟁이 끝났습니다':!o?'이번 계절 관리 모두 일함':w;return `<div class="act" role="button" tabindex="0" data-dip="${k}" aria-disabled="${!!why}"><span class="g">${g}</span><b>${l}</b><span class="eff">${why||d}</span><span class="cost">${c}${o?' · '+o.name:''}</span></div>`}).join('')}</div>`}
+  }
+  el.innerHTML=h;afterRender(fx);
+}
+function afterRender(fx){if(!fx)return;
+  const bar=$(`[data-bar="${fx.field}"]`),v=$(`[data-v="${fx.field}"]`),row=$(`[data-row="${fx.field}"]`);
+  if(bar&&fx.from!=null){const to=bar.style.width;bar.style.transition='none';bar.style.width=(fx.field==='rel'?(fx.from+100)/2:fx.from)+'%';void bar.offsetWidth;bar.style.transition='';requestAnimationFrame(()=>bar.style.width=to);replay(bar.parentNode,'hl')}
+  if(v&&fx.from!=null){countTo(v,fx.from,+fx.to);replay(v,'pop')}
+  if(row)replay(row,'hl')}
+function pactOdds(f,o){const ratio=strength(f)/Math.max(1,strength('qing'));return Math.round(Math.max(0,Math.min(1,(R.rel[f]+50)/150+o.int/400-(ratio-1)*.2))*100)}
+
+/* ---------- 명령 실행 ---------- */
+$('#panel').addEventListener('click',e=>{
+  const off=e.target.closest('[data-off]');if(off){if(off.getAttribute('aria-disabled')==='true'){toast('이번 계절에 이미 일한 관리입니다');return}roff=roff===off.dataset.off?null:off.dataset.off;renderPanel();return}
+  const a=e.target.closest('[data-act]');if(a){doAct(a.dataset.act,a);return}
+  const d=e.target.closest('[data-dip]');if(d){diplo(d.dataset.dip,d);return}
+});
+$('#panel').addEventListener('keydown',e=>{if((e.key==='Enter'||e.key===' ')&&e.target.matches('[role=button]')){e.preventDefault();e.target.click()}});
+function deny(el,msg){replay(el,'press');toast(msg)}
+function payCost(gold,food){if(gold){resDelta('gold',R.gold,R.gold-gold);R.gold-=gold}if(food){resDelta('food',R.food,R.food-food);R.food-=food}}
+function doAct(key,el){
+  const p=P(sel),a=ACTS[key];if(el.getAttribute('aria-disabled')==='true'){deny(el,el.querySelector('.eff').textContent);return}
+  const o=officerOf(a.stat);replay(el,'press');
+  if(key==='march'){pick=p.id;roff=o.id;hint(p.name+'에서 출진 · 이웃 지역을 누르세요');renderPanel();return}
+  const g=R.gold,f=R.food;const from=p[a.field],amt=a.amt(p,o);
+  if(a.field==='troops'){p.troops+=amt;p.morale=Math.max(0,p.morale-5)}else p[a.field]=Math.min(100,p[a.field]+amt);
+  R.gold=g;R.food=f;payCost(a.gold,a.food);useOfficer(o);
+  ripple(p,'#ffd24a');floatText(p,`${a.g} ${a.eff} +${fmt(p[a.field]-from)}`,'good');
+  if(key==='draft'){flyGlyph($('#tok-'+o.id),p,'兵',6);setTimeout(()=>floatText(p,'민심 −5','bad',22),350);$('#troops').textContent=fmt(strength('qing'));replay($('#troops'),'pop')}
+  renderPanel({field:a.field,from,to:p[a.field]});
+  toast(`${o.name} · ${p.name} ${a.label} 완료 — ${a.eff} ${fmt(from)} → ${fmt(p[a.field])}`);
+}
+function diplo(kind,el){
+  const p=P(sel),f=p.owner,F=FAC[f];if(el.getAttribute('aria-disabled')==='true'){deny(el,el.querySelector('.eff').textContent);return}
+  const o=officerOf('int'),from=R.rel[f];replay(el,'press');
+  if(kind==='gift'){payCost(150,0);flyGlyph($('#gold'),p,'金',7);R.rel[f]=Math.min(100,R.rel[f]+10+Math.round(o.int/8));setTimeout(()=>{stampAt(p,'禮',F.ink,'관계 '+from+' → '+R.rel[f]);floatText(p,'관계 +'+(R.rel[f]-from),'good')},reduced?0:650);toast(`${o.name}이(가) ${F.name}에 예물을 보냈습니다`)}
+  if(kind==='pact'){const ok=Math.random()*100<pactOdds(f,o);if(ok){R.pact[f]=8;R.rel[f]=Math.min(100,R.rel[f]+15);stampAt(p,'和','#3f8a4f','화친 성립 · 8계절');ripple(p,'#9ee6ad');toast(`${F.name}과(와) 화친을 맺었습니다`)}else{R.rel[f]=Math.max(-100,R.rel[f]-5);stampAt(p,'✕','#5a4a3a','화친 거절');toast(`${F.name}이(가) 화친을 거절했습니다`)}}
+  if(kind==='sow'){const ok=Math.random()<.25+o.int/180;if(ok){R.chaos[f]=2;stampAt(p,'亂','#5c376b','내분 2계절');ripple(p,'#b48ad0');toast(`${F.name}에 내분이 일어났습니다`)}else{R.rel[f]=Math.max(-100,R.rel[f]-10);stampAt(p,'✕','#5a4a3a','이간 실패');toast('이간이 들통났습니다. 관계 −10')}}
+  useOfficer(o);renderPanel({field:'rel',from,to:R.rel[f]});
+}
+function reward(id,el){const o=R.officers.find(x=>x.id===id);if(R.gold<100){deny(el,'金 100이 필요합니다');return}payCost(100,0);const from=o.loy;o.loy=Math.min(100,o.loy+15);renderPanel();const row=$('#loy-'+id),bar=row.querySelector('.bar i');bar.style.transition='none';bar.style.width=from+'%';void bar.offsetWidth;bar.style.transition='';requestAnimationFrame(()=>bar.style.width=o.loy+'%');replay(row,'hl');toast(`${o.name}에게 포상 · 충성 ${from} → ${o.loy}`)}
+function cancelPick(){pick=null;roff=null;hint('');renderPanel()}
+
+/* ---------- 출진 ---------- */
+let mTarget=null;
+function openMarch(t){const s=P(pick),o=R.officers.find(x=>x.id===roff)||officerOf('str'),move=t.owner==='qing',max=Math.max(100,s.troops-100);mTarget=t.id;
+  const v=Math.round(max*.8/50)*50;
+  $('#mcard').innerHTML=`<h2>${move?'병력 이동':'출진'} · ${s.name} → ${t.name}</h2>
+  ${move?'<p class="note">아군 지역으로 병력을 옮깁니다.</p>':`<p class="note">${sealHTML(t.owner)} ${FAC[t.owner].name} · 수비 <b>${fmt(t.troops)}</b> · 성벽 ${t.wall} · 민심 ${t.morale}</p>`}
+  ${!move&&t.owner!=='gui'&&R.pact[t.owner]>0?`<p class="note" style="color:var(--bad)">화친 중입니다. 공격하면 화친이 깨지고 관계가 크게 나빠집니다.</p>`:''}
+  <label for="mrange" class="note">보낼 병력 <b id="mval" style="font-size:18px;color:var(--ink)">${fmt(v)}</b> / ${fmt(s.troops)}</label>
+  <input id="mrange" type="range" min="100" max="${max}" step="50" value="${v}">
+  ${move?'':`<div class="odds"><span>열세</span><div class="meter"><i id="oddsi"></i></div><span>우세</span></div><p class="note" id="oddst"></p>`}
+  <p class="note">지휘 · ${o.name} (무력 ${o.str}) · 糧 50 · ${WX[R.season].icon} ${WX[R.season].name}</p>
+  <div class="btns">${move?`<div class="btn" role="button" tabindex="0" onclick="commitMarch('move')">이동</div>`:`<div class="btn red" role="button" tabindex="0" onclick="commitMarch('auto')">⚔ 자동 전투</div><div class="btn ghost" role="button" tabindex="0" onclick="toast('실제 게임에서는 실시간 전투 화면으로 넘어갑니다')">직접 지휘</div>`}<div class="btn ghost" role="button" tabindex="0" onclick="closeModal()">취소</div></div>`;
+  $('#modal').hidden=false;const rg=$('#mrange');rg.oninput=()=>{$('#mval').textContent=fmt(+rg.value);odds()};odds();
+  function odds(){if(move)return;const n=+rg.value,A=n*(1+o.str/250),D=Math.max(150,t.troops)*(1+t.wall/150)*(1+(t.morale-50)/300),r=A/D,pos=Math.max(0,Math.min(1,(r-.6)/.9));$('#oddsi').style.left=`calc(${pos*100}% - 2px)`;$('#oddst').textContent=r>1.3?'우세 · 이길 가능성이 높습니다':r>1?'약간 우세 · 운이 따르면 이깁니다':r>.85?'호각 · 결과를 장담할 수 없습니다':'열세 · 병력을 더 모으세요'}}
+function closeModal(){$('#modal').hidden=true}
+function commitMarch(how){
+  const s=P(pick),t=P(mTarget),o=R.officers.find(x=>x.id===roff)||officerOf('str'),n=Math.min(+$('#mrange').value,s.troops-50);
+  if(R.food<50){toast('糧 50이 필요합니다');return}
+  closeModal();pick=null;hint('');payCost(0,50);s.troops-=n;useOfficer(o);floatText(s,'兵 −'+fmt(n),'bad');
+  const isMove=how==='move';marchDots(s,t,isMove?'#2c7c74':'#b8352a',700);
+  setTimeout(()=>{
+    if(isMove){t.troops+=n;ripple(t,'#8fe0d0');floatText(t,'兵 +'+fmt(n),'good');toast(`${fmt(n)} 병력이 ${t.name}(으)로 이동했습니다`);sel=t.id;renderPanel();return}
+    if(t.owner!=='gui'&&R.pact[t.owner]>0){R.pact[t.owner]=0;R.rel[t.owner]=Math.max(-100,R.rel[t.owner]-40)}else if(t.owner!=='gui')R.rel[t.owner]=Math.max(-100,R.rel[t.owner]-15);
+    clash(t);
+    setTimeout(()=>{const A=n*(1+o.str/250)*(.85+Math.random()*.3),D=Math.max(150,t.troops)*(1+t.wall/150)*(1+(t.morale-50)/300)*(.85+Math.random()*.3),win=A>D;
+      if(win){const loss=Math.round(n*Math.min(.9,Math.max(.06,D/A*.6))),old=t.owner;t.owner='qing';t.troops=Math.max(50,n-loss);t.wall=Math.max(10,t.wall-20);t.morale=40;R.fame+=t.cap?15:5;buildOwner();
+        stampAt(t,'陷','#b8352a',t.name+' 함락');ripple(t,'#38a094');setTimeout(()=>ripple(t,'#38a094'),250);floatText(t,'아군 손실 '+fmt(loss),'bad',70);
+        toast(`⚔ ${o.name}이(가) ${t.name}을(를) 함락했습니다! ${FAC[old].name} → 청룡국`);if(t.id==='gwiwang'){R.over='win';setTimeout(()=>banner('平','천하평정 · 귀왕성 함락'),1200)}}
+      else{const aL=Math.round(n*Math.min(.95,Math.max(.4,.45+D/A*.15))),dL=Math.round(t.troops*Math.min(.9,Math.max(.05,A/D*.5)));s.troops+=Math.round((n-aL)*.7);t.troops=Math.max(0,t.troops-dL);
+        stampAt(t,'敗','#5a4a3a','공략 실패');floatText(t,'적 손실 '+fmt(dL),'good',70);floatText(s,'귀환 兵 +'+fmt(Math.round((n-aL)*.7)),'good');toast(`✕ ${t.name} 공략 실패 · 아군 손실 ${fmt(aL)} · 적 손실 ${fmt(dL)}`)}
+      sel=t.id;renderPanel()},reduced?100:800)
+  },reduced?150:900);
+}
+
+/* ---------- 계절 넘기기 ---------- */
+$('#end').onclick=()=>{
+  if(R.over){toast('천하가 평정되었습니다');return}
+  const left=freeOff().length;if(left&&!$('#end').dataset.confirm){$('#end').dataset.confirm='1';$('#endhint').textContent=`명령 ${left}번 남음 · 한 번 더 누르면 넘김`;replay($('#end'),'press');setTimeout(()=>{delete $('#end').dataset.confirm;renderTop()},3000);return}
+  delete $('#end').dataset.confirm;
+  const mine=owned('qing'),autumn=R.season===2;let g=0,fd=0;
+  for(const p of mine){g+=p.trade*p.pop*.045*(p.trait==='항구'?1.5:1)*(p.morale/70);fd+=p.farm*p.pop*(autumn?.3:.035)*(p.trait==='곡창'?1.5:1)*(p.morale/70)}
+  const up=strength('qing')/100*1.1*(R.season===3?1.3:1),g0=R.gold,f0=R.food,fame0=R.fame;
+  R.gold+=Math.round(g);R.food=Math.max(0,R.food+Math.round(fd-up));
+  for(const p of R.provs){if(p.owner!=='qing')p.troops+=p.owner==='gui'?330:160+Math.round(p.pop*4);else p.morale+=Math.sign(60-p.morale)*2}
+  if(mine.some(p=>p.trait==='영맥'))R.fame+=2;
+  const ev=[['🌾 풍년','군량 +100',()=>R.food+=100],['⛵ 상단 내방','金 +120',()=>R.gold+=120],['🌑 귀왕의 저주','귀왕성 병력 +600',()=>P('gwiwang').troops+=600]][Math.floor(Math.random()*3)];ev[2]();
+  R.officers.forEach(o=>{if(o.id!=='o_hero')o.loy=Math.max(0,Math.min(100,o.loy+(o.used?1:-2)))});
+  const unused=R.officers.filter(o=>!o.used&&o.id!=='o_hero').map(o=>o.name);
+  R.officers.forEach(o=>o.used=false);R.season=(R.season+1)%4;if(R.season===0)R.year++;
+  sel=null;pick=null;roff=null;hint('');
+  banner(SCHAR[R.season],R.year+'년 '+SEASONS[R.season]+' · '+WX[R.season].icon+' '+WX[R.season].name);
+  setTimeout(()=>{renderPanel();resDelta('gold',g0,R.gold);resDelta('food',f0,R.food);if(R.fame!==fame0)resDelta('fame',fame0,R.fame);document.querySelectorAll('.tok').forEach((t,i)=>setTimeout(()=>replay(t,'fresh'),i*120));
+    $('#mcard').innerHTML=`<h2>${R.year}년 ${SEASONS[R.season]} · 사관의 기록</h2><ul class="rlog"><li>💰 상업 수입 金 +${fmt(g)}</li><li>🌾 수확 糧 +${fmt(fd)} · 병사 급식 −${fmt(up)}</li><li>${ev[0]} · ${ev[1]}</li><li>⚔ 적국들이 병력을 모았습니다</li>${unused.length?`<li>😠 일을 맡지 못한 ${unused.join(', ')}의 충성 −2</li>`:''}<li>${WX[R.season].icon} 이번 계절 전장 · ${WX[R.season].name} — ${WX[R.season].desc}</li></ul><p class="note">관리들이 다시 명령을 기다립니다.</p><div class="btns"><div class="btn" role="button" tabindex="0" onclick="closeModal()">확인</div></div>`;$('#modal').hidden=false},reduced?300:1500);
+};
+$('#modal').addEventListener('click',e=>{if(e.target.id==='modal')closeModal()});
+document.addEventListener('keydown',e=>{if(e.key==='Escape'){if(!$('#modal').hidden)closeModal();else if(pick)cancelPick()}});
+renderPanel();
+</script>
