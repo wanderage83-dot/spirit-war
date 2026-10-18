@@ -20,7 +20,7 @@
 | 301–320 | 경제·생산(`updateEconomy`, `train`, `recipes`), 미니맵, `tacticsUI`, 시야(`computeVision`) |
 | 321–420 | **렌더링**: `background`, 구조물(`drawKeep`·`drawCitadel`·`drawBeacon`…), 유닛(`drawUnitArt`·`soldier`), `drawFog`, `draw`, `drawMinimap`, `drawWeather` |
 | 421–434 | **작전 모드**(일시정지 지시): `beginPlanning`, `resumeCombat`, `advancePhase`, `phaseUI` |
-| 436–633 | **사신의 천하(전략 화면)**: `FACTIONS`·`PROV0`(15개 지역)·`OFF0`(장수)·`POOL0`, 저장(`saveRealm`/`loadRealm`), 지도(`buildRealmRaster`·`drawRealm`), 명령(`doAct`·`diplo`), 출진(`openMarch`·`commitMarch`·`autoResolve`), 턴(`endSeason`·`aiTurn`·`loyaltyTurn`·`defect`), 실시간 전투 연결(`launchRealmBattle`·`realmBattleDone`), `showRealm`·`bootRealm` |
+| 436–633 | **사신의 천하(전략 화면)**: `FACTIONS`·`PROV0`(15개 지역)·`OFF0`(장수)·`POOL0`, 저장(`saveRealm`/`loadRealm`), 지도(`buildRealmRaster`·`drawRealm`), 명령(`doAct`·`diplo`), 출진(`openMarch`·`commitMarch`·`autoResolve`), 턴(`endSeason`·`aiTurn`·`loyaltyTurn`·`defect`), 실시간 전투 연결(`launchRealmBattle`·`realmBattleDone`), `showRealm`·`bootRealm`. 화면 상단은 `rTop()`, 패널은 `renderPanel(fx)`. 명령 효과는 `// ---------- 천하도 효과 ----------` 아래 `rFloat`·`rStamp`·`rClash`·`rDots`·`rRes` 등이 `#rfx` 레이어에 그린다. 애니메이션 중에는 `rBusy`로 입력을 막는다 |
 | 634–642 | 적 색조, `loop`(requestAnimationFrame 메인 루프), 초기화 호출 |
 
 ## 핵심 상태
