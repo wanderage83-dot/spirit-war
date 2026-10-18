@@ -1,0 +1,221 @@
+<title>버들마을 화면 시안</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@700&family=Noto+Sans+KR:wght@400;500;700&display=swap">
+<style>
+/* 한 화면 구성: 위 상태줄 → 가운데 건물 탭 + 명령 패널 → 아래 출진 바. 게임과 같은 먹빛 남색 + 금색 단일 테마 */
+:root{
+  --bg:#1b2a36; --surface:#243b49; --surface2:#2d4757; --line:#3f5c6b;
+  --fg:#f1ead8; --muted:#a9b8b4; --gold:#e3c27a; --gold-deep:#8a6a2c;
+  --good:#7fd1a3; --bad:#e58a76; --spirit:#9fd8e8;
+  --display:"Gowun Batang","Noto Serif KR",serif;
+  --body:"Noto Sans KR",system-ui,sans-serif;
+  color-scheme:dark;
+}
+html,body{height:100%}
+body{background:var(--bg);color:var(--fg);font-family:var(--body);font-size:15px;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:16px}
+.wrap{max-width:880px;margin:0 auto;display:flex;flex-direction:column;gap:14px}
+h1{font-family:var(--display);font-size:22px;margin:0;display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+h1 small{font-family:var(--body);font-size:12px;color:var(--muted);letter-spacing:.08em;font-weight:500}
+.note{font-size:12px;color:var(--muted);margin:0}
+
+/* 상태줄 */
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.stat{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:10px 12px;display:flex;flex-direction:column;gap:2px;min-width:0;position:relative}
+.stat .k{font-size:12px;color:var(--muted);letter-spacing:.04em}
+.stat .v{font-size:26px;font-weight:700;font-variant-numeric:tabular-nums;line-height:1.15}
+.stat .s{font-size:11px;color:var(--muted)}
+.stat.goal .v{font-size:17px;font-family:var(--display);padding-top:5px}
+.pop{animation:pop .9s ease-out}
+@keyframes pop{0%{transform:scale(1);color:var(--fg)}20%{transform:scale(1.25);color:var(--gold)}100%{transform:scale(1);color:var(--fg)}}
+.glow{animation:glow 1.2s ease-out}
+@keyframes glow{0%{box-shadow:0 0 0 0 #e3c27a00}25%{box-shadow:0 0 0 4px #e3c27a99,0 0 24px #e3c27a66}100%{box-shadow:0 0 0 0 #e3c27a00}}
+
+/* 본문: 건물 탭 + 패널 */
+.main{display:grid;grid-template-columns:190px 1fr;gap:12px}
+.tabs{display:flex;flex-direction:column;gap:6px}
+.tab{all:unset;cursor:pointer;display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:10px;background:var(--surface);border:1px solid var(--line)}
+.tab:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+.tab .ic{font-family:var(--display);font-size:20px;width:30px;height:30px;display:grid;place-items:center;border-radius:8px;background:var(--surface2);color:var(--gold)}
+.tab b{display:block;font-size:15px}
+.tab .chip{font-size:11px;color:var(--muted)}
+.tab .chip.done{color:var(--good)}
+.tab[aria-selected="true"]{background:var(--surface2);border-color:var(--gold)}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:16px;display:flex;flex-direction:column;gap:12px;min-width:0;position:relative;overflow:hidden}
+.panel h2{font-family:var(--display);font-size:20px;margin:0}
+.row{display:grid;grid-template-columns:44px 1fr auto;gap:10px;align-items:center;padding:8px;border-radius:10px;background:var(--surface2)}
+.row img{width:44px;height:44px;object-fit:cover;border-radius:8px;background:var(--bg)}
+.row .nm{font-weight:700}
+.row .rl{font-size:12px;color:var(--muted)}
+.ctl{display:flex;align-items:center;gap:6px}
+.ctl output{min-width:42px;text-align:center;font-size:20px;font-weight:700;font-variant-numeric:tabular-nums;display:inline-block}
+.btn{all:unset;cursor:pointer;box-sizing:border-box;text-align:center;border-radius:9px;font-weight:700;user-select:none}
+.btn:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+.btn.sq{width:40px;height:40px;line-height:40px;font-size:22px;background:var(--bg);border:1px solid var(--line)}
+.btn.big{padding:14px 18px;font-size:16px;background:var(--gold);color:#1b1408}
+.btn.big:hover{filter:brightness(1.08)}
+.btn[aria-disabled="true"]{opacity:.4;cursor:default}
+.btn.big[aria-disabled="true"]{background:var(--surface2);color:var(--good);opacity:1}
+.flash-up{animation:fup .7s ease-out}.flash-down{animation:fdn .7s ease-out}
+@keyframes fup{30%{background:#7fd1a333}}@keyframes fdn{30%{background:#e58a7633}}
+.shake{animation:shake .35s}
+@keyframes shake{25%{transform:translateX(-5px)}50%{transform:translateX(5px)}75%{transform:translateX(-3px)}}
+.cap{display:flex;align-items:center;gap:10px;font-size:13px;color:var(--muted)}
+.meter{flex:1;height:8px;border-radius:4px;background:var(--bg);overflow:hidden}
+.meter i{display:block;height:100%;background:var(--gold);transition:width .4s ease-out}
+.big-num{font-size:34px;font-weight:700;font-variant-numeric:tabular-nums}
+.change{display:flex;align-items:center;gap:12px;font-size:15px}
+.change .arrow{color:var(--muted)}
+.dirs{display:grid;grid-template-columns:repeat(2,1fr);gap:6px;font-size:13px}
+.dirs div{background:var(--surface2);border-radius:8px;padding:8px 10px}
+.dirs b{color:var(--gold);margin-right:6px}
+
+/* 로그 한 줄 */
+.log{font-size:13px;min-height:20px;color:var(--good);transition:opacity .3s}
+
+/* 출진 바 */
+.depart{display:flex;align-items:center;gap:12px;background:var(--surface);border:1px solid var(--gold-deep);border-radius:12px;padding:12px 14px;flex-wrap:wrap}
+.checks{display:flex;gap:6px;flex-wrap:wrap;flex:1;min-width:0}
+.ck{font-size:13px;padding:5px 10px;border-radius:99px;background:var(--surface2);color:var(--muted)}
+.ck.on{color:var(--good);background:#7fd1a31f}
+.depart .btn.big{min-width:150px;font-family:var(--display);font-size:19px;letter-spacing:.3em}
+
+/* 효과 레이어 */
+.fly{position:fixed;z-index:50;pointer-events:none;font-family:var(--display);font-weight:700;font-size:20px;color:var(--gold);text-shadow:0 0 8px #000}
+.ring{position:absolute;inset:0;pointer-events:none;border-radius:12px;animation:ring 1.3s ease-out forwards}
+@keyframes ring{0%{box-shadow:inset 0 0 0 0 #9fd8e800;background:#9fd8e800}30%{box-shadow:inset 0 0 60px 10px #9fd8e866;background:#9fd8e814}100%{box-shadow:inset 0 0 0 0 #9fd8e800;background:#9fd8e800}}
+.banner{position:fixed;inset:0;z-index:60;display:grid;place-items:center;pointer-events:none;background:#0c141bcc;animation:veil 1.8s ease-in-out forwards}
+.banner span{font-family:var(--display);font-size:clamp(56px,14vw,120px);color:var(--gold);letter-spacing:.2em;text-shadow:0 4px 30px #000;animation:brush 1.8s ease-out forwards}
+@keyframes veil{0%{opacity:0}15%{opacity:1}80%{opacity:1}100%{opacity:0}}
+@keyframes brush{0%{clip-path:inset(0 100% 0 0);transform:scale(1.15)}35%{clip-path:inset(0 0 0 0);transform:scale(1)}100%{clip-path:inset(0 0 0 0);transform:scale(1)}}
+
+@media (max-width:640px){
+  .stats{grid-template-columns:repeat(2,1fr)}
+  .main{grid-template-columns:1fr}
+  .tabs{flex-direction:row;overflow-x:auto}
+  .tab{flex:1 0 auto;padding:8px 10px}
+  .tab .chip{display:none}
+  .dirs{grid-template-columns:1fr}
+  .depart .btn.big{flex:1}
+}
+@media (prefers-reduced-motion:reduce){
+  .pop,.glow,.shake,.flash-up,.flash-down{animation-duration:.01s}
+  .banner,.banner span{animation-duration:1.2s}
+}
+</style>
+
+<div class="wrap">
+  <h1>버들마을 <small>제1장 출진 준비 · 화면 시안</small></h1>
+
+  <section class="stats" aria-label="현재 상태">
+    <div class="stat" id="st-troops"><span class="k">兵 병력</span><span class="v" id="v-troops">61</span><span class="s">장수 1 + 병사 60</span></div>
+    <div class="stat" id="st-food"><span class="k">米 군량</span><span class="v" id="v-food">220</span><span class="s">전투 중 증원에 사용</span></div>
+    <div class="stat" id="st-mana"><span class="k">✦ 기력</span><span class="v" id="v-mana">70</span><span class="s">도술에 사용 · 최대 100</span></div>
+    <div class="stat goal"><span class="k">⚑ 목표</span><span class="v">안개숲의 봉화</span><span class="s">귀왕 처치 · 청룡관 사수</span></div>
+  </section>
+
+  <div class="main">
+    <nav class="tabs" role="tablist" aria-label="건물">
+      <button class="tab" role="tab" data-p="barracks" aria-selected="true"><span class="ic">兵</span><span><b>병영</b><span class="chip" id="c-barracks">60 / 60명</span></span></button>
+      <button class="tab" role="tab" data-p="store" aria-selected="false"><span class="ic">米</span><span><b>창고</b><span class="chip" id="c-store">보급 가능</span></span></button>
+      <button class="tab" role="tab" data-p="shrine" aria-selected="false"><span class="ic">靈</span><span><b>사당</b><span class="chip" id="c-shrine">축복 가능</span></span></button>
+      <button class="tab" role="tab" data-p="gate" aria-selected="false"><span class="ic">門</span><span><b>전장 정보</b><span class="chip">사방 4로</span></span></button>
+    </nav>
+    <section class="panel" id="panel" aria-live="polite"></section>
+  </div>
+
+  <div class="log" id="log" role="status">건물을 골라 준비하세요.</div>
+
+  <section class="depart" aria-label="출진">
+    <div class="checks">
+      <span class="ck on" id="k-troops">✓ 편성 60명</span>
+      <span class="ck" id="k-food">○ 군량 보급</span>
+      <span class="ck" id="k-mana">○ 사당 축복</span>
+    </div>
+    <button class="btn big" id="go">出陣 출진</button>
+  </section>
+  <p class="note">시안입니다. 명령 버튼은 모두 눌러볼 수 있고, 실제 게임 데이터는 바뀌지 않습니다.</p>
+</div>
+
+<script>
+const S={load:[18,16,12,14],supply:false,bless:false,food:220,mana:70,page:'barracks'};
+const UNITS=[['shield','현무 방패대','전선 유지 · 정면 화살 차단'],['bow','청연 궁병대','후방 화력 · 사거리 280'],['horse','백호 기병대','우회 돌격 · 배후 +50%'],['spear','벽뢰 창병대','기병 저지 · 정면 돌격 차단']];
+const CAP=60,$=s=>document.querySelector(s);
+const total=()=>S.load.reduce((a,b)=>a+b,0);
+const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+function replay(el,cls){el.classList.remove(cls);void el.offsetWidth;el.classList.add(cls)}
+function log(t,bad){const l=$('#log');l.style.color=bad?'var(--bad)':'var(--good)';l.textContent=t;replay(l,'pop')}
+function countUp(el,from,to,ms=900){const t0=performance.now();const step=t=>{const k=Math.min(1,(t-t0)/ms);el.textContent=Math.round(from+(to-from)*(1-Math.pow(1-k,3)));if(k<1)requestAnimationFrame(step)};requestAnimationFrame(step);replay(el,'pop')}
+function fly(fromEl,toEl,glyph,n=8){
+  const a=fromEl.getBoundingClientRect(),b=toEl.getBoundingClientRect();
+  for(let i=0;i<n;i++){
+    const s=document.createElement('span');s.className='fly';s.textContent=glyph;document.body.appendChild(s);
+    const x0=a.left+a.width/2+(Math.random()-.5)*a.width*.6,y0=a.top+a.height/2,x1=b.left+b.width/2,y1=b.top+b.height/2;
+    const mx=(x0+x1)/2+(Math.random()-.5)*120,my=Math.min(y0,y1)-60-Math.random()*60;
+    s.animate([{transform:`translate(${x0}px,${y0}px) scale(.6)`,opacity:0},{transform:`translate(${mx}px,${my}px) scale(1.2)`,opacity:1,offset:.45},{transform:`translate(${x1}px,${y1}px) scale(.7)`,opacity:.2}],{duration:reduced?300:800+i*70,easing:'cubic-bezier(.3,.6,.4,1)'}).onfinish=()=>s.remove();
+  }
+}
+
+function render(){
+  document.querySelectorAll('.tab').forEach(t=>t.setAttribute('aria-selected',t.dataset.p===S.page));
+  const p=$('#panel');let h='';
+  if(S.page==='barracks'){
+    const t=total();
+    h=`<h2>병영 · 부대 편성</h2>
+    <div class="cap"><span>병사 <b id="tot">${t}</b> / ${CAP}명</span><span class="meter"><i style="width:${t/CAP*100}%"></i></span></div>`+
+    UNITS.map((u,i)=>`<div class="row" id="r${i}"><img src="${u[0]}.webp" alt=""><div><div class="nm">${u[1]}</div><div class="rl">${u[2]}</div></div>
+      <div class="ctl"><button class="btn sq" data-u="${i}" data-d="-2" aria-label="${u[1]} 2명 줄이기" aria-disabled="${S.load[i]<=0}">−</button><output id="n${i}">${S.load[i]}</output><button class="btn sq" data-u="${i}" data-d="2" aria-label="${u[1]} 2명 늘리기" aria-disabled="${t>=CAP}">＋</button></div></div>`).join('')+
+    `<p class="note">2명 단위로 바꿉니다. 청룡 장수 1명은 따로 참전합니다.</p>`;
+  }
+  if(S.page==='store')h=`<h2>군량 창고</h2>
+    <div class="change"><span class="big-num">220</span><span class="arrow">→</span><span class="big-num" style="color:var(--gold)">340</span><span class="note">군량 +120</span></div>
+    <button class="btn big" id="act-store" aria-disabled="${S.supply}">${S.supply?'✓ 보급 완료':'군량 120 보급받기'}</button>
+    <p class="note">첫 출진 무료 보급 · 한 번만 받을 수 있습니다.</p>`;
+  if(S.page==='shrine')h=`<h2>청룡 사당</h2>
+    <div class="change"><span class="big-num">70</span><span class="arrow">→</span><span class="big-num" style="color:var(--spirit)">100</span><span class="note">시작 기력</span></div>
+    <button class="btn big" id="act-shrine" aria-disabled="${S.bless}">${S.bless?'✓ 축복을 받았습니다':'출진의 축복 받기'}</button>
+    <p class="note">기력은 회복·공격 도술에 씁니다.</p>`;
+  if(S.page==='gate')h=`<h2>안개숲의 봉화 · 적 진입로</h2>
+    <div class="dirs"><div><b>북</b>중앙 돌다리 · 귀왕 본대</div><div><b>서</b>안개 대숲 · 화살 −45%</div><div><b>동</b>바람 들판 · 기병 돌격로</div><div><b>남</b>산길 · 배후 기습</div></div>
+    <p class="note">승리: 북쪽 귀왕 처치 · 패배: 장수 전사 또는 청룡관 함락</p>`;
+  p.innerHTML=h;
+}
+
+function setLoad(i,d,btn){
+  const t=total();
+  if(btn.getAttribute('aria-disabled')==='true'){replay(btn,'shake');log(d>0?'병사는 최대 60명입니다. 다른 부대를 줄여 주세요.':'이미 0명입니다.',true);return}
+  S.load[i]+=d;render();
+  const row=$('#r'+i);replay(row,d>0?'flash-up':'flash-down');replay($('#n'+i),'pop');replay($('#tot'),'pop');
+  $('#c-barracks').textContent=total()+' / 60명';
+  $('#v-troops').textContent=1+total();replay($('#v-troops'),'pop');
+  const on=total()===CAP;$('#k-troops').className='ck'+(on?' on':'');$('#k-troops').textContent=(on?'✓':'○')+' 편성 '+total()+'명';
+  log(`${UNITS[i][1]} ${d>0?'+2':'−2'}명 → ${S.load[i]}명`);
+}
+
+document.addEventListener('click',e=>{
+  const tab=e.target.closest('.tab');if(tab){S.page=tab.dataset.p;render();return}
+  const u=e.target.closest('[data-u]');if(u){setLoad(+u.dataset.u,+u.dataset.d,u);return}
+  if(e.target.closest('#act-store')){
+    if(S.supply){log('이미 보급을 받았습니다.',true);return}
+    const b=$('#act-store');S.supply=true;fly(b,$('#v-food'),'米',10);
+    setTimeout(()=>{countUp($('#v-food'),220,340);replay($('#st-food'),'glow')},reduced?0:550);
+    setTimeout(render,250);$('#c-store').textContent='✓ 보급 완료';$('#c-store').classList.add('done');
+    $('#k-food').className='ck on';$('#k-food').textContent='✓ 군량 340';log('보급 완료 · 군량 +120');return}
+  if(e.target.closest('#act-shrine')){
+    if(S.bless){log('이미 축복을 받았습니다.',true);return}
+    S.bless=true;const p=$('#panel'),r=document.createElement('div');r.className='ring';p.appendChild(r);
+    fly($('#act-shrine'),$('#v-mana'),'✦',8);
+    setTimeout(()=>{countUp($('#v-mana'),70,100);replay($('#st-mana'),'glow')},reduced?0:550);
+    setTimeout(render,1300);$('#c-shrine').textContent='✓ 축복 완료';$('#c-shrine').classList.add('done');
+    $('#k-mana').className='ck on';$('#k-mana').textContent='✓ 기력 100';log('청룡의 축복 · 시작 기력 100');return}
+  if(e.target.closest('#go')){
+    const bn=document.createElement('div');bn.className='banner';bn.innerHTML='<span>出陣</span>';document.body.appendChild(bn);
+    setTimeout(()=>bn.remove(),reduced?1200:1800);
+    const miss=[!S.supply&&'군량 보급',!S.bless&&'사당 축복'].filter(Boolean);
+    log(`출진! 병력 ${1+total()} · 군량 ${S.supply?340:220} · 기력 ${S.bless?100:70}`+(miss.length?` (받지 않음: ${miss.join(', ')})`:'')+' — 시안에서는 전장으로 넘어가지 않습니다.');
+  }
+});
+render();
+</script>
