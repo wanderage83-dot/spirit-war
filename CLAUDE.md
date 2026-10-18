@@ -13,7 +13,7 @@
 |---|---|
 | 1–59 | `<style>` — 마을·전장·천하 화면 CSS. `@media(max-width:800px)`가 모바일 대응 |
 | 60–62 | 마크업: `header`, `#stage`(캔버스·오버레이·패널), `#battlefooter`(부대 카드·명령 버튼) |
-| 64–103 | **마을(버들마을)**: `drawTown`, `townClick`, `openTown`(병영·보급 등 건물 패널), `changeLoadout`, `departTown`(출진) |
+| 64–103 | **마을(버들마을)**: `loadout`, `townSupply`·`townBlessing`, `openTown`(탭 전환), `changeLoadout`. 화면은 `#village` 오버레이와 `villageUI()`(천하 영역 끝 `visitTown` 아래)가 그린다. 옛 캔버스 마을(`drawTown`·`townClick`)은 코드만 남아 있고 그리지 않는다 |
 | 104–180 | **전장 기본**: 상수(`WW/WH=2400`, `KEEP`·`CITADEL`·`GRANARY`·`SPIRIT`·`BEACON`, `ROADS`, `ROUTES`), `WEATHER_FX`, 지형(`terrainAt`), 길찾기(`buildBlock`·`findPath`·`navStep`), `stats`·`makeUnit`·`reset` |
 | 181–245 | 웨이브 `events`, UI(`ui`·카드), 진형(`formation`·`faceOrder`), 명령(`order`·`commandAt`), 도술(`cast`·`resolveSpell`), 카메라·포인터·키보드 입력 |
 | 246–300 | **전투 시뮬레이션**: `acquire`(표적), `update`(이동·충돌·투사체), `attackDamage`(측면·배후·방패·창진 보정), `performAttack`, 타격 효과, `showResult`, `RAIDS`·`launch` |
