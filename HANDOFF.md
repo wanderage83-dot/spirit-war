@@ -188,7 +188,7 @@ Google Fonts는 선택 사항이다. `fonts.googleapis.com`, `fonts.gstatic.com`
 
 공격·방어 모두 `item.to`의 지역을 기준으로 고른다. 예를 들어 청룡이 현무성을 점령해도 현무성의 설국 풍경은 유지한다. 계절 날씨는 지역 그림과 별도로 적용한다.
 
-15개 지역은 강·다리·여울과 주요 도로의 **공통 전술 골격**을 사용한다. 고유 지면·풍경·장식과 지역별 시드의 수목 배치로 구분하며, 15개의 완전히 독립된 길망을 설계한 상태는 아니다. 그림과 이동 좌표를 맞추기 위해 4800 좌표의 길을 2400 해상도 배경에 그릴 때 정규화한다. 배경 캐시는 2400 해상도를 유지해 메모리를 줄였다.
+15개 지역은 `BATTLE_LAYOUTS`로 **세 다리의 강(5), 협곡(4), 개활지(3), 늪지(3)** 중 하나를 고른다. `battleRoads()`·`battleRoutes()`·`terrainAt()`·`background()`가 같은 패턴을 써서 그림, 적 진군로, 충돌 지형을 함께 바꾼다. 강의 여울은 장마에 막히고 겨울에 얼며, 늪의 물웅덩이도 겨울에 건널 수 있다. 협곡과 늪은 기병 돌격을 끊는다. 그림과 이동 좌표를 맞추기 위해 4800 좌표의 길을 2400 해상도 배경에 그릴 때 정규화한다. 배경 캐시는 2400 해상도를 유지한다.
 
 ## 7. 모바일 화면
 
@@ -217,9 +217,10 @@ Google Fonts는 선택 사항이다. `fonts.googleapis.com`, `fonts.gstatic.com`
 | `mockups/realm/` | 기존 천하도 시안. 실시간 전투 맵을 고치는 기본 진입점이 아님 |
 | `COMPANIONS`, `FACTION_CHARACTERS`, `FACTION_ROSTERS` | 주인공 부하 / 다른 진영 인물 / 진영별 명단 |
 | `MAP_THEMES`, `REGION_MAPS` | 진영별 시각 테마와 15개 지역별 풍경 |
+| `BATTLE_LAYOUTS`, `battleRoads`, `battleRoutes`, `terrainAt` | 지역별 전술 지형·길·진군로·통행 규칙 |
 | `prepareBattlefield`, `background`, `paintRegionalDetails` | 지역 선택·충돌 격자 준비·배경 그림 |
 | `project`, `unproject`, `groundTransform`, `upright` | 투영·역투영·지형 변환·수직 렌더링 |
-| `spawn`, `assignFactionCommander`, `drawCompanionArt` | 지휘관 외형 배치·중복 방지·그림 폴백 |
+| `spawn`, `assignFactionCommander`, `drawCompanionArt`, `update`의 `squads` | 지휘관 외형과 자기 병종 부대 배치·중복 방지·대열 합류 |
 | `storyState`, `seasonRitual`, `paySeasonMemory`, `STORY_ENDINGS` | 세계관 저장·계절의 기억 선택·결말 |
 | `loadRealm`, `ensureFactionOfficers`, `launchRealmBattle` | 저장 복원·신규 후보 보충·전략→전투 연결 |
 
