@@ -16,6 +16,7 @@
 
 - (Claude Code) 대화 표시를 `vnPlay(lines,{title,choices,onChoice,onClose,right})` RPG 대화 화면(`#vn`)으로 바꿨다. `showTalkPage`와 `showStoryScene`이 이를 쓴다. 장면 본문 HTML은 문단→서술, 인용→화자 대사로 나눠 넘긴다. 키보드는 Enter·Space 다음, ← 이전, Esc 건너뛰기.
 - (Claude Code) 천하도 미니 캐릭터는 `drawRealmFolk()`가 매 프레임 그린다. `R_GARRISON`(세력별 수비병 그림과 색조), `rSpr()`(색조 입힌 그림 캐시), `officerSprite()`, `rAt`(이번 계절에 일한 관리의 위치, 저장하지 않음), `rMarch.off`(진군 행렬의 선두 장수).
+- (Claude Code) 지휘관·병사 정지 버그 수정: ① 지휘관이 부대 중심 105 안팎에서 자기 자리와 중심 사이를 왕복하며 멈추던 문제 → 목표를 부대 기준점 90 안으로 제한. 부대 기준점은 평균 위치에서 가장 가까운 실제 부대원. ② 14px 직선 검사가 벽 모서리를 놓쳐 같은 직선으로 계속 부딪히던 문제 → 막히면 벽을 따라 미끄러지고 `u.forcePath` 동안 경로 탐색 사용. ③ 같은 칸에 몰린 대형 자리에서 서로 밀며 영원히 이동 중이던 문제 → 진척이 1.2초 없고 70 이내면 도착 처리, 멀면 경로 재탐색. 물 위 대형 자리는 누른 지점 쪽으로 당긴다.
 - (Claude Code) 명령·출진·버들마을 창을 320×568, 667×375, 844×390까지 스크롤 없이 맞췄다. 1440×900·1024×600·390×844·360×640 포함 7개 크기에서 측정 확인.
 
 - 지도 중심 UI: `renderPanel(fx,detail=false)` 기본은 하단 요약, detail은 명령 모달. `prepareRealmAction`/`prepareDiplomacy`에서 비용 확인 후 실행. 지도는 선택 여부와 무관하게 본문 전체를 차지한다.
