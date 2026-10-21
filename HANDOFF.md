@@ -12,6 +12,18 @@
 
 - 사용자 요청(2026-10-21): 앞으로 변경 작업과 검증을 마치면 별도 요청 없이 커밋하고 GitHub에 푸시한다. 현재 작업 브랜치는 `main`.
 
+## 구조 전환 · 창세기전식 이야기 중심 SRPG (Claude Code, 2026-10-21)
+
+사용자 결정: 내정 최소화, 실시간+정지(작전 모드)와 세계관은 유지, 삼국지식 턴제 대신 창세기전식 장 진행. 천하도는 장 진행 지도, 장수는 레벨+고유 기술+장비, 선형 장+일부 분기, 막 사이 기억 의식 유지.
+
+- 진행 데이터: `SAGA`(13장, 각 장 `pre`/`post` 대화, `choices`, `join`/`joinAfter`, `item`, `capital`, `fallen`, `final`), `SAGA_ACTS`(4막), `ACT_INTRO`. 상태는 `R.saga`(`act`, `cleared`, `roster`, `party`, `heroes{lv,xp,eq}`, `bag`, `gold`, `choices`, `fallen`, `at`).
+- 흐름: 지도에서 장 선택 → `openChapter(id,tab)`(편성·장비·상점 탭) → `startChapter` 대화 → `launchChapter`가 `groups`·`loadout`·`recipes`를 편성대로 바꾸고 `launchRealmBattle({saga:…})` → 승패 시 `realmBattleDone`이 `sagaBattleDone`으로 넘김 → 사후 대화·선택 → 보상 → 막 종료 시 `sagaRitual`(기억 바치기) → 다음 막 소개.
+- 흑화: 도성에서 「떠난다」를 고르면 `R.saga.fallen`에 군주가 쌓이고 c11·c12의 적 지휘관 이름과 대사, c13 대화에 등장한다(`fallenFor`, `fallenLines`). 「구한다」는 `storyState().chapters`에 증언을 남겨 공동 결말 조건이 된다.
+- 기술: `HERO_SKILLS`, `useHeroSkill`(R 키, `#heroskill` 버튼), 버프는 `u.bf`와 `bfv(u,k)`로 `attackDamage`·`hit`·이동 속도·공격 간격에 반영. 장비: `ITEMS`, `sagaGear`, `equipItem`, `buyItem`. 레벨·장비 반영은 `applySagaLevels`.
+- 지도: `sagaPanel`(하단 요약), `drawSagaMarks`(장 표지), 상단 `rTop`/`endSeason`은 saga 모드에서 장 출진으로 동작. 턴제 내정·외교·관리 코드와 UI 함수는 남아 있으나 saga 모드에서 호출되지 않는다(정리 후보).
+- 저장 키를 `spiritwar-saga-v1`로 올렸다. `loadRealm`은 `R.saga`가 없는 저장을 거부한다.
+- 검증: 자동 플레이로 13장 전부(구하기·떠나기 두 경로), 막 사이 의식 3회, 결말 버튼 잠금, 흑화 지휘관 이름, 기술 버프·장비 수치, 7개 화면 크기에서 출진 준비 3탭 스크롤 없음, 콘솔 오류 없음을 확인. 실제 손으로 끝까지 하는 난이도 조정은 하지 않았다.
+
 ## 현재 작업 · 2026-10-21
 
 - (Claude Code) 대화 표시를 `vnPlay(lines,{title,choices,onChoice,onClose,right})` RPG 대화 화면(`#vn`)으로 바꿨다. `showTalkPage`와 `showStoryScene`이 이를 쓴다. 장면 본문 HTML은 문단→서술, 인용→화자 대사로 나눠 넘긴다. 키보드는 Enter·Space 다음, ← 이전, Esc 건너뛰기.
