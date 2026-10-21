@@ -8,7 +8,14 @@
 - 이전 구현·검증 기준: `65e51fc`
 - 최신 인수 사항은 아래 「현재 작업」을 우선한다. 그 아래 2026-10-19 인수 기록과 나머지 본문은 당시의 구현·검증 기록이다.
 
+## 작업 완료 시 커밋 정책
+
+- 사용자 요청(2026-10-21): 앞으로 변경 작업과 검증을 마치면 별도 요청 없이 커밋하고 GitHub에 푸시한다. 현재 작업 브랜치는 `main`.
+
 ## 현재 작업 · 2026-10-21
+
+- 지도 중심 UI: `renderPanel(fx,detail=false)` 기본은 하단 요약, detail은 명령 모달. `prepareRealmAction`/`prepareDiplomacy`에서 비용 확인 후 실행. 지도는 선택 여부와 무관하게 본문 전체를 차지한다.
+- `openCompanionTalk` → `showTalkPage`로 화자별 초상/한 대사/이전·다음 표시. 이야기 장면, 보고, 출진에도 포트레이트 추가.
 
 - 저장 메뉴: `openSaveMenu` / `resumeRealmSave`. 기존 `SAVE_KEY` 자동 저장과 `MANUAL_KEY` 수동 저장 분리. `preparation`, `pendingBattle`, `decision`으로 편성·전투 시작·미완료 선택 복원. 저장 실패는 토스트로 알림. 새 게임은 수동 저장 유지.
 - 천하 카메라: `realmFocus` / `realmCamera` / `zoomRealm`. 지역·출진 경로 자동 프레이밍, 수동 배율 및 전체/자동 버튼. 기존 `rView`를 공유하여 지도 클릭·효과 위치를 변환.
