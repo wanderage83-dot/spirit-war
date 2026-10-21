@@ -1,39 +1,37 @@
-# 청룡전기 / 사신의 천하 — 작업 안내
+# 청룡전기 / 사신전기 — 작업 안내
 
-귀여운 동양 판타지 전술 게임. 빌드 도구·의존성 없는 **정적 HTML 단일 파일** 게임이다.
+귀여운 동양 판타지 이야기 중심 SRPG. 빌드 도구·의존성 없는 **정적 HTML 단일 파일** 게임이다.
 기능 목록은 `README.md` 참고.
 
 ## 파일
-- `index.html` — 게임 전체(HTML·CSS·JS). 약 640줄이지만 한 줄이 수천 자인 압축형 코드라 실제 분량은 약 150KB.
-- `hero.webp`, `shield.webp`, `bow.webp`, `horse.webp`, `spear.webp` — 병종 일러스트. `artSrc(type)`가 `./<type>.webp`로 불러온다.
-- `README.md` — 플레이어용 기능 목록. 기능을 바꾸면 함께 고친다.
+- `index.html` — 게임 전체(HTML·CSS·JS). 한 줄이 수천 자인 압축형 코드로 약 280KB.
+- 그림: 루트 `hero/shield/bow/horse/spear.webp`(병종), `portraits/`(군주·장수 초상), `characters/`(장수 전투 그림), `terrain/`(지면·환경 오브젝트).
+- `README.md`(플레이어용 기능 목록, 기능을 바꾸면 함께 고친다), `STORY.md`(세계관·인물·기승전결), `HANDOFF.md`(인수인계 기록).
 
-## index.html 구조 (줄 번호는 대략)
-| 줄 | 내용 |
+## 게임 구조 — 창세기전식 이야기 중심 SRPG
+천하도(장 진행 지도) → 출진 준비(편성·장비·상점) → RPG식 대화 → 실시간 전투(작전 모드로 정지 지시) → 대화·선택 → 보상 → 막이 끝나면 기억 의식. 줄 번호는 자주 바뀌므로 아래 심볼 이름으로 `grep -o` 해서 찾는다.
+
+| 영역 | 주요 심볼 |
 |---|---|
-| 1–59 | `<style>` — 마을·전장·천하 화면 CSS. `@media(max-width:800px)`가 모바일 대응 |
-| 60–62 | 마크업: `header`, `#stage`(캔버스·오버레이·패널), `#battlefooter`(부대 카드·명령 버튼) |
-| 64–103 | **마을(버들마을)**: `loadout`, `townSupply`·`townBlessing`, `openTown`(탭 전환), `changeLoadout`. 화면은 `#village` 오버레이와 `villageUI()`(천하 영역 끝 `visitTown` 아래)가 그린다. 옛 캔버스 마을(`drawTown`·`townClick`)은 코드만 남아 있고 그리지 않는다 |
-| 104–180 | **전장 기본**: 상수(`WW/WH=2400`, `KEEP`·`CITADEL`·`GRANARY`·`SPIRIT`·`BEACON`, `ROADS`, `ROUTES`), `WEATHER_FX`, 지형(`terrainAt`), 길찾기(`buildBlock`·`findPath`·`navStep`), `stats`·`makeUnit`·`reset` |
-| 181–245 | 웨이브 `events`, UI(`ui`·카드), 진형(`formation`·`faceOrder`), 명령(`order`·`commandAt`), 도술(`cast`·`resolveSpell`), 카메라·포인터·키보드 입력 |
-| 246–300 | **전투 시뮬레이션**: `acquire`(표적), `update`(이동·충돌·투사체), `attackDamage`(측면·배후·방패·창진 보정), `performAttack`, 타격 효과, `showResult`, `RAIDS`·`launch` |
-| 301–320 | 경제·생산(`updateEconomy`, `train`, `recipes`), 미니맵, `tacticsUI`, 시야(`computeVision`) |
-| 321–420 | **렌더링**: `background`, 구조물(`drawKeep`·`drawCitadel`·`drawBeacon`…), 유닛(`drawUnitArt`·`soldier`), `drawFog`, `draw`, `drawMinimap`, `drawWeather` |
-| 421–434 | **작전 모드**(일시정지 지시): `beginPlanning`, `resumeCombat`, `advancePhase`, `phaseUI` |
-| 436–633 | **사신의 천하(전략 화면)**: `FACTIONS`·`PROV0`(15개 지역)·`OFF0`(장수)·`POOL0`, 저장(`saveRealm`/`loadRealm`), 지도(`buildRealmRaster`·`drawRealm`), 명령(`doAct`·`diplo`), 출진(`openMarch`·`commitMarch`·`autoResolve`), 턴(`endSeason`·`aiTurn`·`loyaltyTurn`·`defect`), 실시간 전투 연결(`launchRealmBattle`·`realmBattleDone`), `showRealm`·`bootRealm`. 화면 상단은 `rTop()`, 패널은 `renderPanel(fx)`. 명령 효과는 `// ---------- 천하도 효과 ----------` 아래 `rFloat`·`rStamp`·`rClash`·`rDots`·`rRes` 등이 `#rfx` 레이어에 그린다. 애니메이션 중에는 `rBusy`로 입력을 막는다 |
-| 634–642 | 적 색조, `loop`(requestAnimationFrame 메인 루프), 초기화 호출 |
+| 장 진행 | `SAGA`(13장: `pre`/`post` 대화, `choices`, `join`/`joinAfter`, `item`, `capital`, `fallen`, `final`), `SAGA_ACTS`, `ACT_INTRO`, `newSaga`, `openChapter`(편성·장비·상점 탭), `startChapter`, `launchChapter`, `sagaBattleDone`, `sagaAfterChapter`, `sagaRitual` |
+| 장수 | `HERO_TYPES`, `heroType`·`heroName`·`squadName`, `sagaHero`(lv·xp·eq), `joinHero`, `applySagaLevels`, `HERO_SKILLS`·`useHeroSkill`·`bfv`(버프), `ITEMS`·`sagaGear`·`equipItem`·`buyItem` |
+| 흑화·인연 | 군주: `R.saga.fallen`·`fallenFor`·`fallenLines`. 장수: `R.saga.fallenHeroes`/`goneHeroes`·`placeFallenHeroes`·`fallenHeroDown`. 인연: `BONDS`·`bondsOpen`·`playBond`, 결말 문장 `endingEchoes` |
+| 대화 | `vnPlay(lines,{title,choices,onChoice,onClose,right})`, 화자 ID: `o_*`, `ruler:<f>`, `fallen:<f>`(흑화 군주), `fallenh:<id>`(흑화 장수), `null`(서술) |
+| 천하도 | `PROV0`, `buildRealmRaster`·`buildRoads`(역로·다리), `drawRealm`, `drawRealmFolk`(미니 캐릭터), `drawSagaMarks`(장 표지), `sagaPanel`, `rTop`, `realmCamera` |
+| 전투 | `launchRealmBattle(item)`(saga 항목은 `launchChapter` 경유), `groups`·`loadout`, `reset`·`spawn`·`update`·`navStep`·`formation`, `attackDamage`·`hit`, `HELP`·`openHelp` |
+| 이야기 데이터 | `COMPANIONS`, `FACTION_CHARACTERS`, `RULERS`·`RULER_LORE`, `WORLD_RULES`, `SEASON_MEMORIES`, `LETTERS`, `STORY_ENDINGS`, `storyState` |
 
 ## 핵심 상태
-- `state`: `'realm'`(천하) → `'village'`(마을) → `'ready'` → `'playing'` ↔ `'planning'`(작전 모드) / `'paused'` → `'ending'` → `'over'`
-- 전장 데이터: `units`(모든 유닛, `side` 0=아군 1=적, `type`: hero·shield·bow·horse·spear·boss·keep), `groups`(아군 5개 부대), `shots`, `fx`
-- `stats[type] = [체력, 공격력, 이동속도, 사거리, 공격간격]`, 전역 피해 배율 `DMG`
-- 천하 데이터: 전역 `R`(연도·계절·금·군량·지역·장수·외교). `localStorage`의 `spiritwar-realm-v1`에 저장한다.
+- `state`: `'realm'`(천하도) → `'playing'` ↔ `'planning'`(작전 모드) / `'paused'` → `'ending'` → `'over'`
+- 전장: `units`(`side` 0=아군 1=적, `commander`=장수 ID, `fallenHero`=흑화 장수), `groups`(청명 + 최대 5개 부대), `shots`, `fx`. `stats[type]=[체력,공격력,속도,사거리,간격]`, 피해 배율 `DMG`.
+- 천하: 전역 `R`(`provs`, `story`, `saga`, `over`). `localStorage`의 `spiritwar-saga-v1`(자동)·`-manual`(수동)에 저장.
 
 ## 작업 원칙
 - **단일 파일을 유지한다.** 파일 분리, 프레임워크, 번들러, npm 의존성을 넣지 않는다.
 - 기존 압축 스타일(짧은 이름, 한 줄에 여러 문장)을 따른다. 고친 부분만 바꾸고 전체 재포맷은 하지 않는다.
 - 줄이 매우 길다. 편집 전에 `grep -o`로 고칠 부분을 찾고, 문맥이 유일하게 맞는 짧은 문자열로 교체한다.
 - **세로 모바일 화면에서도 확인한다**(터치 드래그·핀치, 800px 이하 레이아웃).
+- **메뉴와 창은 스크롤 없이 한 화면에 들어가게 한다**(320~1440px, 세로·가로). 설명은 `HELP` 도움말로 뺀다.
 - 천하 저장 구조(`R`)를 바꾸면 이전 저장본과의 호환성을 고려한다. `loadRealm`에서 기본값을 채우거나 `SAVE_KEY` 버전을 올린다.
 - 게임 내 문구는 한국어로 쓴다.
 - 기능을 추가하거나 바꾸면 `README.md`에도 반영한다.
