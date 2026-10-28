@@ -64,3 +64,9 @@
 - `updateFort`는 실제 update 시간으로만15초 건설. `baseTab`→`baseSelect`로 한 단계씩 선택; 320세로/844가로에서도 스크롤 없이 들어간다. 금색★·카드/깃발 이름·효과 문구. 본진 HP0은 적장 격파/버티기 성공보다 먼저 패배 판정.
 - 전투 시설은 realm 저장 스키마에 추가하지 않는다. 전투 재실행 시 초기화. 기존 군주 전사 패배/독점 주둔 회복 유지. 새 훈련 병사는 joinedRound로 합류 턴의 무료 행동을 막는다. 전멸 부대 재생산 금지, 훈련 중 전멸 시 군량 반환.
 - 환경에 설치된 Playwright/Chromium을 이용한 회귀 검사: 정적 서버 실행 뒤 `node tests/fortress-smoke.cjs http://127.0.0.1:8782` 및 `node tests/fortress-combat.cjs http://127.0.0.1:8782`. 빌드/런타임 npm 의존성은 추가하지 않는다.
+
+## 버들골 도트 배경 · 2026-10-28
+- `pixelBattlefield()`는 beodeul만 참. `background`→`pixelBeodeulBackground`가600px 캔버스에 기존 roads/HILLS/물/여울/다리 좌표로 그린 뒤 기존 bg에 nearest 확대. `paintRegionGround`/외부 groundArt는 다른 지역에서 그대로 사용.
+- `pixelPropSprite`/`pixelHouse`는 `pixelScenery`에 캐시, `drawPixelProp`에서 뒤에 병사가 있으면 alpha.3. 스프라이트 draw의 imageSmoothingEnabled=false는 save/restore로 한정해 캐릭터 그림은 원래대로. 버들골 house/군량소/후방 보급소/성벽 팔레트 연결.
+- `drawPixelMapSkirt`의 흙 단면/낙수는 지도 바깥 장식, 강둑 옆면은 기존 water 영역 내부. 이동 높이/충돌/시야 규칙을 새로 만들지 않는다. 버들골만 서쪽 숲 이름을 버드나무 숲으로 표시.
+- `node tests/pixel-map.cjs http://127.0.0.1:8782`: 아트 변경 직전의 terrain/blockGrid/forestProps/units/HILLS 해시와 비교,3모바일 화면/가림 반투명/이미지 보간 복원/4날씨/다른 지역 fallback. 향후 게임 지형을 의도적으로 바꾸면 기준 해시도 검토하여 갱신한다. 캐시의 배경/프레임 시간은 진단 출력이며 성능 벤치마크 보증은 아니다.
