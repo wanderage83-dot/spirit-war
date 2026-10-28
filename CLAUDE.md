@@ -65,8 +65,12 @@
 - 전투 시설은 realm 저장 스키마에 추가하지 않는다. 전투 재실행 시 초기화. 기존 군주 전사 패배/독점 주둔 회복 유지. 새 훈련 병사는 joinedRound로 합류 턴의 무료 행동을 막는다. 전멸 부대 재생산 금지, 훈련 중 전멸 시 군량 반환.
 - 환경에 설치된 Playwright/Chromium을 이용한 회귀 검사: 정적 서버 실행 뒤 `node tests/fortress-smoke.cjs http://127.0.0.1:8782` 및 `node tests/fortress-combat.cjs http://127.0.0.1:8782`. 빌드/런타임 npm 의존성은 추가하지 않는다.
 
-## 버들골 도트 배경 · 2026-10-28
-- `pixelBattlefield()`는 beodeul만 참. `background`→`pixelBeodeulBackground`가600px 캔버스에 기존 roads/HILLS/물/여울/다리 좌표로 그린 뒤 기존 bg에 nearest 확대. `paintRegionGround`/외부 groundArt는 다른 지역에서 그대로 사용.
-- `pixelPropSprite`/`pixelHouse`는 `pixelScenery`에 캐시, `drawPixelProp`에서 뒤에 병사가 있으면 alpha.3. 스프라이트 draw의 imageSmoothingEnabled=false는 save/restore로 한정해 캐릭터 그림은 원래대로. 버들골 house/군량소/후방 보급소/성벽 팔레트 연결.
-- `drawPixelMapSkirt`의 흙 단면/낙수는 지도 바깥 장식, 강둑 옆면은 기존 water 영역 내부. 이동 높이/충돌/시야 규칙을 새로 만들지 않는다. 버들골만 서쪽 숲 이름을 버드나무 숲으로 표시.
-- `node tests/pixel-map.cjs http://127.0.0.1:8782`: 아트 변경 직전의 terrain/blockGrid/forestProps/units/HILLS 해시와 비교,3모바일 화면/가림 반투명/이미지 보간 복원/4날씨/다른 지역 fallback. 향후 게임 지형을 의도적으로 바꾸면 기준 해시도 검토하여 갱신한다. 캐시의 배경/프레임 시간은 진단 출력이며 성능 벤치마크 보증은 아니다.
+## 전 지역 도트 배경·전술 전장 · 2026-10-28
+- `pixelBattlefield()`는 모든15지역에 참. `background`→`pixelRegionBackground`:600px 캔버스에서 `terrainAt`(물/절벽/습지/결빙), `battleRoads`, `HILLS`를 사용해 그린 뒤 bg에 nearest 확대. 사진풍 groundArt는 전장 배경에서 사용하지 않는다. 천하도는 기존 형식 유지.
+- `PIXEL_THEMES`5진영 팔레트. `pixelScenery` 키에 theme 포함, 현무 설송/귀왕 고사목은 실루엣도 별도. `pixelHouse`의 기와/성벽/외곽 흙 색도 지역별. `drawPixelProp`은 뒤의 병사를 가리면 alpha.3, save/restore로 캐릭터 보간·불투명도 보존.
+- `BATTLE_LAYOUTS`6패턴:farmland(버들골/주작),pass(현무/빙설/흑수/염산/귀왕),marsh(동해/남화),plain(백호/서량/망자),canyon(모래/혼령),bridges(청룡만). 초반3장 서로 다른 패턴. bridges는 중앙 다리1개+서쪽 여울, 우천 시 W/E 진군로 모두 중앙으로 돌아감.
+- `LAYOUT_TACTICS`가 전술 안내와 고지 배열을 소유. `prepareBattlefield`가 HILLS를 갱신하고 날씨도 캐시 키에 포함한다. `battlefieldTactic(id)`를 편성 화면과 전투 도움말6번에서 사용. 계획 중 고지 표시.
+- pass 중앙은 logical x1120..1280, 서쪽290..530. `attackSight`는 pass와canyon 절벽을 모두 차단. CANYON_SECTIONS의1460/1020 굴곡은 직선 통행/사격이 실제 막히는 폭이며 그림/충돌/진군로 모두 공유.
+- `walkable`은 blockGrid뿐 아니라 실제 좌표의 water/cliff 여부도 확인해 경계 타일 틈 통과를 방지. 소품은 물/절벽 위 배치를 피한다. 적이 모든 전장에서 본진·보급소까지 실제 경로를 찾을 수 있어야 한다.
+- `node tests/pixel-map.cjs http://127.0.0.1:8782`:15지역×4날씨의 길/보급소/고지/배치/경계 및 경로 구간, 초반3유형, 실제 엄폐/우회/절벽 시야/외다리, 진영별 그림 분리, 모바일3규격의 전장 안내 검사. 과거 버들골 아트 변경 전 해시는 사용자 요청으로 지형 자체가 바뀌어 의미 기반 검사로 교체.
+- `node tests/terrain-ui.cjs http://127.0.0.1:8782`:동일 지역 맑음↔비 배경 캐시 복원,5진영 가림 alpha/보간 복원,초반3장과 동료12명 합류한 마지막 장의 편성 창3규격 무스크롤 확인. `.chapter-prep`에만 작은 편성 카드 스타일을 적용하고 다른 메뉴는 영향받지 않게 한다.
