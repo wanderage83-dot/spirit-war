@@ -105,3 +105,9 @@
 - open은 실행을 paused로 바꾸고 닫으면 이전 state/resumeState로 복귀. 계획중 목적지타이머/확인창은 닫고 계속 시 남은부대/완료확인으로 복귀. 키보드 focus/Escape/Tab 처리. VN/서막 중에는 열지 않음.
 - jump는 현재 ROUTE의 선택판 직전 기본 fixture를 newRealm로 구성:이전장 cleared/act/season/소유권/joins/XP/gold/items/depart/choice,목표 join. 첫 점프 전에 SAVE_KEY+'-admin-backup'에 진행 백업(저장 실패하면 점프 중단). 여러번점프해도 원본백업 유지. manual 키 미변경. restore는 resumeRealmSave(backup,ROUTE) 후 백업 삭제. 전투복구는 기존 pendingBattle 시작부터. 다음판은 마지막에서 disabled. 인연 선택은 c13 이후에 반영.
 - node tests/admin-menu.cjs <정적서버URL>:실제 UI 선택/다음/닫기/복구,26장 fixture와 launchChapter,자동백업/수동저장 보존,인연,전투 pause/restore,두갈래×3모바일 무스크롤,마지막/잘못된id,전체블록제거 부팅 검사.
+
+## 캐릭터 피격 연출 · 2026-10-30
+- hit→hitFeedback는 양의 최종피해/캐릭터에만 hitLife=.22/강도1~1.25. 화면안 보이는 피격만 requestHitStop:기본25ms/후방·돌격·도술·큰피해·전사55ms. 기존 강타 impactBurst도 같은 gate,최대65ms/재사용140ms,연장·누적 금지. resolveTele/resolveSpell의 무조건 stop 제거,도술은 hit에 spell tag 전달. 회복/구조물/0피해는 신규피격효과 없음.
+- hitPose는 순수 렌더 x확대/y압축→작은반동→원복,처음80ms 흰 실루엣 overlay(brightness0 invert1). soldier와 drawFlyers에만 적용. 위치/충돌/사거리 불변, save/restore로 alpha/filter/scale 보존. 기존 반복각도떨림·상시밝기필터 대신 단일섬광. 죽는타격도 fly에 강도 전달.
+- advancePhase는 실제dt로 tickHitFeedback→hitStop차감→남는dt만 시뮬레이션. AP/전투시간 함께 정지,남은프레임시간 버리지 않음. 계획전환 settleBattleVisuals가 stop/gate/캐릭터 hitLife를 초기화. 주둔부활도 hitLife0. rReduced에서는 stop0/변형15%/섬광20%. 전투임시상태라 저장스키마 변경 없음.
+- node tests/hit-feedback.cjs <정적서버URL>:실제피해→정지/AP/부분dt,캔버스mask/변형/복원,매프레임연타제한,화면밖/미발견/0피해/구조물,화살의실제명중/도술/회복/전사,턴정리/동작줄이기. royal-guards/cohesion-flanks/team-planning 회귀도 실행.
