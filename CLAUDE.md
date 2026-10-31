@@ -193,3 +193,6 @@
 ## 통제 구역·기회 공격·우회 길찾기 · 2026-10-31
 - `ZOC`(shield/horse 90, hero 120, spear/boss 130), `zocCheck(u,live,ox,oy)`를 update 이동 직후 호출. 지나치거나 멀어지는 이동만 대상(그 적을 focus/pending 중이거나 attack·engage·wave·hold로 다가가는 이동 제외). `u.zocT` 0.5초 동안 이동 속도 ×0.5(기존 dist<30 「교전 이탈」 감속을 대체), `v.oppCd` 2.5초마다 v.damage×공격 버프×상성(counter)×0.6의 기회 공격(hit tag 'side'). AP를 쓰지 않는다. 양 진영 공통.
 - `squadStepAllowed`: 경로(u.path)를 따라가는 중이고 그 상대와의 직선이 본진 성벽·시설에 막혀 있을 때만(`wallBetween`, fortBlocked 표본) 반경 한도를 f.radius×1.8로 완화. 트인 곳의 추격은 기존 320/360 그대로(cohesion-flanks 검사). 성벽 안쪽에서 장수와 부하가 서로를 기다리며 막히던 교착을 해소. 경로 없는 직진은 기존 320/360 유지.
+
+## 적의 수레 우선 공격 · 2026-10-31
+- `squadFrames`: 적 부대는 살아 있는 수레를 (거리−400)으로 비교해 우리 부대보다 먼저 공동 목표로 고른다(target.unit=cart). `acquire`: 적의 수레 평가값 −300, hold가 아닌 적은 수레 탐색 반경을 700까지 확장. 처음 수레를 고를 때 「수레 습격」 cue와 전투당 한 번 경고(goalState.cartWarn). hold 수비대의 post 제한(520)은 그대로.
