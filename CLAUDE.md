@@ -182,3 +182,7 @@
 ## 선왕의 마지막 원정 설정 · 2026-10-31
 - STORY.md 「선왕의 마지막 원정」이 정본: 선왕이 통일 원정 때 왕인에 먼저 맹세(청룡 관습)→사후 귀왕, 혼령곡에서 묵철에게 「청명을 데리고 돌아가라」, 빈 관·「병으로 붕어」 기록, 진군을 멈춘 청룡을 탈영으로 보아 청룡 마을부터 공격, 무진은 산 사람, 백륜은 원정 설계 참모.
 - 대사 14줄 추가(c1·c4·c6 복선, c9·c10·c15 해설). 9판 전에는 「아버지」를 쓰지 않는다(dialogue-stage 검사). c6 sceneCast에 운학 추가. 운학·무진·백륜 bio/role 갱신. 대사 총 336줄.
+
+## 장별 승리 조건 1단계 · 2026-10-31
+- 장 데이터 `goal:{t,...}`: rout(n)·hold(at,turns,name)·holdAll·reach(dir,name)·destroy(name,at[]|gates,n,hp,alt)·mask(floor)·boss(turns)·final. `goalInit(c)`(launchChapter 끝), `goalTick(dt,boss)`(update 승패 판정 직전, 'win'/'time'), `goalBossWins()`(적장 격파로 끝나는 목표만 참), `goalText`, `drawGoal`, `#goalchip`(apUI가 갱신). `GOAL_SPOTS` center/west/east/gate는 nearestCell로 보정. 파괴 목표는 `type:'gate'`+`objective/label`(gdir 없음, 증원 판정에서 제외). 면갑은 `u.maskFloor`가 hit에서 체력 하한. 붕괴 집계는 routSquad. 거점 목표는 `goalGuard`가 가까운 적 수비 부대를 지점으로 옮긴다.
+- 17장 적용(c2·c3·c5·c7·c9~c16·x2·x4·x6·x7·x10). 브리핑·사신기 「실제 승리 조건」·관련 대사를 목표에 맞춤. 저장 구조 불변. 호송(c6·c8·x9)은 2단계.
