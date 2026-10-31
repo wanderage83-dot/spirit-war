@@ -207,3 +207,7 @@
 
 ## 운학 전투 특성 「사관의 기록」 · 2026-10-31
 - `scribe()`(출진한 o_un 지휘관 생존), `warnLead()`에 +10, 적장 돌진·화살비 tele의 t/max에 `scribeT()`(+1초, 운학 cue). 증원 경보 say 접두어 「운학의 기록」. 쓰러지면 즉시 해제.
+
+## 장수별 전투 특성 · 2026-10-31
+- `HERO_TRAITS`(id→[이름,설명]) 12명. `heroAlive(id)`(출진 지휘관 생존), `ledBy(u,id)`(그 장수가 이끄는 부대원), `traitDefMul(u)`(hit: 묵철 군주 300 안 .7, 해린 수레 350 안 .6), `traitAtkMul(u,t,m)`(attackDamage 끝: 호연 돌격1.25, 설화 m.shield<1 상쇄, 은랑 gate1.6). 연백 shaken k×.5, 도겸 routSquad 적 rout +3, 사율 updatePoint 확보×2, 단심 군량+3/초(#economy 표시 동일), 비연 훈련×1.5, 홍염 zocCheck R×1.5. 운학은 기존 scribe.
+- 편성 카드에 `.trait` 이름+title 툴팁, ≤380px에서 이름 숨김(320 c16 무스크롤). matchupPreview는 특성 배율을 표시하지 않는다. 저장 구조 불변. `tests/hero-traits.cjs`가 켜짐/꺼짐 수치 비교.
