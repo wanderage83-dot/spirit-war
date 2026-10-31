@@ -215,3 +215,8 @@
 ## 그림 방향·뒷걸음질 수정 · 2026-10-31
 - `ART_LEFT`(heukcheol·mujin·gui-ruler·zhu-ruler)·`artFacesLeft(src)`. companionArt 이미지/`:dark` 캔버스에 `faceLeft`, soldier의 `ctx.scale`에 `artFlip(u)` 곱. 대화 `vnActor`가 `.lf`(왼쪽 원본) 토글, `#vn .vn-p.vn-l.lf`/`.vn-r.lf`로 거울 방향 반대. 천하도 `rSpr`가 `left` 저장, `rDrawSpr`가 flip과 XOR. 새 그림이 왼쪽을 보면 ART_LEFT에 추가.
 - `u.vface`: update에서 이동 중이면 화면 x 이동량(dx−dy)의 감쇠 합 `u.vsx`(|합|>2.5)로, 멈춰 있으면 want(대상/지정 방향)로 즉시 정한다. soldier의 face는 vface 우선, 없으면 dir. `u.dir`(측후방 판정·turnToward 선회 속도)은 그대로. 전투 임시 상태라 저장 불변. `tests/facing.cjs`(실제 이동 뒷걸음질 프레임 147/3599→10/3599).
+
+## AP 소진 자동 공격·잔병 정리 · 2026-10-31
+- `apFree(u)`(ap<2): `apCanStrike`가 무행동/engage(아군)·적군에서 AP 부족이어도 사거리 안 공격 허용, `apStrike`는 AP 차감 없이 반환(아군 턴당 한 번 cue, freeCue는 apEndRound 초기화). 이동·후퇴·주둔 중 공격 금지, 자동 추격 없음은 유지. 공격 2 AP 규칙은 AP가 남아 있을 때만.
+- `remnantTick`(update의 moraleTick 뒤, .5초): 적 squad의 처음 병사 수 `remn.start`, 지휘관 없고 n≥4·남은 병사≤max(1,⌊n×.2⌋)이면 hp0·fled·poof·「남은 병사 항복」, goalState.routed 추가. 전멸 squad도 routed. 적장/guardLord/gate 제외. reset에서 remn 초기화.
+- goal hold: a>e×2면 prog += dt×.5. `tests/ap-stragglers.cjs`.
