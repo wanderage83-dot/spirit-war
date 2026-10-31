@@ -186,3 +186,6 @@
 ## 장별 승리 조건 1단계 · 2026-10-31
 - 장 데이터 `goal:{t,...}`: rout(n)·hold(at,turns,name)·holdAll·reach(dir,name)·destroy(name,at[]|gates,n,hp,alt)·mask(floor)·boss(turns)·final. `goalInit(c)`(launchChapter 끝), `goalTick(dt,boss)`(update 승패 판정 직전, 'win'/'time'), `goalBossWins()`(적장 격파로 끝나는 목표만 참), `goalText`, `drawGoal`, `#goalchip`(apUI가 갱신). `GOAL_SPOTS` center/west/east/gate는 nearestCell로 보정. 파괴 목표는 `type:'gate'`+`objective/label`(gdir 없음, 증원 판정에서 제외). 면갑은 `u.maskFloor`가 hit에서 체력 하한. 붕괴 집계는 routSquad. 거점 목표는 `goalGuard`가 가까운 적 수비 부대를 지점으로 옮긴다.
 - 17장 적용(c2·c3·c5·c7·c9~c16·x2·x4·x6·x7·x10). 브리핑·사신기 「실제 승리 조건」·관련 대사를 목표에 맞춤. 저장 구조 불변. 호송(c6·c8·x9)은 2단계.
+
+## 호송 수레 2단계 · 2026-10-31
+- `type:'cart'`(stats.cart, g=-1, side0). 부대·사기·집계·충돌·근접 반동·allyUnits·isSoldier 목록에서 제외(['keep','gate','cart']). `cartStep`: 아군 320 안·적 130 밖일 때만 이동, 막히면 축 미끄러짐, 1.5초 정체 시 다음 통행 칸으로 이동, 도착하면 hp=0·arrived. `drawCart`(characters/props/cart-*.webp, 오른쪽 기준 좌우 반전, 체력·상태 표시). goal `escort{cart,name,from[],to,need}`: c6·c8·x9. 수레 상실은 loseReason 'cart'. 회복진은 수레도 치료한다.
