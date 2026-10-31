@@ -161,3 +161,10 @@
 - battleImpactHit는hit의실제HP감소(생존보정후),battleImpactTick은update에서.3실전초마다장수/아군부대상태를감시한다. 장수25%단타/40%단타/체력30%위기,부대는죽은병사포함총체력비35%위기. 장수50%/부대55%회복시재무장. 병사피해를장수피해로보고하지않음.
 - battleImpacts의cool/armed는턴사이유지,reset/apReset/showRealm/end에서초기화. 기본전역2.8초/사건10초,우선순위상승은.65초후교체. 표시된적만알림,버티기전보스는무적하한으로인한위기표시제외.
 - #battleimpact2초임팩트/초상/짧은gleam+combatCue,입력통과. 기존hitstop변경/추가없음. turnFlashShow가숨김,reduced-motion은fade+gleam없음. tests/battle-impact.cjs 및hit-feedback/turn-ribbon검증. 저장/전투수치불변.
+
+## 대형 고정·한글/진영색 UI · 2026-10-31
+- UNIT_SPACING 보병100/112·기병118/128,unitSeparation 같은부대90/108·장수116,다른부대124~140,양군접전52(기병56/방패76공격유지). 충돌격자는144로유지.
+- formation이장수의중앙목적지를기준으로가까운자리에각병사를배정하고squadSlot={leader,x,y}저장. squadFrames는살아있는지휘관,없으면기존대형기준병사→중앙병사를안정되게선택. squadSlotPoint는좁은길/다른부대를피해장수반경안통행가능자리로조정.
+- SQUAD_LEASH foot320/horse360. squadStepAllowed는실제이동/지형축fallback/분리에모두적용. 이미밖이면거리감소만허용,도주제외. 앞선장수는부하대기,집결도기존AP/기절/합류턴제약후실행. 부대임시slot은저장하지않음.
+- UNIT_ROLE은군주/방패병/궁병/기병/창병,전체UI한자문구를한글로치환. 머리위진영배지/부대이름표의아군적군접두어삭제. 지면원/영역실선/미니맵원으로모양통일,진영색청록/빨강과선택금색유지.
+- formation-spacing,cohesion-flanks,team-planning,royal-guards,matchups,pixel-map,terrain-ui 검사. cohesion은실제5열간격으로구성하고후열까지적좌표에모으는검사를전열접전+평균진군+거리320/간격으로갱신.
