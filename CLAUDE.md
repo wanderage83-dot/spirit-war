@@ -151,3 +151,8 @@
 - c2돌봄/c8친밀감과질투/c13선택/결말의거리로 연화·비연 감정 누적. c9/x6의 유일한 반전 유지,그 이전 정체 언급 없음. 연구/공사/구출 등은 기존처럼 이야기 설정이며 별도 전투 기믹 추가 아님.
 - partyLines가 새 화자를 누락하지 않도록 c11/c12/c16/x7의 sceneCast만 보충. 전투·합류·보상·장 순서·선택 키/효과·저장 구조 불변. 사신기.md 전체 대본/서막/막전환/인연/결말 동기화.
 - dialogue-stage322대사·선택×3모바일규격,prologue4규격 검증. 양갈래 전체 진행과두인연결말/중단선택재개/보상중복금지/15초AP,추가인연·막전환·결말화면/필수화자도 확인.
+
+## 턴 종료 요약 띠 · 2026-10-31
+- turnResultStart/Hit/Summary→ap.lastSummary→turnFlashShow. roundStats는 확인된 resumeCombat에서만 새로 만들고 apEndRound가 결과를 만든 뒤 비운다. pause/resume에서는 유지. hit의 생존/방어/버티기 보정 후 실제 HP감소를 집계하고 표식10명/장수를 분리한다. 건물 피해는 병력피해 합계에서 제외하고 본진은 전후 HP로 경고한다.
+- #turnflash는#stage내 비모달 role=status, pointer-events:none. turnRibbon4.2초 좌진입/우퇴장,동작줄이기는turnFade. 별도 wall-clock hide timer, 새실행/reset/apReset/end/showRealm에서 정리. turn-end의중복toast는비움. 다음명령/카메라/시간/AP는 막지 않는다.
+- tests/turn-ribbon.cjs와team-planning/matchups로 실제15초/입력/회복/경고/모바일/상성 회귀. 저장스키마 불변,그림 추가 없음.
