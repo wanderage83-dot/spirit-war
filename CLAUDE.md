@@ -134,3 +134,8 @@
 - attackDamage는공통결과를사용하고기존돌격소모/반격/기절을처리. performAttack에서공통결과를한번확정해shots.match/source에보존.명중시숲/비/현재방어적용,사망대상도착은버림. recordMatchup은명중때만상성·방어·측후방·지형요약/횟수를ap.matchups에기록,apEndRound가lastMatchups로보존.새턴/전투초기화.상성counter태그는기존기본사기계수를사용(추가사기배율없음).
 - matchupPreview는혼성쌍개별/발견한적만판정.유리/보통/주의이유표시.실제선택대상과이동/가속/방향변화로결과달라질수있음.HELP7상성추가,기존전투HELP3유지. apReport(page,g) 결과3부대/상세3이유씩.HELP로paused된planning에서도페이지/상세탐색허용;닫으면planning복귀.
 - tests/matchups.cjs:96일반/18돌격,창진준비·이동·기절·측후방,방패경계/중립/무부작용예측,실제숲+비화살피해/발사스냅샷/명중기록,혼성/피격기록,시설파괴재건,3모바일예측/결과/도움말+실제버튼. 기존cohesion-flanks/royal-guards/fortress-combat/team-planning/hit-feedback회귀.
+
+## 천하도 전체 시작·대화 초상 복원 · 2026-10-31
+- rCamera.overview=true,resetRealmCamera를showRealm에서호출. 선택rsel이있어도overview상태는realmFocus all. 지도실제click이overview해제/지역closeup,빈곳은전체. zoomRealm0은전체/null은선택자동/양수는수동,manual설정전focus키동기화. 전체상태는fit배율즉시반영해진입/리사이즈때안잘림;지역줌은기존보간.진군경로focus는기존우선.저장스키마불변.
+- .vn-face-l/r의초상+이름을기존이등신위에복원. vnFace가갈래o_hero/군주/장수/legacyfallen을talkPortrait로연결하고화자밝기·on프레임동기화.숨은인물초상도숨김. .vn-stage변수face-size/body-height로초상자리예약,동일높이원칙유지하며모바일가로몸크기함께축소.
+- tests/map-portraits.cjs:3규격실제touch 전체→지역→전체/수동/자동/전투복귀,20초상·갈래/화자/위치/숨김. dialogue-stage는235대사·선택×3규격에서초상범위까지검사. cast-deployment도회귀. /tmp/portraits-over-cast-{320,844}.png시각검사.
