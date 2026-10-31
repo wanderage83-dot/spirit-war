@@ -43,7 +43,7 @@
 | 인물 | 역할 | 초상 | 전장 | 상태 |
 |---|---|---|---|---|
 | 흑철 | 망자 선봉장 | [초상](portraits/factions/heukcheol.webp) | [전장](characters/factions/heukcheol.webp) | 초상·전장 신규 |
-| 무진 | 망자 수성장 | [초상](portraits/factions/mujin.webp) | [전장](characters/factions/mujin.webp) | 초상·전장 신규 |
+| 무진 | 귀왕성 수성장 · 산 사람 | [초상](portraits/factions/mujin.webp) | [전장](characters/factions/mujin.webp) | 초상·전장 신규 |
 | 백륜 | 살아 있는 통일파 수장 | [초상](portraits/factions/baekryun.webp) | [전장](characters/factions/baekryun.webp) | 초상·전장 신규 |
 | 귀왕 | 망자 군대의 군주 | [초상](portraits/gui.webp) | [전장](characters/gui-ruler.webp) | 초상 재사용 · 전장 신규 |
 
