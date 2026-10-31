@@ -196,3 +196,8 @@
 
 ## 적의 수레 우선 공격 · 2026-10-31
 - `squadFrames`: 적 부대는 살아 있는 수레를 (거리−400)으로 비교해 우리 부대보다 먼저 공동 목표로 고른다(target.unit=cart). `acquire`: 적의 수레 평가값 −300, hold가 아닌 적은 수레 탐색 반경을 700까지 확장. 처음 수레를 고를 때 「수레 습격」 cue와 전투당 한 번 경고(goalState.cartWarn). hold 수비대의 post 제한(520)은 그대로.
+
+## 본진 UI 직관화 · 2026-10-31
+- `#basebtn`(setupBattleHUD가 phasehud에 추가, .ready 깜박임), `#basealert`(계획 중 새로 고를 수 있게 된 신병·시설 알림, 누르면 해당 탭). `baseReady()`는 고를 수 있는 키 목록('r'+부대, 'f'+병종), `baseSeen`은 이미 본 것(사라지면 다시 알림, resetSupplySites에서 초기화), `openBase(tab)`, `baseAlertUI()`(economyUI에서 호출).
+- 지도 탭: commandAt 맨 앞에서 본진(130 안)·시설(70 안)을 누르면 openBase. 시설 목록은 `.facrow` 카드에 두 갈래 버튼을 바로 두는 `#basebuttons.facgrid`(세로 2열·가로 4열). 기존 `baseSelect` 상세 화면은 호환용으로 남김. 신병 버튼은 비활성 이유(.why)를 표시.
+- 실현 이펙트: buildFacility 착공(pfx slam+라벨), updateFort 완공(pfx heal+해당 병종 금빛 ring), 신병 합류(pfx heal+ring+라벨), updatePoint 확보(pfx heal+라벨), 주둔 복귀(pfx heal). 보급소 표지 글씨 20/15px와 상태·할 일 문구. 320×568·390×844·844×390에서 본진 창 무스크롤.
