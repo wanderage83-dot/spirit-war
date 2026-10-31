@@ -1,0 +1,10 @@
+{
+  "extraKnownMarketplaces": {
+    "pixelfx": {
+      "source": { "source": "github", "repo": "patch-gg/pixelfx" }
+    }
+  },
+  "enabledPlugins": {
+    "pixelfx@pixelfx": true
+  }
+}
