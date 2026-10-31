@@ -189,3 +189,7 @@
 
 ## 호송 수레 2단계 · 2026-10-31
 - `type:'cart'`(stats.cart, g=-1, side0). 부대·사기·집계·충돌·근접 반동·allyUnits·isSoldier 목록에서 제외(['keep','gate','cart']). `cartStep`: 아군 320 안·적 130 밖일 때만 이동, 막히면 축 미끄러짐, 1.5초 정체 시 다음 통행 칸으로 이동, 도착하면 hp=0·arrived. `drawCart`(characters/props/cart-*.webp, 오른쪽 기준 좌우 반전, 체력·상태 표시). goal `escort{cart,name,from[],to,need}`: c6·c8·x9. 수레 상실은 loseReason 'cart'. 회복진은 수레도 치료한다.
+
+## 통제 구역·기회 공격·우회 길찾기 · 2026-10-31
+- `ZOC`(shield/horse 90, hero 120, spear/boss 130), `zocCheck(u,live,ox,oy)`를 update 이동 직후 호출. 지나치거나 멀어지는 이동만 대상(그 적을 focus/pending 중이거나 attack·engage·wave·hold로 다가가는 이동 제외). `u.zocT` 0.5초 동안 이동 속도 ×0.5(기존 dist<30 「교전 이탈」 감속을 대체), `v.oppCd` 2.5초마다 v.damage×공격 버프×상성(counter)×0.6의 기회 공격(hit tag 'side'). AP를 쓰지 않는다. 양 진영 공통.
+- `squadStepAllowed`: 경로(u.path)를 따라가는 중이고 그 상대와의 직선이 본진 성벽·시설에 막혀 있을 때만(`wallBetween`, fortBlocked 표본) 반경 한도를 f.radius×1.8로 완화. 트인 곳의 추격은 기존 320/360 그대로(cohesion-flanks 검사). 성벽 안쪽에서 장수와 부하가 서로를 기다리며 막히던 교착을 해소. 경로 없는 직진은 기존 320/360 유지.
