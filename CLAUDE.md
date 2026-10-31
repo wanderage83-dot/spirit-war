@@ -167,6 +167,11 @@
 - battleImpacts의cool/armed는턴사이유지,reset/apReset/showRealm/end에서초기화. 기본전역2.8초/사건10초,우선순위상승은.65초후교체. 표시된적만알림,버티기전보스는무적하한으로인한위기표시제외.
 - #battleimpact2초임팩트/초상/짧은gleam+combatCue,입력통과. 기존hitstop변경/추가없음. turnFlashShow가숨김,reduced-motion은fade+gleam없음. tests/battle-impact.cjs 및hit-feedback/turn-ribbon검증. 저장/전투수치불변.
 
+## 픽셀 전투 효과(pixelfx) · 2026-10-31
+- `PFX`(시트 메타: w/h/n/c/px/py/fps), `loadPfx`, `pfx(k,x,y,s,flip)`, `pfxHit(u,t,tag,big)`, `drawPfx`. fx의 `kind:'px'`는 기존 fx 루프 맨 앞에서 `drawPfx`로 따로 그리며(upright, 보간 끔) 수명은 기존 fx 수명 감소를 따른다. 일반 명중·전사는 동시 60개를 넘으면 생략.
+- 연결 지점: performAttack 근접(hit/crit/blunt), 화살 명중(hit, 방패 막기 parry), attackDamage 창진 저지(parry), hit 전사(poof, 귀왕 진영 적은 poofgui)·성벽/시설 붕괴(slam), resolveSpell(bolt/heal), resolveTele 돌진(slam), 화살비는 예고 0.55초 전 volley. `impactBurst`는 불꽃 수 0이면 링을 그리지 않고 피격 정지·흔들림만 담당한다.
+- 시트 재생성: pixelfx 저장소에서 `node tools/render.mjs <id> --sheet [--opts]` 뒤 빈 여백을 잘라 WebP 무손실로 묶는다. 긴 효과(poof·bolt·heal·slam·volley)는 2프레임마다 1장(15fps). bolt는 충전 21프레임을 건너뛰고 번개부터 재생한다. 런타임 의존성 없음, 라이선스는 `fx/LICENSE-pixelfx.txt`.
+
 ## 대형 고정·한글/진영색 UI · 2026-10-31
 - UNIT_SPACING 보병100/112·기병118/128,unitSeparation 같은부대90/108·장수116,다른부대124~140,양군접전52(기병56/방패76공격유지). 충돌격자는144로유지.
 - formation이장수의중앙목적지를기준으로가까운자리에각병사를배정하고squadSlot={leader,x,y}저장. squadFrames는살아있는지휘관,없으면기존대형기준병사→중앙병사를안정되게선택. squadSlotPoint는좁은길/다른부대를피해장수반경안통행가능자리로조정.

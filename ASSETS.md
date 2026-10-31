@@ -88,3 +88,20 @@
 | `terrain/ground-field.webp` | 실제 전장의 들판 지면, 풀결 도트 텍스처 |
 
 위4장을 새로 생성해 WebP 품질87로 인코딩했다(총 약1.6MiB). 초상은 기존20명의 파일을 크게 표시하며 새로 그리지 않았다. 대화 배경은 총5장. 지면은 런타임에128px 도트 타일로 샘플링하고 진영색을 입힌 뒤 실제 지형 범위에만 그린다. 통행·상성·길·시설 좌표는 변경하지 않는다.
+
+## 픽셀 전투 효과 · 2026-10-31
+
+[pixelfx](https://github.com/patch-gg/pixelfx) v0.3.0(MIT) 효과를 스프라이트 시트로 렌더링했다. 라이선스 원문은 `fx/LICENSE-pixelfx.txt`.
+
+| 파일 | 원본 효과 | 쓰는 곳 |
+|---|---|---|
+| `fx/hit.webp` | impacts/hit-spark | 일반 근접·화살 명중 |
+| `fx/crit.webp` | impacts/crit-hit | 측면·후방 타격 |
+| `fx/blunt.webp` | impacts/blunt-hit | 기병 돌격 충돌, 군주·적장의 일격 |
+| `fx/parry.webp` | impacts/parry | 창진 저지, 방패의 화살 막기 |
+| `fx/poof.webp` | spawn/poof | 전사 |
+| `fx/poofgui.webp` | spawn/poof(보랏빛 팔레트) | 귀왕군 망자 전사 |
+| `fx/bolt.webp` | lightning/lightning-strike(번개부터) | 청룡강림 |
+| `fx/heal.webp` | holy/heal-aoe | 회복진 |
+| `fx/slam.webp` | impacts/ground-slam | 적장 돌진 착지, 성벽·시설 붕괴 |
+| `fx/volley.webp` | arcane/star-fall(불씨 팔레트) | 궁병 일제사격 |
