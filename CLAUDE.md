@@ -114,6 +114,12 @@
 
 ## 이등신 대화 무대·대사 개정 · 2026-10-31
 - VN_SCENES3종(palace/camp/frontier),story/dialogue-*.webp. SAGA_Q/X 각 c.scene.pre/post/pov를 startChapter/sagaBattleDone/playChapterChoice가 vnPlay(scene)로 넘김. 기본camp라 막 전환/인연도 무대 적용. 배경3장은 첫대화 때 preload.
-- vnSprite는 o_hero의 현재갈래/명시적ruler/일반장수/이전fallen ID 모두 전장 스프라이트로 매핑. vnActor가 새파트너 src시에만 등장애니메이션,동일화자는 재등장하지 않음. leftActor군주시점 보존. CSS object-fit contain/마스크없음/발밑그림자/활성화자밝기/오른쪽거울방향. wide(비율1.1초과) 표시폭보정. reduced-motion은등장·화자변환정지. 인물첩/전투보고 초상은 변경없음.
+- vnSprite는 o_hero의 현재갈래/명시적ruler/일반장수/이전fallen ID 모두 전장 스프라이트로 매핑. vnActor가 새파트너 src시에만 등장애니메이션,동일화자는 재등장하지 않음. leftActor군주시점 보존. CSS object-fit contain/마스크없음/발밑그림자/활성화자밝기/오른쪽거울방향. 인물 높이/발 위치 통일(아래2026-10-31 크기 수정 참고). reduced-motion은등장·화자변환정지. 인물첩/전투보고 초상은 변경없음.
 - VN의 다음span은 실제button으로 변경;기존클릭/이전/스킵/선택보호·타자효과·콜백은 유지. 전235줄/선택을320·390세로/844가로에서 무스크롤검사. 전체대사개정은 사건/조건/합류/보상/갈래ID불변. c9/x6정체공개,청명3막제목은 검은갑주의목소리로 사전누설차단. ACT_INTRO도 시점/시간순서에 맞게 수정. 사신기.md는 전장별대사/무대/선택/인연/막서술 동기화.
 - node tests/dialogue-stage.cjs <URL>:3그림/전체SD경로,26장/8POV/80·90초/선택ID/반전비누설/대본동기화,235줄×3화면,실제POV→pre무대/인물,이전/다음/건너뛰기/선택. 전체강제승리이야기흐름·두관계결말·선택재개는 /tmp/test-story-dialogue.cjs로도확인(난도실플레이와구분). 관리자메뉴 회귀도 실행.
+
+## 대화 크기 통일·장수 배치 누락 수정 · 2026-10-31
+- 대화 .vn-p는 width:auto/max-width:none,공통height와발위치,무대25%/75%중심. 종횡비 보존하며 넓은무기 때문에 body가줄지 않음. 모바일/가로 media 뒤에 uniform규칙 배치(이전규칙이덮어쓰지않도록). 화자강조는밝기/3px상승만,scale제거. 등장translate도-50%중심유지. heuristic wide클래스/로드처리 제거.
+- assignFactionCommander는 실제적장 campaign.actor 예약/동료 제외를검색조건에서처리. ensureBattleCommanders는 reset과실제launchRealmBattle배치완료후실행:편성된아군 장수1명 보장,적장중복제거,미배정적장각1명. 같은병종 모두이미지휘관있으면기존무명병일부를별도squad로분리해배정(최소2표식있을때). 총 units수유지/장수복제없음/군주호위제외. 레벨적용은최종배정뒤. 사망/전멸/증원 중에는재배정하지않아장수부활없음.
+- soldier의 일반장수는보병2.1/기병2.25배(병사1.55/1.8),군주2.5유지. gold고리/높은진영배지,drawSquadFlags는비선택아군도실제장수이름. 실제HP/AP/충돌크기변경없음.
+- tests/cast-deployment.cjs:20인물의실제object-fit표시높이+실루엣높이차6%이내/중심/화자교체불변을3모바일규격검사.26장양군고유배정/15장수실제이미지렌더/호연·사율별도부대/총인원미증가/이름·크기검사. dialogue-stage/royal-guards/cohesion-flanks/hit-feedback 회귀.
