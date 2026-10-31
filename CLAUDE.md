@@ -201,3 +201,6 @@
 - `#basebtn`(setupBattleHUD가 phasehud에 추가, .ready 깜박임), `#basealert`(계획 중 새로 고를 수 있게 된 신병·시설 알림, 첫 턴(ap.round 1)에는 띄우지 않음, 누르면 해당 탭). `baseReady()`는 고를 수 있는 키 목록('r'+부대, 'f'+병종), `baseSeen`은 이미 본 것(사라지면 다시 알림, resetSupplySites에서 초기화), `openBase(tab)`, `baseAlertUI()`(economyUI에서 호출).
 - 지도 탭: commandAt 맨 앞에서 본진(130 안)·시설(70 안)을 누르면 openBase. 시설 목록은 `.facrow` 카드에 두 갈래 버튼을 바로 두는 `#basebuttons.facgrid`(세로 2열·가로 4열). 기존 `baseSelect` 상세 화면은 호환용으로 남김. 신병 버튼은 비활성 이유(.why)를 표시.
 - 실현 이펙트: buildFacility 착공(pfx slam+라벨), updateFort 완공(pfx heal+해당 병종 금빛 ring), 신병 합류(pfx heal+ring+라벨), updatePoint 확보(pfx heal+라벨), 주둔 복귀(pfx heal). 보급소 표지 글씨 20/15px와 상태·할 일 문구. 320×568·390×844·844×390에서 본진 창 무스크롤.
+
+## 운학 역할 강화 · 2026-10-31
+- 운학 = 「병으로 붕어」를 쓴 사관의 제자. 대사 11줄 추가(c1·c6·c9·c10·c14·c16), c10·c14·c16 sceneCast에 o_un 추가, BONDS_Q에 `un`(「고치지 않는 기록」, after c12, 결말 문장 포함). bio 갱신. STORY.md·CHARACTERS.md·사신기.md 동기화.
