@@ -121,5 +121,10 @@
 ## 대화 크기 통일·장수 배치 누락 수정 · 2026-10-31
 - 대화 .vn-p는 width:auto/max-width:none,공통height와발위치,무대25%/75%중심. 종횡비 보존하며 넓은무기 때문에 body가줄지 않음. 모바일/가로 media 뒤에 uniform규칙 배치(이전규칙이덮어쓰지않도록). 화자강조는밝기/3px상승만,scale제거. 등장translate도-50%중심유지. heuristic wide클래스/로드처리 제거.
 - assignFactionCommander는 실제적장 campaign.actor 예약/동료 제외를검색조건에서처리. ensureBattleCommanders는 reset과실제launchRealmBattle배치완료후실행:편성된아군 장수1명 보장,적장중복제거,미배정적장각1명. 같은병종 모두이미지휘관있으면기존무명병일부를별도squad로분리해배정(최소2표식있을때). 총 units수유지/장수복제없음/군주호위제외. 레벨적용은최종배정뒤. 사망/전멸/증원 중에는재배정하지않아장수부활없음.
-- soldier의 일반장수는보병2.1/기병2.25배(병사1.55/1.8),군주2.5유지. gold고리/높은진영배지,drawSquadFlags는비선택아군도실제장수이름. 실제HP/AP/충돌크기변경없음.
+- 전장 기본 크기는 아래 BATTLE_FIGURE 통일 기준을 사용. gold고리/높은진영배지,drawSquadFlags는비선택아군도실제장수이름. 실제HP/AP/충돌크기변경없음.
 - tests/cast-deployment.cjs:20인물의실제object-fit표시높이+실루엣높이차6%이내/중심/화자교체불변을3모바일규격검사.26장양군고유배정/15장수실제이미지렌더/호연·사율별도부대/총인원미증가/이름·크기검사. dialogue-stage/royal-guards/cohesion-flanks/hit-feedback 회귀.
+
+## 전장 크기 통일·상성 설계서 · 2026-10-31
+- BATTLE_FIGURE={leader:2.4,soldier:1.3},isBattleLeader/battleFigureScale. 군주/적장/일반장수의 고유그림 모두 같은91.2기본높이,병사는병종·진영상관없이49.4기본높이. soldier/drawFlyers 공통. 진영발판/배지/체력막대는줄어든몸높이에정리. 데이터좌표/충돌/사거리/AP/피해/상성수치 변경 없음. 피격압축/공격/전사반동의일시적변형은유지.
+- MATCHUPS.md는설계안. 새기병→궁병1.4/궁병→창병1.35는미적용. 기존창→기병/방패/측후방/시설유지. 방향판정의기존 .35/.3/.2차이,돌격이중중첩방지,예측UI/기존투사체판정시점/군주중립/예비대/지형/검증을명시. 설계숫자를이미적용했다고보고하지않는다.
+- tests/battle-size.cjs 실제drawImage변환높이를37장수변형/8병사변형에서검사,전사공통크기확인. Canvas float오차1e-4허용. cast-deployment/hit-feedback회귀. /tmp/battle-rank-size.png 시각확인.
