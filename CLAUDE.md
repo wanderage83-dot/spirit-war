@@ -139,3 +139,9 @@
 - rCamera.overview=true,resetRealmCamera를showRealm에서호출. 선택rsel이있어도overview상태는realmFocus all. 지도실제click이overview해제/지역closeup,빈곳은전체. zoomRealm0은전체/null은선택자동/양수는수동,manual설정전focus키동기화. 전체상태는fit배율즉시반영해진입/리사이즈때안잘림;지역줌은기존보간.진군경로focus는기존우선.저장스키마불변.
 - .vn-face-l/r의초상+이름을기존이등신위에복원. vnFace가갈래o_hero/군주/장수/legacyfallen을talkPortrait로연결하고화자밝기·on프레임동기화.숨은인물초상도숨김. .vn-stage변수face-size/body-height로초상자리예약,동일높이원칙유지하며모바일가로몸크기함께축소.
 - tests/map-portraits.cjs:3규격실제touch 전체→지역→전체/수동/자동/전투복귀,20초상·갈래/화자/위치/숨김. dialogue-stage는235대사·선택×3규격에서초상범위까지검사. cast-deployment도회귀. /tmp/portraits-over-cast-{320,844}.png시각검사.
+
+## 큰 얼굴 우선·숲/들판 배경 · 2026-10-31
+- 초상PC160/모바일112/가로104px. SD상한PC32dvh/250,모바일28dvh/34vw/200,가로140. body-height는남는공간에맞춰min/max,얼굴/대사우선.비화자초상brightness.82로밝게.235대사선택×3화면에서초상범위/SD최소24px/무스크롤확인(이전48pxSD기준은사용자요청으로완화).
+- VN_SCENES에forest/field추가(총5). c1/c3/c6/c9/c13/x4/x5의해당pre/post에배정. story/dialogue-{forest,field}.webp. 사신기.md장면표시동기화.인물20명그림/선택/스토리규칙불변.
+- terrain/ground-{forest,field}.webp신규. loadBattleGroundArt→battleGroundArt,load시tilecache초기화/현재bg재생성. paintBattleGround는128px캐시타일에진영색입히고실제bamboo/plain에만그림.32논리픽셀cell모서리도동일지형일때만적용해경계누출방지.기존길/강/절벽/고지/시설은후속레이어.좌표/충돌/버프/경로불변.
+- tests/forest-field.cjs:4규격큰초상/2새장면,5진영textureon/off의숲·들판변화/물·절벽색불변/충돌·경로불변. pixel-map15지역×4날씨/terrain-ui/캐릭터배치/전체대화/지도초상 회귀. ASSETS.md에4이미지등록.

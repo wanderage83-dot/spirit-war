@@ -1,3 +1,10 @@
+# 2026-10-31 · 초상 크게/SD 보조 축소 +숲·들판 전장 배경
+
+- 초상160(PC)/112(모바일)/104(가로),SD는보조로상한축소/남는공간에맞춰감소.얼굴/대사우선,비화자얼굴도더밝게.235대사·선택×3규격무스크롤/초상배치검사통과.사진원본변경없음.
+- 새이미지4장:story/dialogue-forest/field.webp(전장대화일러스트),terrain/ground-forest/field.webp(전투숲·들판도트지면),총약1.6MiB.전장대화배경총5장,해당장면배정/사신기.md동기화.실제전투도bamboo/plain지면을그림으로보강,5진영색유지.32cell경계모서리검사로물·절벽누출방지,길/강/고지/시설은후속레이어.지형/충돌/상성/병력/경로불변.
+- loadBattleGroundArt/paintBattleGround/2개Map캐시.비동기로딩완료후현재bg와미니맵재생성.재접속시에도새지면적용.그림생성원본은 /workspace/generated_images 보존.
+- tests/forest-field.cjs:4규격큰초상과SD공간/5진영지면on/off/물·절벽색·충돌·경로불변. pixel-map(15지역4날씨),terrain-ui,cast-deployment,dialogue-stage,map-portraits회귀통과. /tmp/new-forest-field-battle.png /tmp/new-dialogue-forest.png /tmp/new-dialogue-field.png /tmp/large-portraits-320.png시각확인.
+
 # 2026-10-31 · 천하도 전체로 시작/터치 클로즈업 +대화 위 초상화 복원
 
 - showRealm에서rCamera를overview/fit으로초기화.자동선택된출진지rsel이있어도처음은전체지도.지역터치시overview해제하고지역확대,전체버튼/빈영역클릭은전체.자동버튼은선택/경로추적,＋/−는수동.전투복귀도전체로시작.맵컨테이너변경에도전체fit즉시반영.진군경로집중은유지.
