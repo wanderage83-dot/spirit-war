@@ -211,3 +211,7 @@
 ## 장수별 전투 특성 · 2026-10-31
 - `HERO_TRAITS`(id→[이름,설명]) 12명. `heroAlive(id)`(출진 지휘관 생존), `ledBy(u,id)`(그 장수가 이끄는 부대원), `traitDefMul(u)`(hit: 묵철 군주 300 안 .7, 해린 수레 350 안 .6), `traitAtkMul(u,t,m)`(attackDamage 끝: 호연 돌격1.25, 설화 m.shield<1 상쇄, 은랑 gate1.6). 연백 shaken k×.5, 도겸 routSquad 적 rout +3, 사율 updatePoint 확보×2, 단심 군량+3/초(#economy 표시 동일), 비연 훈련×1.5, 홍염 zocCheck R×1.5. 운학은 기존 scribe.
 - 편성 카드에 `.trait` 이름+title 툴팁, ≤380px에서 이름 숨김(320 c16 무스크롤). matchupPreview는 특성 배율을 표시하지 않는다. 저장 구조 불변. `tests/hero-traits.cjs`가 켜짐/꺼짐 수치 비교.
+
+## 그림 방향·뒷걸음질 수정 · 2026-10-31
+- `ART_LEFT`(heukcheol·mujin·gui-ruler·zhu-ruler)·`artFacesLeft(src)`. companionArt 이미지/`:dark` 캔버스에 `faceLeft`, soldier의 `ctx.scale`에 `artFlip(u)` 곱. 대화 `vnActor`가 `.lf`(왼쪽 원본) 토글, `#vn .vn-p.vn-l.lf`/`.vn-r.lf`로 거울 방향 반대. 천하도 `rSpr`가 `left` 저장, `rDrawSpr`가 flip과 XOR. 새 그림이 왼쪽을 보면 ART_LEFT에 추가.
+- `u.vface`: update에서 이동 중이면 화면 x 이동량(dx−dy)의 감쇠 합 `u.vsx`(|합|>2.5)로, 멈춰 있으면 want(대상/지정 방향)로 즉시 정한다. soldier의 face는 vface 우선, 없으면 dir. `u.dir`(측후방 판정·turnToward 선회 속도)은 그대로. 전투 임시 상태라 저장 불변. `tests/facing.cjs`(실제 이동 뒷걸음질 프레임 147/3599→10/3599).
