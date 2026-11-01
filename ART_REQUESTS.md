@@ -56,3 +56,72 @@
 ### 전달 방법
 
 ChatGPT에서 세 장을 만든 뒤 위 경로에 저장해 커밋하거나, 이 대화에 이미지를 올려 주면 Claude가 같은 경로로 넣는다. 들어오면 Claude가 2단계(호송 규칙, 적이 수레를 노리는 행동, c6·c8·x9 적용, 검사)를 진행한다.
+
+---
+
+## 요청 2 · 전장 동작 시트(sprite-gen) — 상태: 게임 연결 준비 완료, 그림 대기
+
+지금 전장 캐릭터는 그림 한 장을 코드로 늘이고 기울여 걷기·공격을 흉내 낸다. [sprite-gen](https://github.com/aldegad/sprite-gen)(Apache-2.0)으로 같은 그림에서 **대기·걷기·공격 프레임**을 만들면 게임이 그대로 재생한다. 그림 생성은 사용자 계정(Codex/ChatGPT 로그인 등)으로 사용자 컴퓨터에서 돌린다.
+
+### 게임 쪽 약속 (이미 구현됨)
+
+- 위치: `characters/anim/<이름>/manifest.json` + 시트 그림. `<이름>`은 원본 전장 그림의 파일 이름(확장자 제외)이다. 예: `characters/factions/seolhwa.webp` → `characters/anim/seolhwa/`.
+- 게임은 manifest의 `frame_layout.rows`(프레임 사각형)와 `animation.rows`(fps)만 읽는다. 시트 파일 이름은 manifest의 `sprite_sheet_alpha`를 따른다.
+- 동작 이름: `idle`(반복), `walk`(반복, 없으면 `run`), `attack`(공격 0.68초 동안 한 번). 다른 동작은 무시한다.
+- 크기·위치는 **idle 첫 프레임의 몸 높이와 발**을 지금 그림에 맞춘다(장수 91.2·병사 49.4). 그래서 모든 프레임은 **같은 칸 크기·같은 발 기준선**이어야 한다(`align_y: bottom`).
+- 적 세력색·흑화 장수 색·왼쪽을 보는 그림 반전은 게임이 원래 그림과 똑같이 입힌다. 시트는 원본 그림과 **같은 방향**으로 만든다.
+- 다 만들면 `index.html`의 `ANIM_READY=[]`에 이름을 넣는다(또는 Claude에게 「○○ 시트 올렸다」고 말한다). 목록에 없는 이름은 불러오지 않는다.
+
+### 만드는 법
+
+```bash
+# 한 번만: 설치 (Python 3.11+)
+git clone https://github.com/aldegad/sprite-gen && cd sprite-gen
+python3 -m venv .venv && .venv/bin/pip install -e .
+
+# 캐릭터 하나 (예: 청명 = hero.webp)
+R=$HOME/sg-runs/hero
+.venv/bin/sprite-gen prepare --out-dir $R --character-id hero \
+  --base-image /경로/spirit-war/hero.webp --request /경로/request-hero.json
+.venv/bin/sprite-gen gen-set --run-dir $R --provider codex
+.venv/bin/sprite-gen extract --run-dir $R
+.venv/bin/sprite-gen compose-atlas --run-dir $R
+.venv/bin/sprite-gen compose-gif --run-dir $R --out-dir $R/previews   # 움직임 눈으로 확인
+
+# 게임에 넣기: WebP로 줄이고 manifest의 시트 이름을 바꾼다
+mkdir -p /경로/spirit-war/characters/anim/hero
+cwebp -lossless $R/sprite-sheet-alpha.png -o /경로/spirit-war/characters/anim/hero/sheet.webp
+sed 's/"sprite_sheet_alpha": "[^"]*"/"sprite_sheet_alpha": "sheet.webp"/' $R/manifest.json \
+  > /경로/spirit-war/characters/anim/hero/manifest.json
+```
+
+`request-hero.json` 예시(인물마다 `action` 문장만 바꾼다):
+
+```json
+{
+  "cell": { "size": 256 },
+  "states": {
+    "idle":   { "frames": 4, "fps": 4,  "loop": true,  "action": "standing guard, subtle breathing, cape and hair sway" },
+    "walk":   { "frames": 6, "fps": 10, "loop": true,  "action": "marching walk cycle, legs alternate clearly, weapon held steady" },
+    "attack": { "frames": 4, "fps": 10, "loop": false, "action": "windup, sword slash forward, follow-through, recover; no detached effects" }
+  },
+  "fit": { "align_x": "foot-centroid", "align_y": "bottom" },
+  "style": "same cute chibi SD anime style and outline as the base image, transparent background, facing the same direction as the base"
+}
+```
+
+- 기병(`horse.webp`, 호연·사율·비연·흑철)은 말 다리가 잘리지 않게 `"cell": { "width": 320, "height": 256 }`.
+- 공격 동작 문장: 방패병 「shield bash then short sword thrust」, 궁병 「draw bow, release, lower bow」, 창병 「spear thrust forward and pull back」, 기병 「rider leans forward, lance thrust while horse lunges」, 군주·적장 「two-handed weapon slash」.
+- 프레임마다 얼굴·무기가 달라지면 `sprite-gen curation`에서 빼거나 다시 생성한다. 움직임 확인은 `previews/` GIF로 한다.
+
+### 순서와 대상 (24개)
+
+| 순서 | 이름(`characters/anim/<이름>/`) | 원본 그림 | 비고 |
+|---|---|---|---|
+| 1 시험 | `hero` | `hero.webp` | 청명. 먼저 하나 만들어 게임 화면에서 확인한 뒤 나머지를 진행 |
+| 2 | `shield`, `bow`, `spear`, `horse` | 루트 `*.webp` | 이름 없는 병사 전원. 효과가 가장 크다(적은 세력색이 자동으로 입혀짐) |
+| 3 | `mukcheol`, `unhak`, `dansim`, `biyeon`, `hoyeon` | `characters/*.webp` | 청룡·동료 |
+| 4 | `xuan-ruler`, `bai-ruler`, `zhu-ruler`, `gui-ruler` | `characters/*-ruler.webp` | 군주·귀왕. `zhu-ruler`·`gui-ruler`는 왼쪽을 보는 원본 그대로 |
+| 5 | `seolhwa`, `yeonbaek`, `dogyeom`, `eunrang`, `sayul`, `hongyeom`, `haerin`, `heukcheol`, `mujin`, `baekryun` | `characters/factions/*.webp` | 다른 나라 장수·적장. `heukcheol`·`mujin`은 왼쪽을 보는 원본 그대로 |
+
+용량: 256px 칸 × 14프레임 WebP 무손실은 대략 150~400KB다. 24개 모두면 모바일 첫 로딩이 늘어나니, 2단계까지 넣은 뒤 실제 로딩 시간을 보고 나머지를 정한다.

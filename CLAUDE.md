@@ -254,3 +254,8 @@
 ## 설정 정합성 수정 · 2026-11-01
 - 연표: 선왕 사망 때 청명은 어렸고 섭정 십 년 동안 청룡은 국경 전쟁을 계속해 망자군(정체 모를 귀왕군)이 다른 나라만 쳤다. 올봄 청명이 전쟁을 멈추자 청룡이 탈영 깃발이 되어 c1부터 공격받는다. 서막 1장·c1 pre0/post10·c4 연백 문구 반영.
 - 묵철은 c1 군적에서 짐작했지만 믿기 싫어 침묵(c6→c9 「아니길 바랐는데」→c10 「짐작했다」). 규칙1은 WORLD_RULES에서 「전해지지만 시험한 사람 없음」, 연구는 '덧새기기' 시도, c16 서술 「옛말은 사실이었다」. 귀왕 쪽 산 사람은 무진뿐(c14 pov 무진 대사). STORY.md 「선왕의 마지막 원정」·정합성 점검 표가 정본.
+
+## sprite-gen 동작 시트 연결 · 2026-11-01
+- `ANIM_READY`(이름 목록, 기본 빈 배열)만 `loadAnim`이 `characters/anim/<이름>/manifest.json`+`sprite_sheet_alpha`를 불러 `registerAnim`(animBox: idle 첫 프레임 알파 bbox의 중심·발·높이). 이름은 원본 전장 그림 파일명(`animName`). sprite-gen manifest는 `frame_layout.rows.<동작>[{x,y,w,h}]`·`animation.rows.<동작>.fps`.
+- `drawCompanionArt`/`drawUnitArt`가 시트가 있으면 `drawAnim`으로 먼저 그린다(없으면 기존 그림). 상태는 soldier가 넣는 `animUnit`: attackAnim>0→attack(.68초 1회), vmT>0→walk/run, 그 밖 idle(time×fps 반복, u.phase 엇갈림). 몸 높이·발=기존 상자(38·y+h)라 BATTLE_FIGURE 91.2/49.4 유지. 적 세력색(TINT)·흑화('dark')는 `animSheet`가 캔버스로 캐시. 시트가 있는 유닛은 soldier의 bounce/회전/늘림을 끄고 공격 전진은 35%로 줄인다.
+- `tests/sprite-anim.cjs`(가짜 시트로 프레임 선택·높이·발·색·폴백). 요청서·명령·request.json·대상 24개는 `ART_REQUESTS.md` 요청 2.
