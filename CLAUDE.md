@@ -73,7 +73,7 @@
 ## 전 지역 도트 배경·전술 전장 · 2026-10-28
 - `pixelBattlefield()`는 모든15지역에 참. `background`→`pixelRegionBackground`:600px 캔버스에서 `terrainAt`(물/절벽/습지/결빙), `battleRoads`, `HILLS`를 사용해 그린 뒤 bg에 nearest 확대. 사진풍 groundArt는 전장 배경에서 사용하지 않는다. 천하도는 기존 형식 유지.
 - `PIXEL_THEMES`5진영 팔레트. `pixelScenery` 키에 theme 포함, 현무 설송/귀왕 고사목은 실루엣도 별도. `pixelHouse`의 기와/성벽/외곽 흙 색도 지역별. `drawPixelProp`은 뒤의 병사를 가리면 alpha.3, save/restore로 캐릭터 보간·불투명도 보존.
-- `BATTLE_LAYOUTS`6패턴:farmland(버들골/주작),pass(현무/빙설/흑수/염산/귀왕),marsh(동해/남화),plain(백호/서량/망자),canyon(모래/혼령),bridges(청룡만). 초반3장 서로 다른 패턴. bridges는 중앙 다리1개+서쪽 여울, 우천 시 W/E 진군로 모두 중앙으로 돌아감.
+- `BATTLE_LAYOUTS`8패턴(2026-11-01 개정, 아래 숲·골짜기 항목 참고):forest(주작/남화/귀왕/망자),valley(현무/빙설/염산/서량),farmland(버들골),pass(흑수),marsh(동해),plain(백호),canyon(모래/혼령),bridges(청룡만). 초반3장 서로 다른 패턴. bridges는 중앙 다리1개+서쪽 여울, 우천 시 W/E 진군로 모두 중앙으로 돌아감.
 - `LAYOUT_TACTICS`가 전술 안내와 고지 배열을 소유. `prepareBattlefield`가 HILLS를 갱신하고 날씨도 캐시 키에 포함한다. `battlefieldTactic(id)`를 편성 화면과 전투 도움말6번에서 사용. 계획 중 고지 표시.
 - pass 중앙은 logical x1120..1280, 서쪽290..530. `attackSight`는 pass와canyon 절벽을 모두 차단. CANYON_SECTIONS의1460/1020 굴곡은 직선 통행/사격이 실제 막히는 폭이며 그림/충돌/진군로 모두 공유.
 - `walkable`은 blockGrid뿐 아니라 실제 좌표의 water/cliff 여부도 확인해 경계 타일 틈 통과를 방지. 소품은 물/절벽 위 배치를 피한다. 적이 모든 전장에서 본진·보급소까지 실제 경로를 찾을 수 있어야 한다.
@@ -230,3 +230,9 @@
 - `faceTo(u,f,dt,fast)`: vface는 반대 방향이 .45초(|vsx|>6이면 .12초) 지속될 때만 바뀐다. 정지 중 대상 방향 임계 .3. `u.vmT`(실제 이동 25px/s 이상이면 .3초)로 soldier의 걷기 bounce/회전/늘림을 결정(u.moving 대신). `u.rx/ry`는 update의 분리·walkable 보정 뒤 dt*14 저역통과, 차이 40 이상이면 즉시 맞춤. `RX(u)/RY(u)`를 soldier translate와 objs upright에 사용(planning에서는 실제 좌표). settleBattleVisuals가 rx/vmT 초기화. 판정·충돌·사거리는 u.x/y 그대로.
 - impactBurst는 정지 요청이 있을 때만 화면 흔들림(.08초 이상 8, 그 외 4). 작은 타격 3 흔들림 제거.
 - `dustTick`(update, 화면 안, 기병 질주 run>60 빈도14) → fx `dust`, 총 110개 상한, `drawGroundFx`가 drawPlans 뒤 지면층에 그리고 질주 기병(run≥90) 질주선. `slashFx`(performAttack 근접 명중) → fx `slash` upright 초승달. 화살 지면 그림자. 모두 Math.random(rand 시드 불변), rReduced에서 생략. `tests/visual-calm.cjs`.
+
+## 숲·골짜기 위주 전장 · 2026-11-01
+- 강·다리 반복이 단조롭다는 요청으로 `forest`(숲속 갈림길)·`valley`(깊은 골짜기) 추가. 15곳 중 11곳이 막힌 지형, 강은 청룡 1곳. `LAYOUT_MIRROR`(남화·망자·빙설·서량)가 지형 마스크·숲길 도로(`mirrorPts`)·앞 2개 고지 x를 좌우 반전.
+- `layoutWallAt(layout,x,y)`(캐시 좌표): forest는 `FOREST_LANES`(중앙·서·동 숲길+연결로 2개, 폭 105~120+잡음)와 `FOREST_GLADES` 밖이 벽, valley는 남북 능선2개(폭105±16, 서쪽 y1480~1610/동쪽 880~1010만 끊김)+중앙 바위, 양쪽 골짜기 대숲. `layoutWall`이 지역별 240×240 마스크를 캐시하고 terrainAt이 벽을 'cliff'로 돌려 충돌·사격(attackSight)·길찾기가 기존 절벽 규칙을 그대로 쓴다. 띠 밖(y<680 또는 >1800)은 기존과 같다.
+- 그림: forest 벽은 어두운 수관 바탕+나무 덩어리, genProps가 벽 가장자리에 장식 나무(block:false)를 borderProps로 둔다. valley 능선은 바위 질감+돌무더기, 가장자리 장식 바위. 지형 설명은 숲이면 「울창한 숲 · 통행·사격 차단」. battleRoads는 지역별 roadCache.
+- pixel-map이 8패턴, 숲 벽/숲길/사격 차단/경로, 반전, 골짜기 능선/중앙 들판/능선 사격 차단/끊긴 곳을 검사. 26장 적 배치·본진 경로 확인.
