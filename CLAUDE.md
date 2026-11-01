@@ -241,3 +241,8 @@
 - 원인1: separateUnits가 같은 부대 부하와 장수를 같은 몫으로 밀어, 앞으로 가려는 호위병이 멈춰 싸우는 군주를 뒤로 밀고 부하 자리(장수 기준)가 따라 밀려 부대 전체가 미끄러졌다. `sepWeight(u,o)`: u가 멈춰 있고 사거리+20 안의 combatTarget과 싸우며 o가 움직이면 .3(같은 부대 장수면 .05), hold 정지 .35, 그 외 1. 행군 중 밀림은 기존과 같다.
 - 원인2: 아군 사기 붕괴가 본진까지 1.3배 속도로 달아나고 상태 문구는 「접근·거리 조절 중」이었다. routSquad가 아군에 `m.fall`(가장 가까운 적 600 안이면 그 반대, 아니면 본진 방향 260)을 정하고 update rout가 그곳으로 간다. 재집결 시 그 턴 engage/charge/attack이 진행 중이면 prevOrder attack·prevFocus를 복원. squadActionStatus 「사기 붕괴 · 잠시 물러남 n초」. 적 붕괴는 기존(post/CITADEL).
 - 남은 '멀어짐'은 숲·호수 우회 경로(path)라 정상. `tests/no-flee.cjs`. cohesion-flanks 적 추격 평균 x 기준 2800→2780(변경 전에도 2802로 경계값). movement-cavalry 나무 통과는 옮겨 둔 적장이 걸어와 교전하며 통계를 오염시켜 적장 speed/damage 0으로 고정(옛/새 규칙 모두 6/12).
+
+## 선택 표시·계획 차례 화면 맞춤 · 2026-11-01
+- `focusPoint(x,y)`: #phasehud 아래~#battlefooter 위(#apstrip 높이만큼 더 뺌) 보이는 영역 가운데에 둔다(apstrip 위치는 첫 프레임에 불안정해 높이만 쓴다). choose()와 startDeploy, launchRealmBattle/reset의 apOverview 뒤(배율은 overview 유지)에서 호출. `clampCam`은 지도 가장자리 너머 화면의 35%까지 허용(본진 근처 군주 부대 가운데 정렬).
+- `selRing(x,y,rx,ry,rgb,q,fill)` 공통 고리, drawSquadFootprints의 선택 부대는 외곽선 pad46·어두운 테두리·금색 6w·흐르는 점선·selFlash 퍼짐(w=1/viewScale, 최소 .25). `targetMark`가 적 목표 부대 고리·병사 고리·도는 조준 괄호, apTargetDraw는 굵은 흐르는 점선+화살촉. fx marker는 col/big을 받아 두 겹 퍼짐+내려오는 화살표(apTargetOpen 빨강, 집결 초록).
+- 신병 집결: commandAt rally가 walkable·y≥WH*.3이 아니면 nearestCell로 맞춤. `drawRally` 바닥 고리+upright 큰 깃발 「신병 집결지」, 선택 중 본진→집결 점선과 빠른 맥동. `modeBanner`가 rally/도술 위치 선택 안내 띠(좁은 화면 글꼴 축소·말줄임). `tests/select-focus.cjs`(4규격 차례마다 중앙 오차 0, 숲 지도에서 벽 클릭 스냅).
