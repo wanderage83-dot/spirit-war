@@ -1,0 +1,20 @@
+// 나무 사이 통과, 기병 첫 돌격/재돌격/정지 피해 단계와 치고 빠지기, 방패·호위대 1 AP 공격, 12초 턴.
+// Requires Playwright and Chromium. Serve the repository and pass its URL.
+const{chromium}=require('playwright'),assert=require('node:assert/strict');(async()=>{const b=await chromium.launch({executablePath:'/usr/bin/chromium'}),p=await b.newPage(),errors=[];p.on('pageerror',e=>errors.push(String(e)));await p.goto(process.argv[2]||'http://127.0.0.1:8797/');await p.waitForTimeout(800);
+const r=await p.evaluate(()=>{const o={};const go=c=>{setRoute('qing');newRealm();showRealm();launchChapter(c);hideBattleVoice&&hideBattleVoice();events=[];nextRaid=1e9};
+ o.turn=AP_TURN;o.runLabel=$('#apready-run')?.textContent||'';
+ // 1) 나무 줄기 막힘 비율: 장 0·2·3의 나무 4그루씩, 바로 아래에서 위로 통과 (최대 4턴)
+ let tot=0,fail=0,whole=0;for(const ci of [0,2,3]){for(let k=0;k<4;k++){go(SAGA[ci]);units.filter(v=>v.side&&v.type!=='boss').forEach(v=>v.hp=0);const boss=units.find(v=>v.type==='boss');boss.x=200;boss.y=200;const t=forestProps.filter(t=>t.block&&t.x>700&&t.x<WW-700&&t.y>700&&t.y<WH-700&&walkable(t.x,t.y+330)&&walkable(t.x,t.y-330))[k];if(!t)continue;const us=apUnits(1),c=centroid(us);us.forEach(u=>{u.x+=t.x-c.x;u.y+=t.y+330-c.y;if(!walkable(u.x,u.y)){const q=nearestCell(u.x,u.y);u.x=q.x;u.y=q.y}u.tx=u.x;u.ty=u.y;u.order='hold';u.path=null});
+  for(let turn=0;turn<4;turn++){if(turn&&us.every(u=>Math.hypot(u.x-u.tx,u.y-u.ty)<120))break;selected=1;apAdd('move',{x:t.x,y:t.y-330});apCancelAdvance();while(apPending().length)apSkip();$('#apready-run').click();while(state==='playing')advancePhase(.025)}const left=us.filter(u=>Math.hypot(u.x-u.tx,u.y-u.ty)>=120).length;tot++;if(left)fail++;if(left===us.length)whole++}}o.tree={tot,fail,whole};
+ // 2) 기병 피해 단계(같은 대상·정면): 정지 < 재돌격 < 첫 돌격
+ go(SAGA[0]);const h=units.find(u=>u.side&&u.type==='horse')||makeUnit(1,5,'horse',2000,2000),t=units.find(u=>!u.side&&u.type==='shield');t.order='move';t.still=0;h.x=t.x+Math.cos(t.dir)*50;h.y=t.y+Math.sin(t.dir)*50;const tier=run=>{h.run=run;return +matchupInfo(h,t).total.toFixed(3)};o.tiers={stand:tier(0),rush:tier(100),charge:tier(200)};o.rushTag=(h.run=100,matchupInfo(h,t).tag);
+ // 3) 치고 빠지기: 적 기병 부대가 실제로 재돌격을 한다
+ go(SAGA[0]);const H=units.filter(u=>u.side&&u.type==='horse'&&u.squad&&!u.guardLord);let cnt={charge:0,rush:0,stand:0};if(H.length){const sq=H[0].squad,hs=units.filter(u=>u.squad===sq&&u.hp>0);units.filter(u=>u.side&&u.squad!==sq&&!['keep','gate'].includes(u.type)).forEach(u=>{u.x=4600;u.y=200;if(u.type!=='boss')u.hp=0});const A=apUnits(1),c=centroid(A);hs.forEach((u,i)=>{u.x=c.x+(i%4)*60-90;u.y=c.y-700+Math.floor(i/4)*60;u.order='attack';u.post=null;u.run=0});A.forEach(u=>u.hp=u.max=u.max*20);const oa=window.attackDamage;window.attackDamage=(u,t,m)=>{if(u.type==='horse'&&u.side){if(m.charged)cnt.charge++;else if(m.rush)cnt.rush++;else if(m.stand)cnt.stand++}return oa(u,t,m)};for(let k=0;k<3;k++){if(state==='planning'){selected=1;while(apPending().length)apSkip();$('#apready-run').click()}for(let i=0;i<600&&state==='playing';i++){hs.forEach(u=>u.ap=99);advancePhase(.025)}}window.attackDamage=oa}o.hr=cnt;
+ // 4) 공격 AP: 방패·호위대 1, 나머지 2
+ go(SAGA[0]);const sh=units.find(u=>!u.side&&u.type==='shield'&&!u.royalGuard),gd=units.find(u=>u.royalGuard),bw=units.find(u=>!u.side&&u.type==='bow');o.cost=[apCost(sh),apCost(gd),apCost(bw)];o.rate=stats.shield[4];
+ return o});
+console.log(JSON.stringify(r));assert.equal(r.turn,12);assert.match(r.runLabel,/12초/);
+assert.ok(r.tree.whole===0&&r.tree.fail/r.tree.tot<=.5,'trees '+JSON.stringify(r.tree));
+assert.ok(r.tiers.stand<r.tiers.rush&&r.tiers.rush<r.tiers.charge,'tiers');assert.equal(r.tiers.stand,.6);assert.equal(r.tiers.rush,1.6);assert.equal(r.tiers.charge,3.2);assert.equal(r.rushTag,'charge');
+assert.ok(r.hr.charge>0&&r.hr.rush>0,'hit and run '+JSON.stringify(r.hr));assert.deepEqual(r.cost,[1,1,2]);assert.equal(r.rate,1.35);assert.deepEqual(errors,[]);
+console.log('PASS 12s turns, tree passing, cavalry charge/re-charge/stand tiers with hit-and-run, 1-AP shield strikes');await b.close()})();

@@ -2,7 +2,7 @@
 
 > **클로드 인수인계 시작점:** [CLAUDE_HANDOFF.md](CLAUDE_HANDOFF.md)를 먼저 읽는다. 2026-10-31의 현재 상태·규칙·검증·남은 실기 확인을 한 문서로 정리했다. 기준 게임 커밋은 `a1389f1`이다.
 >
-> 아래 구현 이력 중 오래된 설명은 최신 변경으로 대체됐다. 현재는 **대화 배경5장/322줄,큰 초상 우선,15초 AP,보병320·기병360 장수 반경,한글 UI,진영색만 식별**이다. 머리 위 진영 배지·아군/적군 접두어·원/마름모 구분·기억 희생은 복원하지 않는다.
+> 아래 구현 이력 중 오래된 설명은 최신 변경으로 대체됐다. 현재는 **대화 배경5장/322줄,큰 초상 우선,12초 AP,보병320·기병360 장수 반경,한글 UI,진영색만 식별**이다. 머리 위 진영 배지·아군/적군 접두어·원/마름모 구분·기억 희생은 복원하지 않는다.
 
 
 왕인 전쟁과 네 나라의 동맹을 그리는 동양 판타지 SRPG. 빌드 도구·의존성 없는 **정적 HTML 단일 파일** 게임이다.
@@ -49,7 +49,7 @@
 - 모든 전투는 `apOn()`이 참이다. 연습전 여부는 `battleCfg.campaign`/`beodeulTrial()`로 구별한다. 재시작은 `restartBattle`을 사용한다. `apMax(u)`로 부대 장수도 부대 AP 속도를 따른다.
 - `BATTLE_LAYOUTS`의 `canyon`은 혼령곡·모래관. `CANYON_SECTIONS`로 길·절벽 그림과 충돌·행군로를 함께 만들며, `attackSight`는 협곡 절벽 뒤 일반 공격을 차단한다.
 
-- 공통 턴 길이는 `AP_TURN=15`. `attackRange`가 고지 궁병+20%를 계획/실전 모두 적용한다. `apStart` 예약 AP 차감과 `apStrike`의 자동 공격 차감을 중복하지 않는다. 빈 시간에는 잔여 AP로 제자리 자동 공격하며 주둔 중에는 공격하지 않는다.
+- 공통 턴 길이는 `AP_TURN=12`(2026-11-01, 이전 15). `attackRange`가 고지 궁병+20%를 계획/실전 모두 적용한다. `apStart` 예약 AP 차감과 `apStrike`의 자동 공격 차감을 중복하지 않는다. 빈 시간에는 잔여 AP로 제자리 자동 공격하며 주둔 중에는 공격하지 않는다.
 - `supplySites`/`updateSupplySites`가 보급소 1개·부대 1개의 독점 배정, 안전/점령/군량 조건, 주둔 치료·손실 병사 복귀를 담당한다. 전사 장수·전멸 부대는 복귀 대상이 아니다. 전체 아군의 위치 무관 자동 치료는 제거했다.
 
 ## 왕인 전쟁 정본 · 2026-10-27
@@ -220,3 +220,8 @@
 - `apFree(u)`(ap<2): `apCanStrike`가 무행동/engage(아군)·적군에서 AP 부족이어도 사거리 안 공격 허용, `apStrike`는 AP 차감 없이 반환(아군 턴당 한 번 cue, freeCue는 apEndRound 초기화). 이동·후퇴·주둔 중 공격 금지, 자동 추격 없음은 유지. 공격 2 AP 규칙은 AP가 남아 있을 때만.
 - `remnantTick`(update의 moraleTick 뒤, .5초): 적 squad의 처음 병사 수 `remn.start`, 지휘관 없고 n≥4·남은 병사≤max(1,⌊n×.2⌋)이면 hp0·fled·poof·「남은 병사 항복」, goalState.routed 추가. 전멸 squad도 routed. 적장/guardLord/gate 제외. reset에서 remn 초기화.
 - goal hold: a>e×2면 prog += dt×.5. `tests/ap-stragglers.cjs`.
+
+## 이동·기병·방패·12초 턴 · 2026-11-01
+- 나무: buildBlock 나무 막힘 rr=r×.55+6(줄기), `treeGrid`, `treeNear(cx,cy)`로 나무 둘레 길찾기 칸 제외(cellOK). update 이동이 막히면 `steerAround`(±.5~1.7rad, 고른 쪽 1.2초 유지) 후 축 미끄러짐. squadStepAllowed: 경로 추종 중 d≤radius×1.8 완화 조건에 `u.still>1`·`!clearLine` 추가. 장수의 뒤처진 병사 대기는 still<1.5인 병사만.
+- 기병: matchupInfo `rush`(run 60~170, 정면1.6/측면2.4/후방3, 창진 정면 .3)·`stand`(run<60, `HORSE_STAND=.6`), tag는 돌격과 같은 'charge'. attackDamage가 rush의 run 소모/짧은 기절. performAttack 근접 명중 시 같은 squad 기병 전체 `backT=.75`, update(squad 처리 뒤)가 `horseCanChase`(아군 engage/charge+행동 AP, 적 ap>0)일 때 squad 중심에서 공동 목표 반대쪽 110으로 물러남. backT 중 공격 금지.
+- `apCost(u)`: shield·royalGuard 1, 그 외 2(apCanStrike/apStrike/apFree/apUI). stats.shield 간격 1.8→1.35. `AP_TURN=12`, 시설 건설도 AP_TURN, UI 「15초」→「12초」. `tests/movement-cavalry.cjs`.
