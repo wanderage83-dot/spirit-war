@@ -236,3 +236,8 @@
 - `layoutWallAt(layout,x,y)`(캐시 좌표): forest는 `FOREST_LANES`(중앙·서·동 숲길+연결로 2개, 폭 105~120+잡음)와 `FOREST_GLADES` 밖이 벽(1), 숲길 가장자리 44·빈터 테두리는 덤불(2→bamboo), 빈터 안쪽은 들판(3→plain), valley는 남북 능선2개(폭105±16, 서쪽 y1480~1610/동쪽 880~1010만 끊김)+중앙 바위, 양쪽 골짜기 대숲. `layoutWall`이 지역별 240×240 마스크를 캐시하고 terrainAt이 벽을 'cliff'로 돌려 충돌·사격(attackSight)·길찾기가 기존 절벽 규칙을 그대로 쓴다. 띠 밖(y<680 또는 >1800)은 기존과 같다.
 - 그림: forest 벽은 어두운 수관 바탕+나무 덩어리, genProps가 벽 가장자리에 장식 나무(block:false)를 borderProps로 둔다. valley 능선은 바위 질감+돌무더기, 가장자리 장식 바위. 지형 설명은 숲이면 「울창한 숲 · 통행·사격 차단」. battleRoads는 지역별 roadCache.
 - pixel-map이 8패턴, 숲 벽/숲길/사격 차단/경로, 반전, 골짜기 능선/중앙 들판/능선 사격 차단/끊긴 곳을 검사. 26장 적 배치·본진 경로 확인.
+
+## 공격 중 '도망' 수정 · 2026-11-01
+- 원인1: separateUnits가 같은 부대 부하와 장수를 같은 몫으로 밀어, 앞으로 가려는 호위병이 멈춰 싸우는 군주를 뒤로 밀고 부하 자리(장수 기준)가 따라 밀려 부대 전체가 미끄러졌다. `sepWeight(u,o)`: u가 멈춰 있고 사거리+20 안의 combatTarget과 싸우며 o가 움직이면 .3(같은 부대 장수면 .05), hold 정지 .35, 그 외 1. 행군 중 밀림은 기존과 같다.
+- 원인2: 아군 사기 붕괴가 본진까지 1.3배 속도로 달아나고 상태 문구는 「접근·거리 조절 중」이었다. routSquad가 아군에 `m.fall`(가장 가까운 적 600 안이면 그 반대, 아니면 본진 방향 260)을 정하고 update rout가 그곳으로 간다. 재집결 시 그 턴 engage/charge/attack이 진행 중이면 prevOrder attack·prevFocus를 복원. squadActionStatus 「사기 붕괴 · 잠시 물러남 n초」. 적 붕괴는 기존(post/CITADEL).
+- 남은 '멀어짐'은 숲·호수 우회 경로(path)라 정상. `tests/no-flee.cjs`. cohesion-flanks 적 추격 평균 x 기준 2800→2780(변경 전에도 2802로 경계값).
