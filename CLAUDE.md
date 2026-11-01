@@ -222,6 +222,6 @@
 - goal hold: a>e×2면 prog += dt×.5. `tests/ap-stragglers.cjs`.
 
 ## 이동·기병·방패·12초 턴 · 2026-11-01
-- 나무: buildBlock 나무 막힘 rr=r×.55+6(줄기), `treeGrid`, `treeNear(cx,cy)`로 나무 둘레 길찾기 칸 제외(cellOK). update 이동이 막히면 `steerAround`(±.5~1.7rad, 고른 쪽 1.2초 유지) 후 축 미끄러짐. squadStepAllowed: 경로 추종 중 d≤radius×1.8 완화 조건에 `u.still>1`·`!clearLine` 추가. 장수의 뒤처진 병사 대기는 still<1.5인 병사만.
+- 나무: buildBlock 나무 막힘 rr=r×.55+6(줄기), `treeGrid`, `treeNear(cx,cy)`로 나무 둘레 길찾기 칸 제외(cellOK). update 이동이 막히면 `steerAround`(±.5~1.7rad, 고른 쪽 1.2초 유지) 후 축 미끄러짐. squadStepAllowed: 경로 추종 중 d≤radius×1.8 완화 조건에 `!clearLine`(나무·바위 등 직선 막힘) 추가(u.still 조건은 열린 길 반경 초과를 만들어 제외). 장수의 뒤처진 병사 대기는 still<1.5인 병사만.
 - 기병: matchupInfo `rush`(run 60~170, 정면1.6/측면2.4/후방3, 창진 정면 .3)·`stand`(run<60, `HORSE_STAND=.6`), tag는 돌격과 같은 'charge'. attackDamage가 rush의 run 소모/짧은 기절. performAttack 근접 명중 시 같은 squad 기병 전체 `backT=.75`, update(squad 처리 뒤)가 `horseCanChase`(아군 engage/charge+행동 AP, 적 ap>0)일 때 squad 중심에서 공동 목표 반대쪽 110으로 물러남. backT 중 공격 금지.
 - `apCost(u)`: shield·royalGuard 1, 그 외 2(apCanStrike/apStrike/apFree/apUI). stats.shield 간격 1.8→1.35. `AP_TURN=12`, 시설 건설도 AP_TURN, UI 「15초」→「12초」. `tests/movement-cavalry.cjs`.
