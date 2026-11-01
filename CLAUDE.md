@@ -246,3 +246,7 @@
 - `focusPoint(x,y)`: #phasehud 아래~#battlefooter 위(#apstrip 높이만큼 더 뺌) 보이는 영역 가운데에 둔다(apstrip 위치는 첫 프레임에 불안정해 높이만 쓴다). choose()와 startDeploy, launchRealmBattle/reset의 apOverview 뒤(배율은 overview 유지)에서 호출. `clampCam`은 지도 가장자리 너머 화면의 35%까지 허용(본진 근처 군주 부대 가운데 정렬).
 - `selRing(x,y,rx,ry,rgb,q,fill)` 공통 고리, drawSquadFootprints의 선택 부대는 외곽선 pad46·어두운 테두리·금색 6w·흐르는 점선·selFlash 퍼짐(w=1/viewScale, 최소 .25). `targetMark`가 적 목표 부대 고리·병사 고리·도는 조준 괄호, apTargetDraw는 굵은 흐르는 점선+화살촉. fx marker는 col/big을 받아 두 겹 퍼짐+내려오는 화살표(apTargetOpen 빨강, 집결 초록).
 - 신병 집결: commandAt rally가 walkable·y≥WH*.3이 아니면 nearestCell로 맞춤. `drawRally` 바닥 고리+upright 큰 깃발 「신병 집결지」, 선택 중 본진→집결 점선과 빠른 맥동. `modeBanner`가 rally/도술 위치 선택 안내 띠(좁은 화면 글꼴 축소·말줄임). `tests/select-focus.cjs`(4규격 차례마다 중앙 오차 0, 숲 지도에서 벽 클릭 스냅).
+
+## 대사 감정·말투 개정 · 2026-11-01
+- SAGA_Q/X 369줄 중 361줄(귀왕·흑철 고정 대사 8줄 제외)과 BONDS 22줄을 인물 말투(CHARACTERS.md 9절 「말버릇·감정 표현」)에 맞춰 다시 썼다. 화자·줄 수·장면·선택 키·목표 숫자(서른두 명·80초·90초)·반전 규칙(9판/x6 전 「아버지」 금지)은 그대로. 최장 65자, 3규격 무스크롤(dialogue-stage).
+- 바꿀 때는 SAGA_Q/SAGA_X를 JSON으로 읽고 다시 써도 원문과 똑같이 나오는 것을 확인한 뒤 줄 단위로 교체했다. 사신기.md는 같은 문장으로 바꿨다. 짧은 옛 문장이 긴 문장 안에 들어 있으면 부분 치환 사고가 나니, 원고에서 옛 문장의 출현 횟수를 먼저 센다.
