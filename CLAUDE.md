@@ -173,7 +173,7 @@
 - 시트 재생성: pixelfx 저장소에서 `node tools/render.mjs <id> --sheet [--opts]` 뒤 빈 여백을 잘라 WebP 무손실로 묶는다. 긴 효과(poof·bolt·heal·slam·volley)는 2프레임마다 1장(15fps). bolt는 충전 21프레임을 건너뛰고 번개부터 재생한다. 런타임 의존성 없음, 라이선스는 `fx/LICENSE-pixelfx.txt`.
 
 ## 대형 고정·한글/진영색 UI · 2026-10-31
-- UNIT_SPACING 보병100/112·기병118/128,unitSeparation 같은부대90/108·장수116,다른부대124~140,양군접전52(기병56/방패76공격유지). 충돌격자는144로유지.
+- (2026-11-02 개정: 아래 「병사 간격 축소」) UNIT_SPACING 보병100/112·기병118/128,unitSeparation 같은부대90/108·장수116,다른부대124~140,양군접전52(기병56/방패76공격유지). 충돌격자는144로유지.
 - formation이장수의중앙목적지를기준으로가까운자리에각병사를배정하고squadSlot={leader,x,y}저장. squadFrames는살아있는지휘관,없으면기존대형기준병사→중앙병사를안정되게선택. squadSlotPoint는좁은길/다른부대를피해장수반경안통행가능자리로조정.
 - SQUAD_LEASH foot320/horse360. squadStepAllowed는실제이동/지형축fallback/분리에모두적용. 이미밖이면거리감소만허용,도주제외. 앞선장수는부하대기,집결도기존AP/기절/합류턴제약후실행. 부대임시slot은저장하지않음.
 - UNIT_ROLE은군주/방패병/궁병/기병/창병,전체UI한자문구를한글로치환. 머리위진영배지/부대이름표의아군적군접두어삭제. 지면원/영역실선/미니맵원으로모양통일,진영색청록/빨강과선택금색유지.
@@ -264,3 +264,11 @@
 - 묵철 c15 전사: c15 `depart:['o_muk']`+`departLabel:'전사'`(결과 화면 표시). c15 post를 무진 재기→묵철 「이번엔 내가 남는다」→무진과 함께 쓰러짐→백륜 돌입으로 다시 씀. c16 묵철 대사는 단심·운학으로, 서술은 빈자리로. c16 sceneCast에서 o_muk 제거·o_bi 추가, c14에 o_bi 추가. BONDS muk end·endingEchoes(c15 클리어 시)·STORY_ENDINGS_Q 두 결말에 묵철의 방패. 현무편 x10에 묵철 부재 2줄.
 - 대사 줄 4번째 칸 `{c13:'yeonhwa'|'biyeon'}`이면 `partyLines`가 선택이 같을 때만 남긴다(c14 pre 4줄, c16 post 3줄). 대본에는 「(연화를 고른 경우)」 접두로 적는다.
 - 갈등: c7 단심 반대 3줄(장부·빈 성벽), c10 단심 「그때 제가 말렸잖아요」·묵철 대사 교체, c10 post 묵철↔운학 공개 기록 충돌 4줄, c14 post 화해·죽음 예고 3줄, c8 post 홍염 마음 변화 3줄·비연 질투(국 한 그릇) 2줄, c13 pre 비연 속마음 2줄. `tests/story-death.cjs`.
+
+## 병사 간격 축소·근접 참여 · 2026-11-02
+- UNIT_SPACING 보병84/92·기병100/108, formation SP 84/100, unitSeparation 같은 부대 80(기병88·장수90), 다른 부대 104(장수·기병 116), 양군 52 유지. 장수 쪽 거리가 대형 간격보다 크게 남으면 장수 주위가 밀치며 멈춰(장수 94일 때 추격 정지 재현) 90으로 맞췄다. 조합별로 협곡 이동·양측 추격·근접 참여를 함께 재서 골랐다.
+- update cohesion: `closing`(order attack·이동 중·대상이 장수 반경-40 안)이면 병사를 대형 자리로 되돌리지 않고 대상에게 직접 보낸다. 근접 참여 방패↔방패 6→9/12, 창→방패 11/11, 방패→창 7→9/12. squadStepAllowed 반경은 그대로.
+- 검사: cohesion-flanks 최소 간격 80→70, 적 추격은 절대 x 대신 출발 평균 대비 +350, formation-spacing 기병 최소 90→78.
+
+## 실행 중 자동 클로즈업 · 2026-11-02
+- `cine`·`cineEvent(x,y,pri,label)`·`cineTick(dt)`(loop에서 wall dt)·`cineUser()`(canvas pointerdown/wheel/방향키). 첫 교전 `cineFirstClash`(performAttack 첫머리, squad 쌍 1회, 숨은 적 제외, pri2), 장수·적장·군주 전사(hit, pri3), 붕괴(routSquad, pri2), 적장 돌진 예고(teleTick, pri3), 성문·목표 파괴(gateDown, pri3). 확대 max(원배율×1.45,.9)·최대 1.5, 1.8초 유지 후 원배율 복귀, 쿨다운 3.2초(pri3 예외), 사용자 입력 3초 우선. playing에서만 발동, planning 등으로 바뀌면 즉시 원배율. rReduced는 보간 없이 바로. reset이 쌍 기록 초기화. `tests/auto-camera.cjs`.
