@@ -259,3 +259,8 @@
 - `ANIM_READY`(이름 목록, 기본 빈 배열)만 `loadAnim`이 `characters/anim/<이름>/manifest.json`+`sprite_sheet_alpha`를 불러 `registerAnim`(animBox: idle 첫 프레임 알파 bbox의 중심·발·높이). 이름은 원본 전장 그림 파일명(`animName`). sprite-gen manifest는 `frame_layout.rows.<동작>[{x,y,w,h}]`·`animation.rows.<동작>.fps`.
 - `drawCompanionArt`/`drawUnitArt`가 시트가 있으면 `drawAnim`으로 먼저 그린다(없으면 기존 그림). 상태는 soldier가 넣는 `animUnit`: attackAnim>0→attack(.68초 1회), vmT>0→walk/run, 그 밖 idle(time×fps 반복, u.phase 엇갈림). 몸 높이·발=기존 상자(38·y+h)라 BATTLE_FIGURE 91.2/49.4 유지. 적 세력색(TINT)·흑화('dark')는 `animSheet`가 캔버스로 캐시. 시트가 있는 유닛은 soldier의 bounce/회전/늘림을 끄고 공격 전진은 35%로 줄인다.
 - `tests/sprite-anim.cjs`(가짜 시트로 프레임 선택·높이·발·색·폴백). 요청서·명령·request.json·대상 24개는 `ART_REQUESTS.md` 요청 2.
+
+## 인간 드라마·묵철 전사 · 2026-11-02
+- 묵철 c15 전사: c15 `depart:['o_muk']`+`departLabel:'전사'`(결과 화면 표시). c15 post를 무진 재기→묵철 「이번엔 내가 남는다」→무진과 함께 쓰러짐→백륜 돌입으로 다시 씀. c16 묵철 대사는 단심·운학으로, 서술은 빈자리로. c16 sceneCast에서 o_muk 제거·o_bi 추가, c14에 o_bi 추가. BONDS muk end·endingEchoes(c15 클리어 시)·STORY_ENDINGS_Q 두 결말에 묵철의 방패. 현무편 x10에 묵철 부재 2줄.
+- 대사 줄 4번째 칸 `{c13:'yeonhwa'|'biyeon'}`이면 `partyLines`가 선택이 같을 때만 남긴다(c14 pre 4줄, c16 post 3줄). 대본에는 「(연화를 고른 경우)」 접두로 적는다.
+- 갈등: c7 단심 반대 3줄(장부·빈 성벽), c10 단심 「그때 제가 말렸잖아요」·묵철 대사 교체, c10 post 묵철↔운학 공개 기록 충돌 4줄, c14 post 화해·죽음 예고 3줄, c8 post 홍염 마음 변화 3줄·비연 질투(국 한 그릇) 2줄, c13 pre 비연 속마음 2줄. `tests/story-death.cjs`.
