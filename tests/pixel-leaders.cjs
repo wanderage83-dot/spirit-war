@@ -9,7 +9,7 @@ const orig=ctx.drawImage.bind(ctx),log=[];ctx.drawImage=function(img,...a){log.p
 const drawOne=u=>{log.length=0;ctx.save();animUnit=u;if(u.type==='hero')drawUnitArt('hero',0,-16,-35,32,38);else drawCompanionArt(u.commander,u.type,0,-16,-35,32,38);animUnit=null;ctx.restore();return log.slice()};
 ctx.imageSmoothingEnabled=true;const front=[drawOne(lord),drawOne(led)];
 // 가짜 뒷모습: 뒤로 움직이면 쓰이고, 앞으로 움직이면 원래대로
-const fake=n=>{const cv=document.createElement('canvas');cv.width=40;cv.height=60;cv.isBack=true;backArt.set(n,cv)};fake('hero');fake(characterSprite(led.commander).split('/').pop().replace('.webp',''));
+dirArt.clear();const fake=n=>{const cv=document.createElement('canvas');cv.width=40;cv.height=60;cv.isBack=true;backArt.set(n,cv)};fake('hero');fake(characterSprite(led.commander).split('/').pop().replace('.webp',''));
 const move=(u,dx,dy)=>{for(let i=0;i<40;i++){u.vsy=(u.vsy||0)*.8+dx+dy;backTo(u,u.vsy<0,1/30,Math.abs(u.vsy)>6)}};
 move(lord,-4,-4);move(led,-4,-4);const up=[drawOne(lord),drawOne(led),lord.vback,led.vback];move(lord,4,4);move(led,4,4);const down=[drawOne(lord),drawOne(led),lord.vback,led.vback];
 const brief=[];for(let i=0;i<5;i++){const u={vback:false};u.vsy=-8;backTo(u,true,1/30,false);brief.push(!!u.vback)}
