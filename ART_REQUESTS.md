@@ -176,3 +176,55 @@ sed 's/"sprite_sheet_alpha": "[^"]*"/"sprite_sheet_alpha": "sheet.webp"/' $R/man
 | 5 | `seolhwa`, `yeonbaek`, `dogyeom`, `eunrang`, `sayul`, `hongyeom`, `haerin`, `heukcheol`, `mujin`, `baekryun` | `characters/factions/*.webp` | 다른 나라 장수·적장. `heukcheol`·`mujin`은 왼쪽을 보는 원본 그대로 |
 
 용량: 256px 칸 × 14프레임 WebP 무손실은 대략 150~400KB다. 24개 모두면 모바일 첫 로딩이 늘어나니, 2단계까지 넣은 뒤 실제 로딩 시간을 보고 나머지를 정한다.
+
+---
+
+## 요청 4 · 병사 4방향(45도 앞·뒤 × 좌·우) — 상태: 완료 (2026-11-04)
+
+### 완료 결과 (Codex)
+- `shield.webp`·`bow.webp`·`spear.webp`·`horse.webp`를 각각 참고 그림으로 첨부하고 아래 프롬프트로 fl·br·bl을 개별 생성했다. 총 12장, 투명 배경의 SD 일러스트이며 도트 변환·좌우 반전을 사용하지 않았다.
+- 원본과 방향별 결과를 나란히 비교해 투구·의상·무기·방향·전신과 무기 손을 검수했다. 검은 오른손, 방패와 활은 왼손을 유지하며 창은 원본의 양손 잡기를 유지한다. 궁병 뒷방향 2장은 원본보다 다리가 길어 다시 생성하고 짧은 다리와 큰 머리 비율로 수정했다. 기병은 같은 말과 기수가 함께 돌아간다.
+- 원본 생성 PNG는 작업 서버 `/workspace/soldier-directions/<병종>-<방향>.png`에 보관했다(이 경로는 Git에 포함되지 않음). `python3 tools/soldier-dir.py /workspace/soldier-directions/*.png`로 게임에 넣어 `characters/soldier-dir/<병종>/<fl|br|bl>.webp` 총 12장(높이 384px, 투명, 품질 92)을 저장하고 `SOLDIER_DIR_READY`를 자동 갱신했다.
+- `node tests/soldier-dir.cjs http://127.0.0.1:8799/`: **PASS, 12 registered**. 등록 그림 로딩·방향 선택·뒤집기 상쇄·적군 진영색·미등록 병종 원본 동작 검사 통과.
+- `node tests/dir-art.cjs http://127.0.0.1:8799/`: **PASS, 장수 60장**. JavaScript 구문·`git diff --check`·12장 투명도/높이/필수 방향 검사도 통과.
+- 원본 병사 4장과 기존 장수 그림은 유지했다. `index.html`은 `SOLDIER_DIR_READY` 목록만 변경했으며 렌더러·전투 로직·테스트 코드는 수정하지 않았다. 작업 브랜치는 `claude/pensive-hawking-pekoel`, main에는 병합하지 않는다.
+
+전장 병사 4병종(방패병·궁병·창병·기병)도 장수처럼 4방향을 따로 그린 그림으로 바꾼다. 지금 그림(`shield.webp`·`bow.webp`·`spear.webp`·`horse.webp`)은 모두 **앞-오른쪽(fr)** 이므로 **앞-왼쪽(fl)·뒤-오른쪽(br)·뒤-왼쪽(bl)** 세 장씩, 총 **12장**을 만든다. 적군은 게임이 같은 그림에 진영색을 입혀 쓰므로 따로 그리지 않는다. 병사는 장수와 달리 도트로 바꾸지 않고 지금 그림과 같은 SD 일러스트로 둔다.
+
+### 공통 규칙
+- **원본 그림을 꼭 첨부**한다. 같은 병사의 다른 각도여야 한다(얼굴·투구·옷·무기·색·비율 동일).
+- 화풍: 귀여운 SD(이등신) 애니메이션 일러스트, 짙은 갈색 외곽선, 부드러운 셀 셰이딩. 사진풍·3D·도트 금지.
+- 배경 **완전 투명**(안 되면 흰 단색). 그림자·바닥·글자·테두리 없음. 한 명만, 전신, 발(말발굽) 아래가 잘리지 않게.
+- 45도 대각선 시점, 살짝 위에서. **좌우를 뒤집은 그림 금지**: 무기를 든 손이 원본과 같은 손이어야 한다.
+- 파일 이름: `<병종>-<방향>.png` (예: `spear-fl.png`, `horse-bl.png`).
+
+### 붙여 넣을 프롬프트 (원본 1장 첨부 + 아래 한 줄씩, 방향 3번 반복)
+
+방향 문구(아래 `{방향}` 자리에 넣는다):
+- **fl** → `turned to face the viewer's LEFT: front three-quarter view at 45 degrees, face and chest visible, looking toward the lower left`
+- **br** → `seen from behind at a 45-degree back diagonal, body turned away from the viewer toward the upper RIGHT, back of the head visible`
+- **bl** → `seen from behind at a 45-degree back diagonal, body turned away from the viewer toward the upper LEFT, back of the head visible`
+
+기본 문장:
+> The same soldier as the attached image, {방향}. Full body, same face, helmet, armor, clothes, weapon, colors and cute chibi SD proportions as the reference; the weapon stays in the same hand as in the reference (do not mirror the character). {병종 문장} Clean dark-brown outlines, soft cel shading, bright colors. Single character only, transparent background, no shadow, no ground, no text, nothing cropped.
+
+병종 문장(`{병종 문장}` 자리):
+- **shield** (`shield.webp`, 방패병) → `Blue-and-gold samurai-style armor with a white plume, a large blue tower shield with a gold turtle emblem in one hand and a short sword in the other, sturdy guarding stance.`
+- **bow** (`bow.webp`, 궁병) → `Green hooded cloak with gold trim, brown hair, a large curved wooden bow held in one hand and a quiver of white-feathered arrows on the back, light ready stance.`
+- **spear** (`spear.webp`, 창병) → `Pale jade conical helmet with a white plume, teal scarf, light scale armor, a long spear with a red tassel held upright, alert stance.`
+- **horse** (`horse.webp`, 기병) → `A rider in a tiger-hood helmet and orange-gold armor holding a curved sabre, riding the same small white-and-brown pony with jade harness; the whole pony is visible and faces the same direction as the rider.`
+
+예) 창병 뒤-왼쪽 = `spear.webp` 첨부 + 「The same soldier as the attached image, seen from behind at a 45-degree back diagonal, body turned away from the viewer toward the upper LEFT, back of the head visible. Full body, … Pale jade conical helmet … alert stance. Clean dark-brown outlines, …」
+
+### 확인 기준
+- [x] 12장 모두 원본과 같은 병사로 보임(투구·색·무기)
+- [x] 방향이 맞음: fl은 얼굴이 왼쪽 아래, br/bl은 뒤통수가 보이고 각각 오른쪽/왼쪽 위로 향함
+- [x] 무기 손이 원본과 같음, 전신·발 안 잘림, 배경 투명
+
+### 게임에 넣기
+```bash
+python3 tools/soldier-dir.py 받은폴더/*.png
+```
+- 흰 배경이면 자동으로 지우고, 그림 영역으로 잘라 높이 384px로 맞춰 `characters/soldier-dir/<병종>/<방향>.webp`에 저장한 뒤 `index.html`의 `SOLDIER_DIR_READY`를 자동으로 고친다. 이후 `git add characters/soldier-dir index.html` → 커밋 → 푸시, 또는 Claude에게 「올렸다」고 말한다.
+- 게임 쪽(`soldierDirOf`·`tinted`)은 이미 구현됨: 그림이 있는 병종만 방향 그림을 쓰고(뒤집지 않음), 적군은 같은 그림에 진영색을 입혀 쓴다. `node tests/soldier-dir.cjs <URL>`.
+
