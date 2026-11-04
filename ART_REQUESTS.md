@@ -63,6 +63,20 @@ ChatGPT에서 세 장을 만든 뒤 위 경로에 저장해 커밋하거나, 이
 
 장수급 20명은 전투에서 도트 그림으로 나오며, 원본 그림이 바라보는 앞쪽 한 방향 외에 **세 방향을 따로 그려** 뒤집기 없이 쓴다. 파일은 `characters/pixel/dir/<원본이름>/<fr|fl|br|bl>.webp`(앞-오른쪽·앞-왼쪽·뒤-오른쪽·뒤-왼쪽), `index.html`의 `DIR_READY={이름:'fl,br,bl'}`에 등록한다. 원본이 오른쪽을 보면 fl·br·bl, 왼쪽을 보면(흑철·무진·귀왕·주작 군주) fr·br·bl을 만든다.
 
+### 내 컴퓨터에서 한 번에 만들기 (sprite-gen + ChatGPT/Codex 로그인)
+```bash
+git clone https://github.com/aldegad/sprite-gen ~/sprite-gen
+```
+```bash
+cd ~/sprite-gen && python3 -m venv .venv && .venv/bin/pip install -e .
+```
+```bash
+cd ~/spirit-war && git pull && SG=~/sprite-gen bash tools/make-dir-views.sh
+```
+- 아직 없는 그림만 그린다(19명×3장). 일부만: `... make-dir-views.sh dansim hoyeon`. 마음에 안 드는 것만 다시: `FORCE=1 ... make-dir-views.sh dansim`.
+- 끝나면 `tools/dir-ready.py`가 `index.html`의 `DIR_READY`를 실제 파일에 맞춰 고친다. 원본은 `~/sg-dir/<이름>/`에 남는다. 확인 뒤 `git add characters/pixel/dir index.html && git commit -m "장수 4방향 그림" && git push`, 또는 Claude에게 「올렸다」고 말한다.
+- 기마 장수(비연·호연·사율)는 말까지 같은 방향으로 그리게 한다. 흑철은 원본이 도보라 말 없이 그린다.
+
 ### Canva로 만드는 순서
 1. 원본 전장 그림을 PNG로 바꿔 Canva에 올리고 참고 그림으로 `generate-image`(3:2). 프롬프트: 같은 캐릭터를 해당 45도 방향에서 본 전신, 같은 옷·무기·머리·색·SD 비율, 흰 단색 배경, 그림자·바닥·글자 없음. 기마 장수는 같은 말도 같은 방향.
 2. Canva 배경 제거는 유료라 쓰지 않는다. 작업용 디자인(1054×816 페이지) 맨 위에 3:2 그림 세 장을 351×234로 나란히 놓고 PNG(가로 2108, 더 크면 거부됨)로 내보낸다.
