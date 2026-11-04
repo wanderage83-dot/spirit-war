@@ -290,4 +290,5 @@
 
 ## 장수 4방향 그림 · 2026-11-04
 - `DIR_READY={이름:'fl,br,bl'}`(이름=원본 전장 그림 파일명), `characters/pixel/dir/<이름>/<fr|fl|br|bl>.webp`를 `dirArt`로 로드(`loadDirArt`, 로드 때 `footAnchor`가 아래 15% 알파 x평균으로 발 위치 계산). `dirOf(src)`가 animUnit의 `vback`·`vface`로 키를 고르고, `drawDir`는 현재 변환 a<0이면 한 번 더 뒤집어 그림 방향 그대로 그린다. 원본이 보는 방향 키는 파일 없이 기존 그림(+기존 뒤집기)을 쓴다. 흑화(:dark)·동작 시트는 기존 우선순위. 옛 `BACK_READY`/backArt는 폴백으로 남김(지금 비어 있음).
+- 2026-11-04 20명 전원 등록(57장은 Codex로 생성). 원본 도트 그림도 `footOf`(발 위치 캐시, 로드 전 .5)로 놓아 방향 전환 시 발 이동 ≤3px(이전 최대 28px, 무진). 생성 그림 높이 264로 통일·실루엣 높이 차 1% 이내. cast-deployment는 해당 장수의 방향 그림도 고유 그림으로 인정.
 - 생성: Canva MCP(참고 그림 generate-image → 작업 디자인 3칸 → PNG 2108 내보내기) → `tools/canva-sheet.py`(자르기+`tools/unwhite.py` 흰 배경 제거+pixelize). `tests/dir-art.cjs`(모든 등록 그림 로드·청명 4방향 선택·뒤집기 상쇄), pixel-leaders는 dirArt를 비우고 옛 back 폴백을 검사.
