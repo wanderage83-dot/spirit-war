@@ -59,9 +59,46 @@ ChatGPT에서 세 장을 만든 뒤 위 경로에 저장해 커밋하거나, 이
 
 ---
 
-## 요청 3 · 장수 뒷모습(45도 뒤쪽) — 상태: 게임 연결 준비 완료, 그림 대기
+## 요청 3 · 장수 4방향(45도 앞·뒤 × 좌·우) — 상태: 완료 (2026-11-04)
 
-장수급 20명은 전투에서 도트 그림(`characters/pixel/`)으로 나온다. 앞-왼쪽/앞-오른쪽은 지금 그림을 뒤집어 쓰고, **뒤-왼쪽/뒤-오른쪽**은 뒷모습 한 장을 뒤집어 쓴다. 뒷모습은 새로 그려야 하므로 사용자 계정으로 만든다.
+청명 기존 3장을 유지하고 나머지 19명×3장=57장을 추가했다. 이 클라우드 서버에서는 sprite-gen 설치와 Codex 로그인 확인까지 성공했으나, Codex CLI의 `/home/agent/.codex/generated_images`가 읽기 전용이라 생성이 실패했다. 따라서 Codex 내장 이미지 생성 도구로 원본을 참고한 투명 4방향 시트를 만들고, 필요한 세 방향만 추출해 기존 `tools/pixelize.py`(64px·40색·외곽선·4배 nearest)로 변환했다. 좌우 반전으로 대체하지 않았고 기마 장수 3명은 말도 포함했다. 그림 등록은 기존 `tools/dir-ready.py`로 갱신했으며 게임 로직은 변경하지 않았다. `tests/dir-art.cjs`(60장 로딩·방향 선택), `tests/pixel-leaders.cjs`, JavaScript 구문 검사와 이미지 규격 검사를 통과했다.
+
+장수급 20명은 전투에서 도트 그림으로 나오며, 원본 그림이 바라보는 앞쪽 한 방향 외에 **세 방향을 따로 그려** 뒤집기 없이 쓴다. 파일은 `characters/pixel/dir/<원본이름>/<fr|fl|br|bl>.webp`(앞-오른쪽·앞-왼쪽·뒤-오른쪽·뒤-왼쪽), `index.html`의 `DIR_READY={이름:'fl,br,bl'}`에 등록한다. 원본이 오른쪽을 보면 fl·br·bl, 왼쪽을 보면(흑철·무진·귀왕·주작 군주) fr·br·bl을 만든다.
+
+### 내 컴퓨터에서 한 번에 만들기 (sprite-gen + ChatGPT/Codex 로그인)
+```bash
+git clone https://github.com/aldegad/sprite-gen ~/sprite-gen
+```
+```bash
+cd ~/sprite-gen && python3 -m venv .venv && .venv/bin/pip install -e .
+```
+```bash
+cd ~/spirit-war && git pull && SG=~/sprite-gen bash tools/make-dir-views.sh
+```
+- 아직 없는 그림만 그린다(현재 20명 모두 완료되어 기본 실행은 건너뜀). 일부만: `... make-dir-views.sh dansim hoyeon`. 마음에 안 드는 것만 다시: `FORCE=1 ... make-dir-views.sh dansim`.
+- 끝나면 `tools/dir-ready.py`가 `index.html`의 `DIR_READY`를 실제 파일에 맞춰 고친다. 원본은 `~/sg-dir/<이름>/`에 남는다. 확인 뒤 `git add characters/pixel/dir index.html && git commit -m "장수 4방향 그림" && git push`, 또는 Claude에게 「올렸다」고 말한다.
+- 기마 장수(비연·호연·사율)는 말까지 같은 방향으로 그리게 한다. 흑철은 원본이 도보라 말 없이 그린다.
+
+### Canva로 만드는 순서
+1. 원본 전장 그림을 PNG로 바꿔 Canva에 올리고 참고 그림으로 `generate-image`(3:2). 프롬프트: 같은 캐릭터를 해당 45도 방향에서 본 전신, 같은 옷·무기·머리·색·SD 비율, 흰 단색 배경, 그림자·바닥·글자 없음. 기마 장수는 같은 말도 같은 방향.
+2. Canva 배경 제거는 유료라 쓰지 않는다. 작업용 디자인(1054×816 페이지) 맨 위에 3:2 그림 세 장을 351×234로 나란히 놓고 PNG(가로 2108, 더 크면 거부됨)로 내보낸다.
+3. `python3 -I tools/canva-sheet.py 시트.png <이름> fl,br,bl` → 세 장을 잘라 `tools/unwhite.py`(테두리와 이어진 흰색+어두운 테두리 안의 흰 구멍만 투명) → `tools/pixelize.py`로 저장.
+4. `DIR_READY`에 등록, `node tests/dir-art.cjs <URL>`.
+
+| 이름 | 상태 |
+|---|---|
+| hero(청명) | ✓ fl·br·bl (2026-11-04) |
+| 나머지 19명 | ✓ 각 3방향, 총 57장 추가 (2026-11-04) |
+
+이전 Canva 작업 참고 기록(현재 요청은 완료, 재개할 필요 없음):
+- 군주: xuan-ruler `MAHZ8h9MELM`(나머지 군주·biyeon은 미업로드)
+- dansim `MAHZ8llCk_4`(fl은 이미 생성: `MAHZ8rVIQ7Y`), hoyeon `MAHZ8noem_Y`, mukcheol `MAHZ8mG1Y3c`, unhak `MAHZ8uoYCdY`, baekryun `MAHZ8gUp_2U`
+- dogyeom `MAHZ8hzcI-Y`, eunrang `MAHZ8lkJ_u8`, haerin `MAHZ8mEzUX0`, heukcheol `MAHZ8ghjoyk`, hongyeom `MAHZ8nXIu3E`
+- mujin `MAHZ8k5nss4`, sayul `MAHZ8mOCLiE`, seolhwa `MAHZ8jppUpU`, yeonbaek `MAHZ8gi5QBE`
+- 기마 그림은 biyeon·hoyeon·sayul만. heukcheol 원본은 도보이므로 말 문구를 넣지 않는다.
+- 작업 디자인 페이지 크기가 1054가 아니어도 세 칸을 가로 1/3씩(높이는 그 2/3) 맨 위에 두면 canva-sheet.py가 비율로 자른다.
+
+(이전 방식·참고) 뒷모습 한 장을 뒤집어 쓰는 `BACK_READY`/`characters/pixel/back/`과 sprite-gen 스크립트도 남아 있다. 4방향 그림이 있으면 그쪽이 우선한다.
 
 ```bash
 # sprite-gen 설치(요청 2와 같음) 후, spirit-war 폴더에서

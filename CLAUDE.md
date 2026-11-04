@@ -285,5 +285,10 @@
 ## 장수급 도트 그림·뒷모습 준비 · 2026-11-04
 - `characters/pixel/<원본파일명>.webp` 20장(군주5+장수15, 총61KB): `tools/pixelize.py`(알파 bbox crop→BOX 축소 논리높이64→median-cut40색→알파 이진화→1px 외곽선→×4 nearest, WebP 무손실). `PIXEL_LEADERS=true`·`pixelSrc(src)`는 loadCompanionArt와 rulerArt 로드에만 적용(대화 vnSprite·인물첩·천하도는 원본). ART_LEFT는 파일명으로 판정되어 그대로 동작.
 - drawCompanionArt와 drawUnitArt의 hero/boss는 이전 imageSmoothingEnabled를 저장해 끈 뒤 복원. 그림 높이 h=38 그대로라 BATTLE_FIGURE 91.2 유지.
-- 뒷모습: `BACK_READY=[]`(이름=원본 파일명), `characters/pixel/back/<이름>.webp`를 backArt로 로드. update가 화면 y 이동량(dx+dy) 감쇠합 `u.vsy`로 `backTo`(반대 .45초/빠르면 .12초 유지)해 `u.vback`; 정지 중에는 want 각의 cos+sin. `backOf(src)`가 animUnit.vback일 때 뒷모습을 돌려준다. 흑화(:dark)는 뒷모습 미적용, 군주는 unitArt가 rulerArt 원본일 때만. 동작 시트(drawAnim)가 있으면 시트가 우선.
+- 뒷모습(폴백, 아래 4방향 그림이 우선): `BACK_READY=[]`(이름=원본 파일명), `characters/pixel/back/<이름>.webp`를 backArt로 로드. update가 화면 y 이동량(dx+dy) 감쇠합 `u.vsy`로 `backTo`(반대 .45초/빠르면 .12초 유지)해 `u.vback`; 정지 중에는 want 각의 cos+sin. `backOf(src)`가 animUnit.vback일 때 뒷모습을 돌려준다. 흑화(:dark)는 뒷모습 미적용, 군주는 unitArt가 rulerArt 원본일 때만. 동작 시트(drawAnim)가 있으면 시트가 우선.
 - 뒷모습 생성은 컨테이너에 그림 생성 계정이 없어 `tools/make-back-views.sh`(sprite-gen gen --direction back_diagonal --facing, 기병 body-plan, → pixelize)를 사용자 컴퓨터에서 실행. `tests/pixel-leaders.cjs`.
+
+## 장수 4방향 그림 · 2026-11-04
+- `DIR_READY={이름:'fl,br,bl'}`(이름=원본 전장 그림 파일명), `characters/pixel/dir/<이름>/<fr|fl|br|bl>.webp`를 `dirArt`로 로드(`loadDirArt`, 로드 때 `footAnchor`가 아래 15% 알파 x평균으로 발 위치 계산). `dirOf(src)`가 animUnit의 `vback`·`vface`로 키를 고르고, `drawDir`는 현재 변환 a<0이면 한 번 더 뒤집어 그림 방향 그대로 그린다. 원본이 보는 방향 키는 파일 없이 기존 그림(+기존 뒤집기)을 쓴다. 흑화(:dark)·동작 시트는 기존 우선순위. 옛 `BACK_READY`/backArt는 폴백으로 남김(지금 비어 있음).
+- 2026-11-04 20명 전원 등록(57장은 Codex로 생성). 원본 도트 그림도 `footOf`(발 위치 캐시, 로드 전 .5)로 놓아 방향 전환 시 발 이동 ≤3px(이전 최대 28px, 무진). 생성 그림 높이 264로 통일·실루엣 높이 차 1% 이내. cast-deployment는 해당 장수의 방향 그림도 고유 그림으로 인정.
+- 생성: Canva MCP(참고 그림 generate-image → 작업 디자인 3칸 → PNG 2108 내보내기) → `tools/canva-sheet.py`(자르기+`tools/unwhite.py` 흰 배경 제거+pixelize). `tests/dir-art.cjs`(모든 등록 그림 로드·청명 4방향 선택·뒤집기 상쇄), pixel-leaders는 dirArt를 비우고 옛 back 폴백을 검사.
