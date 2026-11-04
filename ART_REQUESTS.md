@@ -59,6 +59,20 @@ ChatGPT에서 세 장을 만든 뒤 위 경로에 저장해 커밋하거나, 이
 
 ---
 
+## 요청 3 · 장수 뒷모습(45도 뒤쪽) — 상태: 게임 연결 준비 완료, 그림 대기
+
+장수급 20명은 전투에서 도트 그림(`characters/pixel/`)으로 나온다. 앞-왼쪽/앞-오른쪽은 지금 그림을 뒤집어 쓰고, **뒤-왼쪽/뒤-오른쪽**은 뒷모습 한 장을 뒤집어 쓴다. 뒷모습은 새로 그려야 하므로 사용자 계정으로 만든다.
+
+```bash
+# sprite-gen 설치(요청 2와 같음) 후, spirit-war 폴더에서
+SG=~/sprite-gen bash tools/make-back-views.sh            # 20명 전부
+SG=~/sprite-gen bash tools/make-back-views.sh hero mukcheol   # 일부만
+```
+
+- 결과는 `characters/pixel/back/<이름>.webp`(도트 변환까지 자동). 원본과 **같은 좌우 방향**의 뒤쪽 대각선으로 그린다(흑철·무진·귀왕·주작 군주는 왼쪽).
+- 다 되면 `index.html`의 `BACK_READY=[]`에 이름을 넣거나 Claude에게 「뒷모습 올렸다」고 말한다. 목록에 없는 이름은 불러오지 않는다.
+- 얼굴·무기·색이 원본과 다르면 그 이름만 다시 실행한다.
+
 ## 요청 2 · 전장 동작 시트(sprite-gen) — 상태: 게임 연결 준비 완료, 그림 대기
 
 지금 전장 캐릭터는 그림 한 장을 코드로 늘이고 기울여 걷기·공격을 흉내 낸다. [sprite-gen](https://github.com/aldegad/sprite-gen)(Apache-2.0)으로 같은 그림에서 **대기·걷기·공격 프레임**을 만들면 게임이 그대로 재생한다. 그림 생성은 사용자 계정(Codex/ChatGPT 로그인 등)으로 사용자 컴퓨터에서 돌린다.

@@ -281,3 +281,9 @@
 - UNIT_SPACING 보병66/74·기병82/90, formation SP 66/82, unitSeparation 같은 부대64(기병·장수72), 다른 부대86(장수·기병98), 양군52 유지. 근접 참여 방패↔방패9/12·창→방패11/11·방패→창10/12. 장수 쪽 거리는 대형 간격+6~8로 유지(더 크면 장수 주위가 밀려 추격 정지).
 - 검사: cohesion-flanks 최소 간격56, 추격 표적을 간격 값과 무관한 고정 x(2950+i×84)에 두고, 협곡 반경 허용 321. formation-spacing 기병 최소64.
 - acquire: 최선 목표가 닿지 않음(score≥2e4)·focus 없음일 때 같은 부대원이 사거리 안에서 싸우는 적(장수 반경 안) 중 가장 가까운 적으로 바꾼다(뒷줄 접전+앞쪽 수레/목표 사이 반경 교착 해소). squadFrames 새 대형 자리 상한 radius-32→radius×.7(288은 straggler .92·반경 320과 붙어 off<18 정지로 기어감). battle-goals 수레 검사의 아군 위치 −450→−650(접촉 시 가세가 정상).
+
+## 장수급 도트 그림·뒷모습 준비 · 2026-11-04
+- `characters/pixel/<원본파일명>.webp` 20장(군주5+장수15, 총61KB): `tools/pixelize.py`(알파 bbox crop→BOX 축소 논리높이64→median-cut40색→알파 이진화→1px 외곽선→×4 nearest, WebP 무손실). `PIXEL_LEADERS=true`·`pixelSrc(src)`는 loadCompanionArt와 rulerArt 로드에만 적용(대화 vnSprite·인물첩·천하도는 원본). ART_LEFT는 파일명으로 판정되어 그대로 동작.
+- drawCompanionArt와 drawUnitArt의 hero/boss는 이전 imageSmoothingEnabled를 저장해 끈 뒤 복원. 그림 높이 h=38 그대로라 BATTLE_FIGURE 91.2 유지.
+- 뒷모습: `BACK_READY=[]`(이름=원본 파일명), `characters/pixel/back/<이름>.webp`를 backArt로 로드. update가 화면 y 이동량(dx+dy) 감쇠합 `u.vsy`로 `backTo`(반대 .45초/빠르면 .12초 유지)해 `u.vback`; 정지 중에는 want 각의 cos+sin. `backOf(src)`가 animUnit.vback일 때 뒷모습을 돌려준다. 흑화(:dark)는 뒷모습 미적용, 군주는 unitArt가 rulerArt 원본일 때만. 동작 시트(drawAnim)가 있으면 시트가 우선.
+- 뒷모습 생성은 컨테이너에 그림 생성 계정이 없어 `tools/make-back-views.sh`(sprite-gen gen --direction back_diagonal --facing, 기병 body-plan, → pixelize)를 사용자 컴퓨터에서 실행. `tests/pixel-leaders.cjs`.
