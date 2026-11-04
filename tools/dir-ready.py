@@ -12,3 +12,13 @@ s2,c=re.subn(r'DIR_READY=\{[^}]*\}','DIR_READY='+lit,s,count=1)
 if c!=1: raise SystemExit('index.html에서 DIR_READY를 찾지 못했습니다')
 if s2!=s: open(p,'w',encoding='utf8').write(s2)
 print('DIR_READY =',lit,'(%d명)'%len(ready))
+# 병사(characters/soldier-dir/<병종>/<방향>.webp) → SOLDIER_DIR_READY
+d2=os.path.join(root,'characters','soldier-dir');sr={}
+for n in sorted(os.listdir(d2)) if os.path.isdir(d2) else []:
+    ks=[k for k in ('fr','fl','br','bl') if os.path.isfile(os.path.join(d2,n,k+'.webp'))]
+    if ks: sr[n]=','.join(ks)
+lit2='{'+','.join(n+":'"+v+"'" for n,v in sr.items())+'}'
+s=open(p,encoding='utf8').read();s2,c=re.subn(r'SOLDIER_DIR_READY=\{[^}]*\}','SOLDIER_DIR_READY='+lit2,s,count=1)
+if c!=1: raise SystemExit('index.html에서 SOLDIER_DIR_READY를 찾지 못했습니다')
+if s2!=s: open(p,'w',encoding='utf8').write(s2)
+print('SOLDIER_DIR_READY =',lit2,'(%d병종)'%len(sr))
