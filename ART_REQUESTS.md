@@ -179,7 +179,15 @@ sed 's/"sprite_sheet_alpha": "[^"]*"/"sprite_sheet_alpha": "sheet.webp"/' $R/man
 
 ---
 
-## 요청 4 · 병사 4방향(45도 앞·뒤 × 좌·우) — 상태: 게임 연결 준비 완료, 그림 대기
+## 요청 4 · 병사 4방향(45도 앞·뒤 × 좌·우) — 상태: 완료 (2026-11-04)
+
+### 완료 결과 (Codex)
+- `shield.webp`·`bow.webp`·`spear.webp`·`horse.webp`를 각각 참고 그림으로 첨부하고 아래 프롬프트로 fl·br·bl을 개별 생성했다. 총 12장, 투명 배경의 SD 일러스트이며 도트 변환·좌우 반전을 사용하지 않았다.
+- 원본과 방향별 결과를 나란히 비교해 투구·의상·무기·방향·전신과 무기 손을 검수했다. 검은 오른손, 방패와 활은 왼손을 유지하며 창은 원본의 양손 잡기를 유지한다. 궁병 뒷방향 2장은 원본보다 다리가 길어 다시 생성하고 짧은 다리와 큰 머리 비율로 수정했다. 기병은 같은 말과 기수가 함께 돌아간다.
+- 원본 생성 PNG는 작업 서버 `/workspace/soldier-directions/<병종>-<방향>.png`에 보관했다(이 경로는 Git에 포함되지 않음). `python3 tools/soldier-dir.py /workspace/soldier-directions/*.png`로 게임에 넣어 `characters/soldier-dir/<병종>/<fl|br|bl>.webp` 총 12장(높이 384px, 투명, 품질 92)을 저장하고 `SOLDIER_DIR_READY`를 자동 갱신했다.
+- `node tests/soldier-dir.cjs http://127.0.0.1:8799/`: **PASS, 12 registered**. 등록 그림 로딩·방향 선택·뒤집기 상쇄·적군 진영색·미등록 병종 원본 동작 검사 통과.
+- `node tests/dir-art.cjs http://127.0.0.1:8799/`: **PASS, 장수 60장**. JavaScript 구문·`git diff --check`·12장 투명도/높이/필수 방향 검사도 통과.
+- 원본 병사 4장과 기존 장수 그림은 유지했다. `index.html`은 `SOLDIER_DIR_READY` 목록만 변경했으며 렌더러·전투 로직·테스트 코드는 수정하지 않았다. 작업 브랜치는 `claude/pensive-hawking-pekoel`, main에는 병합하지 않는다.
 
 전장 병사 4병종(방패병·궁병·창병·기병)도 장수처럼 4방향을 따로 그린 그림으로 바꾼다. 지금 그림(`shield.webp`·`bow.webp`·`spear.webp`·`horse.webp`)은 모두 **앞-오른쪽(fr)** 이므로 **앞-왼쪽(fl)·뒤-오른쪽(br)·뒤-왼쪽(bl)** 세 장씩, 총 **12장**을 만든다. 적군은 게임이 같은 그림에 진영색을 입혀 쓰므로 따로 그리지 않는다. 병사는 장수와 달리 도트로 바꾸지 않고 지금 그림과 같은 SD 일러스트로 둔다.
 
@@ -209,9 +217,9 @@ sed 's/"sprite_sheet_alpha": "[^"]*"/"sprite_sheet_alpha": "sheet.webp"/' $R/man
 예) 창병 뒤-왼쪽 = `spear.webp` 첨부 + 「The same soldier as the attached image, seen from behind at a 45-degree back diagonal, body turned away from the viewer toward the upper LEFT, back of the head visible. Full body, … Pale jade conical helmet … alert stance. Clean dark-brown outlines, …」
 
 ### 확인 기준
-- [ ] 12장 모두 원본과 같은 병사로 보임(투구·색·무기)
-- [ ] 방향이 맞음: fl은 얼굴이 왼쪽 아래, br/bl은 뒤통수가 보이고 각각 오른쪽/왼쪽 위로 향함
-- [ ] 무기 손이 원본과 같음, 전신·발 안 잘림, 배경 투명(또는 흰 단색)
+- [x] 12장 모두 원본과 같은 병사로 보임(투구·색·무기)
+- [x] 방향이 맞음: fl은 얼굴이 왼쪽 아래, br/bl은 뒤통수가 보이고 각각 오른쪽/왼쪽 위로 향함
+- [x] 무기 손이 원본과 같음, 전신·발 안 잘림, 배경 투명
 
 ### 게임에 넣기
 ```bash
