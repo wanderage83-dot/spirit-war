@@ -272,3 +272,7 @@
 
 ## 실행 중 자동 클로즈업 · 2026-11-02
 - `cine`·`cineEvent(x,y,pri,label)`·`cineTick(dt)`(loop에서 wall dt)·`cineUser()`(canvas pointerdown/wheel/방향키). 첫 교전 `cineFirstClash`(performAttack 첫머리, squad 쌍 1회, 숨은 적 제외, pri2), 장수·적장·군주 전사(hit, pri3), 붕괴(routSquad, pri2), 적장 돌진 예고(teleTick, pri3), 성문·목표 파괴(gateDown, pri3). 확대 max(원배율×1.45,.9)·최대 1.5, 1.8초 유지 후 원배율 복귀, 쿨다운 3.2초(pri3 예외), 사용자 입력 3초 우선. playing에서만 발동, planning 등으로 바뀌면 즉시 원배율. rReduced는 보간 없이 바로. reset이 쌍 기록 초기화. `tests/auto-camera.cjs`.
+
+## HD-2D 화면 효과 · 2026-11-04
+- `HD`·`drawHD()`: draw()에서 objs 렌더 직후·drawSquadFlags 전에 화면 공간(setTransform 1)에서 처리. 전체 모드는 캔버스를 1/6 크기 `HD.cv`로 복사해 x³ 곱(`HD.bc`)을 screen .3(밝은 곳만 빛 번짐), 위 26%·아래 24%를 6띠로 흐린 복사본 겹치기(틸트시프트). 공통: `HD_GRADE[theme]` soft-light 색 보정, `hdLights()` 가산 광원(본진·확보 보급소·적 성문·적장·아군 군주·slam/bolt/heal/crit pfx), 빛 입자(rReduced 제외), 가장자리 어둠 .55. canvas filter 미사용(사파리 호환).
+- `#hd2dbtn`(setupBattleHUD가 header의 퇴각 버튼 앞에 둠, 「효과 켬/끔」), localStorage `spiritwar-hd2d`. loop가 playing 중 평균 프레임 >1/28초가 3초 누적되면 `HD.lite=true`(화면 복사 없음). 천하도·village에서는 그리지 않음. 헤드리스 소프트웨어 렌더 기준 1280: 끔 32·전체 16·가볍게 28fps, 390: 60·44·57fps(GPU 기기는 더 가벼울 것). `tests/hd2d.cjs`.
