@@ -276,3 +276,8 @@
 ## HD-2D 화면 효과 · 2026-11-04
 - `HD`·`drawHD()`: draw()에서 objs 렌더 직후·drawSquadFlags 전에 화면 공간(setTransform 1)에서 처리. 전체 모드는 캔버스를 1/6 크기 `HD.cv`로 복사해 x³ 곱(`HD.bc`)을 screen .3(밝은 곳만 빛 번짐), 위 26%·아래 24%를 6띠로 흐린 복사본 겹치기(틸트시프트). 공통: `HD_GRADE[theme]` soft-light 색 보정, `hdLights()` 가산 광원(본진·확보 보급소·적 성문·적장·아군 군주·slam/bolt/heal/crit pfx), 빛 입자(rReduced 제외), 가장자리 어둠 .55. canvas filter 미사용(사파리 호환).
 - `#hd2dbtn`(setupBattleHUD가 header의 퇴각 버튼 앞에 둠, 「효과 켬/끔」), localStorage `spiritwar-hd2d`. loop가 playing 중 평균 프레임 >1/28초가 3초 누적되면 `HD.lite=true`(화면 복사 없음). 천하도·village에서는 그리지 않음. 헤드리스 소프트웨어 렌더 기준 1280: 끔 32·전체 16·가볍게 28fps, 390: 60·44·57fps(GPU 기기는 더 가벼울 것). `tests/hd2d.cjs`.
+
+## 병사 간격 추가 축소 · 2026-11-04
+- UNIT_SPACING 보병66/74·기병82/90, formation SP 66/82, unitSeparation 같은 부대64(기병·장수72), 다른 부대86(장수·기병98), 양군52 유지. 근접 참여 방패↔방패9/12·창→방패11/11·방패→창10/12. 장수 쪽 거리는 대형 간격+6~8로 유지(더 크면 장수 주위가 밀려 추격 정지).
+- 검사: cohesion-flanks 최소 간격56, 추격 표적을 간격 값과 무관한 고정 x(2950+i×84)에 두고, 협곡 반경 허용 321. formation-spacing 기병 최소64.
+- acquire: 최선 목표가 닿지 않음(score≥2e4)·focus 없음일 때 같은 부대원이 사거리 안에서 싸우는 적(장수 반경 안) 중 가장 가까운 적으로 바꾼다(뒷줄 접전+앞쪽 수레/목표 사이 반경 교착 해소). squadFrames 새 대형 자리 상한 radius-32→radius×.7(288은 straggler .92·반경 320과 붙어 off<18 정지로 기어감). battle-goals 수레 검사의 아군 위치 −450→−650(접촉 시 가세가 정상).
