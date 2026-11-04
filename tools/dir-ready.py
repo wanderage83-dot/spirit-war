@@ -32,3 +32,13 @@ s=open(p,encoding='utf8').read();s2,c=re.subn(r'SOLDIER_WALK_READY=\{[^}]*\}','S
 if c!=1: raise SystemExit('index.html에서 SOLDIER_WALK_READY를 찾지 못했습니다')
 if s2!=s: open(p,'w',encoding='utf8').write(s2)
 print('SOLDIER_WALK_READY =',lit3,'(%d병종)'%len(wr))
+# 장수 걷기(characters/pixel/walk/<이름>/<방향>-1..4.webp, 네 장 모두) → PIXEL_WALK_READY
+d4=os.path.join(root,'characters','pixel','walk');pw={}
+for n in sorted(os.listdir(d4)) if os.path.isdir(d4) else []:
+    ks=[k for k in ('fr','fl','br','bl') if all(os.path.isfile(os.path.join(d4,n,f'{k}-{i}.webp')) for i in range(1,5))]
+    if ks: pw[n]=','.join(ks)
+lit4='{'+','.join((n if re.fullmatch(r'[A-Za-z_$][\w$]*',n) else json.dumps(n))+":'"+v+"'" for n,v in pw.items())+'}'
+s=open(p,encoding='utf8').read();s2,c=re.subn(r'PIXEL_WALK_READY=\{[^}]*\}','PIXEL_WALK_READY='+lit4,s,count=1)
+if c!=1: raise SystemExit('index.html에서 PIXEL_WALK_READY를 찾지 못했습니다')
+if s2!=s: open(p,'w',encoding='utf8').write(s2)
+print('PIXEL_WALK_READY =',lit4[:80]+'…','(%d명)'%len(pw))
