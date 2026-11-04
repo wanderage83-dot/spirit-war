@@ -69,6 +69,19 @@ ChatGPT에서 세 장을 만든 뒤 위 경로에 저장해 커밋하거나, 이
 3. `python3 -I tools/canva-sheet.py 시트.png <이름> fl,br,bl` → 세 장을 잘라 `tools/unwhite.py`(테두리와 이어진 흰색+어두운 테두리 안의 흰 구멍만 투명) → `tools/pixelize.py`로 저장.
 4. `DIR_READY`에 등록, `node tests/dir-art.cjs <URL>`.
 
+| 이름 | 상태 |
+|---|---|
+| hero(청명) | ✓ fl·br·bl (2026-11-04) |
+| 나머지 19명 | 2026-11-04 Canva 크레딧 소진(quota_exceeded)으로 중단. 크레딧이 돌아오면 생성 단계부터 다시 |
+
+재개 메모(같은 Canva 계정에 이미 올린 참고 그림 media id — 다시 올리지 않아도 된다):
+- 군주: xuan-ruler `MAHZ8h9MELM`(나머지 군주·biyeon은 미업로드)
+- dansim `MAHZ8llCk_4`(fl은 이미 생성: `MAHZ8rVIQ7Y`), hoyeon `MAHZ8noem_Y`, mukcheol `MAHZ8mG1Y3c`, unhak `MAHZ8uoYCdY`, baekryun `MAHZ8gUp_2U`
+- dogyeom `MAHZ8hzcI-Y`, eunrang `MAHZ8lkJ_u8`, haerin `MAHZ8mEzUX0`, heukcheol `MAHZ8ghjoyk`, hongyeom `MAHZ8nXIu3E`
+- mujin `MAHZ8k5nss4`, sayul `MAHZ8mOCLiE`, seolhwa `MAHZ8jppUpU`, yeonbaek `MAHZ8gi5QBE`
+- 기마 그림은 biyeon·hoyeon·sayul만. heukcheol 원본은 도보이므로 말 문구를 넣지 않는다.
+- 작업 디자인 페이지 크기가 1054가 아니어도 세 칸을 가로 1/3씩(높이는 그 2/3) 맨 위에 두면 canva-sheet.py가 비율로 자른다.
+
 (이전 방식·참고) 뒷모습 한 장을 뒤집어 쓰는 `BACK_READY`/`characters/pixel/back/`과 sprite-gen 스크립트도 남아 있다. 4방향 그림이 있으면 그쪽이 우선한다.
 
 ```bash
