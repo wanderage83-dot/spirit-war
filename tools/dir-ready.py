@@ -22,3 +22,13 @@ s=open(p,encoding='utf8').read();s2,c=re.subn(r'SOLDIER_DIR_READY=\{[^}]*\}','SO
 if c!=1: raise SystemExit('index.html에서 SOLDIER_DIR_READY를 찾지 못했습니다')
 if s2!=s: open(p,'w',encoding='utf8').write(s2)
 print('SOLDIER_DIR_READY =',lit2,'(%d병종)'%len(sr))
+# 병사 걷기(characters/soldier-walk/<병종>/<방향>-1..4.webp, 네 장 모두 있을 때만) → SOLDIER_WALK_READY
+d3=os.path.join(root,'characters','soldier-walk');wr={}
+for n in sorted(os.listdir(d3)) if os.path.isdir(d3) else []:
+    ks=[k for k in ('fr','fl','br','bl') if all(os.path.isfile(os.path.join(d3,n,f'{k}-{i}.webp')) for i in range(1,5))]
+    if ks: wr[n]=','.join(ks)
+lit3='{'+','.join(n+":'"+v+"'" for n,v in wr.items())+'}'
+s=open(p,encoding='utf8').read();s2,c=re.subn(r'SOLDIER_WALK_READY=\{[^}]*\}','SOLDIER_WALK_READY='+lit3,s,count=1)
+if c!=1: raise SystemExit('index.html에서 SOLDIER_WALK_READY를 찾지 못했습니다')
+if s2!=s: open(p,'w',encoding='utf8').write(s2)
+print('SOLDIER_WALK_READY =',lit3,'(%d병종)'%len(wr))

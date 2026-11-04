@@ -228,3 +228,47 @@ python3 tools/soldier-dir.py 받은폴더/*.png
 - 흰 배경이면 자동으로 지우고, 그림 영역으로 잘라 높이 384px로 맞춰 `characters/soldier-dir/<병종>/<방향>.webp`에 저장한 뒤 `index.html`의 `SOLDIER_DIR_READY`를 자동으로 고친다. 이후 `git add characters/soldier-dir index.html` → 커밋 → 푸시, 또는 Claude에게 「올렸다」고 말한다.
 - 게임 쪽(`soldierDirOf`·`tinted`)은 이미 구현됨: 그림이 있는 병종만 방향 그림을 쓰고(뒤집지 않음), 적군은 같은 그림에 진영색을 입혀 쓴다. `node tests/soldier-dir.cjs <URL>`.
 
+---
+
+## 요청 5 · 병사 걷기 프레임(4방향 × 4동작) — 상태: 게임 연결 준비 완료, 그림 대기
+
+지금 병사는 그림 한 장을 위아래로 튀겨 걷는 흉내만 내서 다리가 움직이지 않는다. 4병종(방패병·궁병·창병·기병) × 4방향(fr·fl·br·bl)마다 **걷기 4동작을 한 줄로 그린 시트 1장**, 총 **16장**을 만든다. 게임은 실제로 걸은 거리에 맞춰 1→2→3→4를 돌리고(두 걸음에 한 바퀴), 멈추면 지금의 정지 그림으로 돌아간다. 적군은 같은 그림에 진영색을 입힌다. 장수 20명은 병사 결과를 본 뒤 정한다.
+
+### 참고 그림(꼭 첨부)
+| 병종 | fr(앞-오른쪽) | fl(앞-왼쪽) | br(뒤-오른쪽) | bl(뒤-왼쪽) |
+|---|---|---|---|---|
+| 방패병 shield | `shield.webp` | `characters/soldier-dir/shield/fl.webp` | `.../shield/br.webp` | `.../shield/bl.webp` |
+| 궁병 bow | `bow.webp` | `characters/soldier-dir/bow/fl.webp` | `.../bow/br.webp` | `.../bow/bl.webp` |
+| 창병 spear | `spear.webp` | `characters/soldier-dir/spear/fl.webp` | `.../spear/br.webp` | `.../spear/bl.webp` |
+| 기병 horse | `horse.webp` | `characters/soldier-dir/horse/fl.webp` | `.../horse/br.webp` | `.../horse/bl.webp` |
+
+해당 방향의 정지 그림 1장을 첨부한다(방향이 이미 맞는 그림이라 각도를 다시 설명할 필요가 적다).
+
+### 공통 규칙
+- **한 장에 4동작을 가로 한 줄로**, 같은 너비 4칸(예: 2048×640이면 칸마다 512). 칸 사이 선·숫자·글자 없음.
+- 네 칸 모두 **같은 크기·같은 땅선(발바닥 높이)·같은 위치**. 몸이 칸 안에서 옮겨 다니지 않고 제자리에서 걷는다(트레드밀처럼).
+- 첨부 그림과 같은 병사·같은 방향·같은 옷·무기·무기 든 손·색·SD 비율. 좌우 반전 금지.
+- 배경 **완전 투명**(안 되면 흰 단색). 그림자·바닥 없음. 발·말발굽이 잘리지 않게.
+- 파일 이름: `<병종>-<방향>.png` (예: `spear-fl.png`).
+
+### 붙여 넣을 프롬프트(정지 그림 1장 첨부 + 아래 문장)
+> A 4-frame walk cycle sprite sheet of the same soldier as the attached image, facing exactly the same direction as the attached image. Four poses in ONE horizontal row, equal-width cells, no borders, no gaps, no text, no numbers. Frame 1: right foot forward touching the ground, left foot back. Frame 2: passing pose, legs together under the body, body slightly higher. Frame 3: left foot forward touching the ground, right foot back. Frame 4: passing pose, legs together, body slightly higher. The character walks in place: same size, same position and the same ground line in every cell, only the legs, arms and cloth move. {병종 문장} Same face, helmet, armor, weapon in the same hand, colors and cute chibi SD proportions as the reference; do not mirror. Clean dark-brown outlines, soft cel shading. Transparent background, no shadow, no ground, nothing cropped.
+
+`{병종 문장}`:
+- **shield** → `He keeps the large tower shield raised in front and the short sword in the other hand while marching.`
+- **bow** → `She carries the bow in one hand, the quiver stays on the back, the cloak sways with each step.`
+- **spear** → `He holds the long spear upright while marching; the red tassel and scarf sway with each step.`
+- **horse** → `The pony walks with a four-beat walk (Frame 1: near front leg forward, Frame 2: legs gathered, Frame 3: far front leg forward, Frame 4: legs gathered); the rider bobs gently with the pony and keeps the sabre raised. The whole pony is visible.`
+
+### 확인 기준
+- [ ] 16장 모두 4칸·같은 너비, 칸마다 같은 땅선·같은 몸 위치(제자리 걷기)
+- [ ] 1·3번이 서로 반대 발 앞, 2·4번이 모은 다리(기병은 앞다리가 번갈아 나옴)
+- [ ] 정지 그림과 같은 병사·방향·무기 손, 투명(또는 흰) 배경, 잘림 없음
+
+### 게임에 넣기
+```bash
+python3 tools/soldier-walk.py 받은폴더/*.png
+```
+- 4칸으로 나누고(흰 배경이면 칸마다 지움), 네 칸 공통 상자로 잘라 같은 배율로 높이 384px에 맞춰 `characters/soldier-walk/<병종>/<방향>-1..4.webp`로 저장, `index.html`의 `SOLDIER_WALK_READY`를 자동 갱신한다.
+- 게임 쪽(`walkFrameOf`·`hasWalk`·`SOLDIER_WALK_FOOT`)은 이미 구현됨. 넣은 뒤 `node tests/soldier-walk.cjs <URL>`. 발 위치가 어긋나면 Claude가 눈으로 재서 `SOLDIER_WALK_FOOT`에 넣는다.
+
