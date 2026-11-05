@@ -1,6 +1,6 @@
 # Canva 등 흰 배경으로 받은 그림의 배경을 투명하게 만든다(테두리와 이어진 흰색 + 어두운 테두리에 둘러싸인 흰 구멍만; 흰 옷은 보존).
-# 사용: python3 -I tools/unwhite.py <입력.png> <출력.png> [구멍최소픽셀=150] [구멍테두리어둠=90]
-import sys
+# 사용: python3 -I tools/unwhite.py <입력.png> <출력.png> [구멍최소픽셀=150] [구멍테두리어둠=90]  환경변수 UNWHITE_KEEP=1이면 잘라내지 않고 원래 크기를 유지한다.
+import sys,os
 from PIL import Image, ImageFilter
 import numpy as np
 from collections import deque
@@ -40,5 +40,6 @@ print('holes',nh)
 a=np.where(mask,0,255).astype(np.uint8)
 A=Image.fromarray(a).filter(ImageFilter.MinFilter(3)).filter(ImageFilter.GaussianBlur(1))
 out=Image.open(src).convert('RGBA'); out.putalpha(A)
-bb=A.point(lambda v:255 if v>40 else 0).getbbox(); out=out.crop(bb)
+if os.environ.get("UNWHITE_KEEP")!="1":
+    bb=A.point(lambda v:255 if v>40 else 0).getbbox(); out=out.crop(bb)
 out.save(dst); print(out.size)

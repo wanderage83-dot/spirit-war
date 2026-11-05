@@ -228,3 +228,59 @@ python3 tools/soldier-dir.py 받은폴더/*.png
 - 흰 배경이면 자동으로 지우고, 그림 영역으로 잘라 높이 384px로 맞춰 `characters/soldier-dir/<병종>/<방향>.webp`에 저장한 뒤 `index.html`의 `SOLDIER_DIR_READY`를 자동으로 고친다. 이후 `git add characters/soldier-dir index.html` → 커밋 → 푸시, 또는 Claude에게 「올렸다」고 말한다.
 - 게임 쪽(`soldierDirOf`·`tinted`)은 이미 구현됨: 그림이 있는 병종만 방향 그림을 쓰고(뒤집지 않음), 적군은 같은 그림에 진영색을 입혀 쓴다. `node tests/soldier-dir.cjs <URL>`.
 
+---
+
+## 요청 5 · 병사 걷기 프레임(4방향 × 4동작) — 상태: 완료 (2026-11-04)
+
+### 완료 결과 (Codex)
+- 표의 각 방향 정지 그림을 각각 참고 이미지로 첨부하고 위 요청의 프롬프트로 4병종×4방향, 총 16개 가로 시트를 생성했다. 각 시트는 2172×724px, 동일 너비 543px의 4칸이며 투명 배경이다. 병사는 SD 일러스트를 유지하고 도트 변환·전체 좌우 반전을 사용하지 않았다.
+- 정지 그림과 나란히 비교해 병사·방향·무기 손·전신을 검수했다. 1·3번이 같은 발을 내딛던 초안은 이미지 생성 도구로 해당 다리 동작을 다시 그렸고, 기병도 앞다리 동작을 교대하도록 수정했다. 무기 끝이 칸 경계에 닿던 시트, 배경/그림자가 남은 수정본, 모은 다리의 발이 떠 있던 시트도 다시 생성·보정했다.
+- 네 칸의 등분·투명도·빈 칸·실루엣 잘림을 검사하고 시트를 직접 비교했다. 공통 상자 안에서 몸 중심을 유지하며, 땅선의 미세한 생성 편차는 최종 384px 프레임 기준 최대 5px(48px로 표시할 때 약 0.63px)이다. 2·4번의 몸이 조금 높아지는 보행 동작은 유지한다.
+- 최종 시트 PNG는 작업 서버 `/workspace/soldier-walk-sheets/<병종>-<방향>.png`에 보관했다(서버 로컬 경로로 Git에 포함되지 않음). `python3 tools/soldier-walk.py /workspace/soldier-walk-sheets/*.png`를 실행해 `characters/soldier-walk/<병종>/<방향>-1..4.webp` **64장**을 저장했다. 각 세트는 공통 잘라내기 상자·동일 크기·높이 384px·투명 WebP(품질 92)이며 `SOLDIER_WALK_READY`가 자동 갱신됐다.
+- `node tests/soldier-walk.cjs http://127.0.0.1:8800/`: **PASS, 16 registered**. 64프레임 로딩·걸음 위상별 순환·방향 선택·뒤집기 상쇄·적군 색상·멈추면 정지 그림·도약 감소 검사 통과.
+- `node tests/soldier-dir.cjs http://127.0.0.1:8800/`: **PASS, 12 registered**. 이미지 규격/필수 파일/투명도 검사, JavaScript 구문 검사, `git diff --check`도 통과했다.
+- 정지 원본 4장과 기존 방향 그림 12장을 보존했다. `index.html`은 `SOLDIER_WALK_READY` 등록 목록만 변경했고 전투 로직·렌더러·도구·테스트는 수정하지 않았다. `SOLDIER_WALK_FOOT`는 기존 자동 발 기준점을 그대로 사용한다. 작업 브랜치 `claude/pensive-hawking-pekoel`에 커밋·푸시하며 main에는 병합하지 않는다.
+
+지금 병사는 그림 한 장을 위아래로 튀겨 걷는 흉내만 내서 다리가 움직이지 않는다. 4병종(방패병·궁병·창병·기병) × 4방향(fr·fl·br·bl)마다 **걷기 4동작을 한 줄로 그린 시트 1장**, 총 **16장**을 만든다. 게임은 실제로 걸은 거리에 맞춰 1→2→3→4를 돌리고(두 걸음에 한 바퀴), 멈추면 지금의 정지 그림으로 돌아간다. 적군은 같은 그림에 진영색을 입힌다. 장수 20명은 병사 결과를 본 뒤 정한다.
+
+### 참고 그림(꼭 첨부)
+| 병종 | fr(앞-오른쪽) | fl(앞-왼쪽) | br(뒤-오른쪽) | bl(뒤-왼쪽) |
+|---|---|---|---|---|
+| 방패병 shield | `shield.webp` | `characters/soldier-dir/shield/fl.webp` | `.../shield/br.webp` | `.../shield/bl.webp` |
+| 궁병 bow | `bow.webp` | `characters/soldier-dir/bow/fl.webp` | `.../bow/br.webp` | `.../bow/bl.webp` |
+| 창병 spear | `spear.webp` | `characters/soldier-dir/spear/fl.webp` | `.../spear/br.webp` | `.../spear/bl.webp` |
+| 기병 horse | `horse.webp` | `characters/soldier-dir/horse/fl.webp` | `.../horse/br.webp` | `.../horse/bl.webp` |
+
+해당 방향의 정지 그림 1장을 첨부한다(방향이 이미 맞는 그림이라 각도를 다시 설명할 필요가 적다).
+
+### 공통 규칙
+- **한 장에 4동작을 가로 한 줄로**, 같은 너비 4칸(예: 2048×640이면 칸마다 512). 칸 사이 선·숫자·글자 없음.
+- 네 칸 모두 **같은 크기·같은 땅선(발바닥 높이)·같은 위치**. 몸이 칸 안에서 옮겨 다니지 않고 제자리에서 걷는다(트레드밀처럼).
+- 첨부 그림과 같은 병사·같은 방향·같은 옷·무기·무기 든 손·색·SD 비율. 좌우 반전 금지.
+- 배경 **완전 투명**(안 되면 흰 단색). 그림자·바닥 없음. 발·말발굽이 잘리지 않게.
+- 파일 이름: `<병종>-<방향>.png` (예: `spear-fl.png`).
+
+### 붙여 넣을 프롬프트(정지 그림 1장 첨부 + 아래 문장)
+> A 4-frame walk cycle sprite sheet of the same soldier as the attached image, facing exactly the same direction as the attached image. Four poses in ONE horizontal row, equal-width cells, no borders, no gaps, no text, no numbers. Frame 1: right foot forward touching the ground, left foot back. Frame 2: passing pose, legs together under the body, body slightly higher. Frame 3: left foot forward touching the ground, right foot back. Frame 4: passing pose, legs together, body slightly higher. The character walks in place: same size, same position and the same ground line in every cell, only the legs, arms and cloth move. {병종 문장} Same face, helmet, armor, weapon in the same hand, colors and cute chibi SD proportions as the reference; do not mirror. Clean dark-brown outlines, soft cel shading. Transparent background, no shadow, no ground, nothing cropped.
+
+`{병종 문장}`:
+- **shield** → `He keeps the large tower shield raised in front and the short sword in the other hand while marching.`
+- **bow** → `She carries the bow in one hand, the quiver stays on the back, the cloak sways with each step.`
+- **spear** → `He holds the long spear upright while marching; the red tassel and scarf sway with each step.`
+- **horse** → `The pony walks with a four-beat walk (Frame 1: near front leg forward, Frame 2: legs gathered, Frame 3: far front leg forward, Frame 4: legs gathered); the rider bobs gently with the pony and keeps the sabre raised. The whole pony is visible.`
+
+### 확인 기준
+- [x] 16장 모두 4칸·같은 너비, 칸마다 땅선·몸 위치 검수(미세 편차는 완료 결과에 기록)
+- [x] 1·3번이 서로 반대 발 앞, 2·4번이 모은 다리(기병은 앞다리가 번갈아 나옴)
+- [x] 정지 그림과 같은 병사·방향·무기 손, 투명 배경, 잘림 없음
+
+### 게임에 넣기
+```bash
+python3 tools/soldier-walk.py 받은폴더/*.png
+```
+- 4칸으로 나누고(흰 배경이면 칸마다 지움), 네 칸 공통 상자로 잘라 같은 배율로 높이 384px에 맞춰 `characters/soldier-walk/<병종>/<방향>-1..4.webp`로 저장, `index.html`의 `SOLDIER_WALK_READY`를 자동 갱신한다.
+- 게임 쪽(`walkFrameOf`·`hasWalk`·`SOLDIER_WALK_FOOT`)은 이미 구현됨. 넣은 뒤 `node tests/soldier-walk.cjs <URL>`. 발 위치가 어긋나면 Claude가 눈으로 재서 `SOLDIER_WALK_FOOT`에 넣는다.
+
+### 장수 걷기(2026-11-04) — 코드로 생성 완료
+Canva 크레딧이 없어 `tools/pixel-walk.py`로 장수 20명×4방향×4동작(320장)을 도트 그림에서 직접 만들었다(다리 띠를 엉덩이 축으로 흔듦). 다리가 크게 보이는 손그림 프레임을 원하면 같은 경로(`characters/pixel/walk/<이름>/<방향>-1..4.webp`, 원본 도트와 같은 크기)에 덮어쓰면 된다.
+
