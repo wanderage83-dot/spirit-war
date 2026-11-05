@@ -16,6 +16,7 @@
 | 무진·흑철·주작 | fr 그림이 원본과 같아 좌우 전환 안 보이던 것 → 원본 반전으로 교체 | dir-art |
 | 길찾기 | `crowdGrid`/`crowdBlocked`/`findPath(...,cg,me)`로 멈춘 아군 부대 우회, `sepWeight` 비켜 주기. 막힘 19.6→6.9% | crowd-pathing, movement-cavalry, no-flee 등 |
 | 행군 자리 겹침 (2026-11-05 후속) | `spreadSlots`로 같은 부대 자리 간격 벌림, 자리 상한 반경×.85. 막힘 13.5→7.8%(c6 44→4%) | march-queue 외 13개 회귀 |
+| 신병 합류 행군 | `u.joining`: 오는 동안 장수 대기·반경 제한 제외, 스스로 부대로 이동 | recruit-join |
 
 **사용자 피드백 상태**
 - 다리 움직임: 「다리가 움직인다」 확인됨. 병사 좌우 진동·무진 방향 수정 후 실기 확인은 아직 답 없음.

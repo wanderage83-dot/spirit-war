@@ -323,3 +323,7 @@
 - 방향: 자리가 넓어지자 c2에서 공격하러 다가가던 장수가 자기 병사에게 밀려 뒤로 미끄러지며 등을 보이는 장면이 늘었다(walk-facing 접전 등짐 6.8%). `facingFromMotion`이 engT가 없어도 attack/wave/engage로 사거리+60 안의 combatTarget에게 가려는데 실제 이동이 그 반대면(밀림) 대상을 본다(기병 backT·rout 제외). 3.7%.
 - 결과 13.5→7.8%(c6 44→4%). 남은 막힘은 대부분 대상 250 안에서 앞줄 뒤에 줄 선 뒷줄(측면 감싸기 미구현). `tests/march-queue.cjs`. crowd-pathing/formation-spacing/cohesion-flanks/no-flee/movement-cavalry/zoc-pathing/royal-guards/battle-goals/fortress-combat/walk-facing/team-planning/matchups/ap-stragglers 회귀.
 
+## 신병 합류 행군 · 2026-11-05
+- 문제: 앞에 나간 부대에 본진 신병이 붙으면 다음 턴부터 신병이 「뒤처진 병사」(pace 0, 「대형 유지 · 뒤처진 병사 대기」)이고, 장수의 squadStepAllowed가 모든 부대원과의 거리를 묶어 장수가 신병에게서 멀어지는 이동도 막혔다(장수 이동 1px). 신병 자신도 성벽 우회 경로가 장수에게서 멀어지는 첫 걸음이라 반경 규칙에 막혀 본진에 갇혔다.
+- `u.joining`(updateEconomy의 신병 생성 때 true, squadFrames에서 장수 반경×.85 안에 오면 false): stragglers·장수 반경 제한에서 제외, 신병 자신의 squadStepAllowed는 항상 허용, 부대 행동(move/engage 등)이 없어도 이동(합류 턴 joinedRound 정지는 그대로). 전투 임시 상태라 저장 불변. `tests/recruit-join.cjs`(이전 코드 실패 확인).
+
