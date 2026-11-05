@@ -310,3 +310,9 @@
 ## 무진 방향·좌우 떨림 · 2026-11-05
 - 무진·흑철·주작 군주의 `characters/pixel/dir/<이름>/fr.webp`가 원본(왼쪽을 봄)과 거의 같아 좌우 전환이 안 보였다. 원본 좌우 반전으로 교체하고 `tools/pixel-walk.py`로 fr 걷기 프레임 재생성. 귀왕(gui-ruler) fr은 정상.
 - facingFromMotion 접전(engT) 방향: 좌우·앞뒤 성분이 .35 이상일 때만, 반대로 되돌림은 `ENG_LOCK`.55초 뒤(대상이 바로 위아래일 때 초당 3번 뒤집히던 문제). 이동 방향 되돌림 잠금 `MOVE_LOCK`.35→.55, 빠른 이동(60px/s 이상)도 .4초. 걸음 기우뚱 병사 .11→걷기 프레임 있으면 .035/없으면 .07, 기병 .03. 0.5초 안 좌우 되돌림 c2 203→9, c6 42→8, x3 22→8. walk-facing 통과(접전 등짐 3.9% < 4).
+
+## 길찾기: 아군 부대 우회·추격 · 2026-11-05
+- 측정: 실제 교전에서 아군이 적에게 가려는데 거의 못 움직인 프레임 19.6%(c7 55%)의 97%가 separateUnits에 되밀림, 그 94%가 같은 부대 병사. 길찾기(findPath, 40px 격자 BFS)가 지형만 보고 유닛을 몰랐다.
+- `crowdGrid(side)`(.4초마다): 같은 편 부대 중 장수가 hold/garrison·.5초 이상 정지·접전(engT)인 부대의 병사 둘레 58px 칸에 부대 번호(`crowdId`), 겹치면 −1. `crowdBlocked(g,me,x0,y0,x1,y1)` 직선 판정. `navStep`은 직선 지름길·경로 줄이기에서 이 칸을 막힘으로 보고, `findPath(...,cg,me)`가 자기 부대·목표 칸만 허용(경로 없으면 기존 findPath). `squadSlotPoint`는 다른 부대 칸이나 그 칸을 지나는 자리를 고르지 않는다(부하가 B 안쪽 자리로 1200px 돌아가며 장수가 기다리던 교착).
+- `sepWeight`: 다른 부대끼리, 공격·이동·wave로 걷는 쪽과 한가한(멈춤·공격 대기 아님) 쪽이면 한가한 쪽 1·걷는 쪽 .15. 같은 부대에서 공격(attack) 명령으로 걷는(싸우는 중 아님) 장수는 .15(자기 병사가 비켜 줌, 부하에 둘러싸여 되밀리던 교착). move 명령에는 적용하지 않음(나무 통과 검사 8/12 실패). 부하의 대형 자리 복귀 문턱은 장수가 걸을 때 18→4.
+- 결과: 막힘 19.6→6.9%(7판), c3·c7·x2 약 31→9%. 추격은 기존대로 focus 부대를 남은 AP로 쫓는다(같은 속도 방패병끼리 거리 거의 유지). 전투 계산 약 9% 증가. `tests/crowd-pathing.cjs`. no-flee/movement-cavalry/cohesion-flanks/zoc-pathing/formation-spacing/royal-guards/battle-goals/fortress-combat/walk-facing 통과.
