@@ -340,3 +340,11 @@
 - c1·c2·x1·x2 `slots` 2→3(시작 동료 3명이 모두 출진, 아군 4부대). walk-facing 접전 등짐이 4.75%로 올라 `facingFromMotion`의 밀림 기준을 사거리+120으로, 감싸기(wrap) 이동 중에는 사거리+140 안 대상을 보게 함(2.9%).
 - `PASS_LINES=false`면 관문선을 만들지 않는다(들판 이동 규칙 검사 crowd-pathing·march-queue·flank-wrap 전용). cohesion-flanks의 AP0 검사는 4번째 부대와 겹치지 않는 빈 자리를 고른다. `tests/gate-pass.cjs`(12장 봉쇄/돌파/수비대 위치/반격/목표 띠, 수비·호송 장 관문 없음, 초반 4부대).
 
+## 적 증원 다양화·본진 수비·보급소 쟁탈·빠른 클로즈업 · 2026-11-05
+- 증원(beodeul 연습전 외): 옛 RAIDS 4방향 순환 대신 `WAVES`(horse·siege·elite·rear·archer·supply)에서 `planWave(at)`가 가중치로 고른다(보급소를 쥐면 supply 3, 성벽이 서 있으면 siege 2.2). 방향은 그 gdir 귀문이 살아 있는 것만(`waveGateLive`), 없으면 null로 끊김. reset이 resetSupplySites 뒤 `nextWave=planWave(84)`, updateEvents가 at−30에 `waveEvent`를 events에 넣고 다음을 `at+max(34,60−waveN×4)(+20 군량소)`에 계획. 병력은 +⌊waveN/2⌋씩. supply는 남쪽 모서리에서 쥔 보급소로 가 `raidPost`에 hold. 기존 room 상한(96×적 배율) 그대로라 적이 많으면 작게 온다.
+- launch: elite는 체력×1.3·공격×1.2, siege 플래그, 관문선이 안 뚫린 길(n→C·w→W·e→E)의 증원은 그 관문 뒤(PASS_Y−420)에 hold로 합류. drawSquadFlags 적 이름표 접두 「공성/정예/습격」.
+- `raidText()`→#raidchip(goalchip 아래 66px, 없으면 42px). 「적 증원 n턴 뒤」, `waveKnown()`(beacon≥1 또는 scribe)일 때만 방향·종류. 1턴 이하면 .soon 강조, #stage.raid-on이면 #toast margin-top 24.
+- 공성: attackDamage 끝에 siege×아군 keep 구조물 3배, acquire 평가 −400. 망루: initFort가 (1890,3990)·(2910,3990)에 `structure:'tower'`(64×64, hp0, 사거리400·피해22·간격1.5), `buildTower(i)` 군량 `TOWER_COST`120·AP_TURN 건설, update의 keep 공격 분기가 완공 망루도 쏨, drawFortPart 망루 그림, 탭하면 본진 창. `repairFort`/`fortRepairNeed`: 100+무너진 성벽당 60, 발자국 +6 안에 유닛이 없으면 40%로 재건 후 buildBlock. 본진 창 시설 탭에서 「본진으로 보기」 버튼을 빼고 망루 칸을 넣었다(320×568 무스크롤, 정보 줄 「시설 12초 뒤 완공」).
+- 보급소: `sideIncome()` 서·동 확보 각 +4/초(updateEconomy·economyUI). 피탈 시 cine.
+- 클로즈업: 확대 max(원배율×1.7,1.05)·최대1.6, 유지 2.2초, 쿨다운 2.6초, 다가갈 때 보간 7/초(돌아올 때 3.2). 새 사건: 증원 등장/반격(launch), 관문 합류, 아군 구조물 붕괴(fortDown), 본진 50·25%(hit), 보급소 피탈(updatePoint). `tests/waves-defense.cjs`.
+
