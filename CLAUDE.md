@@ -332,3 +332,11 @@
 - 측정: 7판 아군 「적 170 안·사거리 밖·제자리」 10.6→8.4%, 막힘 7.8→5.3%. 트인 들판 1부대 대 1부대 3턴 평균 참여(적 생존 중) c3/c5/c11 이전 6.7/7.1/6.8 → 6.0/7.7/7.3, 감싼 각도 173~186°→180~204°. 들판에서는 기존 분리 동작도 몇 턴이면 감싸므로 차이가 작다. 시도했다 버린 것: 적 부대를 둘러싼 호에 미리 고르게 세우기(감싼 각도 220~300°지만 참여 6.4로 낮음, 뒤로 돌아가느라 이동 AP 소진).
 - `tests/flank-wrap.cjs`(c5·c11 들판 시나리오, 참여율 .6·각도 170 이상, 이전 코드도 통과하는 회귀 방지용). 18개 회귀 통과, walk-facing 접전 등짐 2.6%.
 
+## 관문선·초반 4부대 · 2026-11-05
+- 장 데이터 `pass:1`(공격전 c3·c5·c7·c9·c11·c12·c14·c15·c16·x6·x8·x10). launchChapter가 goalInit 전에 `passInit(c)`. `PASS_Y=2700` 선을 따라 `battleRoutes()` C/W/E가 그 선을 지나는 x에 관문(type 'gate'+`fence:'door'`, w220·h64, 정문 .7·샛문 .4 × stats.gate[0]×max(1,enemyF)), 선 위 walkable 칸(±40) 전부를 목책(`fence:'wall'`, ≤400 폭, 1.6배)으로 막는다. pass·canyon은 동쪽 길이 선을 안 지나 관문 2개.
+- `fortBlocked`가 살아 있는 fence도 막힘으로 본다(양쪽 모두 막음), `gap`은 fence를 직사각형으로 잰다. 무너지면 `gateDown`→`passBreach`(그 길 tag 수비대의 반격 event, at+3초), `fortDown`이 buildBlock·경로 초기화. `drawFence`는 지면 좌표(성벽과 같은 방식) 나무 목책·관문, 관문 이름·내구 막대. commandAt은 fence 직사각형 안 탭을 적으로 인식.
+- 수비대: tag center/west/east의 hold 병력을 각 관문 뒤로(창 PASS_Y−150, 활 −230, 그 외 −260 이후). 정해진 남하 event(tag 있는 것)는 지운다. 남서 배후 기습·귀문 증원은 그대로. `passText()`가 목표 띠에 「관문 n/m 돌파」. reset이 passState를 지운다. 전투 임시 상태라 저장 불변.
+- 시험(c3·c5·c7·c11·c12): 정문을 전 부대로 2~7턴·손실 9~29명·반격 18~24명, 샛문을 1부대로 4~6턴. c11 서쪽 샛문은 1부대로 못 뚫음.
+- c1·c2·x1·x2 `slots` 2→3(시작 동료 3명이 모두 출진, 아군 4부대). walk-facing 접전 등짐이 4.75%로 올라 `facingFromMotion`의 밀림 기준을 사거리+120으로, 감싸기(wrap) 이동 중에는 사거리+140 안 대상을 보게 함(2.9%).
+- `PASS_LINES=false`면 관문선을 만들지 않는다(들판 이동 규칙 검사 crowd-pathing·march-queue·flank-wrap 전용). cohesion-flanks의 AP0 검사는 4번째 부대와 겹치지 않는 빈 자리를 고른다. `tests/gate-pass.cjs`(12장 봉쇄/돌파/수비대 위치/반격/목표 띠, 수비·호송 장 관문 없음, 초반 4부대).
+
