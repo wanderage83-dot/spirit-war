@@ -18,6 +18,7 @@
 | 행군 자리 겹침 (2026-11-05 후속) | `spreadSlots`로 같은 부대 자리 간격 벌림, 자리 상한 반경×.85. 막힘 13.5→7.8%(c6 44→4%) | march-queue 외 13개 회귀 |
 | 신병 합류 행군 | `u.joining`: 오는 동안 장수 대기·반경 제한 제외, 스스로 부대로 이동 | recruit-join |
 | 측면 감싸기 | `wrapPoint`/`wrapBlocked`: 막힌 뒷줄이 트인 옆 적·대상 옆 빈 자리·줄 끝 옆걸음. 줄 선 시간 10.6→8.4% (효과는 작음) | flank-wrap |
+| 증원·수비·보급 (2026-11-05) | `WAVES`·`planWave`·`waveEvent`·`raidText`(#raidchip), 공성대 `u.siege`(구조물 ×3), 망루 `structure:'tower'`·`buildTower`, `repairFort` 성벽 재건, `sideIncome` 보급소 +4/초, 클로즈업 빠르게 | waves-defense |
 | 관문선 (2026-11-05) | 공격전 12장(`pass:1`)에 가운데 목책+정문·샛문(`passInit`·`passBreach`·`drawFence`). 돌파 전엔 적이 몰려오지 않고, 뚫린 길의 수비대만 반격. 1·2장(x1·x2) 4부대 시작 | gate-pass |
 
 **사용자 피드백 상태**
