@@ -319,7 +319,7 @@
 
 ## 행군 막힘: 자리 겹침 · 2026-11-05
 - 측정(7판, 적에게 가려는데 거의 못 움직인 아군 프레임): 13.5%(c6 44%). 대부분 같은 부대 병사끼리 되밀림. 원인1: `squadFrames`가 위치×1.2를 반경 .7로 자르며 만든 자리가 서로 64 미만으로 겹쳐 두 병사가 한 자리를 두고 영원히 밀침. 원인2: `formation`의 자리 상한(반경−32=288)과 `squadSlotPoint` 고리 탐색(반경−12)이 straggler 선(반경×.92=294) 근처·바깥이라 자리에 선 병사가 계속 뒤처진 병사로 잡혀 장수가 기다림(pace 0).
-- `spreadSlots(us,L,cap)`: 같은 부대 자리 쌍을 unitSeparation+6 이상으로 12회 이완, 장수 자리(0,0) 고정, cap 안. squadFrames 재계산(cap 반경×.7)과 formation(cap 반경×.85, 벌린 자리가 walkable일 때 tx/ty 갱신)에서 호출. formation 상한과 squadSlotPoint clear 반경을 반경×.85로.
+- `spreadSlots(us,L,cap)`: 같은 부대 자리 쌍을 unitSeparation+6 이상으로 12회 이완, 장수 자리(0,0) 고정, cap 안. squadFrames 재계산(cap 반경×.7)과 formation(cap 반경×.85, 자리만 벌리고 이동 목적지 tx/ty는 그대로)에서 호출. formation 상한과 squadSlotPoint clear 반경을 반경×.85로.
 - 방향: 자리가 넓어지자 c2에서 공격하러 다가가던 장수가 자기 병사에게 밀려 뒤로 미끄러지며 등을 보이는 장면이 늘었다(walk-facing 접전 등짐 6.8%). `facingFromMotion`이 engT가 없어도 attack/wave/engage로 사거리+60 안의 combatTarget에게 가려는데 실제 이동이 그 반대면(밀림) 대상을 본다(기병 backT·rout 제외). 3.7%.
 - 결과 13.5→7.8%(c6 44→4%). 남은 막힘은 대부분 대상 250 안에서 앞줄 뒤에 줄 선 뒷줄(측면 감싸기 미구현). `tests/march-queue.cjs`. crowd-pathing/formation-spacing/cohesion-flanks/no-flee/movement-cavalry/zoc-pathing/royal-guards/battle-goals/fortress-combat/walk-facing/team-planning/matchups/ap-stragglers 회귀.
 
