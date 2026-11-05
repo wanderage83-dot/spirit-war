@@ -16,5 +16,5 @@ assert.deepEqual(r.have.sort(),r.want.sort(),'등록한 걷기 프레임이 모�
 assert.deepEqual(r.seq,['fr1','fr2','fr3','fr4','fr1','fr2'],'걸음 위상 0.5마다 다음 프레임: '+r.seq);
 for(const k of['fr','fl','br','bl']){assert.equal(r.dirs['0'+k].tag,k+'2','아군 '+k);assert(r.dirs['0'+k].a>0,'뒤집지 않음 '+k);assert.equal(r.dirs['1'+k].tag,k+'2','적 '+k+'는 진영색 입힌 같은 프레임');assert(r.dirs['1'+k].src==='canvas')}
 assert(r.still.tag!=='fr2','멈추면 걷기 프레임을 쓰지 않는다');assert(r.bow.src.endsWith('/bow.webp')||r.bow.src.includes('soldier-dir/bow'),'프레임 없는 병종은 기존 그림');
-assert(r.bobOn>r.bobOff+2,'프레임이 있으면 코드 도약이 작다 '+r.bobOn+' '+r.bobOff);
-assert.deepEqual(errors,[]);console.log('PASS soldier walk',r.want.length,'registered; frames cycle with stride, per-direction, unflipped, enemy tinted, still frame when idle, smaller bob');await b.close()})();
+assert(r.bobOn>=-1.6&&r.bobOff>=-1.6,'걸을 때 위아래 도약은 거의 없다(좌우 기우뚱으로 걸음 표현) '+r.bobOn+' '+r.bobOff);
+assert.deepEqual(errors,[]);console.log('PASS soldier walk',r.want.length,'registered; frames cycle with stride, per-direction, unflipped, enemy tinted, still frame when idle, tiny bob');await b.close()})();
