@@ -14,7 +14,7 @@ def foot(a,w,h):
             if a[x,y]>100:xs+=x;n+=1
     return round(xs/n) if n else w//2
 def frames(src,D=None,LIFT=None):
-    D=float(os.environ.get('STRIDE','4')) if D is None else D;LIFT=int(os.environ.get('LIFT','2')) if LIFT is None else LIFT
+    D=float(os.environ.get('STRIDE','5')) if D is None else D;LIFT=int(os.environ.get('LIFT','3')) if LIFT is None else LIFT
     big=Image.open(src).convert('RGBA');w,h=big.width//UP,big.height//UP;im=big.resize((w,h),Image.NEAREST)
     px=im.load();A=im.getchannel('A').load();fx=foot(A,w,h);top=h-max(5,round(h*LEG))
     out=[]
