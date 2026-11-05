@@ -316,3 +316,14 @@
 - `crowdGrid(side)`(.4초마다): 같은 편 부대 중 장수가 hold/garrison·.5초 이상 정지·접전(engT)인 부대의 병사 둘레 58px 칸에 부대 번호(`crowdId`), 겹치면 −1. `crowdBlocked(g,me,x0,y0,x1,y1)` 직선 판정. `navStep`은 직선 지름길·경로 줄이기에서 이 칸을 막힘으로 보고, `findPath(...,cg,me)`가 자기 부대·목표 칸만 허용(경로 없으면 기존 findPath). `squadSlotPoint`는 다른 부대 칸이나 그 칸을 지나는 자리를 고르지 않는다(부하가 B 안쪽 자리로 1200px 돌아가며 장수가 기다리던 교착).
 - `sepWeight`: 다른 부대끼리, 공격·이동·wave로 걷는 쪽과 한가한(멈춤·공격 대기 아님) 쪽이면 한가한 쪽 1·걷는 쪽 .15. 같은 부대에서 공격(attack) 명령으로 걷는(싸우는 중 아님) 장수는 .15(자기 병사가 비켜 줌, 부하에 둘러싸여 되밀리던 교착). move 명령에는 적용하지 않음(나무 통과 검사 8/12 실패). 부하의 대형 자리 복귀 문턱은 장수가 걸을 때 18→4.
 - 결과: 막힘 19.6→6.9%(7판), c3·c7·x2 약 31→9%. 추격은 기존대로 focus 부대를 남은 AP로 쫓는다(같은 속도 방패병끼리 거리 거의 유지). 전투 계산 약 9% 증가. `tests/crowd-pathing.cjs`. no-flee/movement-cavalry/cohesion-flanks/zoc-pathing/formation-spacing/royal-guards/battle-goals/fortress-combat/walk-facing 통과.
+
+## 행군 막힘: 자리 겹침 · 2026-11-05
+- 측정(7판, 적에게 가려는데 거의 못 움직인 아군 프레임): 13.5%(c6 44%). 대부분 같은 부대 병사끼리 되밀림. 원인1: `squadFrames`가 위치×1.2를 반경 .7로 자르며 만든 자리가 서로 64 미만으로 겹쳐 두 병사가 한 자리를 두고 영원히 밀침. 원인2: `formation`의 자리 상한(반경−32=288)과 `squadSlotPoint` 고리 탐색(반경−12)이 straggler 선(반경×.92=294) 근처·바깥이라 자리에 선 병사가 계속 뒤처진 병사로 잡혀 장수가 기다림(pace 0).
+- `spreadSlots(us,L,cap)`: 같은 부대 자리 쌍을 unitSeparation+6 이상으로 12회 이완, 장수 자리(0,0) 고정, cap 안. squadFrames 재계산(cap 반경×.7)과 formation(cap 반경×.85, 자리만 벌리고 이동 목적지 tx/ty는 그대로)에서 호출. formation 상한과 squadSlotPoint clear 반경을 반경×.85로.
+- 방향: 자리가 넓어지자 c2에서 공격하러 다가가던 장수가 자기 병사에게 밀려 뒤로 미끄러지며 등을 보이는 장면이 늘었다(walk-facing 접전 등짐 6.8%). `facingFromMotion`이 engT가 없어도 attack/wave/engage로 사거리+60 안의 combatTarget에게 가려는데 실제 이동이 그 반대면(밀림) 대상을 본다(기병 backT·rout 제외). 3.7%.
+- 결과 13.5→7.8%(c6 44→4%). 남은 막힘은 대부분 대상 250 안에서 앞줄 뒤에 줄 선 뒷줄(측면 감싸기 미구현). `tests/march-queue.cjs`. crowd-pathing/formation-spacing/cohesion-flanks/no-flee/movement-cavalry/zoc-pathing/royal-guards/battle-goals/fortress-combat/walk-facing/team-planning/matchups/ap-stragglers 회귀.
+
+## 신병 합류 행군 · 2026-11-05
+- 문제: 앞에 나간 부대에 본진 신병이 붙으면 다음 턴부터 신병이 「뒤처진 병사」(pace 0, 「대형 유지 · 뒤처진 병사 대기」)이고, 장수의 squadStepAllowed가 모든 부대원과의 거리를 묶어 장수가 신병에게서 멀어지는 이동도 막혔다(장수 이동 1px). 신병 자신도 성벽 우회 경로가 장수에게서 멀어지는 첫 걸음이라 반경 규칙에 막혀 본진에 갇혔다.
+- `u.joining`(updateEconomy의 신병 생성 때 true, squadFrames에서 장수 반경×.85 안에 오면 false): stragglers·장수 반경 제한에서 제외, 신병 자신의 squadStepAllowed는 항상 허용, 부대 행동(move/engage 등)이 없어도 이동(합류 턴 joinedRound 정지는 그대로). 전투 임시 상태라 저장 불변. `tests/recruit-join.cjs`(이전 코드 실패 확인).
+
