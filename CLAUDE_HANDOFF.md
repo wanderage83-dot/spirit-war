@@ -1,5 +1,39 @@
 # 클로드 인수인계 — 사신기 / spirit-war
 
+## 0. 최신 인계 · 2026-11-05 (먼저 읽기)
+
+기준 main 커밋 `be3f7ec` (PR #2~#6 병합까지). 아래 1장 이후는 2026-10-31 기준 설명이며, 바뀐 점은 이 절과 [CLAUDE.md](CLAUDE.md) 맨 아래 2026-11-04~05 항목이 우선한다.
+
+**이번 대화에서 한 일 (모두 main 병합 완료)**
+| 주제 | 핵심 | 검사 |
+|---|---|---|
+| 장수 4방향 그림 | 20명 `characters/pixel/dir/<이름>/<fr\|fl\|br\|bl>.webp`, `DIR_READY`, `dirOf`/`drawDir`(뒤집기 상쇄), `footOf` 발 기준 | dir-art, pixel-leaders, cast-deployment |
+| 병사 4방향·걷기 | `SOLDIER_DIR_READY` 12장, `SOLDIER_WALK_READY` 64장(Codex 생성), `SOLDIER_FOOT` 수동 발 위치 | soldier-dir, soldier-walk |
+| 장수 걷기 | `tools/pixel-walk.py`로 도트에서 320장 생성, `PIXEL_WALK_READY`, `leaderWalkOf` | leader-walk |
+| 이동=그림 방향 | `facingFromMotion`(실제 화면 속도), `MOVE_LOCK`.55, 접전 `engT`·`ENG_LOCK`.55 | walk-facing, facing, visual-calm |
+| 희끄무레함 | 실행 중 `dim` 제거, HD 광원·번짐은 임팩트 때만 | no-wash, hd2d |
+| 걸음 표현 | 도약 거의 없음, 좌우 기우뚱(걷기 프레임 있으면 .035), 디딜 때 먼지 `footfall` | soldier-walk |
+| 무진·흑철·주작 | fr 그림이 원본과 같아 좌우 전환 안 보이던 것 → 원본 반전으로 교체 | dir-art |
+| 길찾기 | `crowdGrid`/`crowdBlocked`/`findPath(...,cg,me)`로 멈춘 아군 부대 우회, `sepWeight` 비켜 주기. 막힘 19.6→6.9% | crowd-pathing, movement-cavalry, no-flee 등 |
+
+**사용자 피드백 상태**
+- 다리 움직임: 「다리가 움직인다」 확인됨. 병사 좌우 진동·무진 방향 수정 후 실기 확인은 아직 답 없음.
+- 길찾기: 방금 병합, 실기 확인 전. 사용자가 원한 것은 「막히면 의도에 따라 돌아가고, 공격하려던 부대가 도망가면 쫓아가기」.
+
+**남은 과제 후보**
+- 추격: 같은 속도 병종은 도망가는 적을 따라잡지 못한다(거리 초당 약 26px 증가). 다음 턴 「계속 접근」 자동 제안이나 추격 속도 보정이 필요한지 사용자에게 물어볼 것.
+- 근접전 뒷줄: 앞줄이 싸우는 동안 뒷줄이 측면으로 감싸 들어가는 동작은 아직 없다(개별 회피 `crowdStep` 시도는 수치가 나빠져 되돌림).
+- 남은 막힘의 주원인은 같은 부대 행군 줄서기와 반경 대기(c5 leash·wait). 
+- 우회로가 길면 느린 방패병은 12초 한 턴에 못 닿는다.
+
+**작업 방식 메모**
+- 사용자는 한국어로 짧게 지시하고, 결과를 확인한 뒤 「병합」이라고 하면 PR을 만들어 main에 병합한다. 병합은 매번 명시적으로 요청받은 뒤에만.
+- 작업 브랜치는 세션이 지정한다(이번 세션 `claude/pensive-hawking-pekoel`). 새 세션은 main에서 시작.
+- 검사: `python3 -m http.server 8782` 후 `NODE_PATH=$(npm root -g) node tests/<이름>.cjs http://127.0.0.1:8782`. 옛 검사 일부는 `/usr/bin/chromium`을 하드코딩하니 이 컨테이너에선 `/opt/pw-browsers/chromium`으로 바꾼 사본으로 돌린다(새 검사는 자동 감지).
+- 그림 생성: Canva MCP는 무료 한도 초과로 막혔다. 그림이 필요하면 ART_REQUESTS.md 형식의 프롬프트를 써서 사용자가 ChatGPT/Codex로 만든다.
+
+---
+
 작성일: 2026-10-31 (UTC). 이 문서는 **현재 상태를 먼저 설명하는 인수인계서**다. 과거 대화나 오래된 변경 기록 없이도 이어서 작업할 수 있도록 작성했다.
 
 ## 1. 지금 어디까지 되어 있는가
