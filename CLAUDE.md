@@ -374,3 +374,10 @@
 ## 도술 뒤 자동 공격·전투 UI 편의 · 2026-11-06
 - 원인: apCanStrike가 진행 중 행동이 dragon/heal/skill이면 그 시간(3 AP·2 AP) 내내 부대 공격을 막았다(apStrike가 apCommitted). `AP_CAST`·`apReserve(g)`(아직 시작 안 한 예약 행동 비용 합): 시전 구간에는 u.ap−예약 ≥ apCost이거나 apFree이면 제자리 자동 공격, apStrike는 무행동과 같이 AP 차감·apStrikeAt. engage 전용 apActionLeft는 engage일 때만 깎는다. `tests/spell-strike.cjs`(시전 구간 명중 6→14, 기술 0→6, 뒤 예약 이동 AP 보존, 가로 명령 판 ≤120px).
 - UI(전투 화면 최대 유지): style 끝 「전투 UI 편의」 블록. body.battle-wide #toast 두 줄 줄바꿈, .battle-voice pointer-events:none·4.5초, #restart 붉은색, 가로(max-height:500px) commands-open에서 #orders 7열 한 줄·도술 26px·#compass 한 줄 5칸을 skills 오른쪽에(판 154→104px). 군주 카드 「군주·호위대」→「군주」.
+
+## 넓은 전장(세 판 중 한 판) · 2026-11-06
+- 사용자 요청 「같은 지역이면 같은 맵」(이미 지역별 지형·소품 시드가 같아 변경 없음, 날씨만 다름)·「세 판 중 한 판은 맵 두 배」. 장 데이터 `big:1`(c3·c6·c9·c12·c15·x3·x6·x9), `BIG_WS=1.4`(한 변 6720, 넓이 1.96배).
+- `setWorldScale(ws)`(launchRealmBattle 첫머리, saga 장의 big으로 결정, 그 밖은 1): `WS`·`MAP_SCALE=2*WS`·`WW/WH`·`GW/GH/FW/FH`·`ISO_W/ISO_H`를 바꾸고 격자 배열(blockGrid·treeGrid·cellOK·prevBuf·qBuf)을 다시 만든다. 처음 호출 때 `WS_BASE`에 KEEP·CITADEL·GRANARY·SPIRIT·BEACON·REAR_SUPPLY·GOAL_SPOTS·RAIDS 원본을 저장하고 매번 원본×ws로 다시 계산(누적 없음). PASS_Y=2700×ws, GOAL_SPOTS.home은 KEEP 기준.
+- 지형: terrainAt은 MAP_SCALE로 나눠 2400 논리 좌표를 보므로 자동으로 늘어난다. 배경(`background`)과 소품 생성(`genProps`)은 `withBaseMap`(MAP_SCALE=2·WW=4800·HILLS 원본)으로 원래 지도 기준으로 만든 뒤 bg는 drawImage로 늘리고 소품 위치만 ×WS(크기 그대로). HILLS는 ×WS. `battleRoutes()`는 `battleRoutesBase()`(원래 좌표, canyonRoute는 ×2 고정)를 ×WS. battleRoads/nearRoad는 원래 좌표(배경·소품 생성에서만 사용).
+- 본진 기준(크기 고정): initFort 성벽·시설·망루, 본진 보급소(KEEP.y−380), 신병 집결지, 아군 부대 시작 위치(groups x·y를 KEEP 기준 오프셋으로), 본진 구역 표시. ×WS: 서·동 보급소, waveEvent 경로·보급소 습격 출발지, 연습전 후방 기습, 다리 지도 테두리. setZoom 하한 .25/WS.
+- 병사 크기·속도·사거리·간격·통제 구역·장수 반경 불변. 저장 구조 불변(지도 배율은 전투 임시 상태). `tests/big-map.cjs`(8개 큰 판+일반 판: 배율, 배치 걸을 수 있음, 성벽 본진 기준 오프셋, 아군·적 거리, 관문 PASS_Y, 관문 뺀 적 진군로→본진 경로, 보급소, 실제 3턴, 일반 판으로 돌아오면 원래 값).
