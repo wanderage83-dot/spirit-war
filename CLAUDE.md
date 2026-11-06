@@ -381,3 +381,4 @@
 - 지형: terrainAt은 MAP_SCALE로 나눠 2400 논리 좌표를 보므로 자동으로 늘어난다. 배경(`background`)과 소품 생성(`genProps`)은 `withBaseMap`(MAP_SCALE=2·WW=4800·HILLS 원본)으로 원래 지도 기준으로 만든 뒤 bg는 drawImage로 늘리고 소품 위치만 ×WS(크기 그대로). HILLS는 ×WS. `battleRoutes()`는 `battleRoutesBase()`(원래 좌표, canyonRoute는 ×2 고정)를 ×WS. battleRoads/nearRoad는 원래 좌표(배경·소품 생성에서만 사용).
 - 본진 기준(크기 고정): initFort 성벽·시설·망루, 본진 보급소(KEEP.y−380), 신병 집결지, 아군 부대 시작 위치(groups x·y를 KEEP 기준 오프셋으로), 본진 구역 표시. ×WS: 서·동 보급소, waveEvent 경로·보급소 습격 출발지, 연습전 후방 기습, 다리 지도 테두리. setZoom 하한 .25/WS.
 - 병사 크기·속도·사거리·간격·통제 구역·장수 반경 불변. 저장 구조 불변(지도 배율은 전투 임시 상태). `tests/big-map.cjs`(8개 큰 판+일반 판: 배율, 배치 걸을 수 있음, 성벽 본진 기준 오프셋, 아군·적 거리, 관문 PASS_Y, 관문 뺀 적 진군로→본진 경로, 보급소, 실제 3턴, 일반 판으로 돌아오면 원래 값).
+- 호송 수레(cartStep): 큰 협곡에서 직선 북쪽에 얇은 절벽 조각이 있어 c6 수레가 멈췄다. 막히면 축 미끄러짐 뒤 ±.5~1.5rad 옆걸음을 시도하고, 1.5초 정체 복구는 경로점 중 30~160 거리의 첫 점으로 옮긴다(바로 옆 점으로 옮겨 제자리에 머물던 문제). battle-goals 호송 검사 시간은 120초×WS².
