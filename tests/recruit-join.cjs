@@ -8,7 +8,7 @@ const r=await p.evaluate(async()=>{setRoute('qing');newRealm();showRealm();const
  let o=null;for(let d=1500;d>800&&!o;d-=50){const q=nearestCell(KEEP.x,KEEP.y-d);if(Math.hypot(q.x-KEEP.x,q.y-KEEP.y)>700)o=q}const c0=centroid(us);for(const v of us){const q=nearestCell(o.x+(v.x-c0.x),o.y+(v.y-c0.y));v.x=v.rx=q.x;v.y=v.ry=q.y;v.path=null;v.order='hold';v.squadSlot=null}
  for(const v of units)if(v.side&&v.hp>0&&Math.hypot(v.x-o.x,v.y-o.y)<1300){v.hp=0}
  // 신병 합류
- const r0=recipes.find(r=>r.g===g);queue.push({...r0,n:recruitSize(r0),left:0});updateEconomy(.05);const nu=apUnits(g).filter(v=>v.joinedRound===ap.round);
+ const r0=recipes.find(r=>r.g===g);queue.push({...r0,n:recruitSize(r0),left:0});updateEconomy(.05);const nu=apUnits(g).filter(v=>v.joinedRound===ap.round);const fxJoin={pillars:fx.filter(f=>f.kind==='pillar').length,banner:document.querySelector('#powerup').innerText};
  // 다음 턴으로 넘겨 합류 턴 예외가 끝난 상태에서, 장수 부대를 신병 반대쪽(앞)으로 이동
  const waitCue={n:0};const oC=window.combatCue;window.combatCue=function(u,t){if(u.squad===L.squad&&t&&t.startsWith('대형 유지'))waitCue.n++;return oC.apply(this,arguments)};
  const run=()=>{apCancelAdvance();let gd=0;while(apPending().length&&gd++<20)apSkip();document.querySelector('#apready-run').click();for(let i=0;i<12/.025&&state==='playing';i++)advancePhase(.025)};
@@ -17,6 +17,6 @@ const r=await p.evaluate(async()=>{setRoute('qing');newRealm();showRealm();const
  const near0=nu.filter(v=>v.hp>0&&Math.hypot(v.x-L.x,v.y-L.y)<=320*.85).length;
  // 신병이 결국 부대에 합류한다
  const dist=[];for(let k=0;k<4&&state==='planning';k++){run();dist.push(nu.map(v=>Math.round(Math.hypot(v.x-L.x,v.y-L.y))+(v.joining?'j':'')+v.order).join(','))}const joined=nu.filter(v=>v.hp>0&&!v.joining).length,close=nu.filter(v=>v.hp>0&&Math.hypot(v.x-L.x,v.y-L.y)<=330).length;
- window.combatCue=oC;return{dist,g,recruits:nu.length,moved:Math.round(moved),away:Math.round(away),waitCue:waitCue.n,near0,joined,close}});
-console.log(r);assert.ok(r.recruits>=2,'신병 생성');assert.ok(r.moved>250&&r.away>150,'장수가 신병을 기다리지 않고 앞으로 감');assert.equal(r.waitCue,0,'신병 대기 없음');assert.ok(r.joined===r.recruits&&r.close===r.recruits,'신병이 부대에 합류');assert.deepEqual(errors,[]);
+ window.combatCue=oC;return{fxJoin,dist,g,recruits:nu.length,moved:Math.round(moved),away:Math.round(away),waitCue:waitCue.n,near0,joined,close}});
+console.log(r);assert.ok(r.recruits>=2,'신병 생성');assert.ok(r.fxJoin.pillars>=r.recruits&&/신병 합류/.test(r.fxJoin.banner),'신병 합류 빛기둥·알림 띠');assert.ok(r.moved>250&&r.away>150,'장수가 신병을 기다리지 않고 앞으로 감');assert.equal(r.waitCue,0,'신병 대기 없음');assert.ok(r.joined===r.recruits&&r.close===r.recruits,'신병이 부대에 합류');assert.deepEqual(errors,[]);
 console.log('PASS recruits walking up from the base never hold the squad leader back, and join the squad when they arrive');await b.close()})();

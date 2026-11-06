@@ -352,3 +352,7 @@
 - 현무편은 동료가 끝까지 3명(아군 4부대)이라 출진 칸 4~5가 비었다. 대사에 이미 나오는 동맹 장수를 장 뒤 합류로: x3 `joinAfter:['o_muk']`(청룡 원군), x5 `['o_hong','o_ha']`(주작), x8 `['o_eun']`(백호). x4·x5 slots 3→4. 결과 동료 3→4(x4)→6(x6)→7(x9), 아군 4→5→6부대(청명편과 같은 흐름). 대사·장 순서·목표 불변, 국가 소속과 동맹 파견 편성은 별개 원칙대로.
 - `loadRealm`: route xuan 저장이면 SAGA_X의 cleared 장 joinAfter 중 roster에 없는 인물을 joinHero로 채운다(옛 저장 호환, 저장 키 불변).
 
+## 강화·신병 연출 · 2026-11-06
+- `powerFx(list,col,big)`: 대상마다 fx `pillar`(지면 빛 타원+upright 세로 그라데이션 기둥, lighter 합성, 1.6초, 장수 280/병사 220/건물 300 높이)와 `mote` 3개(오르는 별빛, 동작 줄이기면 생략), 한 번에 최대 40명. `powerBanner(title,sub,col)`: #stage 안 #powerup(가운데 28%, 큰 명조 글씨+진영 빛, 2.2초 powerPop, 동작 줄이기면 페이드, pointer-events 없음).
+- 연결: updateFort 시설 완공(금 #ffd34d, 그 병종 전원+시설, 「★ ○○ 강화 완료」·병사 수·효과, cine pri2), 망루 완공(주황 #ffa94d), updateEconomy 신병 합류(청록 #5ff0d8, 「⚑ 신병 합류」), repairFort(주황, 살아 있는 성벽). settleBattleVisuals가 pillar·mote를 남겨 턴 끝 완공(12초 시점)에도 보인다. 판정·수치 불변.
+
