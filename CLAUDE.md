@@ -359,3 +359,18 @@
 
 ## 방패병 이동 속도 · 2026-11-06
 - 사용자 요청 「방패병이 궁병보다 빠르게」: `stats.shield` 속도 44→50(궁병 45, 창병 52, 기병 100). MARCH_SPEED·지형·시설 배율은 그대로 곱해진다. 군주 부대는 호위가 방패병이라 부대 최저 속도도 함께 오른다.
+
+## 창병 사거리 · 2026-11-06
+- 사용자 요청 「창병은 공격범위가 길게」: `stats.spear` 사거리 228→300(방패병 76, 궁병 420). 장창병 시설 +30%면 390. attackRange≤120 근접 판정에는 원래부터 해당하지 않는다.
+
+## 백호 강현 비극적 적대자 · 2026-11-06
+- 사용자 요청 「사신국 군주 하나를 악역으로, 백호」+「죽음」. 강현은 옳다고 믿고 끝까지 간 적대자(순수 악당 아님). 흔들리는 장수는 호연.
+- 대사: c5 pov 「한 번만 더」, c6 post 「멈출게. 왕인을 찾기 전까지는」(복선). c12 pov/pre/post 전면 개정(설계도를 백륜에게 넘김, 호연 첫 거부, 강현이 장치를 싣고 떠남). c14 pre 강현 2줄→사율·호연, c15 post 백륜과 강현 돌입+2줄, c16 pre 장치 폭발·강현 사망 9줄, c16 post 은랑 1줄. 현무편 x8 pre 2줄, x10 post 설화 1줄. sceneCast: c14 +o_sa,o_ho, c15 +o_ho, c16 +o_ho,o_eun.
+- ACT_INTRO_Q 4막, RULER_LORE bai quote/relic, STORY_ENDINGS_Q 두 결말에 백호 한 문장. 반전 규칙(9판 전 「아버지」 금지)·장 순서·목표·합류·전투 데이터·저장 구조 불변. 강현은 전투 유닛이 아니다. 사신기.md·STORY.md·CHARACTERS.md 동기화.
+
+## 천하도 휴대폰 잘림 · 2026-11-06
+- 원인: 전체 보기 배율·중앙을 #rmap 전체로 계산해 가로 휴대폰(844×390)에서 #rpanel(장 안내)이 남쪽(주작성·남화·모래관)을 덮었다. `realmView(r)`: #rzoom 아래~#rpanel 위 영역과 #rpanel 오른쪽 영역 중 지도가 더 크게 들어가는 쪽을 고른다. realmCamera의 base·지역 확대 배율·중앙 정렬·이동 한계가 이 영역 기준. 입력(realmAt)은 rView 그대로. tests/map-portraits가 전체 지도가 이 영역 안·안내 상자와 겹치지 않음을 3규격에서 검사.
+
+## 도술 뒤 자동 공격·전투 UI 편의 · 2026-11-06
+- 원인: apCanStrike가 진행 중 행동이 dragon/heal/skill이면 그 시간(3 AP·2 AP) 내내 부대 공격을 막았다(apStrike가 apCommitted). `AP_CAST`·`apReserve(g)`(아직 시작 안 한 예약 행동 비용 합): 시전 구간에는 u.ap−예약 ≥ apCost이거나 apFree이면 제자리 자동 공격, apStrike는 무행동과 같이 AP 차감·apStrikeAt. engage 전용 apActionLeft는 engage일 때만 깎는다. `tests/spell-strike.cjs`(시전 구간 명중 6→14, 기술 0→6, 뒤 예약 이동 AP 보존, 가로 명령 판 ≤120px).
+- UI(전투 화면 최대 유지): style 끝 「전투 UI 편의」 블록. body.battle-wide #toast 두 줄 줄바꿈, .battle-voice pointer-events:none·4.5초, #restart 붉은색, 가로(max-height:500px) commands-open에서 #orders 7열 한 줄·도술 26px·#compass 한 줄 5칸을 skills 오른쪽에(판 154→104px). 군주 카드 「군주·호위대」→「군주」.
