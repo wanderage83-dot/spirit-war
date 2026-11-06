@@ -367,3 +367,6 @@
 - 사용자 요청 「사신국 군주 하나를 악역으로, 백호」+「죽음」. 강현은 옳다고 믿고 끝까지 간 적대자(순수 악당 아님). 흔들리는 장수는 호연.
 - 대사: c5 pov 「한 번만 더」, c6 post 「멈출게. 왕인을 찾기 전까지는」(복선). c12 pov/pre/post 전면 개정(설계도를 백륜에게 넘김, 호연 첫 거부, 강현이 장치를 싣고 떠남). c14 pre 강현 2줄→사율·호연, c15 post 백륜과 강현 돌입+2줄, c16 pre 장치 폭발·강현 사망 9줄, c16 post 은랑 1줄. 현무편 x8 pre 2줄, x10 post 설화 1줄. sceneCast: c14 +o_sa,o_ho, c15 +o_ho, c16 +o_ho,o_eun.
 - ACT_INTRO_Q 4막, RULER_LORE bai quote/relic, STORY_ENDINGS_Q 두 결말에 백호 한 문장. 반전 규칙(9판 전 「아버지」 금지)·장 순서·목표·합류·전투 데이터·저장 구조 불변. 강현은 전투 유닛이 아니다. 사신기.md·STORY.md·CHARACTERS.md 동기화.
+
+## 천하도 휴대폰 잘림 · 2026-11-06
+- 원인: 전체 보기 배율·중앙을 #rmap 전체로 계산해 가로 휴대폰(844×390)에서 #rpanel(장 안내)이 남쪽(주작성·남화·모래관)을 덮었다. `realmView(r)`: #rzoom 아래~#rpanel 위 영역과 #rpanel 오른쪽 영역 중 지도가 더 크게 들어가는 쪽을 고른다. realmCamera의 base·지역 확대 배율·중앙 정렬·이동 한계가 이 영역 기준. 입력(realmAt)은 rView 그대로. tests/map-portraits가 전체 지도가 이 영역 안·안내 상자와 겹치지 않음을 3규격에서 검사.
