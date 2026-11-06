@@ -284,85 +284,76 @@ python3 tools/soldier-walk.py 받은폴더/*.png
 ### 장수 걷기(2026-11-04) — 코드로 생성 완료
 Canva 크레딧이 없어 `tools/pixel-walk.py`로 장수 20명×4방향×4동작(320장)을 도트 그림에서 직접 만들었다(다리 띠를 엉덩이 축으로 흔듦). 다리가 크게 보이는 손그림 프레임을 원하면 같은 경로(`characters/pixel/walk/<이름>/<방향>-1..4.webp`, 원본 도트와 같은 크기)에 덮어쓰면 된다.
 
-## 요청 6 · 미드저니 전투 지도 질감 — 상태: 프롬프트 준비(2026-11-06), 그림 대기
 
-대화 배경·서막 일러스트는 지금 그대로 둔다. **전투 지도만** 미드저니 그림으로 바꾼다.
+## 요청 6 · 미드저니 배경 — 상태: 프롬프트 준비(2026-11-06), 그림 대기
 
-### 왜 「지도 한 장」이 아니라 「질감」인가
-- 전투 지도는 코드(`pixelRegionBackground`)가 그린다. 길·숲 벽·바위 능선·협곡 절벽·강의 모양은 `terrainAt`가 정하고, 같은 값으로 충돌·길찾기·사격 차단·관문선을 계산한다.
-- 그래서 지도를 통째로 그린 그림을 넣으면 그림 속 길과 실제로 다닐 수 있는 곳이 어긋난다.
-- 대신 **지형 종류마다 이음매 없는 질감**을 받아 코드가 그 모양대로 채워 넣는다. 모양은 그대로, 겉모습은 전부 미드저니 그림이 된다. 그림이 모이면 렌더러를 연결한다(지금은 단색 칸으로 칠함).
+### 무엇을 바꿀 수 있나
+| 구분 | 파일 | 바꾸는 방법 |
+|---|---|---|
+| 대화 배경 5장 | `story/dialogue-{palace,camp,frontier,forest,field}.webp` | 같은 이름으로 덮어쓰면 끝(코드 수정 없음) |
+| 서막 그림 3장 | `story/{four-kingdoms,undying-command,departure}.webp` | 같은 이름으로 덮어쓰면 끝 |
+| 전장 지면 질감 | `terrain/ground-{forest,field}.webp` | 지금은 2장을 진영 색으로 물들여 씀. 진영별 10장을 받으면 코드 연결이 필요(작은 작업) |
+| 전장 지도 전체 | 코드가 그림(`pixelRegionBackground`) | **통째로 바꾸지 않는다.** 길·절벽·숲벽·물은 충돌·길찾기·사격 차단과 같은 계산에서 나온다. 그림을 따로 넣으면 막힌 곳과 그림이 어긋난다 |
+| 천하도 | 코드가 그림(`buildRealmRaster`) | 지역 경계가 계산값이라 통째 교체는 비추천 |
 
 ### 공통 규칙
-- **위에서 똑바로 내려다본 모습**(원근·지평선·그림자 없음). 게임이 45도로 기울여 보여 준다.
-- **이음매 없이 반복**: 모든 프롬프트에 `--tile --ar 1:1`. 받은 그림을 2×2로 붙여 이음매가 안 보여야 한다.
-- 화풍: 전장 인물이 도트 그림이라 **도트풍(pixel art)**. 지금 전투 화면 캡처를 `--sref`로 붙이면 색감이 맞는다.
-- 크기: 1024 이상 정사각형. 파일 이름 규칙 `terrain/map/<진영>-<종류>.webp`. 진영 키는 `qing·xuan·bai·zhu·gui`.
+- 크기: 대화·서막은 **1536×1024(3:2)**, 지면 질감은 **정사각형 1254 이상, 이음매 없는 반복**(`--tile`).
+- 화풍 통일: 지금 쓰는 `story/dialogue-camp.webp`를 미드저니에 올려 **`--sref <그 그림 주소>`**로 붙이면 기존 그림과 톤이 맞는다. 서막처럼 인물이 나오면 청명 초상(`portraits/` 해당 파일)을 **`--cref`(또는 `--oref`)**로 붙인다.
+- 대화 배경에는 **사람을 넣지 않는다.** 화면 아래쪽 25%·75% 자리에 인물이 서고 맨 아래에 대사 창이 올라가므로, 아래 1/3은 비워 두고 너무 밝지 않게 한다. 위쪽 양 모서리에는 초상이 겹친다.
+- 글씨·워터마크·현대 물건 금지. 받은 뒤 WebP(품질 85 안팎, 600KB 이하)로 바꿔 넣는다.
 - 버전은 `--v 7`로 적었다. 더 새 버전이 있으면 그걸로 바꾼다.
 
-모든 프롬프트 앞부분(공통):
+### 6-1. 대화 배경 (사람 없음, `--ar 3:2`)
+- `dialogue-palace.webp` 왕성 · 회담
 ```
-seamless top-down pixel art game terrain texture, orthographic view straight from above, flat even lighting, 16-bit SNES style, crisp pixels,
+grand East Asian fantasy palace council hall interior, jade-green lacquered pillars, long low council table with maps and brass seals, hanging silk banners of four kingdoms (azure dragon, black tortoise, white tiger, vermilion bird), warm lantern light, tall lattice windows with soft daylight, empty floor in the foreground, no people, painterly anime fantasy illustration, rich detail, cinematic depth --ar 3:2 --v 7 --style raw --no text, letters, watermark, people
 ```
-모든 프롬프트 뒷부분(공통):
+- `dialogue-camp.webp` 야영지 · 등불 아래
 ```
- --tile --ar 1:1 --v 7 --style raw --no text, perspective, horizon, characters, shadows of objects, border, frame
+military encampment at dusk in East Asian fantasy, canvas command tents with green war banners, braziers and paper lanterns glowing, campfire smoke, wooden palisade and watchtower, misty mountain valley and river at sunset behind, empty dirt ground in the foreground, no people, painterly anime fantasy illustration, warm and cool contrast --ar 3:2 --v 7 --style raw --no text, watermark, people
 ```
-
-### 6-1. 모든 진영 공통 4종 × 5진영 = 20장
-| 파일 | 쓰이는 곳 | 가운데 들어갈 말 |
-|---|---|---|
-| `<진영>-ground.webp` | 기본 땅 | 아래 표의 「땅」 |
-| `<진영>-meadow.webp` | 들판·빈터(기병 속도↑) | 아래 표의 「들판」 |
-| `<진영>-thicket.webp` | 숲 바닥·덤불(화살 엄폐) | 아래 표의 「덤불」 |
-| `<진영>-road.webp` | 길 | 아래 표의 「길」 |
-
-| 진영 | 땅 | 들판 | 덤불 | 길 |
-|---|---|---|---|---|
-| 청룡 qing | short jade-green grass with tiny clover and pebbles | lush bright green meadow grass with small white flowers | dense bamboo undergrowth and leaf litter, dark green | packed tan dirt road with cart ruts and small stones |
-| 현무 xuan | frosted dark green grass with patches of thin snow | pale frozen meadow, snow-dusted short grass | snowy pine shrubs and needles over dark soil | snowy trampled dirt road with ice puddles |
-| 백호 bai | dry ochre grass on sandy soil | golden steppe grass with hoof prints | dry scrub bushes and thorny brush on sand | sandy caravan road with wheel tracks |
-| 주작 zhu | warm green grass with fallen red petals | terraced field grass with red and orange wildflowers | red maple undergrowth with fallen crimson leaves | reddish clay road with flat stones |
-| 귀왕 gui | withered grey grass on ashen soil | dead pale meadow with scattered bone-white pebbles | thorny black brambles and dead leaves | cracked grey stone road with faint violet moss |
-
-예시(청룡 땅):
+- `dialogue-frontier.webp` 국경 · 성문 앞
 ```
-seamless top-down pixel art game terrain texture, orthographic view straight from above, flat even lighting, 16-bit SNES style, crisp pixels, short jade-green grass with tiny clover and pebbles --tile --ar 1:1 --v 7 --style raw --no text, perspective, horizon, characters, shadows of objects, border, frame
+fortified border gate of an East Asian fantasy kingdom, massive stone wall and tiled gatehouse, iron-studded wooden doors half open, torches and tattered banners, dirt road leading to the gate, wagons and supply crates at the side, overcast cold morning light, empty road in the foreground, no people, painterly anime fantasy illustration --ar 3:2 --v 7 --style raw --no text, watermark, people
+```
+- `dialogue-forest.webp` 숲 · 전장
+```
+deep ancient forest battlefield in East Asian fantasy, towering pines and bamboo, broken spears and a fallen banner on mossy ground, shafts of light through mist, narrow trail in the middle, quiet aftermath mood, empty clearing in the foreground, no people, painterly anime fantasy illustration --ar 3:2 --v 7 --style raw --no text, watermark, people, gore
+```
+- `dialogue-field.webp` 들판 · 전장
+```
+wide grassland battlefield after battle in East Asian fantasy, rolling hills and distant mountains, wind-bent tall grass, scattered arrows and a torn war banner on a pole, dramatic sky with clouds and golden light, empty grass in the foreground, no people, painterly anime fantasy illustration --ar 3:2 --v 7 --style raw --no text, watermark, people, gore
 ```
 
-### 6-2. 막힌 지형(벽) 8장 — 지도 모양마다 필요한 것만
-| 파일 | 쓰이는 지역 | 가운데 들어갈 말 |
-|---|---|---|
-| `zhu-canopy.webp` | 주작성·남화 (숲속 갈림길의 숲 벽) | dense red and orange maple tree canopy seen from above, overlapping crowns, impassable forest |
-| `gui-canopy.webp` | 귀왕성·망자벌 (숲 벽) | dense dead black tree canopy seen from above, twisted bare branches with faint violet mist |
-| `xuan-ridge.webp` | 현무성·빙설령 (골짜기 능선) | snow-covered dark granite rock ridge seen from above, cracks and boulders |
-| `zhu-ridge.webp` | 염산 (골짜기 능선) | black volcanic basalt rock seen from above with thin glowing red lava cracks |
-| `bai-ridge.webp` | 서량 (골짜기 능선) | weathered tan rock ridge seen from above with dry grass tufts |
-| `bai-canyon.webp` | 모래관 (협곡 절벽) | layered sandstone canyon cliff tops seen from above, orange and cream strata |
-| `gui-canyon.webp` | 혼령곡 (협곡 절벽) | dark grey cliff rock seen from above with hanging paper talismans and dead roots |
-| `xuan-pass.webp` | 흑수 (고개 절벽) | dark slate cliff rock seen from above with frost and black river spray |
-
-### 6-3. 물가 5장 — 청룡(청룡성 다리·동해포 늪)
-| 파일 | 가운데 들어갈 말 |
-|---|---|
-| `qing-water.webp` | clear blue-green river water with gentle ripples and light reflections |
-| `qing-ford.webp` | shallow river ford, stepping stones and pebbles under clear water |
-| `qing-ice.webp` | frozen river ice with cracks and snow dust (눈 오는 날) |
-| `qing-marsh.webp` | muddy marsh with reeds, puddles and lily pads |
-| `qing-bridge.webp` | wooden bridge planks seen from above, iron nails, worn edges |
-
-### 6-4. (선택) 지형 소품 — 배경을 흰색으로
-나무·바위·건물은 지금 코드가 그린 작은 도트 그림이다. 이것도 바꾸려면 아래처럼 **흰 배경 단독 그림**으로 받는다(`tools/unwhite.py`로 배경을 지운다). `--tile`은 빼고 `--ar 1:1`.
+### 6-2. 서막 그림 (`--ar 3:2`, 귀왕의 정체가 드러나면 안 된다)
+- `four-kingdoms.webp` 하나의 땅, 네 나라
 ```
-single pixel art game sprite of {소품}, isometric 3/4 view, centered, plain pure white background, 16-bit SNES style, crisp pixels --ar 1:1 --v 7 --style raw --no text, shadow, ground, border
+panoramic fantasy map-like landscape of one land divided among four kingdoms, jade-green river capital with bamboo (east), snowy pine fortress with dark blue walls (north), sandstone city with brass workshops on the steppe (west), red maple shrine city on warm hills (south), rivers and mountain ranges between them, faint grey ghostly army mist creeping at the borders, epic aerial view, painterly anime fantasy illustration --ar 3:2 --v 7 --style raw --no text, watermark
 ```
-`{소품}` 예: `a jade-green bamboo cluster`(청룡) · `a snowy pine tree`(현무) · `a sandstone boulder`(백호) · `a red maple tree`(주작) · `a twisted dead black tree with talismans`(귀왕) · 진영별 `a small East Asian house with {청록/검푸른/황토/붉은/잿빛} roof tiles`.
+- `undying-command.webp` 끝나지 않는 명령 (투구로 얼굴을 완전히 가린다)
+```
+a glowing royal jade seal floating above a battlefield at night, beneath it a towering figure in black armor with a closed full-face helmet, faceless, an endless army of undead soldiers standing in silent ranks, pale blue spectral light, ash in the air, ominous and solemn, painterly anime fantasy illustration --ar 3:2 --v 7 --style raw --no text, watermark, visible face
+```
+- `departure.webp` 살아 있는 이들의 전쟁 (청명 초상을 `--cref`로)
+```
+young East Asian fantasy lord with long black hair in a high ponytail, dark lamellar armor with a jade-green cloak, riding out of a city gate at dawn, soldiers with green dragon banners and refugee families with carts walking beside them, sunrise over misty mountains, hopeful and determined, painterly anime fantasy illustration --ar 3:2 --v 7 --style raw --cref <청명 초상 주소> --no text, watermark
+```
+
+### 6-3. 전장 지면 질감 (위에서 내려다본 반복 무늬, `--tile --ar 1:1`)
+전장은 도트 그림이라 질감도 도트풍으로 받는다. 받은 뒤 `tools/pixelize.py`처럼 색 수를 줄이면 더 잘 어울린다.
+틀: `seamless top-down pixel art ground texture, {바닥}, {진영 색}, game tileset, flat even lighting, no shadows from objects, no borders --tile --ar 1:1 --v 7 --style raw --no text, perspective, horizon`
+
+| 진영 | 숲 바닥 `{바닥}` 자리 | 들판 `{바닥}` 자리 | `{진영 색}` 자리 |
+|---|---|---|---|
+| 청룡 | bamboo leaf litter, moss and small ferns | lush green grass with tiny wildflowers | fresh jade green |
+| 현무 | snowy pine needles over dark soil | frosted short grass with patches of snow | cold blue-white and dark teal |
+| 백호 | dry pine needles and sandy soil | dry golden steppe grass with hoof prints | sand and ochre |
+| 주작 | fallen red maple leaves on dark earth | warm terraced field grass with red petals | crimson and warm orange |
+| 귀왕 | grey ash, dead leaves and cracked earth | withered grey grass with scattered bone-white pebbles | ashen grey and faint violet |
+
+파일 이름은 `terrain/ground-{forest,field}-{qing,xuan,bai,zhu,gui}.webp`로 정한다. 10장이 모이면 `paintBattleGround`가 진영별 그림을 바로 쓰도록 바꾼다(지금은 2장을 색으로 물들임).
 
 ### 확인 기준
-- 2×2로 붙였을 때 이음매가 보이지 않는다.
-- 원근·지평선·물체 그림자가 없다(위에서 곧게 내려다본 모습).
-- 같은 진영 4종(땅·들판·덤불·길)을 나란히 놓았을 때 서로 구분되고 색감은 한 가족이다.
-- 벽 질감(6-2)은 땅보다 확실히 어둡거나 높아 보여 「못 지나가는 곳」으로 읽힌다.
-
-### 게임에 넣기
-`terrain/map/`에 파일 이름 규칙대로 넣으면, 렌더러가 지형 칸마다 해당 질감으로 채우도록 연결한다. 없는 파일은 지금처럼 단색으로 남으므로 몇 장씩 나눠 넣어도 된다.
+- 대화 배경: 사람·글씨 없음, 아래 1/3이 비어 있고 대사 창 아래로 묻혀도 장소를 알아볼 수 있다.
+- 서막: 귀왕의 얼굴·정체가 보이지 않는다. 청명은 초상과 같은 사람으로 보인다.
+- 지면 질감: 네 장을 2×2로 이어 붙였을 때 이음매가 보이지 않는다. 그림자·지평선·원근이 없다.
