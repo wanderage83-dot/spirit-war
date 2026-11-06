@@ -348,3 +348,7 @@
 - 보급소: `sideIncome()` 서·동 확보 각 +4/초(updateEconomy·economyUI). 피탈 시 cine.
 - 클로즈업: 확대 max(원배율×1.7,1.05)·최대1.6, 유지 2.2초, 쿨다운 2.6초, 다가갈 때 보간 7/초(돌아올 때 3.2). 새 사건: 증원 등장/반격(launch), 관문 합류, 아군 구조물 붕괴(fortDown), 본진 50·25%(hit), 보급소 피탈(updatePoint). `tests/waves-defense.cjs`.
 
+## 현무편 부대 늘림 · 2026-11-06
+- 현무편은 동료가 끝까지 3명(아군 4부대)이라 출진 칸 4~5가 비었다. 대사에 이미 나오는 동맹 장수를 장 뒤 합류로: x3 `joinAfter:['o_muk']`(청룡 원군), x5 `['o_hong','o_ha']`(주작), x8 `['o_eun']`(백호). x4·x5 slots 3→4. 결과 동료 3→4(x4)→6(x6)→7(x9), 아군 4→5→6부대(청명편과 같은 흐름). 대사·장 순서·목표 불변, 국가 소속과 동맹 파견 편성은 별개 원칙대로.
+- `loadRealm`: route xuan 저장이면 SAGA_X의 cleared 장 joinAfter 중 roster에 없는 인물을 joinHero로 채운다(옛 저장 호환, 저장 키 불변).
+
