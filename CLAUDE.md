@@ -356,3 +356,6 @@
 - `powerFx(list,col,big)`: 대상마다 fx `pillar`(지면 빛 타원+upright 세로 그라데이션 기둥, lighter 합성, 1.6초, 장수 280/병사 220/건물 300 높이)와 `mote` 3개(오르는 별빛, 동작 줄이기면 생략), 한 번에 최대 40명. `powerBanner(title,sub,col)`: #stage 안 #powerup(가운데 28%, 큰 명조 글씨+진영 빛, 2.2초 powerPop, 동작 줄이기면 페이드, pointer-events 없음).
 - 연결: updateFort 시설 완공(금 #ffd34d, 그 병종 전원+시설, 「★ ○○ 강화 완료」·병사 수·효과, cine pri2), 망루 완공(주황 #ffa94d), updateEconomy 신병 합류(청록 #5ff0d8, 「⚑ 신병 합류」), repairFort(주황, 살아 있는 성벽). settleBattleVisuals가 pillar·mote를 남겨 턴 끝 완공(12초 시점)에도 보인다. 판정·수치 불변.
 - 2026-11-06 후속(「업데이트되면 카메라도 그쪽」): `cineFocus(x,y,label)`=cineEvent pri3(쿨다운 무시)+`cine.plan`(1.8초). cineTick이 planning에서 plan 지점으로 setCamera 보간(6/초, 확대 없음), 사용자 입력 1.5초 안·다른 state면 해제. 시설 완공·망루 완공·신병 합류·성곽 보수가 사용. 턴 끝(12초) 완공은 실행 중 확대가 바로 끝나고 choose가 카메라를 옮겨도 plan이 그 뒤 다시 비춘다. cineReset이 plan 삭제. waves-defense에 턴 끝 망루 완공 후 화면 중심 80 안 검사.
+
+## 방패병 이동 속도 · 2026-11-06
+- 사용자 요청 「방패병이 궁병보다 빠르게」: `stats.shield` 속도 44→50(궁병 45, 창병 52, 기병 100). MARCH_SPEED·지형·시설 배율은 그대로 곱해진다. 군주 부대는 호위가 방패병이라 부대 최저 속도도 함께 오른다.
