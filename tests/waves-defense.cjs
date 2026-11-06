@@ -15,7 +15,7 @@ const r=await p.evaluate(async()=>{const open=async id=>{setRoute(id[0]==='x'?'x
  // 4) 공성대는 성벽에 3배
  const wall=units.find(u=>u.structure==='wall'),sp=units.find(u=>u.side&&u.type==='spear'&&u.hp>0);const m=matchupInfo(sp,wall);const d1=attackDamage(sp,wall,m);sp.siege=true;const d3=attackDamage(sp,wall,m);sp.siege=false;out.siege=+(d3/d1).toFixed(2);
  // 5) 망루: 짓고 12초 뒤 완공, 사거리 안 적을 쏜다
- gold=1000;const T=units.filter(u=>u.structure==='tower');buildTower(0);out.towerBuild=T[0].buildLeft;run();out.towerDone=T[0].buildLeft===0&&T[0].hp>0;out.towerFx={pillars:fx.filter(f=>f.kind==='pillar').length,banner:document.querySelector('#powerup').innerText};const e=units.find(u=>u.side&&u.hp>0&&u.type==='spear');const q=nearestCell(T[0].x,T[0].y-300);Object.assign(e,{x:q.x,y:q.y,rx:q.x,ry:q.y,order:'hold',post:{x:q.x,y:q.y},speed:0,seen:true});const hp0=e.hp;run();out.towerDmg=Math.round(hp0-e.hp);
+ gold=1000;const T=units.filter(u=>u.structure==='tower');buildTower(0);out.towerBuild=T[0].buildLeft;run();out.towerDone=T[0].buildLeft===0&&T[0].hp>0;out.towerFx={pillars:fx.filter(f=>f.kind==='pillar').length,banner:document.querySelector('#powerup').innerText};choose(1);await new Promise(r=>setTimeout(r,1500));{const c=unproject(camX+VW/2,camY+VH*.45);out.towerCam=Math.round(Math.hypot(c.x-T[0].x,c.y-T[0].y))}const e=units.find(u=>u.side&&u.hp>0&&u.type==='spear');const q=nearestCell(T[0].x,T[0].y-300);Object.assign(e,{x:q.x,y:q.y,rx:q.x,ry:q.y,order:'hold',post:{x:q.x,y:q.y},speed:0,seen:true});const hp0=e.hp;run();out.towerDmg=Math.round(hp0-e.hp);
  // 6) 성곽 보수가 무너진 성벽을 다시 쌓는다
  wall.hp=0;buildBlock();const need=fortRepairNeed().cost;gold=1000;repairFort();out.repair={need,wall:wall.hp>0,blocks:!walkable(wall.x,wall.y)};
  // 7) 큰 사건이면 카메라가 확대
@@ -27,6 +27,6 @@ const r=await p.evaluate(async()=>{const open=async id=>{setRoute(id[0]==='x'?'x
 console.log(JSON.stringify(r));
 assert.ok(r.kinds.length>=4,'증원 종류 다양');assert.ok(r.grow[1]>r.grow[0],'증원이 갈수록 커짐');assert.equal(r.income0,0);assert.equal(r.income1,4,'서쪽 보급소 군량 +4/초');assert.ok(r.raidToWest,'보급 습격대는 우리가 쥔 보급소로');
 assert.ok(/턴/.test(r.chipHidden)&&/봉화대/.test(r.chipHidden)&&!/기병/.test(r.chipHidden),'봉화대 없으면 종류 숨김');assert.ok(/기병/.test(r.chipShown),'봉화대 있으면 종류 표시');assert.equal(r.siege,3,'공성대 구조물 3배');
-assert.equal(r.towerBuild,12);assert.ok(r.towerDone&&r.towerDmg>0,'망루 완공 후 사격');assert.ok(r.towerFx.pillars>0&&/망루 완공/.test(r.towerFx.banner),'망루 완공 빛기둥·알림 띠');assert.ok(r.repair.wall&&r.repair.blocks&&r.repair.need===160,'무너진 성벽 재건');
+assert.equal(r.towerBuild,12);assert.ok(r.towerDone&&r.towerDmg>0,'망루 완공 후 사격');assert.ok(r.towerFx.pillars>0&&/망루 완공/.test(r.towerFx.banner),'망루 완공 빛기둥·알림 띠');assert.ok(r.towerCam<80,'턴 끝 완공도 카메라가 망루를 비춤');assert.ok(r.repair.wall&&r.repair.blocks&&r.repair.need===160,'무너진 성벽 재건');
 assert.ok(r.cine.z>=r.cine.z0*1.5&&r.cineCenter<60&&r.cineBack===r.cine.z0,'큰 사건 빠른 확대·복귀');assert.ok(r.passJoin.after>r.passJoin.before&&r.passJoin.behind&&r.passJoin.hold,'관문 뒤 수비대 합류');assert.ok(new Set(r.launched).size>=2,'실제 증원 종류 2가지 이상');assert.deepEqual(errors,[]);
 console.log('PASS varied escalating waves, supply raids and income, siege x3, watchtowers, wall rebuild, fast event close-up, gate-line reinforcement');await b.close()})();
