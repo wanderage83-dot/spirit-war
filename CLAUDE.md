@@ -395,3 +395,6 @@
 ## 귀왕 외 공통 HD 전장 · 2026-11-07 (최신 사용자 결정)
 - 사용자 「귀왕 진영 빼고 나머진 통일」: 진영별 신규 그림 제작은 보류. HD_ART_REGIONS는 REGION_MAPS 중 theme!=='gui'인 12지역, hdOn은 그 목록만 확인. pixelColors/mapTheme의 전장 색도 청룡 공통(이름·경로 지명은 지역 그대로). 귀왕성·혼령곡·망자벌은 기존 잿빛 그림 유지. 적이 귀왕일 때 전용 거점·귀문 PNG는 공통 HD 지역에서 계속 쓴다. 지역별 전술 배치·날씨·충돌·길찾기·천하도·인물 불변.
 - pixelRegionBackground의 bridges 돌 둑 띠는 HP.bank로 그려 qing-bank가 가려지던 문제 해결. 기존 다리/여울/홍수/결빙 판정은 그대로. tests/hd-common.cjs(12지역 공통·3귀왕 예외·15지역 그림 유무 충돌/경로 보존·물가 실제 그리기·3화면), hd-terrain의 청룡성 기대값은 HD true.
+
+## 귀왕 망자군 병사 그림 · 2026-11-07
+- `characters/soldier-gui/<병종>/fr.webp`(ART_REQUESTS 요청 7, 원본 PNG는 `raw/`). `GUI_SOLDIER_READY={병종:'fr'}`·`GUI_SOLDIER_FOOT`(눈으로 잰 발 중심)·`guiSoldier`·`guiSoldierOf(type,side)`: side 1이고 `tintFaction==='gui'`일 때만, drawUnitArt의 걷기/방향 분기보다 먼저 진영색 없이 그린다. 해당 방향 그림이 있으면 뒤집기를 상쇄(own), 없으면 fr을 기존 변환대로(왼쪽이면 뒤집힘). `hasWalk`는 망자군에 false(코드 걸음). 아군·다른 진영 적·장수·흑화는 불변. 방향·걷기 그림이 오면 READY 키와 발 위치를 더한다. `tests/gui-soldier.cjs`.
