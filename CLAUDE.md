@@ -423,3 +423,8 @@
 ## 시작 승리 조건 알림·전장 선명도 · 2026-11-07
 - `goalHeadline(c)`(goal 종류별 짧은 문구, goal 없으면 버티기/적장 격파)·`goalBanner(c)`: formInit 끝에서 250ms 뒤 powerBanner에 `.goalb`(어두운 판·줄바꿈 keep-all·세로 34%, 가로 휴대폰 52%·작은 글씨). 2.3초 뒤 사라지고 판의 틀 설명 배너는 2.7초에 이어서. powerBanner는 `goalb`를 지운다.
 - 선명도: `measure`의 dpr을 min(3, devicePixelRatio, √(4.2e6/CSS면적))로(이전 상한 2라 3배 휴대폰에서 1.5배 늘어나 흐렸다). drawHD의 틸트시프트 띠 제거, 색 보정 알파×.45, 가장자리 어둠 .55→.26. 계획 중 비선택 아군 dim .62→.85.
+
+## 클로즈업 슬로우모션·본진 피습 경보 · 2026-11-07
+- cineEvent: 유지 `CINE_HOLD`3.2초(이전 2.2), 쿨다운 4.2초(pri<3), 모든 사건 사이 최소 1.8초(`cine.last`, 겹치면 무시). 받아들인 사건마다 `slowmo`(pri3 .85초, 그 외 .55초, rReduced 제외)를 켜고 loop가 advancePhase에 dt×.35(마지막 .25초에 1로 복귀)를 넘긴다. 테스트의 advancePhase 직접 호출은 영향 없음. cineReset/cineUser가 slowmo를 끈다.
+- 새 클로즈업: battleImpactEmit priority≥3(아군 장수·부대 위기·전멸), launch의 첫 진격/증원은 pri3·라벨 「적 진격」(관문선 없을 때)·script 이름. `B0.first`(reset이 초기화).
+- `baseAlarm{t,warn,cine,at}`: hit이 아군 keep(본진·성벽·시설·망루)에 맞으면 기록. `baseAlarmTick`(update, formTick 뒤): 3초 안 피격이면 `#basewarn`(붉은 깜박 띠, 누르면 `baseAlarmGo` 본진으로) 표시, 실행 중 8초마다 say·combatCue·단심 음성, 20초마다 cineEvent. reset/showRealm이 숨김. `tests/cine-alarm.cjs`, auto-camera는 3.2초 유지·최소 간격에 맞춤.
