@@ -382,3 +382,9 @@
 - 본진 기준(크기 고정): initFort 성벽·시설·망루, 본진 보급소(KEEP.y−380), 신병 집결지, 아군 부대 시작 위치(groups x·y를 KEEP 기준 오프셋으로), 본진 구역 표시. ×WS: 서·동 보급소, waveEvent 경로·보급소 습격 출발지, 연습전 후방 기습, 다리 지도 테두리. setZoom 하한 .25/WS.
 - 병사 크기·속도·사거리·간격·통제 구역·장수 반경 불변. 저장 구조 불변(지도 배율은 전투 임시 상태). `tests/big-map.cjs`(8개 큰 판+일반 판: 배율, 배치 걸을 수 있음, 성벽 본진 기준 오프셋, 아군·적 거리, 관문 PASS_Y, 관문 뺀 적 진군로→본진 경로, 보급소, 실제 3턴, 일반 판으로 돌아오면 원래 값).
 - 호송 수레(cartStep): 큰 협곡에서 직선 북쪽에 얇은 절벽 조각이 있어 c6 수레가 멈췄다. 막히면 축 미끄러짐 뒤 ±.5~1.5rad 옆걸음을 시도하고, 1.5초 정체 복구는 경로점 중 30~160 거리의 첫 점으로 옮긴다(바로 옆 점으로 옮겨 제자리에 머물던 문제). battle-goals 호송 검사 시간은 120초×WS².
+
+## HD 도트 지형 시험 연결(요청 6) · 2026-11-07
+- `terrain/hd/` 5파일(qing-ground·qing-road·qing-prop-bamboo-clump·qing-house·ally-wall, 크기·여백은 terrain/hd/README.md). `HD_ART_REGIONS=['beodeul']`·`hdOn()`(지역+theme qing)·`hdImg(k)`·`loadHdArt()`(부팅, 로드되면 HD 지역이면 background 재생성)·`hdTile(k)`(바닥 1024→256 nearest, 길은 x40~984 잘라 236×256, `-m`은 원본 크기 좌우 반전).
+- pixelRegionBackground: HD면 캔버스 2400(한 점=월드 2, 기존 600)·바닥 패턴 채움·덤불/들판 칸 진영색 옅게(.32/.16)·15000 잡점/paintBattleGround/길 잡점 생략·길 안쪽 선을 길 패턴·성 안 마당 길 패턴·고지 안쪽/테두리 반투명. 나머지(물·절벽·논·다리)는 기존 그대로 위에 그린다. 성능 prepare 약 95→100~134ms.
+- drawPixelProp: tree 종류는 대숲 시트 칸(p.v%4), 높이 r×5.4, 발 x=HD_BAMBOO_FOOT. pixelHouse: 폭 w×1.5, 발밑 y=744/768을 y+h×.13에. drawHdWall: 그림 바닥선 기울기 .34를 정등각 .707에 맞춰 전단(transform a=s, b=ty/span±.34s, d=s), 조각 수 round(|화면 x 길이|/280), 세로벽 원본·가로벽 반전. 바위·논·탑·관문은 기존 그림.
+- 판정·충돌·경로·저장 불변. `tests/hd-terrain.cjs`(3규격: 버들골 HD·타일 크기·바닥 세밀도·그림별 drawImage 수·HD를 빼도 blockGrid/경로 동일·청룡성은 HD 아님). forest-field는 HD 지역을 빼고 청룡성으로 숲·들판 질감을 검사.

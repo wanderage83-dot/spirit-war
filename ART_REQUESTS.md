@@ -287,7 +287,7 @@ Canva 크레딧이 없어 `tools/pixel-walk.py`로 장수 20명×4방향×4동�
 
 ---
 
-## 요청 6 · 전투 필드 지형·건물 다시 그리기(HD-2D 도트 디오라마) — 상태: 청룡 시험 세트 5파일 제작 완료, 버들골 연결·모바일 검수 대기
+## 요청 6 · 전투 필드 지형·건물 다시 그리기(HD-2D 도트 디오라마) — 상태: 청룡 시험 세트 5파일 버들골 연결 완료(2026-11-07), 사용자 실기 확인 뒤 나머지 진영 제작
 
 ### 청룡 시험 세트 전달 (Codex · 2026-11-06)
 - 권장 순서 1의 `qing-ground.png`, `qing-road.png`, `qing-prop-bamboo-clump.png`, `qing-house.png`, `ally-wall.png`를 `terrain/hd/`에 추가했다. 대숲 파일은 512×512 네 칸의 변형 시트(2048×512)다. 나머지 진영과 종류는 아직 만들지 않았다.
@@ -296,6 +296,21 @@ Canva 크레딧이 없어 `tools/pixel-walk.py`로 장수 20명×4방향×4동�
 - 규격·40색 이하·4×4 도트 격자·바닥 불투명/소품 이진 알파·대숲 네 칸·잘림/발밑 여백을 검사했다. 바닥은 2×2 반복 미리보기로 시각 검수했다. 실제 브라우저 PNG 로딩/디코딩도 검사했다.
 - **게임 연결은 하지 않았다.** `index.html`·렌더러·판정·충돌·길찾기·천하도·대화·인물·병사 파일은 수정하지 않았다. 버들골에서 휴대폰 기준 크기·각도·빛·타일 반복·성벽 연결점을 Claude가 확인한 뒤 나머지를 같은 화풍으로 확장한다. 전체 요청 6 완료나 실기 검수 완료로 취급하지 않는다.
 - 요청 6이 실제로 올라온 브랜치는 `ccr-fa9b3dba-6er4z1`이다. 이번 시험 세트도 그 브랜치에 커밋·푸시하며 main에는 병합하지 않는다.
+
+### 버들골 연결 결과 (Claude · 2026-11-07)
+- `HD_ART_REGIONS=['beodeul']`인 전장에서만 쓴다. 다른 지역은 지금 그림 그대로다. 판정·충돌·길찾기·지형 마스크는 그림과 무관하게 같다(`tests/hd-terrain.cjs`가 그림을 빼고 다시 만들어 비교).
+- **바닥**: HD 지역은 배경을 2400px(한 점=월드 2)로 그린다. 그림 4px 한 칸이 배경 한 점, 타일 한 장이 월드 512다. 휴대폰 확대 0.45~1.2에서 이음새가 보이지 않았다. 덤불·들판 칸은 그 위에 진영색을 옅게 덮는다. 성 안 마당도 길 질감으로 깐다.
+- **길**: `qing-road.png`는 양쪽 x=8~36·988~1016에 진한 세로 띠가 있어 반복하면 줄무늬가 생긴다. 게임은 가운데 x=40~984만 잘라 반복한다. **다음 그림은 띠 없이 전체가 길 표면이어야 한다.**
+- **대숲**: 기존 나무 자리(크기 r)에 높이 r×5.4(약 120~160, 병사 2.5~3.5명)로, 칸마다 줄기 밑끝 x(282·254·168·242)를 발 위치로 놓는다. 앞을 가리면 투명해지는 처리는 기존과 같다. 바위는 아직 옛 그림.
+- **집**: 본진·군량소·시설·적 거점이 모두 이 집 그림을 쓴다(폭 = 기존 집 폭×1.5, 발밑 y=744). 건설 중 시설은 반투명. 본진·적 거점 전용 그림이 오면 나눠 쓴다.
+- **성벽**: 그림 속 벽 아랫선 기울기가 −0.34인데, 게임 바닥 축은 **±0.707(35° 정등각)**이다. 요청서에 「2:1 dimetric」이라고 잘못 적은 탓이다. 지금은 그림을 세로로 기울여(전단) 각도를 맞추고 벽 길이 약 400마다 한 조각씩 이어 붙인다(앞벽 1·1, 옆벽 2·2, 뒷벽 3). 세로로 가는 벽(오른쪽 위로 오르는 방향)은 그대로, 가로로 가는 벽은 좌우 반전 그림을 쓴다. 기울인 탓에 벽돌이 약간 비스듬하고, 모서리는 조각이 맞닿기만 한다. **다음 성벽·목책·절벽은 아래 「바로잡은 각도」로 다시 그려야 한다.**
+
+### 바로잡은 각도 (2026-11-07, 성벽·목책·절벽처럼 땅을 따라 이어지는 조각)
+- 게임 투영은 **정등각(true isometric)**: 땅의 두 축이 화면에서 각각 오른쪽 아래·왼쪽 아래 35.26°(기울기 0.707, 가로 1.414 : 세로 1)로 보인다. 2:1 등각(26.57°)이 아니다.
+- 이어 붙이는 조각은 **벽 아랫선이 왼쪽 아래에서 오른쪽 위로 기울기 0.707**(35°)로 오르게 그리고, 양 끝을 잘라 같은 그림을 끝과 끝이 맞닿게 반복할 수 있게 한다. 반대 방향은 게임이 좌우 반전한다(빛이 오른쪽 위로 바뀌니, 원하면 반대 방향을 따로 그려도 된다).
+- 프롬프트에 넣을 문장: `true isometric projection (35.26° — the wall's base line rises from lower left to upper right with a slope of 0.707, i.e. 1 pixel up for every 1.414 pixels across), no perspective`.
+- 모서리 조각(`ally-wall-corner.png`: 바깥 모서리, 두 벽이 직각으로 만나는 기둥)도 함께 그리면 연결이 깔끔해진다.
+- 집·나무·탑처럼 혼자 서 있는 물체는 각도가 조금 달라도 괜찮다(지금 그림 그대로 쓴다).
 
 전투 필드 배경만 다시 그린다. **천하도·대화 무대·인물·병사·효과는 그대로**다. 목표 느낌은 「도트 그림으로 만든 미니어처 디오라마」다. 도트 질감의 땅·풀·돌 위에 부드러운 빛과 그림자, 가장자리의 이끼와 풀, 층층이 쌓인 바위 절벽이 있다. 참고 그림(사용자가 보여 준 화면)은 **느낌을 말로 옮기는 데만** 쓰고, 그 게임의 화면을 첨부해 베끼게 하지는 않는다(남의 게임 그림을 닮은 결과가 나오면 쓸 수 없다).
 
@@ -317,7 +332,7 @@ Canva 크레딧이 없어 `tools/pixel-walk.py`로 장수 20명×4방향×4동�
 
 바닥 종류(`{바닥 종류}`):
 1. `ground` → `Plain packed earth with short grass patches and tiny pebbles.`
-2. `road` → `A worn dirt road surface with wheel ruts and scattered flat stones (texture only, the road fills the whole tile).`
+2. `road` → `A worn dirt road surface with wheel ruts and scattered flat stones (texture only, the road fills the whole tile edge to edge, no curbs, no darker border strips at the sides).`
 3. `field` → `Open meadow / farm field with soft tall grass and small wildflowers.`
 4. `bush` → `Dense undergrowth: bamboo shoots, ferns and low shrubs packed together, seen from above.`
 5. `stone` → `Paved courtyard of irregular flagstones with moss in the joints.`
@@ -346,7 +361,7 @@ Canva 크레딧이 없어 `tools/pixel-walk.py`로 장수 20명×4방향×4동�
 파일 이름: `<진영>-prop-<영어 이름>.png` (예: `gui-prop-dead-tree.png`).
 
 ### C. 절벽·능선(타일처럼 이어 붙이는 벽) — 진영별 512×512 투명 PNG
-> A short straight segment of a layered rock cliff wall, isometric view from 30 degrees above, the top surface covered with {진영 윗면} and the cliff face showing stacked rock strata, designed so that copies placed side by side along the diagonal join seamlessly. Transparent background. {진영 색}. [공통 문장]
+> A short straight segment of a layered rock cliff wall, true isometric projection (35.26° — the base line rises from lower left to upper right with a slope of 0.707), no perspective, the top surface covered with {진영 윗면} and the cliff face showing stacked rock strata, designed so that copies placed side by side along the diagonal join seamlessly. Transparent background. {진영 색}. [공통 문장]
 
 진영 윗면(`{진영 윗면}`): 청룡 `grass and ferns`, 현무 `snow`, 백호 `dry grass on sandstone`, 주작 `red leaves and moss`, 귀왕 `ash and dead grass`. 파일 이름 `<진영>-cliff.png`, 같은 문장으로 모서리용 `<진영>-cliff-corner.png`도 한 장(「an outer corner piece of the same cliff」).
 
@@ -359,7 +374,7 @@ Canva 크레딧이 없어 `tools/pixel-walk.py`로 장수 20명×4방향×4동�
 | `<진영>-house.png` | 768×768 | `small village house with a curved tiled roof, wooden walls and a stone base` |
 | `<진영>-house-long.png` | 1024×768 | `long farmhouse with a storage shed and stacked firewood` |
 | `ally-keep.png` | 1024×1024 | `fortified command hall of the player's army: a two-storey keep with a large curved roof, banners and a stone platform` (청룡 색) |
-| `ally-wall.png` | 1024×512 | `straight section of a stone fortress wall with crenellations and a wooden walkway, designed to tile side by side` (청룡 색) |
+| `ally-wall.png` | 1024×512 | `straight section of a stone fortress wall with crenellations and a wooden walkway, designed to tile end to end; true isometric projection: the wall's base line rises from lower left to upper right with a slope of 0.707 (35.26°)` (청룡 색) — 시험본은 기울기 0.34라 게임이 기울여 쓰는 중 |
 | `ally-tower.png` | 512×1024 | `wooden watchtower with a small tiled roof and an archer platform` |
 | `ally-facility-shield.png` | 768×768 | `training yard with shield racks and wooden pells` |
 | `ally-facility-spear.png` | 768×768 | `spear training ground with long spear racks` |
@@ -368,7 +383,7 @@ Canva 크레딧이 없어 `tools/pixel-walk.py`로 장수 20명×4방향×4동�
 | `supply-depot.png` | 768×768 | `field supply depot: stacked rice sacks, crates and a canvas awning` |
 | `beacon.png` | 512×768 | `stone signal beacon tower with a fire basin on top (unlit)` |
 | `pass-gate.png` | 1024×768 | `heavy wooden pass gate with two log towers and a closed double door, part of a palisade line` |
-| `palisade.png` | 1024×512 | `straight section of a sharpened log palisade fence, designed to tile side by side` |
+| `palisade.png` | 1024×512 | `straight section of a sharpened log palisade fence, designed to tile end to end; true isometric projection: the base line rises from lower left to upper right with a slope of 0.707 (35.26°)` |
 | `<적진영>-outpost.png` | 1024×1024 | `enemy forward fortress gate with dark banners` (현무·백호·주작·귀왕 각 1장) |
 | `gui-ghost-gate.png` | 768×1024 | `ominous stone gate of the undead army, glowing faint violet, covered in talismans` |
 
