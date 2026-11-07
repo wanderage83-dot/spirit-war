@@ -404,3 +404,25 @@ Canva 크레딧이 없어 `tools/pixel-walk.py`로 장수 20명×4방향×4동�
 
 ### 게임에 넣기
 받은 그림은 `terrain/hd/` 아래에 파일 이름 그대로 올리고 Claude에게 「올렸다」고 말한다. 지금 전장은 바닥·나무·바위·집·성벽·탑·관문을 코드로 그리므로, 그림이 오면 Claude가 그 자리에 연결하는 작업을 한다(그림이 없는 것은 지금 그림 유지). 판정·충돌·길찾기·크기는 바뀌지 않는다.
+
+### 다음 세트 · 청룡 2차 (2026-11-07) — 붙여 넣을 프롬프트
+1차 시험 세트를 버들골에 연결해 보니 성벽 각도와 길 테두리를 고쳐야 했다. 2차 세트는 **고칠 그림 2장 + 새 그림 2장 + 청룡 나머지**다. 같은 대화창에서 1차 그림(`qing-house.png` 또는 `qing-ground.png`)을 **화풍 참고로 첨부**하고 아래 문장을 하나씩 보낸다. 끝에는 항상 위의 [공통 문장]을 붙인다.
+
+**① 성벽 다시 (`ally-wall.png`, 1024×512, 투명)**
+> Redraw the attached stone fortress wall segment in exactly the same pixel-art style, colors and details (grey stone blocks, teal wooden walkway rail, crenellations with small arrow slits, moss tufts), but in true isometric projection: the wall's base line must rise from lower left to upper right with a slope of 0.707 (35.26 degrees — 1 pixel up for every 1.414 pixels across), no perspective. A straight segment cut cleanly at both ends so identical copies placed end to end along that diagonal join seamlessly (no end pillars). Base touching the bottom 3% of the canvas, transparent background, no ground shadow. [공통 문장]
+
+**② 성벽 모서리 (`ally-wall-corner.png`, 512×768, 투명)**
+> The outer corner pillar where two of the same stone fortress walls meet at a right angle, true isometric projection (35.26°, no perspective): one wall stub leaves toward the lower left and one toward the lower right, each about 1/5 of a segment long, with a slightly taller square stone pillar and a small teal-tiled cap at the corner. Same style and colors as the attached wall. Base touching the bottom 3% of the canvas, transparent background, no ground shadow. [공통 문장]
+
+**③ 길 다시 (`qing-road.png`, 1024×1024, 불투명)**
+> A seamless tileable top-down dirt road surface viewed straight down at 90 degrees: packed earth with faint wheel ruts and scattered small flat stones, the texture fills the whole tile edge to edge with no curbs and no darker border strips at the sides, tiles perfectly on all four sides, no perspective, no cast shadows. Palette: warm light brown earth that matches the attached ground texture. [공통 문장]
+
+**④ 청룡 바닥 나머지 (각 1024×1024, 불투명)** — 위 A의 문장에 `{바닥 종류}`만 바꿔 넣는다: `qing-field.png`(field), `qing-bush.png`(bush), `qing-stone.png`(stone), `qing-water.png`(water), `qing-marsh.png`(`Muddy marsh with reeds and puddles.`). 진영 색은 `Palette: fresh greens, teal, jade, cool river blue.`
+
+**⑤ 청룡 소품 나머지 (각 2048×512 네 칸 시트, 투명)** — 위 B의 문장으로 `qing-prop-willow.png`(`weeping willow tree`), `qing-prop-reeds.png`(`clump of river reeds`), `qing-prop-boulder.png`(`mossy boulder`). 칸마다 발밑이 아래 16px 여백 위에 오게 한다.
+
+**⑥ 본진·탑·시설 (청룡 색, 투명)** — 위 D 표의 `ally-keep.png`·`ally-tower.png`·`ally-facility-shield.png`·`ally-facility-spear.png`·`ally-facility-bow.png`·`ally-facility-horse.png`·`supply-depot.png`. 집·탑처럼 혼자 서는 건물은 `isometric view from about 30 degrees above, no vanishing point`면 된다.
+
+**⑦ 관문·목책 (투명)** — `pass-gate.png`(1024×768)·`palisade.png`(1024×512). 목책은 ①과 같은 **기울기 0.707** 문장을 넣고 양 끝을 잘라 이어 붙일 수 있게 한다. 관문은 목책 선 위에 서므로 문짝 양옆 통나무 기둥 아랫선도 같은 기울기로.
+
+올리는 곳은 그대로 `terrain/hd/`. ①~③만 먼저 와도 바로 바꿔 끼운다(성벽은 기울이지 않고 그대로, 길은 자르지 않고 그대로).
