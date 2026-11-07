@@ -8,6 +8,6 @@ const r=await p.evaluate(async()=>{setRoute('qing');newRealm();showRealm();const
  const playAlpha=alphaOf(other),st=state;fx=fx.filter(f=>f.kind!=='px');hitStop=0;const calmLights=hdLights().length,calmImp=hdImpact();
  // 평소 화면: 빛 입자 없이 그려지는지(그리기 호출 수를 효과 전후로 비교)
  pfx('slam',other.x,other.y,1.3);const impLights=hdLights().length,imp=hdImpact();return{planDim,playAlpha,st,calmLights,calmImp,impLights,imp}});
-console.log(r);assert.equal(r.planDim,.62,'계획 중에는 다른 부대를 흐리게');assert.equal(r.st,'playing');assert.equal(r.playAlpha,1,'실행 중에는 모두 불투명');
+console.log(r);assert.equal(r.planDim,.85,'계획 중에는 다른 부대를 흐리게');assert.equal(r.st,'playing');assert.equal(r.playAlpha,1,'실행 중에는 모두 불투명');
 assert.equal(r.calmLights,0,'평소에는 광원 없음');assert.equal(r.calmImp,0,'평소에는 번짐 없음');assert(r.impLights>0&&r.imp>0,'임팩트 때만 빛과 번짐');
 assert.deepEqual(errors,[]);console.log('PASS units stay opaque while moving; lights/bloom only on impacts');await b.close()})();

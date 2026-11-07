@@ -17,6 +17,8 @@ const r=await p.evaluate(async()=>{const wait=t=>new Promise(r=>setTimeout(r,t))
  await open('c8');const n0=A().length;const hurt=A()[3];hurt.hp=hurt.max*.5;for(let t=0;t<3;t++)turn();ev.aidGain=A().length-n0;ev.healed=hurt.hp>hurt.max*.5||hurt.hp<=0;
  // 재시작해도 장 설정(틀·목표·관문선) 유지
  await open('c7');restartBattle();await wait(120);ev.restartForm=battleCfg.form;ev.restartGoal=battleCfg.goal?.t;await open('c5');restartBattle();await wait(120);ev.restartPass=!!passState;
+ // 시작 승리 조건 큰 알림
+ await open('c2');await wait(450);ev.goalBanner={on:!$('#powerup').classList.contains('hidden')&&$('#powerup').classList.contains('goalb'),title:$('#powerup b').textContent,sub:$('#powerup span').textContent};ev.heads=['c5','c6','c9','c13','c16'].map(id=>goalHeadline(SAGA.find(c=>c.id===id)));
  // 출진 준비 문구
  setRoute('qing');newRealm();R.saga.act=1;R.saga.cleared=['c1','c2','c3','c4','c5','c6'];showRealm();openChapter('c7');ev.brief=document.querySelector('#rmodal .cbrief')?.textContent||'';closeModal();
  return{out,sg,fd,rd,ev}});
@@ -27,4 +29,4 @@ assert(r.fd.ay<.66&&r.fd.ey>.33&&r.fd.gap<1100&&!r.fd.pass,'야전: 가운데에
 assert(r.rd.sleep>=r.rd.all-1&&r.rd.slots===3&&!r.rd.pass,'야습: 잠든 적·3부대');assert.equal(r.rd.mult,2.5);assert(r.rd.stillAsleep>=r.rd.sleep&&!r.rd.waves,'야습: 다가가기 전엔 그대로·증원 없음');assert(r.rd.alarm&&r.rd.after1<r.rd.sleep&&r.rd.after3===0,'야습: 경보 뒤 모두 깸');
 assert.equal(r.ev.rearAt,4);assert.equal(r.ev.rearDir,'s');assert(r.ev.rearSpawned>0,'배후 기습 투입');assert(r.ev.aidGain>0&&r.ev.healed,'원군 합류·회복');
 assert.equal(r.ev.restartForm,'field');assert.equal(r.ev.restartGoal,'boss');assert(r.ev.restartPass,'재시작해도 관문선');assert(r.ev.brief.includes('야전 조우전'),r.ev.brief);
-assert.deepEqual(errors,[]);console.log('PASS battle forms: siege/field/raid start+play, scripted rear/aid events, restart keeps chapter setup, briefing label');await b.close()})();
+assert(r.ev.goalBanner.on&&r.ev.goalBanner.title==='부두 4턴 지키기'&&r.ev.goalBanner.sub.startsWith('승리 조건'),JSON.stringify(r.ev.goalBanner));assert(r.ev.heads.every(h=>h&&!/undefined/.test(h)),r.ev.heads.join('|'));assert.deepEqual(errors,[]);console.log('PASS battle forms: siege/field/raid start+play, scripted rear/aid events, restart keeps chapter setup, briefing label');await b.close()})();
