@@ -1,0 +1,84 @@
+{
+  "version": 1,
+  "date": "2026-11-07",
+  "scope": "Qing third set 8-13 only; 6 new PNGs; renderer connection pending",
+  "pixel_block": 4,
+  "palette_max": 40,
+  "assets": [
+    {
+      "file": "qing-paddy.png",
+      "size": [
+        1024,
+        1024
+      ],
+      "background": "opaque",
+      "view": "top-down surface, projected by game"
+    },
+    {
+      "file": "qing-hill.png",
+      "size": [
+        1024,
+        1024
+      ],
+      "background": "opaque",
+      "view": "top-down surface, projected by game"
+    },
+    {
+      "file": "qing-bank.png",
+      "size": [
+        1024,
+        1024
+      ],
+      "background": "opaque",
+      "view": "top-down surface, projected by game"
+    },
+    {
+      "file": "gui-outpost.png",
+      "size": [
+        1024,
+        1024
+      ],
+      "background": "transparent",
+      "view": "isometric, about 30 degrees above",
+      "alpha_bbox": [
+        20,
+        16,
+        1000,
+        992
+      ],
+      "base_y_exclusive": 992
+    },
+    {
+      "file": "gui-ghost-gate.png",
+      "size": [
+        768,
+        1024
+      ],
+      "background": "transparent",
+      "view": "isometric, about 30 degrees above",
+      "alpha_bbox": [
+        16,
+        208,
+        752,
+        992
+      ],
+      "base_y_exclusive": 992
+    },
+    {
+      "file": "beacon.png",
+      "size": [
+        512,
+        768
+      ],
+      "background": "transparent",
+      "view": "isometric, about 30 degrees above",
+      "alpha_bbox": [
+        56,
+        16,
+        456,
+        744
+      ],
+      "base_y_exclusive": 744
+    }
+  ]
+}

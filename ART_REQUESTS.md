@@ -287,7 +287,7 @@ Canva 크레딧이 없어 `tools/pixel-walk.py`로 장수 20명×4방향×4동�
 
 ---
 
-## 요청 6 · 전투 필드 지형·건물 다시 그리기(HD-2D 도트 디오라마) — 상태: 청룡 ①~③까지 6파일 버들골 연결, ④~⑦ 새 17파일 제작·업로드 완료(2026-11-07), 새 그림 연결·다른 진영은 대기
+## 요청 6 · 전투 필드 지형·건물 다시 그리기(HD-2D 도트 디오라마) — 상태: 청룡 1~2차 23파일 버들골 연결, 3차 ⑧~⑬ 6파일 제작·업로드 완료(2026-11-07), 3차 연결·다른 진영은 대기
 
 ### 청룡 시험 세트 전달 (Codex · 2026-11-06)
 - 권장 순서 1의 `qing-ground.png`, `qing-road.png`, `qing-prop-bamboo-clump.png`, `qing-house.png`, `ally-wall.png`를 `terrain/hd/`에 추가했다. 대숲 파일은 512×512 네 칸의 변형 시트(2048×512)다. 나머지 진영과 종류는 아직 만들지 않았다.
@@ -437,6 +437,8 @@ Canva 크레딧이 없어 `tools/pixel-walk.py`로 장수 20명×4방향×4동�
 
 ### 다음 세트 · 청룡 3차 + 다른 진영 (2026-11-07) — 붙여 넣을 프롬프트
 버들골에 아직 예전 그림으로 남은 것(논·고지·물가·적 거점·귀문·봉화대)을 먼저 채우고, 그다음 같은 목록을 진영 색만 바꿔 현무·백호·주작·귀왕으로 넓힌다. 첨부는 지금까지 만든 청룡 그림 1~2장(화풍 참고), 끝에는 항상 [공통 문장].
+
+**⑧~⑬ 제작·업로드 결과 (Codex · 2026-11-07):** 아래 여섯 PNG를 지정한 이름·크기·배경으로 `terrain/hd/`에 추가했다. 청룡 집·바닥·물·성벽 중 항목마다 1~2장을 화풍 참고로 첨부하고 각 영어 프롬프트 끝에 공통 문장을 붙였다. 물가 초안의 위쪽 육지/아래쪽 물 구분은 세로 반복에 맞지 않아, 얕은 물 속 젖은 돌이 전체에 고르게 퍼지도록 재생성했다. 귀문은 과도하게 밝은 막을 없애고 내부를 투명하게, 돌 안쪽에 옅은 보라색이 남도록 수정했다. 세운 물체의 원본 잘림을 확인한 뒤 비율을 유지해 여백을 맞추고 BOX 축소·40색·nearest 4배로 정리했다. 바닥 세 장은 1024×1024 전체 불투명, 적 거점은 1024×1024, 귀문은 768×1024, 봉화대는 512×768 이진 알파 투명 PNG다. 밑끝은 앞 두 건물 y=992 직전, 봉화대 y=744 직전이다. 크기·색 수·4×4 도트·알파·여백·브라우저 6파일 디코딩 검사를 통과했고 바닥 2×2 반복 미리보기를 검수했다. 기존 `tests/hd-terrain.cjs`도 390×844·844×390·1280×800에서 통과했다. 이는 새 그림의 게임 연결/모바일 실기 검수 완료를 뜻하지 않는다. 기존 23 PNG·`index.html`·검사 코드는 `504b06d`와 같으며 수정하지 않았다. 상세 기준은 `terrain/hd/README.md`와 `qing-third-manifest.json` 참고. 브랜치 `ccr-fa9b3dba-6er4z1`에 커밋·푸시하며 main에는 병합하지 않는다. **이번 전달은 ⑧~⑬ 여섯 장까지이며, 다른 진영 묶음은 아직 제작하지 않았다.**
 
 **⑧ 논 (`qing-paddy.png`, 1024×1024, 불투명)**
 > A seamless tileable top-down rice paddy texture viewed straight down at 90 degrees: shallow water between neat rows of young green rice seedlings, thin earthen dividing ridges every few rows, no perspective, no cast shadows, tiles perfectly on all four sides. Palette: fresh greens, teal water, warm earth that matches the attached ground texture.
