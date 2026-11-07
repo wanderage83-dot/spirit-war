@@ -1,4 +1,4 @@
-// 요청 6 청룡 시험 세트(2차 성벽·모서리·길 포함): 버들골에만 HD 바닥·길·대숲·집·성벽·모서리를 쓰고, 판정·충돌·경로와 다른 지역은 그대로다.
+// 귀왕 영토를 제외한 12개 전장은 공통 HD 그림을 사용한다. 판정·충돌·경로는 그대로다.
 const{chromium}=require('playwright'),assert=require('node:assert/strict');(async()=>{const b=await chromium.launch({executablePath:'/usr/bin/chromium'}),errs=[];
 for(const v of[{width:390,height:844},{width:844,height:390},{width:1280,height:800}]){const p=await b.newPage({viewport:v});p.on('pageerror',e=>errs.push(e.message));await p.goto(process.argv[2]||'http://127.0.0.1:8782');await p.waitForFunction(()=>typeof hdArt!=='undefined'&&hdArt.size===29,null,{timeout:15000});
  const r=await p.evaluate(()=>{setRoute('qing');newRealm();showRealm();launchChapter(SAGA[0]);weather='clear';const out={region:battleRegion,on:hdOn(),tiles:[hdTile('qing-ground').width,hdTile('qing-road').width,hdTile('qing-road').height]};
@@ -13,6 +13,6 @@ for(const v of[{width:390,height:844},{width:844,height:390},{width:1280,height:
  assert.equal(r.region,'beodeul');assert(r.on);assert.deepEqual(r.tiles,[256,256,256]);assert(r.fine>r.oldFine*1.5,'HD 바닥이 더 세밀해야 함');assert(r.sameCol&&r.sameRoute);
  const d=r.draws;assert((d['ally-wall.png']||0)>=8,'옆 외벽 2개×4조각');assert.equal(d['ally-wall-m']||0,9,'앞 2+2·뒤 5조각');assert.equal(r.corners,'4:1','모서리 4개·전체 그림 1개');assert((d['ally-wall-corner.png']||0)>=3,'화면 안 모서리');assert((d['ally-keep.png']||0)>=1,'본진 전용 그림');assert((d['qing-prop-bamboo-clump.png']||0)+(d['qing-prop-willow.png']||0)>=5,'대숲·버드나무');assert((d['qing-prop-boulder.png']||0)>=1,'바위');
  const d2=r.draws2;for(const k of['gui-outpost.png','beacon.png','gui-ghost-gate.png','ally-facility-shield.png','ally-facility-spear.png','ally-facility-bow.png','ally-facility-horse.png','ally-tower.png','supply-depot.png'])assert((d2[k]||0)>=1,k);assert.equal(d2['pass-gate-m']||0,r.fences.filter(f=>f==='door').length,'관문 한 장씩');assert((d2['palisade-m']||0)>=r.fences.filter(f=>f==='wall').length,'목책 조각');
- assert.equal(r.other.region,'cheong');assert.equal(r.other.on,false);
+ assert.equal(r.other.region,'cheong');assert.equal(r.other.on,true);
  assert.equal(await p.evaluate(()=>document.scrollingElement.scrollHeight<=innerHeight+1),true);await p.close()}
 assert.deepEqual(errs,[]);await b.close();console.log('PASS hd-terrain')})().catch(e=>{console.error(e);process.exit(1)});
