@@ -405,3 +405,8 @@
 - tests/leader-facing.cjs 추가: 무진/흑철의 네 실제 이동 벡터→그리는 정지/걷기 파일과 양의 변환, 원본과 fr 중립 프레임의 픽셀 일치, fl 정지/중립 프레임 일치. 이전 테스트는 vface/vback 플래그나 파일명만 검사해 잘못된 그림 방향 분류를 놓쳤다. tests/facing.cjs는 왼쪽 원본 예시를 ruler:gui로 바꾸고 흑철은 오른쪽으로 기대한다. 기존 걷기/4방향/실제 이동 검사도 수행한다.
 
 - 작업 중 Claude의 47119ba가 올라와 받아 합쳤다. 그 기본 망자군 연결·fr WebP 4장은 보존했고, fr 한 장을 뒷방향에도 쓰는 현상을 해결하려고 2단계 fl/br/bl 12장을 생성·연결했다. GUI_SOLDIER_READY 각 병종 fr,fl,br,bl; GUI_SOLDIER_FOOT 방향별 값은 characters/soldier-gui/README.md에 있다. 걷기 시트는 미제작, hasWalk false/코드 걸음 유지. guiSoldierOf의 own 분기로 방향별 그림의 반전 상쇄. tests/gui-soldier.cjs를 16로드/네 방향 전용 파일/모두 양의 변환 기준으로 갱신했다. 옆걸음 수정과 새 그림을 함께 커밋하며 47119ba 위에 쌓는다.
+
+## 사신전기 연대기(청명·서진 번갈아) · 2026-11-07
+- 사용자 요청 「창세기전처럼 번갈아, 시작 시 고르기 없음, 맞붙는 곳은 편 선택」(사용자가 「무진」이라 쓴 것은 현무편 주인공 서진으로 해석). `CHRONICLE`(25항목, `['c3','x2']`가 충돌)·`CLASH`·`CHRON`(기본 true)·`CHRON_KEY='spiritwar-chronicle-v1'`. 순서는 각 장의 f 난도(시간순)를 따른다: c1 x1 c2 [c3|x2] c4 x3 c5 c6 x4 c7 x5 c8 c9 x6 c10 x7 c11 c12 x8 c13 x9 c14 c15 x10 c16.
+- 상태: 활성 갈래의 R에 다른 갈래 R을 `R.twin`으로 품고 둘 다 `chron:true`. 저장 하나에 둘 다 들어간다. `newChronicle(r)`(twin의 서막 intro=true), `chronSwap()`(저장→R 교환→setRoute→편성 복원→showRealm), `chronNext()`(첫 미완료 항목), `chronStep()`(sagaAfterChapter 래퍼: 다음이 다른 갈래면 교환+「시점 전환」 카드→`sagaAfterChapter0`(옛 본문, 막 전환 포함), 충돌이면 `chronClash`), `chronPick(id)`, `chronProxy(id)`(이긴 충돌 장의 상대 장을 twin에서 완료·경험치·금 지급, 지역 소유는 바꾸지 않음). sagaBattleDone의 `final`은 연대기가 남아 있으면 무시(x10). resumeRealmSave가 불러온 뒤 충돌·갈래 전환을 이어 준다.
+- setRoute의 SAVE_KEY는 CHRON이면 연대기 키. 옛 이야기별 키는 지우지 않고 메뉴 「예전 저장」으로 그 갈래만 이어하기(CHRON=false). 관리자 메뉴 점프는 기존처럼 단일 갈래 fixture(twin 없음)다. `tests/chronicle.cjs`(25단계 순서·두 편 선택·대리 완료·현무 최종장 비종료·저장/재개·3화면).
