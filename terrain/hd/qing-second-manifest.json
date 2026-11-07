@@ -1,0 +1,525 @@
+{
+  "version": 1,
+  "date": "2026-11-07",
+  "scope": "Qing second set 4-7, 17 new PNGs; renderer connection pending",
+  "pixel_block": 4,
+  "palette_max": 40,
+  "assets": [
+    {
+      "file": "qing-field.png",
+      "size": [
+        1024,
+        1024
+      ],
+      "background": "opaque"
+    },
+    {
+      "file": "qing-bush.png",
+      "size": [
+        1024,
+        1024
+      ],
+      "background": "opaque"
+    },
+    {
+      "file": "qing-stone.png",
+      "size": [
+        1024,
+        1024
+      ],
+      "background": "opaque"
+    },
+    {
+      "file": "qing-water.png",
+      "size": [
+        1024,
+        1024
+      ],
+      "background": "opaque"
+    },
+    {
+      "file": "qing-marsh.png",
+      "size": [
+        1024,
+        1024
+      ],
+      "background": "opaque"
+    },
+    {
+      "file": "qing-prop-willow.png",
+      "size": [
+        2048,
+        512
+      ],
+      "background": "transparent",
+      "cells": [
+        {
+          "crop": [
+            0,
+            0,
+            512,
+            512
+          ],
+          "base_y_exclusive": 496,
+          "alpha_bbox_in_cell": [
+            88,
+            16,
+            424,
+            496
+          ],
+          "bottom_envelope_center_x_estimate": 225.5
+        },
+        {
+          "crop": [
+            512,
+            0,
+            512,
+            512
+          ],
+          "base_y_exclusive": 496,
+          "alpha_bbox_in_cell": [
+            80,
+            16,
+            432,
+            496
+          ],
+          "bottom_envelope_center_x_estimate": 237.5
+        },
+        {
+          "crop": [
+            1024,
+            0,
+            512,
+            512
+          ],
+          "base_y_exclusive": 496,
+          "alpha_bbox_in_cell": [
+            64,
+            16,
+            444,
+            496
+          ],
+          "bottom_envelope_center_x_estimate": 245.5
+        },
+        {
+          "crop": [
+            1536,
+            0,
+            512,
+            512
+          ],
+          "base_y_exclusive": 496,
+          "alpha_bbox_in_cell": [
+            80,
+            16,
+            428,
+            496
+          ],
+          "bottom_envelope_center_x_estimate": 241.5
+        }
+      ]
+    },
+    {
+      "file": "qing-prop-reeds.png",
+      "size": [
+        2048,
+        512
+      ],
+      "background": "transparent",
+      "cells": [
+        {
+          "crop": [
+            0,
+            0,
+            512,
+            512
+          ],
+          "base_y_exclusive": 496,
+          "alpha_bbox_in_cell": [
+            104,
+            16,
+            408,
+            496
+          ],
+          "bottom_envelope_center_x_estimate": 255.5
+        },
+        {
+          "crop": [
+            512,
+            0,
+            512,
+            512
+          ],
+          "base_y_exclusive": 496,
+          "alpha_bbox_in_cell": [
+            88,
+            16,
+            420,
+            496
+          ],
+          "bottom_envelope_center_x_estimate": 263.5
+        },
+        {
+          "crop": [
+            1024,
+            0,
+            512,
+            512
+          ],
+          "base_y_exclusive": 496,
+          "alpha_bbox_in_cell": [
+            68,
+            16,
+            440,
+            496
+          ],
+          "bottom_envelope_center_x_estimate": 219.5
+        },
+        {
+          "crop": [
+            1536,
+            0,
+            512,
+            512
+          ],
+          "base_y_exclusive": 496,
+          "alpha_bbox_in_cell": [
+            96,
+            16,
+            416,
+            496
+          ],
+          "bottom_envelope_center_x_estimate": 249.5
+        }
+      ]
+    },
+    {
+      "file": "qing-prop-boulder.png",
+      "size": [
+        2048,
+        512
+      ],
+      "background": "transparent",
+      "cells": [
+        {
+          "crop": [
+            0,
+            0,
+            512,
+            512
+          ],
+          "base_y_exclusive": 496,
+          "alpha_bbox_in_cell": [
+            16,
+            40,
+            496,
+            496
+          ],
+          "bottom_envelope_center_x_estimate": 252.5
+        },
+        {
+          "crop": [
+            512,
+            0,
+            512,
+            512
+          ],
+          "base_y_exclusive": 496,
+          "alpha_bbox_in_cell": [
+            16,
+            40,
+            496,
+            496
+          ],
+          "bottom_envelope_center_x_estimate": 269.5
+        },
+        {
+          "crop": [
+            1024,
+            0,
+            512,
+            512
+          ],
+          "base_y_exclusive": 496,
+          "alpha_bbox_in_cell": [
+            16,
+            80,
+            496,
+            496
+          ],
+          "bottom_envelope_center_x_estimate": 219.5
+        },
+        {
+          "crop": [
+            1536,
+            0,
+            512,
+            512
+          ],
+          "base_y_exclusive": 496,
+          "alpha_bbox_in_cell": [
+            20,
+            80,
+            496,
+            496
+          ],
+          "bottom_envelope_center_x_estimate": 227.5
+        }
+      ]
+    },
+    {
+      "file": "ally-keep.png",
+      "size": [
+        1024,
+        1024
+      ],
+      "background": "transparent",
+      "cells": [
+        {
+          "crop": [
+            0,
+            0,
+            1024,
+            1024
+          ],
+          "base_y_exclusive": 992,
+          "alpha_bbox_in_cell": [
+            44,
+            16,
+            980,
+            992
+          ],
+          "bottom_envelope_center_x_estimate": 621.5
+        }
+      ]
+    },
+    {
+      "file": "ally-tower.png",
+      "size": [
+        512,
+        1024
+      ],
+      "background": "transparent",
+      "cells": [
+        {
+          "crop": [
+            0,
+            0,
+            512,
+            1024
+          ],
+          "base_y_exclusive": 992,
+          "alpha_bbox_in_cell": [
+            64,
+            16,
+            444,
+            992
+          ],
+          "bottom_envelope_center_x_estimate": 257.5
+        }
+      ]
+    },
+    {
+      "file": "ally-facility-shield.png",
+      "size": [
+        768,
+        768
+      ],
+      "background": "transparent",
+      "cells": [
+        {
+          "crop": [
+            0,
+            0,
+            768,
+            768
+          ],
+          "base_y_exclusive": 744,
+          "alpha_bbox_in_cell": [
+            16,
+            68,
+            752,
+            744
+          ],
+          "bottom_envelope_center_x_estimate": 431.5
+        }
+      ]
+    },
+    {
+      "file": "ally-facility-spear.png",
+      "size": [
+        768,
+        768
+      ],
+      "background": "transparent",
+      "cells": [
+        {
+          "crop": [
+            0,
+            0,
+            768,
+            768
+          ],
+          "base_y_exclusive": 744,
+          "alpha_bbox_in_cell": [
+            16,
+            64,
+            752,
+            744
+          ],
+          "bottom_envelope_center_x_estimate": 379.5
+        }
+      ]
+    },
+    {
+      "file": "ally-facility-bow.png",
+      "size": [
+        768,
+        768
+      ],
+      "background": "transparent",
+      "cells": [
+        {
+          "crop": [
+            0,
+            0,
+            768,
+            768
+          ],
+          "base_y_exclusive": 744,
+          "alpha_bbox_in_cell": [
+            28,
+            16,
+            740,
+            744
+          ],
+          "bottom_envelope_center_x_estimate": 433.5
+        }
+      ]
+    },
+    {
+      "file": "ally-facility-horse.png",
+      "size": [
+        768,
+        768
+      ],
+      "background": "transparent",
+      "cells": [
+        {
+          "crop": [
+            0,
+            0,
+            768,
+            768
+          ],
+          "base_y_exclusive": 744,
+          "alpha_bbox_in_cell": [
+            56,
+            16,
+            712,
+            744
+          ],
+          "bottom_envelope_center_x_estimate": 442.5
+        }
+      ]
+    },
+    {
+      "file": "supply-depot.png",
+      "size": [
+        768,
+        768
+      ],
+      "background": "transparent",
+      "cells": [
+        {
+          "crop": [
+            0,
+            0,
+            768,
+            768
+          ],
+          "base_y_exclusive": 744,
+          "alpha_bbox_in_cell": [
+            40,
+            16,
+            724,
+            744
+          ],
+          "bottom_envelope_center_x_estimate": 437.5
+        }
+      ]
+    },
+    {
+      "file": "pass-gate.png",
+      "size": [
+        1024,
+        768
+      ],
+      "background": "transparent",
+      "cells": [
+        {
+          "crop": [
+            0,
+            0,
+            1024,
+            768
+          ],
+          "base_y_exclusive": 744,
+          "alpha_bbox_in_cell": [
+            184,
+            16,
+            840,
+            744
+          ],
+          "bottom_envelope_center_x_estimate": 211.5
+        }
+      ],
+      "lower_envelope_fit": {
+        "signed_slope": -0.70078,
+        "angle_degrees": 35.02,
+        "x_range": [
+          315,
+          741
+        ],
+        "intercept": 929.385,
+        "note": "Approximate alpha lower-envelope fit, includes posts/footings. Re-measure actual join anchors in game; target slope -0.707."
+      }
+    },
+    {
+      "file": "palisade.png",
+      "size": [
+        1024,
+        512
+      ],
+      "background": "transparent",
+      "cells": [
+        {
+          "crop": [
+            0,
+            0,
+            1024,
+            512
+          ],
+          "base_y_exclusive": 496,
+          "alpha_bbox_in_cell": [
+            332,
+            16,
+            692,
+            496
+          ],
+          "bottom_envelope_center_x_estimate": 341.5
+        }
+      ],
+      "lower_envelope_fit": {
+        "signed_slope": -0.68637,
+        "angle_degrees": 34.46,
+        "x_range": [
+          404,
+          637
+        ],
+        "intercept": 729.552,
+        "note": "Approximate alpha lower-envelope fit, includes posts/footings. Re-measure actual join anchors in game; target slope -0.707."
+      }
+    }
+  ]
+}

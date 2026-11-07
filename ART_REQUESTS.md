@@ -284,3 +284,194 @@ python3 tools/soldier-walk.py 받은폴더/*.png
 ### 장수 걷기(2026-11-04) — 코드로 생성 완료
 Canva 크레딧이 없어 `tools/pixel-walk.py`로 장수 20명×4방향×4동작(320장)을 도트 그림에서 직접 만들었다(다리 띠를 엉덩이 축으로 흔듦). 다리가 크게 보이는 손그림 프레임을 원하면 같은 경로(`characters/pixel/walk/<이름>/<방향>-1..4.webp`, 원본 도트와 같은 크기)에 덮어쓰면 된다.
 
+
+---
+
+## 요청 6 · 전투 필드 지형·건물 다시 그리기(HD-2D 도트 디오라마) — 상태: 29파일 연결, 귀왕 외 4진영 12지역 공통 HD 적용(2026-11-07), 진영별 확장 제작 보류
+
+### 최신 사용자 결정 · 귀왕 외 공통 사용 (2026-11-07)
+- 청룡·현무·주작·백호는 지금 만든 청룡 HD 그림과 보조 색을 공통으로 사용한다. 아래의 진영별 신규 바닥·소품·현무 건물 제작 계획은 보류한다. 사용자 재요청 전에는 그 계획대로 추가 제작하지 않는다.
+- `HD_ART_REGIONS`는 귀왕 영토를 뺀 12지역이다. 귀왕성·혼령곡·망자벌은 기존 잿빛 지형/소품을 유지한다. 다른 전장에 등장하는 귀왕군 거점과 귀문은 이미 만든 전용 그림을 계속 쓴다.
+- 지역별 강·길·협곡·고지·숲 배치, 충돌·경로·날씨 판정은 유지했다. 청룡성의 예전 다리 돌 둑 띠도 공통 HD 물가 질감으로 바꿨다. 천하도·대화·인물·병사는 이번 공통화 대상이 아니다.
+- `tests/hd-common.cjs`는 12개 공통 지역/3개 귀왕 예외, 15지역의 그림 유무에 따른 충돌·경로 보존, 물가 질감 실제 그리기, 모바일 세로·가로/PC 화면을 검사한다. `tests/hd-terrain.cjs`의 청룡성 HD 기대값도 공통 정책에 맞췄다.
+
+### 청룡 시험 세트 전달 (Codex · 2026-11-06)
+- 권장 순서 1의 `qing-ground.png`, `qing-road.png`, `qing-prop-bamboo-clump.png`, `qing-house.png`, `ally-wall.png`를 `terrain/hd/`에 추가했다. 대숲 파일은 512×512 네 칸의 변형 시트(2048×512)다. 나머지 진영과 종류는 아직 만들지 않았다.
+- 아래 영어 프롬프트와 공통 문장으로 새로 생성했다. 타 게임 화면을 참고 이미지로 첨부하지 않았다. 큰 바위가 있던 바닥, 집의 잘린 발밑, 성벽의 지나치게 완만한 방향, 배경이 남은 대숲, 반복 시 길 자국이 어긋나던 초안은 수정·재생성했다.
+- 문서에서 허용한 도트/색상 정리와 같은 방식으로 BOX 축소·40색 제한·nearest 4배 확대를 적용했다. 바닥은 1024×1024 불투명 PNG, 세운 물체는 투명 PNG이며 캔버스와 발밑 여백을 맞췄다. 상세 크기·시트 자르기 좌표는 `terrain/hd/README.md` 참고.
+- 규격·40색 이하·4×4 도트 격자·바닥 불투명/소품 이진 알파·대숲 네 칸·잘림/발밑 여백을 검사했다. 바닥은 2×2 반복 미리보기로 시각 검수했다. 실제 브라우저 PNG 로딩/디코딩도 검사했다.
+- **게임 연결은 하지 않았다.** `index.html`·렌더러·판정·충돌·길찾기·천하도·대화·인물·병사 파일은 수정하지 않았다. 버들골에서 휴대폰 기준 크기·각도·빛·타일 반복·성벽 연결점을 Claude가 확인한 뒤 나머지를 같은 화풍으로 확장한다. 전체 요청 6 완료나 실기 검수 완료로 취급하지 않는다.
+- 요청 6이 실제로 올라온 브랜치는 `ccr-fa9b3dba-6er4z1`이다. 이번 시험 세트도 그 브랜치에 커밋·푸시하며 main에는 병합하지 않는다.
+
+### 버들골 연결 결과 (Claude · 2026-11-07)
+- `HD_ART_REGIONS=['beodeul']`인 전장에서만 쓴다. 다른 지역은 지금 그림 그대로다. 판정·충돌·길찾기·지형 마스크는 그림과 무관하게 같다(`tests/hd-terrain.cjs`가 그림을 빼고 다시 만들어 비교).
+- **바닥**: HD 지역은 배경을 2400px(한 점=월드 2)로 그린다. 그림 4px 한 칸이 배경 한 점, 타일 한 장이 월드 512다. 휴대폰 확대 0.45~1.2에서 이음새가 보이지 않았다. 덤불·들판 칸은 그 위에 진영색을 옅게 덮는다. 성 안 마당도 길 질감으로 깐다.
+- **길**: `qing-road.png`는 양쪽 x=8~36·988~1016에 진한 세로 띠가 있어 반복하면 줄무늬가 생긴다. 게임은 가운데 x=40~984만 잘라 반복한다. **다음 그림은 띠 없이 전체가 길 표면이어야 한다.**
+- **대숲**: 기존 나무 자리(크기 r)에 높이 r×5.4(약 120~160, 병사 2.5~3.5명)로, 칸마다 줄기 밑끝 x(282·254·168·242)를 발 위치로 놓는다. 앞을 가리면 투명해지는 처리는 기존과 같다. 바위는 아직 옛 그림.
+- **집**: 본진·군량소·시설·적 거점이 모두 이 집 그림을 쓴다(폭 = 기존 집 폭×1.5, 발밑 y=744). 건설 중 시설은 반투명. 본진·적 거점 전용 그림이 오면 나눠 쓴다.
+- **성벽**: 그림 속 벽 아랫선 기울기가 −0.34인데, 게임 바닥 축은 **±0.707(35° 정등각)**이다. 요청서에 「2:1 dimetric」이라고 잘못 적은 탓이다. 지금은 그림을 세로로 기울여(전단) 각도를 맞추고 벽 길이 약 400마다 한 조각씩 이어 붙인다(앞벽 1·1, 옆벽 2·2, 뒷벽 3). 세로로 가는 벽(오른쪽 위로 오르는 방향)은 그대로, 가로로 가는 벽은 좌우 반전 그림을 쓴다. 기울인 탓에 벽돌이 약간 비스듬하고, 모서리는 조각이 맞닿기만 한다. **다음 성벽·목책·절벽은 아래 「바로잡은 각도」로 다시 그려야 한다.**
+
+### 바로잡은 각도 (2026-11-07, 성벽·목책·절벽처럼 땅을 따라 이어지는 조각)
+- 게임 투영은 **정등각(true isometric)**: 땅의 두 축이 화면에서 각각 오른쪽 아래·왼쪽 아래 35.26°(기울기 0.707, 가로 1.414 : 세로 1)로 보인다. 2:1 등각(26.57°)이 아니다.
+- 이어 붙이는 조각은 **벽 아랫선이 왼쪽 아래에서 오른쪽 위로 기울기 0.707**(35°)로 오르게 그리고, 양 끝을 잘라 같은 그림을 끝과 끝이 맞닿게 반복할 수 있게 한다. 반대 방향은 게임이 좌우 반전한다(빛이 오른쪽 위로 바뀌니, 원하면 반대 방향을 따로 그려도 된다).
+- 프롬프트에 넣을 문장: `true isometric projection (35.26° — the wall's base line rises from lower left to upper right with a slope of 0.707, i.e. 1 pixel up for every 1.414 pixels across), no perspective`.
+- 모서리 조각(`ally-wall-corner.png`: 바깥 모서리, 두 벽이 직각으로 만나는 기둥)도 함께 그리면 연결이 깔끔해진다.
+- 집·나무·탑처럼 혼자 서 있는 물체는 각도가 조금 달라도 괜찮다(지금 그림 그대로 쓴다).
+
+전투 필드 배경만 다시 그린다. **천하도·대화 무대·인물·병사·효과는 그대로**다. 목표 느낌은 「도트 그림으로 만든 미니어처 디오라마」다. 도트 질감의 땅·풀·돌 위에 부드러운 빛과 그림자, 가장자리의 이끼와 풀, 층층이 쌓인 바위 절벽이 있다. 참고 그림(사용자가 보여 준 화면)은 **느낌을 말로 옮기는 데만** 쓰고, 그 게임의 화면을 첨부해 베끼게 하지는 않는다(남의 게임 그림을 닮은 결과가 나오면 쓸 수 없다).
+
+게임에는 이미 틸트시프트(위아래 흐림)·색 보정·가장자리 어둠·빛 번짐이 있다(`HD`, 「효과 켬/끔」). 그래서 **그림 자체에는 흐림·안개·비네트를 넣지 않는다.** 선명한 그림을 받아 게임이 흐리게 만든다.
+
+### 게임 쪽 약속(그림이 맞춰야 하는 것)
+- **바닥 질감**은 **바로 위에서 내려다본 정사각형**으로 그린다. 게임이 이것을 마름모(등각)로 눕혀 깐다. 원근·기울기·그림자 방향이 없어야 하고, 네 변이 이어지는 **이음새 없는 반복 타일**이어야 한다.
+- **세워진 물체**(나무·바위·집·성벽·탑·문)는 **등각 시점**으로 그린다. 위 30도에서 내려다보는 2:1 등각 투영이고, 지붕과 정면이 함께 보인다. 원근 소실점이 없다. 물체 하나만 **투명 배경**에 그리고, 발밑(바닥에 닿는 면)이 그림 맨 아래에서 3% 위에 오게 한다. 바닥 그림자는 게임이 그리므로 넣지 않는다.
+- 빛은 **모든 그림이 같은 방향**이다. 왼쪽 위에서 오는 따뜻한 해, 오른쪽 아래에 그늘.
+- 크기: 전투 화면에서 병사는 휴대폰에서 키 30~50px로 보인다. 집 한 채는 병사 6~8명 높이, 나무는 병사 3~5명 높이 정도.
+- 도트: 그림의 한 점(도트)이 화면 4×4px 크기라고 생각하고 굵은 도트로 그린다. 받은 그림은 `tools/pixelize.py`로 색 수·도트 크기를 다시 맞출 수 있으니 조금 매끈해도 괜찮다.
+- 5진영 색: **청룡**(청록 기와, 푸른 강, 대숲, 초록 들), **현무**(눈, 검푸른 성곽, 설송, 회청색 돌), **백호**(황토, 사암, 마른 풀, 황동), **주작**(붉은 단풍, 붉은 기와, 따뜻한 흙, 검은 화산석), **귀왕**(잿빛 돌, 보랏빛 그늘, 고사목, 부적, 묘비).
+
+### 공통 문장(모든 프롬프트 끝에 붙인다)
+> Style: high-detail pixel art with an HD-2D diorama feel — crisp chunky pixel textures (each art pixel reads as a 4×4 block), a limited palette of about 40 colors per image, soft volumetric sunlight from the upper left, gentle ambient occlusion in crevices, warm rim light on edges, moss and grass tufts along stone edges, a handcrafted miniature-set look. Clean and sharp: no depth-of-field blur, no fog, no vignette, no bloom, no text, no logo, no UI, no characters or soldiers.
+
+### A. 바닥 질감(위에서 본 반복 타일) — 진영 5 × 7종, 각 1024×1024 PNG
+> A seamless tileable top-down ground texture, viewed straight down at 90 degrees with no perspective and no cast shadows, 1024×1024, edges tile perfectly on all four sides. {바닥 종류} {진영 색}. [공통 문장]
+
+바닥 종류(`{바닥 종류}`):
+1. `ground` → `Plain packed earth with short grass patches and tiny pebbles.`
+2. `road` → `A worn dirt road surface with wheel ruts and scattered flat stones (texture only, the road fills the whole tile edge to edge, no curbs, no darker border strips at the sides).`
+3. `field` → `Open meadow / farm field with soft tall grass and small wildflowers.`
+4. `bush` → `Dense undergrowth: bamboo shoots, ferns and low shrubs packed together, seen from above.`
+5. `stone` → `Paved courtyard of irregular flagstones with moss in the joints.`
+6. `water` → `Calm shallow river water seen from above, with soft ripples and a few submerged stones.`
+7. `snowice` / `sand` / `ash` → 진영에 맞는 특수 바닥: 현무 `Packed snow with blue-tinted ice patches.`, 백호 `Wind-rippled sand with dry grass.`, 귀왕 `Grey ash soil with cracked dark earth.`, 청룡·주작은 `Muddy marsh with reeds and puddles.`
+
+진영 색(`{진영 색}`):
+- 청룡 `qing` → `Palette: fresh greens, teal, jade, cool river blue.`
+- 현무 `xuan` → `Palette: snow white, slate blue, dark navy stone, pale frost.`
+- 백호 `bai` → `Palette: ochre loess, warm sandstone, dry straw yellow, brass accents.`
+- 주작 `zhu` → `Palette: crimson and orange autumn leaves, warm red-brown soil, black volcanic stone.`
+- 귀왕 `gui` → `Palette: ash grey, muted violet shadows, bone white, desaturated dead grass.`
+
+파일 이름: `<진영>-<종류>.png` (예: `zhu-field.png`, `xuan-snowice.png`).
+
+### B. 자연 소품(세워진 물체, 등각 시점) — 진영별, 각 512×512 투명 PNG, 같은 종류 4가지 변형
+> A single {소품} standing alone, isometric view from 30 degrees above (2:1 dimetric, no vanishing point), base touching the bottom 3% of the canvas, transparent background, no ground shadow. Make 4 slightly different variations side by side on a 2048×512 sheet with clear transparent space between them. {진영 색}. [공통 문장]
+
+소품(`{소품}`):
+- 청룡: `bamboo clump`, `weeping willow`, `river reeds`, `mossy boulder`
+- 현무: `snow-covered pine tree`, `frozen rock with icicles`, `snowy shrub`, `iron ore rock`
+- 백호: `layered sandstone rock`, `dry steppe bush`, `lone poplar tree`, `brass gear scrap pile`
+- 주작: `red maple tree`, `tea bush row`, `black basalt rock with glowing red cracks`, `stone lantern`
+- 귀왕: `dead twisted tree`, `leaning grave marker`, `talisman pole with paper charms`, `cracked ruin pillar`
+
+파일 이름: `<진영>-prop-<영어 이름>.png` (예: `gui-prop-dead-tree.png`).
+
+### C. 절벽·능선(타일처럼 이어 붙이는 벽) — 진영별 512×512 투명 PNG
+> A short straight segment of a layered rock cliff wall, true isometric projection (35.26° — the base line rises from lower left to upper right with a slope of 0.707), no perspective, the top surface covered with {진영 윗면} and the cliff face showing stacked rock strata, designed so that copies placed side by side along the diagonal join seamlessly. Transparent background. {진영 색}. [공통 문장]
+
+진영 윗면(`{진영 윗면}`): 청룡 `grass and ferns`, 현무 `snow`, 백호 `dry grass on sandstone`, 주작 `red leaves and moss`, 귀왕 `ash and dead grass`. 파일 이름 `<진영>-cliff.png`, 같은 문장으로 모서리용 `<진영>-cliff-corner.png`도 한 장(「an outer corner piece of the same cliff」).
+
+### D. 건물(등각 시점, 투명 배경) — 크기는 아래 표
+공통 앞문장:
+> A single {건물}, isometric view from 30 degrees above (2:1 dimetric, no vanishing point), East-Asian fantasy architecture with curved tiled roofs, base touching the bottom 3% of the canvas, transparent background, no ground shadow, no people. {진영 색}. [공통 문장]
+
+| 파일 이름 | 캔버스 | `{건물}` 문장 |
+|---|---|---|
+| `<진영>-house.png` | 768×768 | `small village house with a curved tiled roof, wooden walls and a stone base` |
+| `<진영>-house-long.png` | 1024×768 | `long farmhouse with a storage shed and stacked firewood` |
+| `ally-keep.png` | 1024×1024 | `fortified command hall of the player's army: a two-storey keep with a large curved roof, banners and a stone platform` (청룡 색) |
+| `ally-wall.png` | 1024×512 | `straight section of a stone fortress wall with crenellations and a wooden walkway, designed to tile end to end; true isometric projection: the wall's base line rises from lower left to upper right with a slope of 0.707 (35.26°)` (청룡 색) — 시험본은 기울기 0.34라 게임이 기울여 쓰는 중 |
+| `ally-tower.png` | 512×1024 | `wooden watchtower with a small tiled roof and an archer platform` |
+| `ally-facility-shield.png` | 768×768 | `training yard with shield racks and wooden pells` |
+| `ally-facility-spear.png` | 768×768 | `spear training ground with long spear racks` |
+| `ally-facility-bow.png` | 768×768 | `archery workshop with bows drying on racks and straw targets` |
+| `ally-facility-horse.png` | 768×768 | `horse stable with hay and a water trough` |
+| `supply-depot.png` | 768×768 | `field supply depot: stacked rice sacks, crates and a canvas awning` |
+| `beacon.png` | 512×768 | `stone signal beacon tower with a fire basin on top (unlit)` |
+| `pass-gate.png` | 1024×768 | `heavy wooden pass gate with two log towers and a closed double door, part of a palisade line` |
+| `palisade.png` | 1024×512 | `straight section of a sharpened log palisade fence, designed to tile end to end; true isometric projection: the base line rises from lower left to upper right with a slope of 0.707 (35.26°)` |
+| `<적진영>-outpost.png` | 1024×1024 | `enemy forward fortress gate with dark banners` (현무·백호·주작·귀왕 각 1장) |
+| `gui-ghost-gate.png` | 768×1024 | `ominous stone gate of the undead army, glowing faint violet, covered in talismans` |
+
+### E. 지역 특징 소품(지역마다 1~2개, 등각·투명, 768×768)
+청룡성 `jade pavilion by the river`, 버들골 `rice paddy terraces with a scarecrow`, 동해포 `wooden pier with fishing boats and cargo`, 현무성 `stone archive building with scroll shelves under the eaves`, 빙설령 `mine entrance with ore carts on rails`, 흑수 `frozen river crossing with stepping stones`, 백호성 `brass workshop with large gears and a chimney`, 서량 `horse pen fence with hoofprints`, 모래관 `sandstone canyon arch`, 주작성 `red shrine gate with stone lanterns`, 남화 `terraced tea hill`, 염산 `volcanic vent with glowing embers`, 귀왕성 `broken throne platform in a ruined palace`, 혼령곡 `rope bridge hung with paper talismans`, 망자벌 `field of tilted grave markers and burial mounds`.
+파일 이름: `feature-<지역 id>.png` (지역 id는 `REGION_MAPS` 키: cheong·beodeul·donghae·hyeonmu·bingseol·heuksu·baekho·seoryang·moraegwan·jujak·namhwa·yeomsan·gwiwang·honryeong·mangja).
+
+### 만드는 순서(권장)
+1. **시험 1세트**: 청룡 `qing-ground`·`qing-road`·`qing-prop-bamboo-clump`·`qing-house`·`ally-wall`을 먼저 만든다. Claude가 한 전장(버들골)에 연결해 휴대폰 화면에서 크기·각도·색을 확인한다.
+2. 시험이 맞으면 같은 문장으로 나머지 진영을 만든다(진영 색 문장만 바꿔 같은 대화창에서 이어 그리면 화풍이 덜 흔들린다).
+3. 한 대화창에서 첫 그림이 마음에 들면 「같은 화풍·같은 빛 방향·같은 도트 크기로」를 붙여 계속 요청한다.
+
+### 확인 기준
+- [ ] 바닥 타일: 네 변을 이어 붙여도 선이 안 보임, 원근·그림자 없음
+- [ ] 세운 물체: 등각(지붕과 정면이 같이 보임), 소실점 없음, 투명 배경, 바닥 그림자 없음, 발밑이 아래쪽
+- [ ] 빛이 왼쪽 위, 흐림·안개 없음, 사람 없음, 글자 없음
+- [ ] 같은 진영끼리 색이 맞고, 다섯 진영이 한눈에 구별됨
+
+### 게임에 넣기
+받은 그림은 `terrain/hd/` 아래에 파일 이름 그대로 올리고 Claude에게 「올렸다」고 말한다. 지금 전장은 바닥·나무·바위·집·성벽·탑·관문을 코드로 그리므로, 그림이 오면 Claude가 그 자리에 연결하는 작업을 한다(그림이 없는 것은 지금 그림 유지). 판정·충돌·길찾기·크기는 바뀌지 않는다.
+
+### 다음 세트 · 청룡 2차 (2026-11-07) — 붙여 넣을 프롬프트
+**①~③ 제작·업로드 결과 (Codex · 2026-11-07):** `terrain/hd/ally-wall.png`와 `qing-road.png`를 교체하고 `ally-wall-corner.png`를 추가했다. 각각 1024×512·1024×1024·512×768이며 40색·4×4 도트 격자, 성벽 두 장은 투명/길은 불투명 PNG다. 요청한 참고 그림과 공통 문장을 사용했고 성벽은 「더 가파르게, 35도」로 재생성했다. 최종 아랫선은 약 −0.6054(31.19°), 이전 약 −0.3409보다 개선됐지만 목표 −0.707에 정확히 맞지는 않아 허용대로 이 상태로 전달한다. 길의 진한 양옆 띠는 제거했고 반복 미리보기를 검수했다. 측정값·알파 범위·기존 `HD_WALL` 보정값이 더 이상 맞지 않는 점은 `terrain/hd/README.md`에 기록했다. 기존 게임 코드와 다른 1차 그림은 변경하지 않았다. **새 그림 재연결·휴대폰 확인은 아직이며 ④~⑦은 미착수다.**
+
+**①~③ 버들골 재연결 (Claude · 2026-11-07):** 성벽 기준값을 새 그림으로 다시 쟀다(아랫선 y≈−0.602x+700.2, 조각 끝 x=310~716, 중심 (512,393)). 게임이 −0.602를 0.707로 기울여(전단 폭이 1차의 절반 이하라 벽돌이 덜 비스듬함) 약 170px마다 이어 붙인다(옆벽 4·4, 앞벽 2·2, 뒷벽 5조각). 모서리 그림은 아랫선을 재 보니 기둥이 안쪽(화면 위)이고 두 날개가 왼쪽·오른쪽 아래로 뻗어 **본진 북서(맨 위) 모서리**에 전체 그림을 쓰고, 나머지 세 모서리에는 가운데 기둥(x=136~376)만 잘라 세운다(기준점: 기둥 앞 밑끝 (256,690)). 날개 기울기는 약 0.52라 벽과 살짝 어긋나지만 벽이 앞에 그려져 가려진다. 길은 전체 1024 타일을 그대로 반복한다(가장자리 차이 10.0, 내부 8.2 수준으로 이음새가 보이지 않음). `tests/hd-terrain.cjs` 3규격 통과. ④~⑦ 진행 가능.
+
+**④~⑦ 버들골 연결 (Claude · 2026-11-07):** 17장 모두 연결했다. 바닥은 덤불 칸=`qing-bush`, 들판 칸=`qing-field`, 물 안쪽=`qing-water`, 습지·여울=`qing-marsh`, 본진 마당=`qing-stone`. 2×2 반복과 실제 화면(청룡성 강에 검사용으로 켜 봄)에서 물결·돌 줄눈 반복 경계가 보이지 않았다. 버드나무를 숲 나무의 기본으로, 대숲은 3그루 중 1그루, 지도 가장자리 장식은 4그루 중 1그루를 갈대로, 바위는 모두 이끼 바위로 바꿨다. 본진·망루·시설 4종·군량소(보급소 그림)는 manifest의 밑끝에 맞춰 세웠다(적 거점은 아직 집 그림). 관문·목책은 manifest 기울기(.70/.686, 실측 끝점 .679)를 0.707로 아주 조금만 기울여 붙였다. 관문은 관문선의 문 자리에 한 장, 목책은 길이에 맞춰 이어 붙이며 휴대폰에서 병사 3명 키 정도로 보인다. 버들골은 관문선이 없는 방어전이라 검사에서 관문선을 강제로 세워 확인했다. 남은 예전 그림: 논(들판 구획)·고지 테두리·물가 돌 테두리·적 거점·귀문·봉화대.
+
+**④~⑦ 제작·업로드 결과 (Codex · 2026-11-07):** 아래 목록의 새 PNG 17파일을 `terrain/hd/`에 추가했다. 바닥 5종(1024×1024 불투명), 소품 3종(2048×512, 각 512 네 칸 투명 시트), 본진·탑·시설 4종·보급소 7종, 관문·목책 2종이다. 기존 청룡 그림을 화풍 참고로 첨부하고 해당 프롬프트와 공통 문장으로 생성했다. 물의 수면, 본진·마구간 밑끝, 관문 지붕의 잘린 부분을 수정·재생성했고, 관문·목책도 더 가파르게 재생성했다. 원본 비율을 유지해 규격 캔버스에 배치한 뒤 40색·4×4 도트로 정리했다. 관문 아래 윤곽은 약 −0.70078(35.02°), 목책은 약 −0.68637(34.46°)이며 정확한 연결점/접합은 게임에서 재측정한다. 크기·색 수·도트 격자·알파·네 칸 분할·밑끝 여백과 브라우저 17파일 디코딩 검사를 통과했다. 바닥 반복 미리보기를 검수했으나 물결·돌 줄눈의 경계와 휴대폰 실제 배율에서는 추가 확인이 필요하다. 기존 HD 검사도 세 화면 규격에서 통과했다. **게임 코드는 변경하지 않았으며 새 17파일의 연결·휴대폰 검수는 아직이다.** 상세 규격·기준점·검사 범위는 `terrain/hd/README.md`와 `qing-second-manifest.json` 참고. 기존 PNG 6파일은 그대로 유지했다. 브랜치 `ccr-fa9b3dba-6er4z1`에 올리며 main에는 병합하지 않는다. 다른 진영·절벽·지역 특징 소품 등 전체 요청 6의 남은 항목은 미완료다.
+
+1차 시험 세트를 버들골에 연결해 보니 성벽 각도와 길 테두리를 고쳐야 했다. 2차 세트는 **고칠 그림 2장 + 새 그림 2장 + 청룡 나머지**다. 같은 대화창에서 1차 그림(`qing-house.png` 또는 `qing-ground.png`)을 **화풍 참고로 첨부**하고 아래 문장을 하나씩 보낸다. 끝에는 항상 위의 [공통 문장]을 붙인다.
+
+**① 성벽 다시 (`ally-wall.png`, 1024×512, 투명)**
+> Redraw the attached stone fortress wall segment in exactly the same pixel-art style, colors and details (grey stone blocks, teal wooden walkway rail, crenellations with small arrow slits, moss tufts), but in true isometric projection: the wall's base line must rise from lower left to upper right with a slope of 0.707 (35.26 degrees — 1 pixel up for every 1.414 pixels across), no perspective. A straight segment cut cleanly at both ends so identical copies placed end to end along that diagonal join seamlessly (no end pillars). Base touching the bottom 3% of the canvas, transparent background, no ground shadow. [공통 문장]
+
+**② 성벽 모서리 (`ally-wall-corner.png`, 512×768, 투명)**
+> The outer corner pillar where two of the same stone fortress walls meet at a right angle, true isometric projection (35.26°, no perspective): one wall stub leaves toward the lower left and one toward the lower right, each about 1/5 of a segment long, with a slightly taller square stone pillar and a small teal-tiled cap at the corner. Same style and colors as the attached wall. Base touching the bottom 3% of the canvas, transparent background, no ground shadow. [공통 문장]
+
+**③ 길 다시 (`qing-road.png`, 1024×1024, 불투명)**
+> A seamless tileable top-down dirt road surface viewed straight down at 90 degrees: packed earth with faint wheel ruts and scattered small flat stones, the texture fills the whole tile edge to edge with no curbs and no darker border strips at the sides, tiles perfectly on all four sides, no perspective, no cast shadows. Palette: warm light brown earth that matches the attached ground texture. [공통 문장]
+
+**④ 청룡 바닥 나머지 (각 1024×1024, 불투명)** — 위 A의 문장에 `{바닥 종류}`만 바꿔 넣는다: `qing-field.png`(field), `qing-bush.png`(bush), `qing-stone.png`(stone), `qing-water.png`(water), `qing-marsh.png`(`Muddy marsh with reeds and puddles.`). 진영 색은 `Palette: fresh greens, teal, jade, cool river blue.`
+
+**⑤ 청룡 소품 나머지 (각 2048×512 네 칸 시트, 투명)** — 위 B의 문장으로 `qing-prop-willow.png`(`weeping willow tree`), `qing-prop-reeds.png`(`clump of river reeds`), `qing-prop-boulder.png`(`mossy boulder`). 칸마다 발밑이 아래 16px 여백 위에 오게 한다.
+
+**⑥ 본진·탑·시설 (청룡 색, 투명)** — 위 D 표의 `ally-keep.png`·`ally-tower.png`·`ally-facility-shield.png`·`ally-facility-spear.png`·`ally-facility-bow.png`·`ally-facility-horse.png`·`supply-depot.png`. 집·탑처럼 혼자 서는 건물은 `isometric view from about 30 degrees above, no vanishing point`면 된다.
+
+**⑦ 관문·목책 (투명)** — `pass-gate.png`(1024×768)·`palisade.png`(1024×512). 목책은 ①과 같은 **기울기 0.707** 문장을 넣고 양 끝을 잘라 이어 붙일 수 있게 한다. 관문은 목책 선 위에 서므로 문짝 양옆 통나무 기둥 아랫선도 같은 기울기로.
+
+올리는 곳은 그대로 `terrain/hd/`. ①~③만 먼저 와도 바로 바꿔 끼운다(성벽은 기울이지 않고 그대로, 길은 자르지 않고 그대로).
+
+### 다음 세트 · 청룡 3차 + 다른 진영 (2026-11-07) — 붙여 넣을 프롬프트
+버들골에 아직 예전 그림으로 남은 것(논·고지·물가·적 거점·귀문·봉화대)을 먼저 채우고, 그다음 같은 목록을 진영 색만 바꿔 현무·백호·주작·귀왕으로 넓힌다. 첨부는 지금까지 만든 청룡 그림 1~2장(화풍 참고), 끝에는 항상 [공통 문장].
+
+**⑧~⑬ 제작·업로드 결과 (Codex · 2026-11-07):** 아래 여섯 PNG를 지정한 이름·크기·배경으로 `terrain/hd/`에 추가했다. 청룡 집·바닥·물·성벽 중 항목마다 1~2장을 화풍 참고로 첨부하고 각 영어 프롬프트 끝에 공통 문장을 붙였다. 물가 초안의 위쪽 육지/아래쪽 물 구분은 세로 반복에 맞지 않아, 얕은 물 속 젖은 돌이 전체에 고르게 퍼지도록 재생성했다. 귀문은 과도하게 밝은 막을 없애고 내부를 투명하게, 돌 안쪽에 옅은 보라색이 남도록 수정했다. 세운 물체의 원본 잘림을 확인한 뒤 비율을 유지해 여백을 맞추고 BOX 축소·40색·nearest 4배로 정리했다. 바닥 세 장은 1024×1024 전체 불투명, 적 거점은 1024×1024, 귀문은 768×1024, 봉화대는 512×768 이진 알파 투명 PNG다. 밑끝은 앞 두 건물 y=992 직전, 봉화대 y=744 직전이다. 크기·색 수·4×4 도트·알파·여백·브라우저 6파일 디코딩 검사를 통과했고 바닥 2×2 반복 미리보기를 검수했다. 기존 `tests/hd-terrain.cjs`도 390×844·844×390·1280×800에서 통과했다. 이는 새 그림의 게임 연결/모바일 실기 검수 완료를 뜻하지 않는다. 기존 23 PNG·`index.html`·검사 코드는 `504b06d`와 같으며 수정하지 않았다. 상세 기준은 `terrain/hd/README.md`와 `qing-third-manifest.json` 참고. 브랜치 `ccr-fa9b3dba-6er4z1`에 커밋·푸시하며 main에는 병합하지 않는다. **이번 전달은 ⑧~⑬ 여섯 장까지이며, 다른 진영 묶음은 아직 제작하지 않았다.**
+
+**⑧ 논 (`qing-paddy.png`, 1024×1024, 불투명)**
+> A seamless tileable top-down rice paddy texture viewed straight down at 90 degrees: shallow water between neat rows of young green rice seedlings, thin earthen dividing ridges every few rows, no perspective, no cast shadows, tiles perfectly on all four sides. Palette: fresh greens, teal water, warm earth that matches the attached ground texture.
+
+**⑨ 고지 윗면 (`qing-hill.png`, 1024×1024, 불투명)**
+> A seamless tileable top-down texture of a slightly raised grassy hilltop viewed straight down: short sunlit grass, small wildflowers and a few flat pale stones, a little lighter and drier than the attached ground texture, no perspective, no cast shadows, tiles perfectly on all four sides.
+
+**⑩ 물가 돌 (`qing-bank.png`, 1024×1024, 불투명)**
+> A seamless tileable top-down texture of a river bank edge: wet rounded pebbles and mossy stones half in shallow clear water, viewed straight down, no perspective, no cast shadows, tiles perfectly on all four sides. Palette: grey-green stones, teal water matching the attached water texture.
+
+**⑪ 적 거점 (`gui-outpost.png`, 1024×1024, 투명)** — 버들골 적은 귀왕군
+> A single enemy forward fortress of the undead army: a dark stone gatehouse with a heavy closed gate, tattered dark-violet banners, broken roof tiles and grey ash stains, isometric view from about 30 degrees above, no vanishing point, base touching the bottom 3% of the canvas, transparent background, no ground shadow, no people. Palette: ash grey, muted violet shadows, bone white, desaturated dead wood.
+
+**⑫ 귀문 (`gui-ghost-gate.png`, 768×1024, 투명)**
+> A single ominous stone torii-like spirit gate of the undead army, two cracked pillars and a crossbeam hung with paper talismans, a faint violet glow inside the opening, isometric view from about 30 degrees above, no vanishing point, base touching the bottom 3% of the canvas, transparent background, no ground shadow, no people. Palette: ash grey stone, violet glow, pale paper.
+
+**⑬ 봉화대 (`beacon.png`, 512×768, 투명)**
+> A single stone signal beacon tower with a square base, a short ladder and an iron fire basin on top (unlit, a little firewood stacked inside), isometric view from about 30 degrees above, no vanishing point, base touching the bottom 3% of the canvas, transparent background, no ground shadow, no people. Palette: grey stone, teal tiles, warm wood, matching the attached wall.
+
+**다른 진영으로 넓히기 (현무·백호·주작·귀왕)**
+청룡에서 쓴 문장을 그대로 다시 보내고, ① 파일 이름 앞부분(`qing-`)을 진영 이름으로, ② 마지막 색 문장(`Palette: …`)을 아래 진영 색으로 바꾼다. 화풍 참고로 같은 종류의 청룡 그림을 첨부하면 크기·각도·도트가 덜 흔들린다.
+- 바닥 9종: ground·road·field·bush·stone·water·marsh(또는 진영 특수)·paddy(현무·귀왕은 생략)·hill·bank
+- 소품 4칸 시트 3종: 진영 나무(현무 `snow-covered pine tree`, 백호 `lone poplar tree`, 주작 `red maple tree`, 귀왕 `dead twisted tree`), 진영 덤불(현무 `snowy shrub`, 백호 `dry steppe bush`, 주작 `tea bush row`, 귀왕 `talisman pole with paper charms`), 진영 바위(현무 `frozen rock with icicles`, 백호 `layered sandstone rock`, 주작 `black basalt rock with glowing red cracks`, 귀왕 `cracked ruin pillar`)
+- 건물: house·keep·tower·facility 4종·supply-depot (본진·시설은 청룡이 아군이라 다른 진영은 **현무편에서 쓸 `xuan-` 한 벌만** 만들면 된다), 적 거점 `<진영>-outpost.png`
+- 진영 색: 현무 `Palette: snow white, slate blue, dark navy stone, pale frost.` / 백호 `Palette: ochre loess, warm sandstone, dry straw yellow, brass accents.` / 주작 `Palette: crimson and orange autumn leaves, warm red-brown soil, black volcanic stone.` / 귀왕 `Palette: ash grey, muted violet shadows, bone white, desaturated dead grass.`
+- 성벽·모서리·목책·관문은 진영과 관계없이 지금 청룡 그림을 같이 쓴다(현무편 본진만 `xuan-wall`·`xuan-wall-corner`가 있으면 좋다. 각도 문장 그대로).
+
+올리는 곳은 `terrain/hd/`. 순서 추천: 청룡 3차 ⑧~⑬ → 귀왕(적 거점이 가장 자주 나옴) → 현무 → 주작 → 백호.
+
+**⑧~⑬ 버들골 연결 (Claude · 2026-11-07):** 6장 연결. 논 구획 3곳은 `qing-paddy`, 고지 안쪽은 `qing-hill`, 물가 테두리는 `qing-bank`(청룡성 강에서 검사용으로 확인, 다리 레이아웃의 돌 둑 띠가 그 위에 그려져 강가는 아직 예전 띠가 주로 보임). 적 진영이 귀왕일 때 적 거점은 `gui-outpost`(폭 400, 밑끝 992), 귀문은 `gui-ghost-gate`(폭 160, 은은히 깜박임), 봉화대는 `beacon`(폭 120, 점화 시 불꽃을 그림 꼭대기에 얹음). 휴대폰 세로·가로에서 크기·가림 순서(거점·귀문·봉화대 앞뒤로 병사가 자연스럽게 겹침)·논/고지/물가 반복 경계 확인. 버들골 1판에는 귀문이 없어 검사에서 세워 확인했다. 다른 진영 적 거점(`xuan-`·`bai-`·`zhu-outpost`)이 없으면 예전 집 그림을 쓴다.
