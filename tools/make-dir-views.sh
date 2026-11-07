@@ -15,8 +15,8 @@ fail=()
 for n in "${names[@]}"; do
   src=$(ls "$n.webp" "characters/$n.webp" "characters/factions/$n.webp" 2>/dev/null | head -1)
   [ -z "$src" ] && { echo "그림 없음: $n"; continue; }
-  # 원본이 왼쪽을 보는 4명은 fr을, 나머지는 fl을 새로 그린다
-  case $n in heukcheol|mujin|gui-ruler|zhu-ruler) keys=(fr br bl);; *) keys=(fl br bl);; esac
+  # 원본이 왼쪽을 보는 2명은 fr을, 나머지는 fl을 새로 그린다
+  case $n in gui-ruler|zhu-ruler) keys=(fr br bl);; *) keys=(fl br bl);; esac
   # 말을 탄 장수(원본 그림 기준)
   plan=(); horse=""; case $n in biyeon|hoyeon|sayul) plan=(--body-plan "the rider=biped" --body-plan "the horse=quadruped"); horse=", riding the same horse as in the reference, the whole horse visible and facing the same way";; esac
   mkdir -p "$OUT/$n" "characters/pixel/dir/$n"

@@ -475,3 +475,69 @@ Canva 크레딧이 없어 `tools/pixel-walk.py`로 장수 20명×4방향×4동�
 올리는 곳은 `terrain/hd/`. 순서 추천: 청룡 3차 ⑧~⑬ → 귀왕(적 거점이 가장 자주 나옴) → 현무 → 주작 → 백호.
 
 **⑧~⑬ 버들골 연결 (Claude · 2026-11-07):** 6장 연결. 논 구획 3곳은 `qing-paddy`, 고지 안쪽은 `qing-hill`, 물가 테두리는 `qing-bank`(청룡성 강에서 검사용으로 확인, 다리 레이아웃의 돌 둑 띠가 그 위에 그려져 강가는 아직 예전 띠가 주로 보임). 적 진영이 귀왕일 때 적 거점은 `gui-outpost`(폭 400, 밑끝 992), 귀문은 `gui-ghost-gate`(폭 160, 은은히 깜박임), 봉화대는 `beacon`(폭 120, 점화 시 불꽃을 그림 꼭대기에 얹음). 휴대폰 세로·가로에서 크기·가림 순서(거점·귀문·봉화대 앞뒤로 병사가 자연스럽게 겹침)·논/고지/물가 반복 경계 확인. 버들골 1판에는 귀문이 없어 검사에서 세워 확인했다. 다른 진영 적 거점(`xuan-`·`bai-`·`zhu-outpost`)이 없으면 예전 집 그림을 쓴다.
+
+---
+
+## 요청 7 · 귀왕 망자군 병사(4병종 전용 그림) — 상태: 1·2단계 4병종×4방향 16장 게임 연결(2026-11-07), 3단계 걷기 시트 대기
+
+### 옆걸음 제보 후 방향 보완 (Codex · 2026-11-07)
+- Claude의 `47119ba`를 받아 기본 4장 연결을 보존하고, 빠져 있던 fl·br·bl을 각 병종 3장씩 총 12장 생성했다. 망자군 기본 PNG를 디자인 참고, 아군 같은 병종의 해당 방향을 자세 참고로 첨부했다. 왼쪽 앞모습은 왼쪽을, 두 뒷모습은 뒤통수/망토/화살통/기병의 등을 보이며 각각 오른쪽 위·왼쪽 위를 향하도록 검수했다. 비트맵을 좌우 반전해서 만들지 않았다.
+- `characters/soldier-gui/raw/gui-<병종>-<fl|br|bl>.png`와 게임용 `<병종>/<방향>.webp`에 저장했다. 캔버스는 병종 원본 크기 그대로이고 전신·무기 끝·말발굽·투명 배경을 확인했다. 기존 fr PNG/WebP는바이트 그대로 보존했다.
+- `GUI_SOLDIER_READY`를 네 방향으로 늘리고 방향별 발 기준을 넣었다. 이제 뒤쪽 이동도 전용 뒷모습을 쓰며 왼쪽/뒷모습의 뒤집기를 상쇄한다. 귀왕 적 병사만 진영색 없이 쓰는 조건, 다른 진영/아군/장수는 그대로다. 걷기 시트는 아직 없으므로 기존 코드 걸음을 유지한다.
+- 무진·흑철은 별개로 원본 방향 분류가 잘못돼 있었다. 원본을 오른쪽으로 정정하고 정지·걷기 fr/fl 연결을 맞췄다. `tests/leader-facing.cjs`로 실제 네 이동 방향에서 선택하는 그림과 정지/걷기 픽셀 일치를 검사했다. `tests/gui-soldier.cjs`는 16장 로드·각 방향 전용 파일·뒤집힘 없음·아군/타 진영 보존·세 화면 규격 검사로 갱신했다. 상세 재현/수정은 CLAUDE.md 마지막 절 참고.
+
+
+### 1단계 게임 연결 (Claude · 2026-11-07)
+- `characters/soldier-gui/<병종>/fr.webp`(원본 캔버스 그대로, 품질 92). `GUI_SOLDIER_READY`·`GUI_SOLDIER_FOOT`(눈으로 잰 발 중심: 방패 .47·궁 .44·창 .5·기병 .47)·`guiSoldier`·`guiSoldierOf`. 적 진영이 귀왕(`tintFaction==='gui'`)인 적 병사만 진영색 없이 이 그림을 쓴다. 방향 그림이 없는 동안은 fr을 왼쪽일 때 뒤집어 쓰고(뒷모습도 앞모습), 걷기 프레임 대신 코드 걸음(`hasWalk` false). 아군·다른 진영 적·장수는 그대로. 2단계 방향 그림이 오면 `GUI_SOLDIER_READY`에 키를 더하고 발 위치를 잰다.
+- 26판 중 c3(현무)·c5(백호)·c7(주작)·x2(청룡)를 뺀 22판의 적 병사가 망자군이다. `tests/gui-soldier.cjs`(로드·전용 그림·뒤집기·아군/다른 진영 불변·3화면).
+
+### 1단계 전달 (Codex · 2026-11-07)
+- `characters/soldier-gui/raw/gui-shield-fr.png`·`gui-bow-fr.png`·`gui-spear-fr.png`·`gui-horse-fr.png`를 추가했다. 각 병종 아군 원본을 첨부하고 아래 7-1의 병종 문장과 공통 문장으로 생성했다. 해골 방패병·해골 궁병·창백한 망자 창병·해골 조랑말 기병이며, 보라 넋불·녹슨 갑옷·해진 천·부적/사슬을 사용했다. 나라 문장·피·살점은 넣지 않았다.
+- 최종 PNG는 각각 원본과 같은 431×384·407×384·350×384·330×384다. RGBA 투명이며 작은 넋불/가장자리 부분 알파를 유지했다. 원본을 뒤집거나 무기 손을 바꾸지 않았다. 셀 셰이딩 스타일을 유지하고 40색/도트 변환은 하지 않았다.
+- 원본 크기 비교·약 50px 미리보기·투명 합성으로 자세/장비/잘림을 검수했고, PNG 규격·알파·윤곽 여백과 브라우저 4파일 로딩/디코딩 검사를 통과했다. 발 위치는 원본과 약간 달라 게임에서 수동 보정해야 한다. 범위와 인계는 `characters/soldier-gui/README.md` 참고.
+- **이번 작업은 1단계 네 장만이다.** 게임 코드와 기존 아군 그림·방향·걷기는 변경하지 않았다. 게임 연결·모바일 실기 검수·사용자 디자인 확인은 아직이며, 2·3단계는 기본 그림 확인 후 진행한다. 브랜치 `ccr-fa9b3dba-6er4z1`에 커밋·푸시하며 main에는 병합하지 않는다.
+
+지금 귀왕 적 병사는 아군 병사 그림에 잿빛 진영색만 입힌 것이라 「색만 다른 사람 군대」로 보인다. 귀왕군은 **왕인에 묶여 되살아난 망자들의 군대**이므로 4병종(방패병·궁병·창병·기병)을 따로 그린다. 같은 게임 그림체(SD 이등신, 짙은 외곽선, 셀 셰이딩)는 유지하되 **무섭되 징그럽지 않게**(피·내장·살점 없음, 해골·빛바랜 갑옷·넋불 위주).
+
+### 디자인 기준(모든 병종 공통)
+- **몸**: 뼈가 드러난 해골 병사 또는 회색 피부의 창백한 망자. 눈구멍 안에 **보랏빛 넋불**(작은 두 점), 표정 없음.
+- **장비**: 오래 묻혀 있던 **녹슨·금 간 옛 갑옷**, 해진 천 조각, 끊어진 끈. 여러 나라 갑옷이 섞인 듯 낡았지만 **특정 나라 문장은 넣지 않는다**(귀왕 정체 스포일러 방지). 무늬는 빛바랜 **보라색 부적 띠**와 사슬.
+- **색**: 잿빛 회색·뼈 흰색·녹 갈색·바랜 남색, 강조색은 **어두운 보라와 옅은 넋불 보라(#b48cff 근처)**. 아군의 밝은 파랑·초록·금색은 쓰지 않는다.
+- **분위기**: 다리 끝·옷자락에서 옅은 보랏빛 연기가 살짝 피어오름(그림 안쪽에서 끝나고 배경으로 퍼지지 않게).
+- 게임은 이 그림에 **진영색을 입히지 않고 그대로** 쓴다(아군 그림과 따로).
+
+### 만드는 순서
+1. **기본 그림 4장(fr, 앞-오른쪽)**: 아래 7-1 프롬프트. 아군 원본(`shield.webp`·`bow.webp`·`spear.webp`·`horse.webp`)을 **크기·자세·구도 참고**로 첨부한다. 4장을 먼저 올리면 Claude가 게임에 넣어 크기·느낌을 확인한다.
+2. **방향 12장(fl·br·bl)**: 1단계 그림을 첨부해 요청 4의 방향 문구를 그대로 쓴다(7-2).
+3. **걷기 시트 16장**: 각 방향 그림을 첨부해 요청 5의 프롬프트를 그대로 쓴다(7-3).
+
+파일 이름: `gui-<병종>-<방향>.png`(예: `gui-spear-fr.png`, `gui-horse-bl.png`), 걷기 시트는 `gui-<병종>-<방향>-walk.png`. 올리는 곳: `characters/soldier-gui/raw/`.
+
+### 7-1. 기본 그림(fr) 프롬프트 — 아군 같은 병종 그림 1장 첨부
+공통 문장(병종 문장 뒤에 붙인다):
+> Same canvas size, pose, framing, scale and cute chibi SD proportions as the attached soldier, facing the same direction (front three-quarter view toward the lower RIGHT, seen slightly from above), but redesigned as an UNDEAD soldier of a ghost king's army of the dead. Spooky but not gory: no blood, no flesh, no guts. Small glowing violet ghost-fire eyes, rusted and cracked ancient armor, torn cloth, faded purple talisman strips and chains, a faint violet mist curling from the feet and cloth hems. Palette: ash grey, bone white, rust brown, faded navy, dark purple, pale ghost violet (#b48cff); no bright blue, green or gold. No national emblem or crest. Clean dark-brown outlines, soft cel shading. Single character only, full body, transparent background, no shadow, no ground, no text, nothing cropped.
+
+병종 문장:
+- **shield** (`shield.webp` 첨부) → `A skeleton shield-bearer in a rusted, dented helmet with a broken plume, holding a large cracked wooden tower shield bound with iron bands and purple talisman strips in one hand and a notched short sword in the other, in a sturdy guarding stance.`
+- **bow** (`bow.webp` 첨부) → `A hooded skeletal archer in a tattered grey cloak, holding a bow carved from pale bone strung with a glowing violet string in one hand, a frayed quiver of black-feathered arrows on the back, in a light ready stance.`
+- **spear** (`spear.webp` 첨부) → `A pale undead spearman in a cracked conical helmet and rusted scale armor, holding a long chipped spear upright with a tattered, faded purple pennant instead of a tassel, in an alert stance.`
+- **horse** (`horse.webp` 첨부) → `A skeleton rider in rusted armor and a ragged cape, holding a notched curved sabre, riding a small skeletal pony made of bones with violet ghost-fire mane and tail and ghost-fire eyes, wearing a broken old harness; the whole pony is visible and faces the same direction as the rider.`
+
+### 7-2. 방향(fl·br·bl) — 7-1 결과 1장 첨부
+요청 4의 기본 문장과 방향 문구를 그대로 쓰고, `{병종 문장}` 자리에 7-1의 병종 문장을 넣는다. 맨 끝에 `Keep the undead design, violet ghost-fire eyes and palette exactly as the reference.`를 덧붙인다. 뒷모습(br·bl)은 해진 망토 뒷면·등의 부적 띠·화살통이 보이게.
+
+### 7-3. 걷기 시트 — 해당 방향 그림 1장 첨부
+요청 5의 프롬프트를 그대로 쓰고 `{병종 문장}`을 아래로 바꾼다. 끝에 `Keep the undead design and palette exactly as the reference; the violet mist trails slightly behind the feet.`
+- **shield** → `He shambles forward stiffly, keeping the cracked tower shield raised in front and the notched sword in the other hand.`
+- **bow** → `The archer glides with stiff steps, bone bow in one hand, the tattered cloak dragging and swaying.`
+- **spear** → `He marches stiffly with the spear upright; the torn purple pennant flutters with each step.`
+- **horse** → `The skeletal pony walks with a four-beat walk (Frame 1: near front leg forward, Frame 2: legs gathered, Frame 3: far front leg forward, Frame 4: legs gathered); its ghost-fire mane flickers, the rider bobs gently and keeps the sabre raised. The whole pony is visible.`
+
+### 확인 기준
+- [x] 1단계 4병종은 망자군 디자인·병종별 무기/투구 시각 검수 완료(사용자 확인 대기)
+- [ ] 아군 원본과 키·머리 크기·발 위치가 비슷함(전장에서 크기 49.4로 같이 맞춘다)
+- [x] 1단계 피·살점 없음, 나라 문장 없음, 배경 투명, 발·말발굽 안 잘림
+- [ ] 방향·걷기 그림은 요청 4·5 기준과 같음(무기 손 유지, 좌우 반전 금지)
+
+### 게임에 넣기(그림이 올라오면 Claude가 연결)
+- 귀왕 적 병사만 `characters/soldier-gui/<병종>/`(fr·방향·걷기)을 진영색 없이 쓰고, 그림이 없는 병종·방향은 지금처럼 아군 그림+잿빛 색을 쓴다. 발 위치는 `SOLDIER_FOOT`처럼 눈으로 재서 넣는다. 다른 진영 적·흑화 장수·장수 그림은 바꾸지 않는다.

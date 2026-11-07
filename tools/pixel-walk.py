@@ -36,7 +36,7 @@ def frames(src,D=None,LIFT=None):
 if __name__=='__main__':
     s=open(os.path.join(root,'index.html'),encoding='utf8').read()
     ready=dict(re.findall(r'"?([\w-]+)"?:\'([a-z,]+)\'',re.search(r'DIR_READY=\{([^}]*)\}',s).group(1)))
-    LEFT={'heukcheol','mujin','gui-ruler','zhu-ruler'}
+    LEFT={'gui-ruler','zhu-ruler'}
     for n in (sys.argv[1:] or sorted(ready)):
         native='fl' if n in LEFT else 'fr';keys={native:f'characters/pixel/{n}.webp'}
         for k in ready.get(n,'').split(','):

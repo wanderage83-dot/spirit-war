@@ -8,7 +8,7 @@ names=("$@"); [ ${#names[@]} -eq 0 ] && names=(hero xuan-ruler bai-ruler zhu-rul
 for n in "${names[@]}"; do
   src=$(ls "$n.webp" "characters/$n.webp" "characters/factions/$n.webp" 2>/dev/null | head -1)
   [ -z "$src" ] && { echo "그림 없음: $n"; continue; }
-  facing=right; case $n in heukcheol|mujin|gui-ruler|zhu-ruler) facing=left;; esac
+  facing=right; case $n in gui-ruler|zhu-ruler) facing=left;; esac
   plan=(); case $n in biyeon|hoyeon|sayul|heukcheol) plan=(--body-plan "the horse=quadruped");; esac
   "$SG/.venv/bin/sprite-gen" gen --provider codex --ref "$src" --direction back_diagonal --facing $facing "${plan[@]}" \
     --transparent --trim-alpha --out "$OUT/$n.png" \

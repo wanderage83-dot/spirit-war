@@ -213,7 +213,7 @@
 - 편성 카드에 `.trait` 이름+title 툴팁, ≤380px에서 이름 숨김(320 c16 무스크롤). matchupPreview는 특성 배율을 표시하지 않는다. 저장 구조 불변. `tests/hero-traits.cjs`가 켜짐/꺼짐 수치 비교.
 
 ## 그림 방향·뒷걸음질 수정 · 2026-10-31
-- `ART_LEFT`(heukcheol·mujin·gui-ruler·zhu-ruler)·`artFacesLeft(src)`. companionArt 이미지/`:dark` 캔버스에 `faceLeft`, soldier의 `ctx.scale`에 `artFlip(u)` 곱. 대화 `vnActor`가 `.lf`(왼쪽 원본) 토글, `#vn .vn-p.vn-l.lf`/`.vn-r.lf`로 거울 방향 반대. 천하도 `rSpr`가 `left` 저장, `rDrawSpr`가 flip과 XOR. 새 그림이 왼쪽을 보면 ART_LEFT에 추가.
+- `ART_LEFT`(현재 gui-ruler·zhu-ruler, 2026-11-07 무진·흑철은 오른쪽 원본으로 정정)·`artFacesLeft(src)`. companionArt 이미지/`:dark` 캔버스에 `faceLeft`, soldier의 `ctx.scale`에 `artFlip(u)` 곱. 대화 `vnActor`가 `.lf`(왼쪽 원본) 토글, `#vn .vn-p.vn-l.lf`/`.vn-r.lf`로 거울 방향 반대. 천하도 `rSpr`가 `left` 저장, `rDrawSpr`가 flip과 XOR. 새 그림이 왼쪽을 보면 ART_LEFT에 추가.
 - `u.vface`: update에서 이동 중이면 화면 x 이동량(dx−dy)의 감쇠 합 `u.vsx`(|합|>2.5)로, 멈춰 있으면 want(대상/지정 방향)로 즉시 정한다. soldier의 face는 vface 우선, 없으면 dir. `u.dir`(측후방 판정·turnToward 선회 속도)은 그대로. 전투 임시 상태라 저장 불변. `tests/facing.cjs`(실제 이동 뒷걸음질 프레임 147/3599→10/3599).
 
 ## AP 소진 자동 공격·잔병 정리 · 2026-10-31
@@ -395,3 +395,13 @@
 ## 귀왕 외 공통 HD 전장 · 2026-11-07 (최신 사용자 결정)
 - 사용자 「귀왕 진영 빼고 나머진 통일」: 진영별 신규 그림 제작은 보류. HD_ART_REGIONS는 REGION_MAPS 중 theme!=='gui'인 12지역, hdOn은 그 목록만 확인. pixelColors/mapTheme의 전장 색도 청룡 공통(이름·경로 지명은 지역 그대로). 귀왕성·혼령곡·망자벌은 기존 잿빛 그림 유지. 적이 귀왕일 때 전용 거점·귀문 PNG는 공통 HD 지역에서 계속 쓴다. 지역별 전술 배치·날씨·충돌·길찾기·천하도·인물 불변.
 - pixelRegionBackground의 bridges 돌 둑 띠는 HP.bank로 그려 qing-bank가 가려지던 문제 해결. 기존 다리/여울/홍수/결빙 판정은 그대로. tests/hd-common.cjs(12지역 공통·3귀왕 예외·15지역 그림 유무 충돌/경로 보존·물가 실제 그리기·3화면), hd-terrain의 청룡성 기대값은 HD true.
+
+## 귀왕 망자군 병사 그림 · 2026-11-07
+- `characters/soldier-gui/<병종>/fr.webp`(ART_REQUESTS 요청 7, 원본 PNG는 `raw/`). `GUI_SOLDIER_READY={병종:'fr'}`·`GUI_SOLDIER_FOOT`(눈으로 잰 발 중심)·`guiSoldier`·`guiSoldierOf(type,side)`: side 1이고 `tintFaction==='gui'`일 때만, drawUnitArt의 걷기/방향 분기보다 먼저 진영색 없이 그린다. 해당 방향 그림이 있으면 뒤집기를 상쇄(own), 없으면 fr을 기존 변환대로(왼쪽이면 뒤집힘). `hasWalk`는 망자군에 false(코드 걸음). 아군·다른 진영 적·장수·흑화는 불변. 방향·걷기 그림이 오면 READY 키와 발 위치를 더한다. `tests/gui-soldier.cjs`.
+
+## 무진·흑철 옆걸음 방향 등록 정정 · 2026-11-07
+- 사용자 제보로 20명 정지/걷기 자료와 일반 4병종 4방향을 비교했다. mujin·heukcheol 원본은 앞-오른쪽인데 ART_LEFT에 들어 있었고, 원본을 fl에/그 반대 그림을 fr에 등록한 것이 원인이었다. DIR_READY 두 항목을 fl,br,bl로 바꾸고 기존 dir/<이름>/fr.webp는 픽셀 변경 없이 fl.webp로 이동했다. 앞-오른쪽은 기존 characters/pixel/<이름>.webp를 쓴다. 두 인물의 walk fr/fl 각 4프레임도 파일 내용을 서로 재배정했다. 재그리기·추가 좌우 반전·발 위치 이동은 하지 않았다.
+- ART_LEFT는 gui-ruler|zhu-ruler만 남긴다. 원본을 쓰는 대화/천하도/흑화 장수에도 올바른 방향 메타데이터가 적용된다. tools/pixel-walk.py·make-dir-views.sh·make-back-views.sh의 왼쪽 원본 목록도 함께 정정해 재생성 시 되돌아가지 않게 했다.
+- tests/leader-facing.cjs 추가: 무진/흑철의 네 실제 이동 벡터→그리는 정지/걷기 파일과 양의 변환, 원본과 fr 중립 프레임의 픽셀 일치, fl 정지/중립 프레임 일치. 이전 테스트는 vface/vback 플래그나 파일명만 검사해 잘못된 그림 방향 분류를 놓쳤다. tests/facing.cjs는 왼쪽 원본 예시를 ruler:gui로 바꾸고 흑철은 오른쪽으로 기대한다. 기존 걷기/4방향/실제 이동 검사도 수행한다.
+
+- 작업 중 Claude의 47119ba가 올라와 받아 합쳤다. 그 기본 망자군 연결·fr WebP 4장은 보존했고, fr 한 장을 뒷방향에도 쓰는 현상을 해결하려고 2단계 fl/br/bl 12장을 생성·연결했다. GUI_SOLDIER_READY 각 병종 fr,fl,br,bl; GUI_SOLDIER_FOOT 방향별 값은 characters/soldier-gui/README.md에 있다. 걷기 시트는 미제작, hasWalk false/코드 걸음 유지. guiSoldierOf의 own 분기로 방향별 그림의 반전 상쇄. tests/gui-soldier.cjs를 16로드/네 방향 전용 파일/모두 양의 변환 기준으로 갱신했다. 옆걸음 수정과 새 그림을 함께 커밋하며 47119ba 위에 쌓는다.
