@@ -413,3 +413,9 @@
 
 ## 1장 적장 격파 즉시 승리 · 2026-11-07
 - 사용자 제보 「청명 1스테이지 적 지휘관을 잡아도 판이 안 끝난다」: 버들골(beodeulTrial)에서 후방 보급소가 끊긴 채(rearSupplyCut) 적장을 쓰러뜨리면 「후방 보급소를 되찾아야 승리합니다」 문구만 띄우고 계속했다. 이 조건을 빼고 적장 격파(goalBossWins)면 바로 end(true). 후방 보급소 차단의 수입·증원 정지는 그대로. `supplyVictoryWarn` 변수는 남지만 쓰이지 않는다.
+
+## 판의 틀·전투 중 사건 · 2026-11-07
+- 사용자 「매번 같은 패턴」→ 제안 A(판의 틀)·B(전투 중 사건) 선택. 장 데이터 `form`: siege(c4·x3·x5)·field(c7·x8)·raid(c11·x7, slots 3). `ev:[[턴,종류,방향]]`: rear·flank·elite·aid 16장(c2·c5·c6·c8·c9·c10·c12·c13·c14·c15·c16·x2·x4·x6·x9·x10).
+- launchChapter 끝 `formInit(c)`(goalInit 뒤). field/raid는 passInit에 빈 객체(관문선 없음). `FORM_INFO`·`SCRIPT_EV`·`formState{alarm,aid,woke}`. siege: 망루 hp=max, 1턴 w·e 기병·2턴 n 공성·3턴 s 배후 events(script:'포위'), updateEvents 다음 증원 간격 34초 고정. field: `formMove`로 아군 중심 WH×.6·적(boss 제외) WH×.4(세로 .45배 압축), boss는 그 앞 −420, 적 일반병 tag 'field'→ AP_TURN+1에 tag 행진 event(route 가운데→본진). raid: 적 전원 `u.sleep`, 태그 행진 event 삭제·nextWave=null, updateEvents는 경보 전 증원 계획 안 함(경보 뒤 time+60). acquire는 sleep이면 null, zocCheck는 sleep 적 무시, hit이 `formWake(squad,true)`, attackDamage 끝 ×2.5(t.sleep). `formTick`(update의 goalTick 앞, .25초): 아군 380 안·sleepWake 도래·경보 후 2턴이면 깨움, 첫 깨어남이 경보(배너·cineFocus·1100 안 2초 뒤 깨움). `drawNight`(drawHD 뒤 multiply+가장자리 어둠).
+- ev: 파도 종류는 `waveEvent({k,dir,at:턴×AP_TURN−1})`+`script/sub`로 events에 넣고, launch가 script면 powerBanner+cineFocus. 기존 경보(warnLead)가 한 턴 전 알린다. script 사건은 적 병력 상한(room)을 최소 14 허용. aid는 `aidArrive()`: 살아 있는 g≥1 부대 중 남은 비율 낮은 2개에 recruitType 8(기병 6)명(spawnAt actual, applySagaUnitLevel, joining·joinedRound), 아군 체력 +20%·아군 부대 사기 +20, 배너.
+- `restartBattle`은 saga 장이면 `launchChapter`로 다시 차린다(이전에는 launchRealmBattle만 불러 목표·관문선·틀이 빠졌다). openChapter 브리핑 줄에 틀 이름·「⚠ 전투 중 사건」. 저장 구조 불변(전투 임시 상태). `tests/battle-forms.cjs`.
