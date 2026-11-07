@@ -434,3 +434,34 @@ Canva 크레딧이 없어 `tools/pixel-walk.py`로 장수 20명×4방향×4동�
 **⑦ 관문·목책 (투명)** — `pass-gate.png`(1024×768)·`palisade.png`(1024×512). 목책은 ①과 같은 **기울기 0.707** 문장을 넣고 양 끝을 잘라 이어 붙일 수 있게 한다. 관문은 목책 선 위에 서므로 문짝 양옆 통나무 기둥 아랫선도 같은 기울기로.
 
 올리는 곳은 그대로 `terrain/hd/`. ①~③만 먼저 와도 바로 바꿔 끼운다(성벽은 기울이지 않고 그대로, 길은 자르지 않고 그대로).
+
+### 다음 세트 · 청룡 3차 + 다른 진영 (2026-11-07) — 붙여 넣을 프롬프트
+버들골에 아직 예전 그림으로 남은 것(논·고지·물가·적 거점·귀문·봉화대)을 먼저 채우고, 그다음 같은 목록을 진영 색만 바꿔 현무·백호·주작·귀왕으로 넓힌다. 첨부는 지금까지 만든 청룡 그림 1~2장(화풍 참고), 끝에는 항상 [공통 문장].
+
+**⑧ 논 (`qing-paddy.png`, 1024×1024, 불투명)**
+> A seamless tileable top-down rice paddy texture viewed straight down at 90 degrees: shallow water between neat rows of young green rice seedlings, thin earthen dividing ridges every few rows, no perspective, no cast shadows, tiles perfectly on all four sides. Palette: fresh greens, teal water, warm earth that matches the attached ground texture.
+
+**⑨ 고지 윗면 (`qing-hill.png`, 1024×1024, 불투명)**
+> A seamless tileable top-down texture of a slightly raised grassy hilltop viewed straight down: short sunlit grass, small wildflowers and a few flat pale stones, a little lighter and drier than the attached ground texture, no perspective, no cast shadows, tiles perfectly on all four sides.
+
+**⑩ 물가 돌 (`qing-bank.png`, 1024×1024, 불투명)**
+> A seamless tileable top-down texture of a river bank edge: wet rounded pebbles and mossy stones half in shallow clear water, viewed straight down, no perspective, no cast shadows, tiles perfectly on all four sides. Palette: grey-green stones, teal water matching the attached water texture.
+
+**⑪ 적 거점 (`gui-outpost.png`, 1024×1024, 투명)** — 버들골 적은 귀왕군
+> A single enemy forward fortress of the undead army: a dark stone gatehouse with a heavy closed gate, tattered dark-violet banners, broken roof tiles and grey ash stains, isometric view from about 30 degrees above, no vanishing point, base touching the bottom 3% of the canvas, transparent background, no ground shadow, no people. Palette: ash grey, muted violet shadows, bone white, desaturated dead wood.
+
+**⑫ 귀문 (`gui-ghost-gate.png`, 768×1024, 투명)**
+> A single ominous stone torii-like spirit gate of the undead army, two cracked pillars and a crossbeam hung with paper talismans, a faint violet glow inside the opening, isometric view from about 30 degrees above, no vanishing point, base touching the bottom 3% of the canvas, transparent background, no ground shadow, no people. Palette: ash grey stone, violet glow, pale paper.
+
+**⑬ 봉화대 (`beacon.png`, 512×768, 투명)**
+> A single stone signal beacon tower with a square base, a short ladder and an iron fire basin on top (unlit, a little firewood stacked inside), isometric view from about 30 degrees above, no vanishing point, base touching the bottom 3% of the canvas, transparent background, no ground shadow, no people. Palette: grey stone, teal tiles, warm wood, matching the attached wall.
+
+**다른 진영으로 넓히기 (현무·백호·주작·귀왕)**
+청룡에서 쓴 문장을 그대로 다시 보내고, ① 파일 이름 앞부분(`qing-`)을 진영 이름으로, ② 마지막 색 문장(`Palette: …`)을 아래 진영 색으로 바꾼다. 화풍 참고로 같은 종류의 청룡 그림을 첨부하면 크기·각도·도트가 덜 흔들린다.
+- 바닥 9종: ground·road·field·bush·stone·water·marsh(또는 진영 특수)·paddy(현무·귀왕은 생략)·hill·bank
+- 소품 4칸 시트 3종: 진영 나무(현무 `snow-covered pine tree`, 백호 `lone poplar tree`, 주작 `red maple tree`, 귀왕 `dead twisted tree`), 진영 덤불(현무 `snowy shrub`, 백호 `dry steppe bush`, 주작 `tea bush row`, 귀왕 `talisman pole with paper charms`), 진영 바위(현무 `frozen rock with icicles`, 백호 `layered sandstone rock`, 주작 `black basalt rock with glowing red cracks`, 귀왕 `cracked ruin pillar`)
+- 건물: house·keep·tower·facility 4종·supply-depot (본진·시설은 청룡이 아군이라 다른 진영은 **현무편에서 쓸 `xuan-` 한 벌만** 만들면 된다), 적 거점 `<진영>-outpost.png`
+- 진영 색: 현무 `Palette: snow white, slate blue, dark navy stone, pale frost.` / 백호 `Palette: ochre loess, warm sandstone, dry straw yellow, brass accents.` / 주작 `Palette: crimson and orange autumn leaves, warm red-brown soil, black volcanic stone.` / 귀왕 `Palette: ash grey, muted violet shadows, bone white, desaturated dead grass.`
+- 성벽·모서리·목책·관문은 진영과 관계없이 지금 청룡 그림을 같이 쓴다(현무편 본진만 `xuan-wall`·`xuan-wall-corner`가 있으면 좋다. 각도 문장 그대로).
+
+올리는 곳은 `terrain/hd/`. 순서 추천: 청룡 3차 ⑧~⑬ → 귀왕(적 거점이 가장 자주 나옴) → 현무 → 주작 → 백호.
