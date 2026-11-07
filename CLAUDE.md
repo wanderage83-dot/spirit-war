@@ -410,3 +410,6 @@
 - 사용자 요청 「창세기전처럼 번갈아, 시작 시 고르기 없음, 맞붙는 곳은 편 선택」(사용자가 「무진」이라 쓴 것은 현무편 주인공 서진으로 해석). `CHRONICLE`(25항목, `['c3','x2']`가 충돌)·`CLASH`·`CHRON`(기본 true)·`CHRON_KEY='spiritwar-chronicle-v1'`. 순서는 각 장의 f 난도(시간순)를 따른다: c1 x1 c2 [c3|x2] c4 x3 c5 c6 x4 c7 x5 c8 c9 x6 c10 x7 c11 c12 x8 c13 x9 c14 c15 x10 c16.
 - 상태: 활성 갈래의 R에 다른 갈래 R을 `R.twin`으로 품고 둘 다 `chron:true`. 저장 하나에 둘 다 들어간다. `newChronicle(r)`(twin의 서막 intro=true), `chronSwap()`(저장→R 교환→setRoute→편성 복원→showRealm), `chronNext()`(첫 미완료 항목), `chronStep()`(sagaAfterChapter 래퍼: 다음이 다른 갈래면 교환+「시점 전환」 카드→`sagaAfterChapter0`(옛 본문, 막 전환 포함), 충돌이면 `chronClash`), `chronPick(id)`, `chronProxy(id)`(이긴 충돌 장의 상대 장을 twin에서 완료·경험치·금 지급, 지역 소유는 바꾸지 않음). sagaBattleDone의 `final`은 연대기가 남아 있으면 무시(x10). resumeRealmSave가 불러온 뒤 충돌·갈래 전환을 이어 준다.
 - setRoute의 SAVE_KEY는 CHRON이면 연대기 키. 옛 이야기별 키는 지우지 않고 메뉴 「예전 저장」으로 그 갈래만 이어하기(CHRON=false). 관리자 메뉴 점프는 기존처럼 단일 갈래 fixture(twin 없음)다. `tests/chronicle.cjs`(25단계 순서·두 편 선택·대리 완료·현무 최종장 비종료·저장/재개·3화면).
+
+## 1장 적장 격파 즉시 승리 · 2026-11-07
+- 사용자 제보 「청명 1스테이지 적 지휘관을 잡아도 판이 안 끝난다」: 버들골(beodeulTrial)에서 후방 보급소가 끊긴 채(rearSupplyCut) 적장을 쓰러뜨리면 「후방 보급소를 되찾아야 승리합니다」 문구만 띄우고 계속했다. 이 조건을 빼고 적장 격파(goalBossWins)면 바로 end(true). 후방 보급소 차단의 수입·증원 정지는 그대로. `supplyVictoryWarn` 변수는 남지만 쓰이지 않는다.
