@@ -443,3 +443,6 @@
 ## 고르기 취소·턴 끝 본진 창 · 2026-11-08
 - `#ringback`(`ringBackTick` 매 프레임, `ringBack`): 계획 중 선택 부대가 PICK_MODES(apengage·apcharge·dragon·heal·fire·water·lure)이거나 고리 「이동」(`ring.pick`)을 고른 상태면 「✕ 취소 · 메뉴로」(모드 끄고 openRing), 명령 직후 ap.advance 동안은 「↶ 방금 명령 취소 · 메뉴로」(apCancelAdvance+apUndo → choose가 고리를 다시 연다). 고리가 열려 있으면 숨김. commandAt이 ring.pick을 끈다.
 - `baseTurnMenu()`(apNext의 「모두 지정 완료」 분기, apReadyOpen 앞): `BASE_TURN_MENU`·본진 생존·이번 턴 처음(`ap.baseRound`)이면 openBase(0)+`#baserun`(「▶ 다 했다 · 작전 실행으로」) 표시. 실행 확인(apReady)은 그대로 열리되 `#apready.behind`로 숨겨 두고, 본진 창이 떠 있는 동안 canCommand는 `ap.baseOpen`이면 허용(충원·건설). `baseTurnDone()`(#baserun·#closeprod)이 behind를 풀어 실행 확인을 보인다. apReadyClose가 본진 창·플래그를 정리. 320×568·390×844·844×390 무스크롤. team-planning은 실제 UI 흐름이라 #baserun을 누르고, 실행 확인 창 크기 검사에서는 BASE_TURN_MENU=false. `tests/ring-back-base.cjs`.
+
+## 남은 AP로 같은 부대 이어서 지정 · 2026-11-08
+- apConfirm의 1초 타이머 끝에서 `AP_RING_CONTINUE`이고 그 부대 남은 AP>0이면 apNext 대신 selected=g·openRing(g). ringItems의 add에 필요 AP(`need`)를 받아 남은 AP보다 큰 행동은 숨김(공격·이동·진형·방향·주둔·후퇴 1, 필살기 2, 돌격·도술 3, 계략 화공·수공 3·유인 2). 군량·기력·재사용 대기는 흐리게+이유 유지. 마지막 항목은 계획이 있으면 「다음 부대」(apSkip). team-planning은 마지막 부대에서 apSkip 후 실행 확인을 기대, ring-back-base에 검사 추가.

@@ -2,7 +2,7 @@
 const{chromium}=require('playwright'),assert=require('node:assert/strict');
 (async()=>{const b=await chromium.launch({executablePath:'/usr/bin/chromium'}),p=await b.newPage({viewport:{width:390,height:844},reducedMotion:'reduce'}),errors=[];p.on('pageerror',e=>errors.push(String(e)));await p.goto(process.argv[2]||'http://127.0.0.1:8788');await p.evaluate(()=>{window.requestAnimationFrame=()=>0;setRoute('qing');newRealm();showRealm();launchChapter(SAGA[0]);hideBattleVoice()});
 // One actual timed order per squad; don't short-circuit the final-order delay.
-const n=await p.evaluate(()=>apAlive().length);for(let i=0;i<n;i++){await p.evaluate(()=>{choose(apPending()[0]);apAdd('hold')});await p.waitForFunction(()=>!ap.advance,null,{polling:50});assert.equal(await p.evaluate(()=>!!apReady),i===n-1)}
+const n=await p.evaluate(()=>apAlive().length);for(let i=0;i<n;i++){await p.evaluate(()=>{choose(apPending()[0]);apAdd('hold')});await p.waitForFunction(()=>!ap.advance,null,{polling:50});await p.evaluate(()=>{if(ring.g>=0&&!apPending().length)apSkip()});assert.equal(await p.evaluate(()=>!!apReady),i===n-1)}
 await p.waitForTimeout(200);assert(await p.evaluate(()=>state==='planning'&&time===0&&ap.elapsed===0&&apPending().length===0));const plan=await p.evaluate(()=>JSON.stringify([...ap.plans]));assert.equal(await p.locator('#apready-list>div').count(),n);
 await p.evaluate(()=>{const b=document.getElementById('baserun');if(b&&!b.hidden)b.click()});await p.click('#apready-review');assert(await p.evaluate(()=>!apReady&&state==='planning'));assert.equal(await p.evaluate(()=>JSON.stringify([...ap.plans])),plan);
 // Undo reopens this squad, disables execution, then skipping reopens confirmation.
