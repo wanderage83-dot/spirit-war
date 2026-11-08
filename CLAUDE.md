@@ -484,3 +484,6 @@
 - HD_ART_FILES에 qing-cliff-top·qing-gorge·qing-ridge·qing-canopy·qing-cliff-face. pixelRegionBackground(HD일 때만): pass·canyon `cliff` 안쪽=HP.cliffTop(북 끝 밝게·옆 그늘), 앞쪽 띠(아래 44 안에 통행 칸)=HP.ridge+깊이 그늘, `pass` 지형=HP.gorge(빗금 대신), valley `cliff`=HP.ridge(+북 밝게·남 그늘, 돌무더기 루프 생략), forest `cliff`=HP.canopy(+가장자리 그늘, 수관 덩어리 루프 생략). 헬퍼 `pat`·`tint`.
 - 절벽 면: `HD_CLIFF`{u0 334,u1 694,k0 .6422,c0 696.2(측정 아랫선),g 32,h .6}, `cliffEdges()`(canyon·pass·valley에서 cliff 칸 중 +y/+x 이웃이 통행 칸이면 가장자리 점, battleRegion·layout·WS 키로 캐시 `cliffEdgeCache`), `drawCliffSlice(e)`: 칸 하나 길이의 화면 벡터에 그림 조각(폭 sw=화면 폭/h)을 아랫선 기울기 보정해 붙임(남쪽 면은 '-m' 반전), 조각 x는 가장자리 좌표로 순환. draw의 objs에 project y+1로 넣어 유닛과 깊이 정렬. 귀왕 지역은 hdImg가 없어 그리지 않는다. `tests/hd-cliff.cjs`.
 
+## 제자리 공격 = 남은 AP 전부로 계속 공격 · 2026-11-08
+- 사용자 「AP가 남아 있을 때 공격하면 몇 번이고 다시 공격을 누르게 됨, 일단 공격하면 계속 공격」. 원인: `attack`(제자리 공격)이 2 AP 고정이라 남은 AP로 원형 메뉴가 다시 뜨고, 그 행동은 첫 타격에 `apCommitted`가 되어 한 번만 쳤다. apAdd에서 attack 비용을 engage·garrison·water처럼 남은 AP 전부로, apStart는 attack도 u.ap를 미리 빼지 않고 `apActionLeft`=비용, apCanStrike/apStrike는 attack을 engage와 같이 공격마다 apCost만큼 apActionLeft·u.ap 차감(이동은 없음, 신호 문구 없음). 목표 창 문구 「남은 n AP · 계속 공격」. c2 측정: 궁병 실행 11→28회, 창병 11→46회, 공격 뒤 남은 AP 0(메뉴 재표시 없음).
+
