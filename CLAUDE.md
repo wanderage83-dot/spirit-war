@@ -428,3 +428,14 @@
 - cineEvent: 유지 `CINE_HOLD`3.2초(이전 2.2), 쿨다운 4.2초(pri<3), 모든 사건 사이 최소 1.8초(`cine.last`, 겹치면 무시). 받아들인 사건마다 `slowmo`(pri3 .85초, 그 외 .55초, rReduced 제외)를 켜고 loop가 advancePhase에 dt×.35(마지막 .25초에 1로 복귀)를 넘긴다. 테스트의 advancePhase 직접 호출은 영향 없음. cineReset/cineUser가 slowmo를 끈다.
 - 새 클로즈업: battleImpactEmit priority≥3(아군 장수·부대 위기·전멸), launch의 첫 진격/증원은 pri3·라벨 「적 진격」(관문선 없을 때)·script 이름. `B0.first`(reset이 초기화).
 - `baseAlarm{t,warn,cine,at}`: hit이 아군 keep(본진·성벽·시설·망루)에 맞으면 기록. `baseAlarmTick`(update, formTick 뒤): 3초 안 피격이면 `#basewarn`(붉은 깜박 띠, 누르면 `baseAlarmGo` 본진으로) 표시, 실행 중 8초마다 say·combatCue·단심 음성, 20초마다 cineEvent. reset/showRealm이 숨김. `tests/cine-alarm.cjs`, auto-camera는 3.2초 유지·최소 간격에 맞춤.
+
+## 계략·원형 명령 메뉴 · 2026-11-08
+- `STRATS`(fire 군량150·3AP·숲 / water 90·남은 AP 전부(≥3)·숲·물가·다음 턴 / lure 40·2AP·적 부대)·`HERO_STRATS`(장수별, `heroStrats(id)`: o_hero는 청명 lure·서진 water+lure)·`groupLeaderId(g)`. 자원은 군량 `gold`. AP_NAMES·apAdd 비용에 추가, apUndo가 `a.food` 환불, apStart가 `stratStart`. commandAt은 `STRATS[mode]`면 `stratTarget`(lure는 1000 안 적, fire/water는 1600 안·`stratWhere`(forestNear: 나무 forestProps/borderProps 수×.07+bamboo·forest cliff 비율, 물 비율)).
+- 화공: `fires[]`{r210,life15,wind(rand),tick .5,spread 2.2}; .5초마다 반경 안 양군(구조물 제외) max×7%(장수 2.5%) hit 'fire'; 바람 ±.55rad 190 앞에 자식 불(숲이면, 아니면 35%), gen<4·총 14개 상한, 물에 막힘. 수공: `floods[]`{at=다음 턴 시작+1초}: 반경 340 양군 max×24%(장수 10%)·기절 .9·흐름 방향 150 밀림·불 끔·6초 감속. 유인: 성공 확률 .6(+.05 군주, +.1 계략 1개 장수) → 적 squad order attack·focus 우리 장수·post 해제·`lureUntil`(1턴, 출발 900 넘으면 복귀)·`vul`(2턴); 실패 → 우리 부대 vul 2턴·적에게 돌진. hit이 `u.vul>time`이면 ×1.4. `stratTick`(update, formTick 뒤), `drawStratGround`(drawGroundFx 뒤)·`drawStratFlames`(objs 뒤 upright 불꽃·연기). reset이 fires/floods 초기화.
+- 원형 메뉴 `#ring`(stage 안, `openRing(g,sub)`·`ringItems`·`ringTick`(loop가 매 프레임 부대 화면 위치 따라감, planning·선택·apReady/advance 아니면 닫음)·`closeRing`). choose(i)가 계획 중이면 다음 틱에 연다(apNext 자동 넘김 포함). commandAt 첫머리에서 닫는다(땅 누르기 그대로 동작). `toggleBattleTray`는 계획 중 부대 선택이면 고리를 토글(전군일 때만 옛 판). 항목: 공격·이동·진형·돌격(기병)·필살기(HERO_SKILLS 있을 때, 재사용 대기 표시)·계략(가진 것)·도술(g0만)·방향(하위)·주둔·후퇴·넘기기. 쓸 수 없는 것은 숨기고, 가진 것 중 군량·AP 부족은 흐리게+이유. 옛 판의 청룡강림·회복진은 selected>0이면 숨김. `tests/strats-ring.cjs`.
+
+## PC 클릭 번쩍임 수정 · 2026-11-08
+- 원인: ui()가 0.2초마다 `#apstrip`(넘김·취소·비우기·결과)·`#trainbuttons`·`#basebuttons`의 innerHTML을 같은 내용이라도 다시 써서, PC에서 누름~뗌 사이에 버튼이 바뀌어 번쩍이고 클릭이 사라졌다. `guardHTML(el)`이 그 요소의 innerHTML 쓰기를 내용이 같으면 건너뛴다. 실행 중 남은 초(`.apsec`)와 시간표 표시선(`.apnow`)은 다시 그리지 않고 글자·위치만 바꾼다. `tests/slow-click.cjs`(0.45초 눌렀다 떼기, 이전 코드에서 실패 확인).
+
+## 대화 이름표 진영 표시 · 2026-11-08
+- `vnFaction(id)`: o_hero는 갈래 진영, ruler:f는 f, fallen:/fallenh:는 gui, 그 밖은 characterInfo의 faction(group 있으면 그 이름, 예: 통일파). 라벨은 FACTIONS 이름에서 「국」을 빼고 「진영」(귀왕은 「귀왕군」), 색은 FACTIONS ink. vnShow가 `.vn-name` 앞에 `small.vn-fac`를 붙인다. 전장 머리 위 진영 배지는 예전 결정대로 넣지 않는다.
