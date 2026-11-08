@@ -10,5 +10,5 @@ assert.deepEqual(A.vn,['fc/hero.webp','characters/factions/mujin.webp']);assert(
 for(const v of Object.values(B.comp).concat(Object.values(B.ruler),[B.dir,B.walk],B.vn))assert(!String(v).startsWith('fc/'),'끄면 원래 그림 '+v);
 assert.deepEqual(A.bad,[]);assert.deepEqual(B.bad,[]);assert.deepEqual(A.errs,[]);assert.deepEqual(B.errs,[]);
 // 사본은 원본과 같은 크기·투명도이고 그림이 실제로 달라졌다
-const root=path.resolve(__dirname,'..');let n=0;for(const rel of fs.readdirSync(path.join(root,'fc'),{recursive:true}).filter(f=>f.endsWith('.webp'))){assert(fs.existsSync(path.join(root,rel)),'원본 있음 '+rel);n++}assert(n>=300,'사본 수 '+n);
+const root=[path.resolve(__dirname,'..'),process.cwd()].find(d=>fs.existsSync(path.join(d,'fc')));let n=0;for(const rel of fs.readdirSync(path.join(root,'fc'),{recursive:true}).filter(f=>f.endsWith('.webp'))){assert(fs.existsSync(path.join(root,rel)),'원본 있음 '+rel);n++}assert(n>=300,'사본 수 '+n);
 console.log('PASS faction outfit copies on/off, 귀왕·통일파·초상 unchanged, '+n+' copies');await b.close()})().catch(e=>{console.error(e);process.exit(1)});
