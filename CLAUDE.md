@@ -457,3 +457,6 @@
 - realmArt/loadRealmArt: 비동기 이미지 로딩 후 rBase가 있으면 buildRealmRaster 재생성. 실패하면 console 경고와 기존 코드 바탕 유지. buildRealmRaster의 종이/물결/삼각 산맥/옛 지역 소품 단계만 realmArt가 있을 때 새 그림으로 대체하고, 강·성벽·문자/낙관/방위는 그대로 위에 그린다. rIdx/rAdj/buildRoads/클릭 데이터는 같은 코드 그대로다.
 - buildOwnerLayer: 새 그림일 때 소유 색 alpha 20(기존72), 국가 경계135(기존220), 지역 경계65(기존120). drawRealmFolk의 화면 높이는 새 그림일 때 clamp(22*s+16,20,52), 기존은 유지. 풍경을 가리지 않으면서 확대하면 부대가 커진다. 지도 카메라/장 표지/진군 경로/저장 형식은 불변.
 - tests/realm-art.cjs 추가: 새 그림/기본 그림의 idx·adj·도로 동일, 복구 후 같은 그림, 귀왕 영역이 다른 4진영보다 어두움, 소유권 갱신, 3화면×15클릭, 이미지 요청 차단 시 기본 지도 동작. tests/map-portraits.cjs도 통과. 상세는 terrain/realm/README.md.
+
+## 클로즈업 짧게·원래 화면 복귀 · 2026-11-08
+- 사용자 「안 누르면 12초 실행 중 잠깐 클로즈업 후 바로 원래 화면으로」: `CINE_HOLD` 3.2→1.3초. cineEvent가 처음 확대할 때 화면 가운데 월드 좌표 `cine.c0`를 저장하고, 복귀 때 `cineHome(k)`로 배율과 함께 카메라 위치도 그 화면으로 되돌린다(`CINE_BACK`7/초, 이전에는 배율만 3.2×.8로 천천히 돌아오고 위치는 사건 지점에 남았다). 계획 단계로 넘어가면 즉시 복귀. cineUser·cineReset이 c0를 지운다. 슬로우모션·최소 간격 1.8초·쿨다운은 그대로. auto-camera(복귀 3.2초 안·위치 오차<6), cine-alarm(유지 .5~1.3초, 바로 뒤 겹침 무시).
