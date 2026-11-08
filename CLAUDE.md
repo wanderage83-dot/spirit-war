@@ -439,3 +439,7 @@
 
 ## 대화 이름표 진영 표시 · 2026-11-08
 - `vnFaction(id)`: o_hero는 갈래 진영, ruler:f는 f, fallen:/fallenh:는 gui, 그 밖은 characterInfo의 faction(group 있으면 그 이름, 예: 통일파). 라벨은 FACTIONS 이름에서 「국」을 빼고 「진영」(귀왕은 「귀왕군」), 색은 FACTIONS ink. vnShow가 `.vn-name` 앞에 `small.vn-fac`를 붙인다. 전장 머리 위 진영 배지는 예전 결정대로 넣지 않는다.
+
+## 고르기 취소·턴 끝 본진 창 · 2026-11-08
+- `#ringback`(`ringBackTick` 매 프레임, `ringBack`): 계획 중 선택 부대가 PICK_MODES(apengage·apcharge·dragon·heal·fire·water·lure)이거나 고리 「이동」(`ring.pick`)을 고른 상태면 「✕ 취소 · 메뉴로」(모드 끄고 openRing), 명령 직후 ap.advance 동안은 「↶ 방금 명령 취소 · 메뉴로」(apCancelAdvance+apUndo → choose가 고리를 다시 연다). 고리가 열려 있으면 숨김. commandAt이 ring.pick을 끈다.
+- `baseTurnMenu()`(apNext의 「모두 지정 완료」 분기, apReadyOpen 앞): `BASE_TURN_MENU`·본진 생존·이번 턴 처음(`ap.baseRound`)이면 openBase(0)+`#baserun`(「▶ 다 했다 · 작전 실행으로」) 표시. 실행 확인(apReady)은 그대로 열리되 `#apready.behind`로 숨겨 두고, 본진 창이 떠 있는 동안 canCommand는 `ap.baseOpen`이면 허용(충원·건설). `baseTurnDone()`(#baserun·#closeprod)이 behind를 풀어 실행 확인을 보인다. apReadyClose가 본진 창·플래그를 정리. 320×568·390×844·844×390 무스크롤. team-planning은 실제 UI 흐름이라 #baserun을 누르고, 실행 확인 창 크기 검사에서는 BASE_TURN_MENU=false. `tests/ring-back-base.cjs`.
