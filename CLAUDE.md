@@ -460,3 +460,6 @@
 
 ## 대화 첫머리 소설 서술 · 2026-11-08
 - vnShow: 앞에서부터 이어지는 화자 없는(null) 줄(lead개, 뒤에 대사가 있을 때만)은 `#vn.novel`로 `.vn-novel`(어두운 덮개, 명조 문단, 앞 문단은 흐리게·현재 문단 타자, ▼ 표시) 위에 쓰고 .vn-box·.vn-stage는 숨긴다. 첫 대사에서 클래스가 빠지며 .55초 걷힘. 타자 대상은 `VN.tx`(vnNext 즉시 완성도 그 요소). `.vn-nv-skip`「대화로 ›」은 첫 대사로 이동(대화 전체 건너뛰기 아님). vnStop이 novel 해제. 대사·장면·저장 불변. `tests/vn-novel.cjs`, dialogue-stage/prologue/map-portraits/story-death/admin-menu 회귀.
+
+## 클로즈업 짧게·원래 화면 복귀 · 2026-11-08
+- 사용자 「안 누르면 12초 실행 중 잠깐 클로즈업 후 바로 원래 화면으로」: `CINE_HOLD` 3.2→1.3초. cineEvent가 처음 확대할 때 화면 가운데 월드 좌표 `cine.c0`를 저장하고, 복귀 때 `cineHome(k)`로 배율과 함께 카메라 위치도 그 화면으로 되돌린다(`CINE_BACK`7/초, 이전에는 배율만 3.2×.8로 천천히 돌아오고 위치는 사건 지점에 남았다). 계획 단계로 넘어가면 즉시 복귀(단 cine.plan이 있으면 위치는 그대로 두어 완공 지점을 계속 비춘다). cineUser·cineReset이 c0를 지운다. 슬로우모션·최소 간격 1.8초·쿨다운은 그대로. auto-camera(복귀 3.2초 안·위치 오차<6), cine-alarm(유지 .5~1.3초, 바로 뒤 겹침 무시).
