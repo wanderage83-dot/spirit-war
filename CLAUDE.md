@@ -468,3 +468,6 @@
 - 사용자 「군량 글자 없애고, 자리 숫자가 굴러 올라가게, 매초 말고 턴마다, 조금 작게, 다른 데 안 겹치게」. #foodhud는 🌾+숫자(13px)만, title/aria-label 「군량」. `foodTick`: 줄어들면 즉시, 늘어난 것은 state==='planning'일 때만(턴 끝에 한 번) 반영. `foodDigits(el,nv,ov)`: 자리 k마다 floor(nv/10^k)−floor(ov/10^k)칸(최대 20) 숫자 띠를 `fdSpin` 1.1초로 위로 굴림, `.fnum` dataset.v에 값. 「+N」은 아래에서 떠올라 그 자리에서 사라짐(숫자를 가리지 않음). 동작 줄이기면 굴림 없음.
 - 겹침: 전체 폭 #warning(적 진격 안내)도 hudStack 왼쪽 쌓기에 넣어 right:auto·최대 폭 제한. #turnflash top을 hudStack이 왼쪽 쌓기 아래·군량 아래+6으로. `tests/hud-food.cjs`(글자 없음·13px·실행 중 불변·턴 끝 일괄·일의 자리 굴림·진격 안내 포함 4규격 무겹침).
 
+## 진영 꼬리표 축소·이름표와 이등신 겹침 · 2026-11-08
+- 사용자 「진영 꼬리표 작게, UI끼리 겹치지 않게」: .vn-fac 9px·여백 축소. `#vn .vn-box.vn-box{margin-top:16px}`로 이등신 발이 위로 올라가 이름표(상자 위로 14px 튀어나옴)와 겹치지 않음(320·390·844·1280에서 이등신 아래 < 이름표 위). 같은 요청의 소설식 첫 서술은 다른 창에서 먼저 병합된 main 구현(vn-nv-body, 「대화로 ›」)을 그대로 쓴다. 계획 중 완공 비추기 보간 6→9/초(부하 시 waves-defense towerCam 안정).
+
