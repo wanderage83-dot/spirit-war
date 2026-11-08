@@ -541,3 +541,41 @@ Canva 크레딧이 없어 `tools/pixel-walk.py`로 장수 20명×4방향×4동�
 
 ### 게임에 넣기(그림이 올라오면 Claude가 연결)
 - 귀왕 적 병사만 `characters/soldier-gui/<병종>/`(fr·방향·걷기)을 진영색 없이 쓰고, 그림이 없는 병종·방향은 지금처럼 아군 그림+잿빛 색을 쓴다. 발 위치는 `SOLDIER_FOOT`처럼 눈으로 재서 넣는다. 다른 진영 적·흑화 장수·장수 그림은 바꾸지 않는다.
+
+## 요청 8 · 절벽·협곡·능선·숲 벽 HD 그림 — 상태: 프롬프트 작성(2026-11-08), 그림 대기
+
+### 왜 필요한가
+흑수(x2)·모래관(x4)·혼령곡 같은 **pass·canyon 전장**의 절벽 위가 아직 HD 그림이 없어 「연두색 평면 + 흰 점선」으로 보이고, 절벽 사이 협곡 길은 빗금 친 계단처럼 보인다. **valley 전장**의 능선 바위(회색 띠)와 **forest 전장**의 숲 벽(진한 녹색 덩어리)도 옛 단순 그림이다. 판정·충돌·길찾기는 그대로 두고 그림만 바꾼다.
+
+### 만들 그림 5장 (`terrain/hd/`에 이 이름으로 커밋)
+| 파일 | 크기·형식 | 쓰는 곳 |
+|---|---|---|
+| `qing-cliff-top.png` | 1024×1024 불투명, 위에서 본 반복 타일 | 절벽 위 고원(지금 연두색 평면) |
+| `qing-cliff-face.png` | 1024×512 투명, 등각 띠(끝끼리 이어짐) | 절벽 가장자리, 고원과 협곡 바닥이 만나는 낭떠러지 면 |
+| `qing-gorge.png` | 1024×1024 불투명, 위에서 본 반복 타일 | 협곡 바닥 길(지금 빗금 계단) |
+| `qing-ridge.png` | 1024×1024 불투명, 위에서 본 반복 타일 | 골짜기 능선 바위(지금 회색 띠) |
+| `qing-canopy.png` | 1024×1024 불투명, 위에서 본 반복 타일 | 숲 벽(지금 진한 녹색 덩어리) |
+
+- 바닥 타일 4장은 요청 6의 「게임 쪽 약속」과 같다. 바로 위에서 본 정사각형이고 원근·그림자 방향이 없으며 네 변이 이음새 없이 이어진다. 타일 한 장은 월드 512(병사 약 10명 폭)에 깔린다.
+- 절벽 면은 요청 6의 「바로잡은 각도」와 같다. 아랫선이 왼쪽 아래→오른쪽 위로 기울기 0.707로 오른다. 양 끝은 같은 그림을 이어 붙여도 맞닿게 하고, 반대 방향은 게임이 좌우 반전한다. 위 가장자리는 고원 풀(cliff-top과 같은 색)이 살짝 걸치고, 아래는 협곡 바닥에 닿는다. 높이는 병사 2~3명 정도다.
+- 진영 색은 청룡 공통(귀왕 외 4진영이 함께 쓴다, 요청 6 최신 결정). 혼령곡은 귀왕 영토라 지금처럼 잿빛 그림을 유지한다.
+
+### ChatGPT 프롬프트 (각각 따로, 끝에 요청 6 「공통 문장」을 붙인다)
+1. `qing-cliff-top.png`
+> A seamless tileable top-down ground texture of a highland plateau on top of a cliff, viewed straight down at 90 degrees with no perspective and no cast shadows, 1024×1024, edges tile perfectly on all four sides. Short wind-swept grass with patches of exposed flat grey rock slabs, small lichen spots, a few pebbles and tiny wild herbs; slightly paler and drier than lowland grass so it reads as higher ground. Palette: fresh greens, teal, jade, cool grey stone. [공통 문장]
+2. `qing-cliff-face.png`
+> A horizontal strip of a natural rock cliff face for a game map edge, true isometric projection (35.26° — the cliff's base line rises from lower left to upper right with a slope of 0.707, i.e. 1 pixel up for every 1.414 pixels across), no perspective. Layered grey-brown sedimentary rock with cracks and ledges, moss and grass tufts hanging over the top edge, small ferns and loose stones at the foot. The strip is 1024×512 with a transparent background, the left and right ends cut cleanly so identical copies join end to end seamlessly. Height of the cliff about one third of the canvas height. Light from the upper left. No ground shadow. Palette: cool grey stone, warm brown strata, fresh green moss. [공통 문장]
+3. `qing-gorge.png`
+> A seamless tileable top-down ground texture of a narrow mountain gorge floor, viewed straight down at 90 degrees with no perspective and no cast shadows, 1024×1024, edges tile perfectly on all four sides. Packed gravel and dirt trail surface with scattered flat stepping stones, small rocks, sparse grass in the cracks; the trail fills the whole tile edge to edge, no borders or stripes. Palette: warm brown earth, cool grey stone, a few green tufts. [공통 문장]
+4. `qing-ridge.png`
+> A seamless tileable top-down texture of a bare rocky mountain ridge, viewed straight down at 90 degrees with no perspective and no cast shadows, 1024×1024, edges tile perfectly on all four sides. Jagged grey granite outcrops and boulders packed together with deep cracks, patches of lichen and small hardy shrubs between the rocks; clearly impassable terrain. Palette: cool grey stone, slate blue shadows, small jade-green shrubs. [공통 문장]
+5. `qing-canopy.png`
+> A seamless tileable top-down texture of a dense old forest canopy, viewed straight down at 90 degrees with no perspective and no cast shadows, 1024×1024, edges tile perfectly on all four sides. Rounded clusters of tree crowns of different sizes (broadleaf and a few pines and bamboo tops) packed tightly with dark gaps between crowns, varied greens with a warm sunlit side on the upper left of each crown; no ground visible. Palette: deep forest green, jade, teal, a few yellow-green highlights. [공통 문장]
+
+### 검수(받은 뒤)
+- [ ] 바닥 4장은 2×2로 붙였을 때 이음새·줄무늬·큰 반복 무늬가 없음
+- [ ] 절벽 면은 아랫선 기울기 약 0.7, 두 장을 이었을 때 끊김 없음, 배경 투명
+- [ ] 글자·사람·그림자 방향 없음, 도트 4×4 느낌(조금 매끈하면 `tools/pixelize.py`로 맞춤)
+
+### 게임에 넣기(그림이 올라오면 Claude가 연결)
+- `HD_ART_FILES`에 5장을 추가하고, `pixelRegionBackground`의 pass·canyon 절벽 칸은 `cliff-top`, 절벽과 통행 칸의 경계에는 `cliff-face` 띠를, 협곡 길은 `gorge`, valley 능선은 `ridge`, forest 벽은 `canopy` 패턴으로 바꾼다. 충돌·사격 차단·길찾기는 지형 마스크 그대로라 변하지 않는다.
