@@ -1355,6 +1355,7 @@ function owned(f){return R.provs.filter(p=>p.owner===f)}
 
 // ---------- 지도 래스터 (노이즈 보로노이 → 수묵 담채) ----------
 const RM_W=1000,RM_H=700,RS=2,RW=RM_W/RS,RH=RM_H/RS;let rIdx=null,rAdj=null,rEdge=null,rBase=null,rOwner=null,rDirty=true;
+let realmArt=null;function loadRealmArt(){const im=new Image();im.decoding='async';im.onload=()=>{realmArt=im;if(rBase)buildRealmRaster()};im.onerror=()=>console.warn('천하도 그림 로딩 실패: 기본 지도 사용');im.src='terrain/realm/atlas.webp'}loadRealmArt();
 function rnoise(x,y){return Math.sin(x*.013+Math.sin(y*.021)*2)*.5+Math.sin(y*.017+Math.sin(x*.011)*2.3)*.5+Math.sin((x+y)*.031)*.25}
 const SEA=[[1000,0],[935,0],[925,40],[905,62],[872,80],[850,104],[828,95],[808,82],[785,96],[768,122],[760,150],[772,178],[795,196],[835,198],[878,200],[915,212],[932,232],[905,250],[870,262],[845,284],[838,315],[858,345],[886,372],[872,396],[884,426],[876,466],[862,506],[846,546],[816,586],[786,616],[748,640],[706,656],[666,664],[640,684],[622,700],[1000,700]];
 const LAKES=[[590,478,30,15],[704,462,15,24]],ISLANDS=[[904,592,13,40],[952,140,18,46]];
@@ -1380,6 +1381,7 @@ function buildRealmRaster(){rIdx=new Int8Array(RW*RH).fill(-1);for(let j=0;j<RH;
  for(const k in cnt)if(cnt[k]>10){const [a,b]=k.split('_').map(Number);rAdj[a].add(b);rAdj[b].add(a)}buildRoads();
  // 수묵 담채 바탕
  rBase=document.createElement('canvas');rBase.width=RM_W;rBase.height=RM_H;const c=rBase.getContext('2d');c.fillStyle='#e8dbb9';c.fillRect(0,0,RM_W,RM_H);
+ if(realmArt){c.drawImage(realmArt,0,0,RM_W,RM_H)}else{
  const img=c.createImageData(RW,RH);for(let j=0;j<RH;j++)for(let i=0;i<RW;i++){const o=(j*RW+i)*4,land=rIdx[j*RW+i]>=0,n=rnoise(i*9,j*9)*10;if(land){const rgb=MAP_THEMES[regionMap(PROV0[rIdx[j*RW+i]][0]).theme].map;img.data[o]=rgb[0]+n;img.data[o+1]=rgb[1]+n;img.data[o+2]=rgb[2]+n*.6}else{img.data[o]=190+n;img.data[o+1]=203+n;img.data[o+2]=194+n}img.data[o+3]=255}
  const tmp=document.createElement('canvas');tmp.width=RW;tmp.height=RH;tmp.getContext('2d').putImageData(img,0,0);c.imageSmoothingEnabled=true;c.drawImage(tmp,0,0,RM_W,RM_H);
  for(let i=0;i<2600;i++){c.strokeStyle=i%3?'#7a6a4a0d':'#ffffff18';c.lineWidth=1;const x=RND()*RM_W,y=RND()*RM_H;c.beginPath();c.moveTo(x,y);c.lineTo(x+RND()*14-7,y+RND()*4-2);c.stroke()}
@@ -1391,6 +1393,7 @@ function buildRealmRaster(){rIdx=new Int8Array(RW*RH).fill(-1);for(let j=0;j<RH;
  // 산맥 (먹선)
  let s=7;const R2=()=>((s=(s*1664525+1013904223)>>>0)/4294967296);for(let n=0,tries=0;n<120&&tries<4000;tries++){const x=R2()<.45?20+R2()*300:40+R2()*900,y=30+R2()*640;if(!landAt(x,y)||!landAt(x+20,y+10))continue;if(RIVERS.some(r=>r.pts.some(([px,py])=>Math.hypot(px-x,py-y)<28)))continue;if(PROV0.some(p=>Math.hypot(p[2]-x,p[3]-y)<62))continue;n++;const h=12+R2()*14,w=h*1.3,theme=MAP_THEMES[regionMap(PROV0[rIdx[Math.floor(y/RS)*RW+Math.floor(x/RS)]][0]).theme];c.fillStyle=theme.rock;c.beginPath();c.moveTo(x-w,y);c.quadraticCurveTo(x-w*.3,y-h*.6,x,y-h);c.quadraticCurveTo(x+w*.35,y-h*.5,x+w,y);c.closePath();c.fill();c.strokeStyle='#3a2e25b0';c.lineWidth=1.6;c.beginPath();c.moveTo(x-w,y);c.quadraticCurveTo(x-w*.3,y-h*.6,x,y-h);c.quadraticCurveTo(x+w*.35,y-h*.5,x+w,y);c.stroke();c.lineWidth=1;c.beginPath();c.moveTo(x,y-h);c.lineTo(x+w*.15,y-h*.3);c.stroke()}
  paintRealmRegionalIcons(c);
+ }
  // 강 (황하·장강) · 호수
  for(const r of RIVERS){c.lineCap='round';c.lineJoin='round';for(const [w,col] of [[9,'#3a4d4f55'],[6,'#8fb4b6'],[2,'#cfe2dd']]){c.strokeStyle=col;c.lineWidth=w;c.beginPath();r.pts.forEach(([x,y],i)=>i?c.lineTo(x+rnoise(x,y)*3,y+rnoise(y,x)*3):c.moveTo(x,y));c.stroke()}c.fillStyle='#2f5f66';c.font='800 17px "Nanum Myeongjo",serif';c.textAlign='center';c.fillText(r.name,r.lx,r.ly)}
  // 만리장성
@@ -1402,7 +1405,7 @@ function buildRealmRaster(){rIdx=new Int8Array(RW*RH).fill(-1);for(let j=0;j<RH;
  c.fillStyle='#2b2420';c.font='800 28px "Nanum Myeongjo",serif';c.textAlign='center';['사','신','천','하','도'].forEach((ch,i)=>c.fillText(ch,962,410+i*34));c.fillStyle='#b8352a';c.fillRect(946,586,32,32);c.fillStyle='#f5e6c8';c.font='800 20px "Nanum Myeongjo",serif';c.fillText('청',962,609);
  // 방위
  c.fillStyle='#2b2420';c.font='800 22px "Nanum Myeongjo",serif';c.fillText('북',940,52);c.strokeStyle='#2b2420';c.lineWidth=2;c.beginPath();c.moveTo(940,60);c.lineTo(940,110);c.moveTo(930,72);c.lineTo(940,60);c.lineTo(950,72);c.stroke();rDirty=true}
-function buildOwnerLayer(){const img=new ImageData(RW,RH);for(let j=0;j<RH;j++)for(let i=0;i<RW;i++){const a=rIdx[j*RW+i];if(a<0)continue;const o=(j*RW+i)*4,f=FACTIONS[R.provs[a].owner];let al=72,rgb=f.rgb;const r_=rIdx[j*RW+i+1],d_=rIdx[(j+1)*RW+i];const nb=[r_,d_,rIdx[j*RW+i-1],rIdx[(j-1)*RW+i]];if(nb.some(b=>b>=0&&b!==a&&R.provs[b].owner!==R.provs[a].owner)){rgb=[40,28,22];al=220}else if(nb.some(b=>b>=0&&b!==a)){rgb=[70,54,40];al=120}img.data[o]=rgb[0];img.data[o+1]=rgb[1];img.data[o+2]=rgb[2];img.data[o+3]=al}
+function buildOwnerLayer(){const img=new ImageData(RW,RH);for(let j=0;j<RH;j++)for(let i=0;i<RW;i++){const a=rIdx[j*RW+i];if(a<0)continue;const o=(j*RW+i)*4,f=FACTIONS[R.provs[a].owner];let al=realmArt?20:72,rgb=f.rgb;const r_=rIdx[j*RW+i+1],d_=rIdx[(j+1)*RW+i];const nb=[r_,d_,rIdx[j*RW+i-1],rIdx[(j-1)*RW+i]];if(nb.some(b=>b>=0&&b!==a&&R.provs[b].owner!==R.provs[a].owner)){rgb=realmArt?[46,40,52]:[40,28,22];al=realmArt?135:220}else if(nb.some(b=>b>=0&&b!==a)){rgb=[70,54,40];al=realmArt?65:120}img.data[o]=rgb[0];img.data[o+1]=rgb[1];img.data[o+2]=rgb[2];img.data[o+3]=al}
  rOwner=document.createElement('canvas');rOwner.width=RW;rOwner.height=RH;rOwner.getContext('2d').putImageData(img,0,0);rDirty=false}
 let rView={s:1,ox:0,oy:0};
 const rCamera={key:'',manual:null,overview:true,s:0,x:500,y:350};
@@ -1431,7 +1434,7 @@ function rSpr(src,tint,al){const key=src+'|'+(tint||'');let c=rSprC[key];if(c)re
 const R_GARRISON={qing:[['shield.webp'],['spear.webp'],['bow.webp']],xuan:[['shield.webp','#33506f',.42],['bow.webp','#33506f',.42],['spear.webp','#33506f',.42]],bai:[['horse.webp','#a89260',.4],['spear.webp','#a89260',.4],['bow.webp','#a89260',.4]],zhu:[['spear.webp','#a43c28',.4],['bow.webp','#a43c28',.4],['shield.webp','#a43c28',.4]],gui:[['shield.webp','#160d1c',.78],['spear.webp','#160d1c',.78],['horse.webp','#160d1c',.78]]};
 function officerSprite(o){if(o.id==='o_hero')return rulerSprite(ROUTE_CFG[ROUTE].faction);if(COMPANIONS[o.id])return 'characters/'+COMPANIONS[o.id].key+'.webp';if(FACTION_CHARACTERS[o.id])return characterSprite(o.id);return o.str>=o.int?'spear.webp':'bow.webp'}
 function rDrawSpr(c,sp,x,y,h,flip,alpha=1){if(!sp)return;const w=h*sp.cv.width/sp.cv.height;c.save();c.globalAlpha=alpha;c.translate(x,y);if(!flip!==!sp.left)c.scale(-1,1);c.fillStyle='#2b242033';c.beginPath();c.ellipse(0,0,w*.32,h*.07,0,0,7);c.fill();c.drawImage(sp.cv,-w/2,-h,w,h);c.restore()}
-function drawRealmFolk(c,s,now){const H=Math.max(24,Math.min(58,30*s+24))/s,small=s<.6;
+function drawRealmFolk(c,s,now){const H=(realmArt?Math.max(20,Math.min(52,22*s+16)):Math.max(24,Math.min(58,30*s+24)))/s,small=s<.6;
  for(const p of R.provs){const set=R_GARRISON[p.owner]||R_GARRISON.qing,n=p.troops<1500?1:p.troops<3500?2:3,bx=p.x+(p.cap?24:14)/s;
   for(let i=0;i<(small?1:n);i++){const [src,t,a]=set[i%set.length],sp=rSpr(src,t,a);rDrawSpr(c,sp,bx+i*H*.42,p.y+4/s-Math.abs(Math.sin(now*2.2+i+p.x))*1.6/s,H*(p.owner==='gui'?.9:.78),false)}
   if(p.cap&&p.owner!=='qing'&&!small){const ids=(FACTION_ROSTERS[p.owner]||[]).filter(id=>!R.officers.some(o=>o.id===id));ids.forEach((id,i)=>rDrawSpr(c,rSpr(characterSprite(id)),p.x-(26+i*16)/s,p.y+6/s-Math.abs(Math.sin(now*1.8+i))*1.4/s,H*.95,true));if(p.owner==='gui'){const sp=rSpr('shield.webp','#160d1c',.85);rDrawSpr(c,sp,p.x-30/s,p.y+8/s,H*1.35,true)}}}

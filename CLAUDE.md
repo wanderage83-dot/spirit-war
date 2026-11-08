@@ -451,3 +451,8 @@
 - #ringback이 bottom:12px라 #battlefooter(카드 줄)·#apstrip 아래에 가려 이동 고르기 중 보이지 않았다. ringBackTick이 보일 때 두 요소 중 가장 높은 top 위 10px로 bottom을 맞추고 z-index 12.
 - `hudStack()`(loop, ringBackTick 뒤): #goalchip·#raidchip·#basewarn·#basealert 중 보이는 것을 42px부터 4px 간격으로 왼쪽에 쌓고(최대 폭은 군량 표시 왼쪽까지), #toast top을 그 아래(최소 78px)로 둔다. raidchip의 옛 top 지정은 제거. #basewarn은 가운데→왼쪽, 문구 「⚠ 본진 피습 n% · 눌러서 보기」(cine-alarm 검사 갱신).
 - `#foodhud`(`foodTick`, 오른쪽 위 42px): 🌾 군량·`foodRate()`(economyUI와 공용)/초. 늘면 .9초마다(25 이상이면 즉시) 바뀐 자리 숫자 `.fd.roll` 굴림+`.ffloat` 「+N」 떠오름, 줄면 즉시 바꿈. 동작 줄이기면 페이드. 판정·저장 불변. `tests/hud-food.cjs`(4규격 겹침 없음·취소 버튼 최상단·+N).
+## 천하도 담채 풍경화 지도
+- 사용자 요청: 천하도를 더 멋지고 서정적으로, 귀왕 영토는 음산하게. terrain/realm/atlas.webp(1499×1049, 불투명, 약 724KiB)를 기존 rBase 바탕 지리를 참고해 생성했다. 전투 필드/캐릭터 그림을 바꾸지 않는다.
+- realmArt/loadRealmArt: 비동기 이미지 로딩 후 rBase가 있으면 buildRealmRaster 재생성. 실패하면 console 경고와 기존 코드 바탕 유지. buildRealmRaster의 종이/물결/삼각 산맥/옛 지역 소품 단계만 realmArt가 있을 때 새 그림으로 대체하고, 강·성벽·문자/낙관/방위는 그대로 위에 그린다. rIdx/rAdj/buildRoads/클릭 데이터는 같은 코드 그대로다.
+- buildOwnerLayer: 새 그림일 때 소유 색 alpha 20(기존72), 국가 경계135(기존220), 지역 경계65(기존120). drawRealmFolk의 화면 높이는 새 그림일 때 clamp(22*s+16,20,52), 기존은 유지. 풍경을 가리지 않으면서 확대하면 부대가 커진다. 지도 카메라/장 표지/진군 경로/저장 형식은 불변.
+- tests/realm-art.cjs 추가: 새 그림/기본 그림의 idx·adj·도로 동일, 복구 후 같은 그림, 귀왕 영역이 다른 4진영보다 어두움, 소유권 갱신, 3화면×15클릭, 이미지 요청 차단 시 기본 지도 동작. tests/map-portraits.cjs도 통과. 상세는 terrain/realm/README.md.
