@@ -8,11 +8,11 @@ const r=await p.evaluate(()=>{window.requestAnimationFrame=()=>0;setRoute('qing'
  for(let k=0;k<40;k++){advancePhase(1/40);cineTick(1/40)}const ctr=unproject(camX+VW/2,camY+VH*.45);out.zoomUp=zoom/z0;out.near=Math.hypot(ctr.x-cine.x,ctr.y-cine.y);
  // 같은 부대 쌍 첫 교전은 한 번만
  const n1=cine.n;cineFirstClash(us[0],e);out.oncePerPair=cine.n===n1;
- // 1.8초 유지 뒤 돌아오기
- for(let k=0;k<160;k++){advancePhase(1/40);cineTick(1/40)}out.back=Math.abs(zoom-z0)<.01&&cine.z0===null;
+ // 3.2초 유지 뒤 돌아오기
+ for(let k=0;k<240;k++){advancePhase(1/40);cineTick(1/40)}out.back=Math.abs(zoom-z0)<.01&&cine.z0===null;
  // 화면을 만지면 멈추고 3초간 무시
- cineEvent(c.x,c.y,3,'t');cineUser();const zz=zoom;cineTick(.1);out.userStops=cine.hold===0&&zoom===zz;const before=cine.n;cineEvent(c.x,c.y,3,'t2');out.userBlocks=cine.n===before;
+ cine.last=-1e9;cineEvent(c.x,c.y,3,'t');cineUser();const zz=zoom;cineTick(.1);out.userStops=cine.hold===0&&zoom===zz;const before=cine.n;cineEvent(c.x,c.y,3,'t2');out.userBlocks=cine.n===before;
  // 계획 단계로 넘어가면 배율 복귀
- cine.user=-1e9;cine.cool=0;cineEvent(c.x,c.y,3,'t3');for(let k=0;k<10;k++)cineTick(1/40);out.zoomedAgain=zoom>z0*1.05;while(state==='playing')advancePhase(1/40);cineTick(1/40);out.planRestore=Math.abs(zoom-z0)<.01&&state==='planning';
+ cine.user=-1e9;cine.cool=0;cine.last=-1e9;cineEvent(c.x,c.y,3,'t3');for(let k=0;k<10;k++)cineTick(1/40);out.zoomedAgain=zoom>z0*1.05;while(state==='playing')advancePhase(1/40);cineTick(1/40);out.planRestore=Math.abs(zoom-z0)<.01&&state==='planning';
  return out});
 console.log(JSON.stringify(r));assert.ok(r.fired>=1&&r.pairs>=1);assert.ok(r.zoomUp>1.2,'zoom '+r.zoomUp);assert.ok(r.near<220,'centre '+r.near);assert.ok(r.oncePerPair);assert.ok(r.back);assert.ok(r.userStops&&r.userBlocks);assert.ok(r.zoomedAgain&&r.planRestore);assert.deepEqual(errors,[]);console.log('PASS first clash/major events glide-and-zoom, return to zoom, once per pair, user input wins, planning restores zoom');await b.close()})().catch(e=>{console.error(e);process.exit(1)});

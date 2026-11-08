@@ -4,7 +4,7 @@
 // Requires Playwright and Chromium. Serve the repository and pass its URL.
 const{chromium}=require('playwright'),fs=require('fs'),assert=require('node:assert/strict');(async()=>{const exe=['/usr/bin/chromium','/opt/pw-browsers/chromium'].find(p=>fs.existsSync(p)),b=await chromium.launch(exe?{executablePath:exe}:{}),p=await b.newPage({viewport:{width:1280,height:800}}),errors=[];p.on('pageerror',e=>errors.push(String(e)));await p.goto(process.argv[2]||'http://127.0.0.1:8782/');await p.waitForTimeout(1500);
 const r=await p.evaluate(async()=>{const open=async id=>{setRoute(id[0]==='x'?'xuan':'qing');newRealm();showRealm();const c=SAGA.find(c=>c.id===id);R.saga.act=c.act;launchChapter(c);hideBattleVoice&&hideBattleVoice();await new Promise(r=>setTimeout(r,200))};const run=()=>{selected=-1;apSkip();if(!apReady)apReadyOpen();document.querySelector('#apready-run').click();for(let i=0;i<18/.025&&state==='playing';i++)advancePhase(.025)};const out={};
- await open('c4');
+ await open('x1');
  // 1) 고르는 증원이 다양하고, 갈수록 커진다
  const kinds=new Set();for(let i=0;i<60;i++){const w=planWave(100);if(w)kinds.add(w.k.id)}out.kinds=[...kinds];
  waveN=0;const e0=waveEvent({k:WAVES[1],dir:'n',at:100}),small=e0.spawn.reduce((n,[,c])=>n+c,0);waveN=8;const e8=waveEvent({k:WAVES[1],dir:'n',at:100}),big=e8.spawn.reduce((n,[,c])=>n+c,0);waveN=0;out.grow=[small,big];
@@ -21,9 +21,9 @@ const r=await p.evaluate(async()=>{const open=async id=>{setRoute(id[0]==='x'?'x
  // 7) 큰 사건이면 카메라가 확대
  setZoom(.6);const z0=zoom;state='playing';cine.user=-1e9;cine.cool=0;cine.hold=0;cine.z0=null;cineEvent(KEEP.x,KEEP.y,3,'시험');for(let i=0;i<20;i++)cineTick(.033);out.cine={z0:+z0.toFixed(2),z:+zoom.toFixed(2)};const p0=project(KEEP.x,KEEP.y);out.cineCenter=Math.round(Math.hypot(p0.x-(camX+VW/2),p0.y-(camY+VH*.45)));state='planning';cineTick(.033);out.cineBack=+zoom.toFixed(2);
  // 8) 관문선 장: 막힌 길로 온 증원은 관문 수비대에 합류
- await open('c7');const n0=units.filter(u=>u.side&&u.hp>0&&u.tag==='center').length;for(const u of units)if(u.side&&u.hp>0&&!u.fence&&u.type!=='gate'&&u.type!=='boss'&&!u.royalGuard&&u.tag!=='center')u.hp=0;launch(waveEvent({k:WAVES[2],dir:'n',at:time}));const joined=units.filter(u=>u.side&&u.hp>0&&u.tag==='center');out.passJoin={before:n0,after:joined.length,behind:joined.every(u=>u.y<PASS_Y),hold:joined.every(u=>u.order==='hold')};
+ await open('c5');const n0=units.filter(u=>u.side&&u.hp>0&&u.tag==='center').length;for(const u of units)if(u.side&&u.hp>0&&!u.fence&&u.type!=='gate'&&u.type!=='boss'&&!u.royalGuard&&u.tag!=='center')u.hp=0;launch(waveEvent({k:WAVES[2],dir:'n',at:time}));const joined=units.filter(u=>u.side&&u.hp>0&&u.tag==='center');out.passJoin={before:n0,after:joined.length,behind:joined.every(u=>u.y<PASS_Y),hold:joined.every(u=>u.order==='hold')};
  // 9) 실제 진행: 여러 종류가 실제로 출발
- await open('c4');const seen=[];const oL=window.launch;window.launch=function(e){if(e.wave)seen.push(e.wave);return oL(e)};for(let k=0;k<26&&state==='planning';k++)run();window.launch=oL;out.launched=seen;return out});
+ await open('x1');const seen=[];const oL=window.launch;window.launch=function(e){if(e.wave)seen.push(e.wave);return oL(e)};for(let k=0;k<26&&state==='planning';k++)run();window.launch=oL;out.launched=seen;return out});
 console.log(JSON.stringify(r));
 assert.ok(r.kinds.length>=4,'증원 종류 다양');assert.ok(r.grow[1]>r.grow[0],'증원이 갈수록 커짐');assert.equal(r.income0,0);assert.equal(r.income1,4,'서쪽 보급소 군량 +4/초');assert.ok(r.raidToWest,'보급 습격대는 우리가 쥔 보급소로');
 assert.ok(/턴/.test(r.chipHidden)&&/봉화대/.test(r.chipHidden)&&!/기병/.test(r.chipHidden),'봉화대 없으면 종류 숨김');assert.ok(/기병/.test(r.chipShown),'봉화대 있으면 종류 표시');assert.equal(r.siege,3,'공성대 구조물 3배');

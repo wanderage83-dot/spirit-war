@@ -410,3 +410,21 @@
 - 사용자 요청 「창세기전처럼 번갈아, 시작 시 고르기 없음, 맞붙는 곳은 편 선택」(사용자가 「무진」이라 쓴 것은 현무편 주인공 서진으로 해석). `CHRONICLE`(25항목, `['c3','x2']`가 충돌)·`CLASH`·`CHRON`(기본 true)·`CHRON_KEY='spiritwar-chronicle-v1'`. 순서는 각 장의 f 난도(시간순)를 따른다: c1 x1 c2 [c3|x2] c4 x3 c5 c6 x4 c7 x5 c8 c9 x6 c10 x7 c11 c12 x8 c13 x9 c14 c15 x10 c16.
 - 상태: 활성 갈래의 R에 다른 갈래 R을 `R.twin`으로 품고 둘 다 `chron:true`. 저장 하나에 둘 다 들어간다. `newChronicle(r)`(twin의 서막 intro=true), `chronSwap()`(저장→R 교환→setRoute→편성 복원→showRealm), `chronNext()`(첫 미완료 항목), `chronStep()`(sagaAfterChapter 래퍼: 다음이 다른 갈래면 교환+「시점 전환」 카드→`sagaAfterChapter0`(옛 본문, 막 전환 포함), 충돌이면 `chronClash`), `chronPick(id)`, `chronProxy(id)`(이긴 충돌 장의 상대 장을 twin에서 완료·경험치·금 지급, 지역 소유는 바꾸지 않음). sagaBattleDone의 `final`은 연대기가 남아 있으면 무시(x10). resumeRealmSave가 불러온 뒤 충돌·갈래 전환을 이어 준다.
 - setRoute의 SAVE_KEY는 CHRON이면 연대기 키. 옛 이야기별 키는 지우지 않고 메뉴 「예전 저장」으로 그 갈래만 이어하기(CHRON=false). 관리자 메뉴 점프는 기존처럼 단일 갈래 fixture(twin 없음)다. `tests/chronicle.cjs`(25단계 순서·두 편 선택·대리 완료·현무 최종장 비종료·저장/재개·3화면).
+
+## 1장 적장 격파 즉시 승리 · 2026-11-07
+- 사용자 제보 「청명 1스테이지 적 지휘관을 잡아도 판이 안 끝난다」: 버들골(beodeulTrial)에서 후방 보급소가 끊긴 채(rearSupplyCut) 적장을 쓰러뜨리면 「후방 보급소를 되찾아야 승리합니다」 문구만 띄우고 계속했다. 이 조건을 빼고 적장 격파(goalBossWins)면 바로 end(true). 후방 보급소 차단의 수입·증원 정지는 그대로. `supplyVictoryWarn` 변수는 남지만 쓰이지 않는다.
+
+## 판의 틀·전투 중 사건 · 2026-11-07
+- 사용자 「매번 같은 패턴」→ 제안 A(판의 틀)·B(전투 중 사건) 선택. 장 데이터 `form`: siege(c4·x3·x5)·field(c7·x8)·raid(c11·x7, slots 3). `ev:[[턴,종류,방향]]`: rear·flank·elite·aid 16장(c2·c5·c6·c8·c9·c10·c12·c13·c14·c15·c16·x2·x4·x6·x9·x10).
+- launchChapter 끝 `formInit(c)`(goalInit 뒤). field/raid는 passInit에 빈 객체(관문선 없음). `FORM_INFO`·`SCRIPT_EV`·`formState{alarm,aid,woke}`. siege: 망루 hp=max, 1턴 w·e 기병·2턴 n 공성·3턴 s 배후 events(script:'포위'), updateEvents 다음 증원 간격 34초 고정. field: `formMove`로 아군 중심 WH×.6·적(boss 제외) WH×.4(세로 .45배 압축), boss는 그 앞 −420, 적 일반병 tag 'field'→ AP_TURN+1에 tag 행진 event(route 가운데→본진). raid: 적 전원 `u.sleep`, 태그 행진 event 삭제·nextWave=null, updateEvents는 경보 전 증원 계획 안 함(경보 뒤 time+60). acquire는 sleep이면 null, zocCheck는 sleep 적 무시, hit이 `formWake(squad,true)`, attackDamage 끝 ×2.5(t.sleep). `formTick`(update의 goalTick 앞, .25초): 아군 380 안·sleepWake 도래·경보 후 2턴이면 깨움, 첫 깨어남이 경보(배너·cineFocus·1100 안 2초 뒤 깨움). `drawNight`(drawHD 뒤 multiply+가장자리 어둠).
+- ev: 파도 종류는 `waveEvent({k,dir,at:턴×AP_TURN−1})`+`script/sub`로 events에 넣고, launch가 script면 powerBanner+cineFocus. 기존 경보(warnLead)가 한 턴 전 알린다. script 사건은 적 병력 상한(room)을 최소 14 허용. aid는 `aidArrive()`: 살아 있는 g≥1 부대 중 남은 비율 낮은 2개에 recruitType 8(기병 6)명(spawnAt actual, applySagaUnitLevel, joining·joinedRound), 아군 체력 +20%·아군 부대 사기 +20, 배너.
+- `restartBattle`은 saga 장이면 `launchChapter`로 다시 차린다(이전에는 launchRealmBattle만 불러 목표·관문선·틀이 빠졌다). openChapter 브리핑 줄에 틀 이름·「⚠ 전투 중 사건」. 저장 구조 불변(전투 임시 상태). `tests/battle-forms.cjs`.
+
+## 시작 승리 조건 알림·전장 선명도 · 2026-11-07
+- `goalHeadline(c)`(goal 종류별 짧은 문구, goal 없으면 버티기/적장 격파)·`goalBanner(c)`: formInit 끝에서 250ms 뒤 powerBanner에 `.goalb`(어두운 판·줄바꿈 keep-all·세로 34%, 가로 휴대폰 52%·작은 글씨). 2.3초 뒤 사라지고 판의 틀 설명 배너는 2.7초에 이어서. powerBanner는 `goalb`를 지운다.
+- 선명도: `measure`의 dpr을 min(3, devicePixelRatio, √(4.2e6/CSS면적))로(이전 상한 2라 3배 휴대폰에서 1.5배 늘어나 흐렸다). drawHD의 틸트시프트 띠 제거, 색 보정 알파×.45, 가장자리 어둠 .55→.26. 계획 중 비선택 아군 dim .62→.85.
+
+## 클로즈업 슬로우모션·본진 피습 경보 · 2026-11-07
+- cineEvent: 유지 `CINE_HOLD`3.2초(이전 2.2), 쿨다운 4.2초(pri<3), 모든 사건 사이 최소 1.8초(`cine.last`, 겹치면 무시). 받아들인 사건마다 `slowmo`(pri3 .85초, 그 외 .55초, rReduced 제외)를 켜고 loop가 advancePhase에 dt×.35(마지막 .25초에 1로 복귀)를 넘긴다. 테스트의 advancePhase 직접 호출은 영향 없음. cineReset/cineUser가 slowmo를 끈다.
+- 새 클로즈업: battleImpactEmit priority≥3(아군 장수·부대 위기·전멸), launch의 첫 진격/증원은 pri3·라벨 「적 진격」(관문선 없을 때)·script 이름. `B0.first`(reset이 초기화).
+- `baseAlarm{t,warn,cine,at}`: hit이 아군 keep(본진·성벽·시설·망루)에 맞으면 기록. `baseAlarmTick`(update, formTick 뒤): 3초 안 피격이면 `#basewarn`(붉은 깜박 띠, 누르면 `baseAlarmGo` 본진으로) 표시, 실행 중 8초마다 say·combatCue·단심 음성, 20초마다 cineEvent. reset/showRealm이 숨김. `tests/cine-alarm.cjs`, auto-camera는 3.2초 유지·최소 간격에 맞춤.
