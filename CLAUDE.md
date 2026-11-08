@@ -457,3 +457,6 @@
 - realmArt/loadRealmArt: 비동기 이미지 로딩 후 rBase가 있으면 buildRealmRaster 재생성. 실패하면 console 경고와 기존 코드 바탕 유지. buildRealmRaster의 종이/물결/삼각 산맥/옛 지역 소품 단계만 realmArt가 있을 때 새 그림으로 대체하고, 강·성벽·문자/낙관/방위는 그대로 위에 그린다. rIdx/rAdj/buildRoads/클릭 데이터는 같은 코드 그대로다.
 - buildOwnerLayer: 새 그림일 때 소유 색 alpha 20(기존72), 국가 경계135(기존220), 지역 경계65(기존120). drawRealmFolk의 화면 높이는 새 그림일 때 clamp(22*s+16,20,52), 기존은 유지. 풍경을 가리지 않으면서 확대하면 부대가 커진다. 지도 카메라/장 표지/진군 경로/저장 형식은 불변.
 - tests/realm-art.cjs 추가: 새 그림/기본 그림의 idx·adj·도로 동일, 복구 후 같은 그림, 귀왕 영역이 다른 4진영보다 어두움, 소유권 갱신, 3화면×15클릭, 이미지 요청 차단 시 기본 지도 동작. tests/map-portraits.cjs도 통과. 상세는 terrain/realm/README.md.
+
+## 대화 첫머리 소설 서술 · 2026-11-08
+- vnShow: 앞에서부터 이어지는 화자 없는(null) 줄(lead개, 뒤에 대사가 있을 때만)은 `#vn.novel`로 `.vn-novel`(어두운 덮개, 명조 문단, 앞 문단은 흐리게·현재 문단 타자, ▼ 표시) 위에 쓰고 .vn-box·.vn-stage는 숨긴다. 첫 대사에서 클래스가 빠지며 .55초 걷힘. 타자 대상은 `VN.tx`(vnNext 즉시 완성도 그 요소). `.vn-nv-skip`「대화로 ›」은 첫 대사로 이동(대화 전체 건너뛰기 아님). vnStop이 novel 해제. 대사·장면·저장 불변. `tests/vn-novel.cjs`, dialogue-stage/prologue/map-portraits/story-death/admin-menu 회귀.
