@@ -471,3 +471,7 @@
 ## 진영 꼬리표 축소·이름표와 이등신 겹침 · 2026-11-08
 - 사용자 「진영 꼬리표 작게, UI끼리 겹치지 않게」: .vn-fac 9px·여백 축소. `#vn .vn-box.vn-box{margin-top:16px}`로 이등신 발이 위로 올라가 이름표(상자 위로 14px 튀어나옴)와 겹치지 않음(320·390·844·1280에서 이등신 아래 < 이름표 위). 같은 요청의 소설식 첫 서술은 다른 창에서 먼저 병합된 main 구현(vn-nv-body, 「대화로 ›」)을 그대로 쓴다. 계획 중 완공 비추기 보간 6→9/초(부하 시 waves-defense towerCam 안정).
 
+## 장수 옷 진영색 · 2026-11-08 (되돌리기 가능)
+- 사용자 「장수들도 진영색으로, 롤백하자고 하면 원래대로」. `tools/faction-outfit.py`가 16명(청룡·현무·백호·주작 각 군주+3)의 `characters/pixel/<이름>`·`pixel/dir/<이름>/*`·`pixel/walk/<이름>/*`·대화 이등신 원본을 읽어 `fc/<같은 경로>`에 사본 336장(4.2MB)을 만든다. 원본 파일은 그대로. 규칙: 그림 위쪽 머리(36%, 말 탄 호연·사율 40%·비연 36% 등 HEAD)는 그대로, 아래 몸에서 피부·진한 갈색(말·가죽·나무·금)을 뺀 천을 청룡 색조212·주작356(채도 .38+)·현무 어둡게(V×.5)·백호 하얗게(채도×.18), 머리 경계 5% 부드럽게. 말 탄 인물은 아래 40% 말 몸통의 따뜻한 색 제외. 초상(배경 있는 불투명 그림)·귀왕군·통일파 제외. 호연·사율은 옷이 대부분 갈색 가죽이라 변화가 작다.
+- 게임: `FACTION_OUTFIT=true`·`FC_NAMES`·`fcSrc(p)`가 loadCompanionArt·rulerArt(loadUnitArt)·loadDirArt·loadLeaderWalk·vnActor의 img.src만 fc/로 바꾼다(dataset.sprite·artName·발 위치 계산은 원래 이름 기준 그대로). **되돌리기: `let FACTION_OUTFIT=true`를 false로**(fc/ 폴더는 남아도 무해, 완전히 지우려면 fc/·tools/faction-outfit.py·tests/faction-outfit.cjs 삭제). `tests/faction-outfit.cjs`(켜짐/꺼짐 경로·귀왕·통일파·초상 그대로·404 없음·사본 수).
+
