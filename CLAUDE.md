@@ -436,3 +436,6 @@
 
 ## PC 클릭 번쩍임 수정 · 2026-11-08
 - 원인: ui()가 0.2초마다 `#apstrip`(넘김·취소·비우기·결과)·`#trainbuttons`·`#basebuttons`의 innerHTML을 같은 내용이라도 다시 써서, PC에서 누름~뗌 사이에 버튼이 바뀌어 번쩍이고 클릭이 사라졌다. `guardHTML(el)`이 그 요소의 innerHTML 쓰기를 내용이 같으면 건너뛴다. 실행 중 남은 초(`.apsec`)와 시간표 표시선(`.apnow`)은 다시 그리지 않고 글자·위치만 바꾼다. `tests/slow-click.cjs`(0.45초 눌렀다 떼기, 이전 코드에서 실패 확인).
+
+## 대화 이름표 진영 표시 · 2026-11-08
+- `vnFaction(id)`: o_hero는 갈래 진영, ruler:f는 f, fallen:/fallenh:는 gui, 그 밖은 characterInfo의 faction(group 있으면 그 이름, 예: 통일파). 라벨은 FACTIONS 이름에서 「국」을 빼고 「진영」(귀왕은 「귀왕군」), 색은 FACTIONS ink. vnShow가 `.vn-name` 앞에 `small.vn-fac`를 붙인다. 전장 머리 위 진영 배지는 예전 결정대로 넣지 않는다.
