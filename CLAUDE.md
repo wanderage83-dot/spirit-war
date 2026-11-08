@@ -475,3 +475,15 @@
 - 사용자 「장수들도 진영색으로, 롤백하자고 하면 원래대로」. `tools/faction-outfit.py`가 16명(청룡·현무·백호·주작 각 군주+3)의 `characters/pixel/<이름>`·`pixel/dir/<이름>/*`·`pixel/walk/<이름>/*`·대화 이등신 원본을 읽어 `fc/<같은 경로>`에 사본 336장(4.2MB)을 만든다. 원본 파일은 그대로. 규칙: 그림 위쪽 머리(36%, 말 탄 호연·사율 40%·비연 36% 등 HEAD)는 그대로, 아래 몸에서 피부·진한 갈색(말·가죽·나무·금)을 뺀 천을 청룡 색조212·주작356(채도 .38+)·현무 어둡게(V×.5)·백호 하얗게(채도×.18), 머리 경계 5% 부드럽게. 말 탄 인물은 아래 40% 말 몸통의 따뜻한 색 제외. 초상(배경 있는 불투명 그림)·귀왕군·통일파 제외. 호연·사율은 옷이 대부분 갈색 가죽이라 변화가 작다.
 - 게임: `FACTION_OUTFIT=true`·`FC_NAMES`·`fcSrc(p)`가 loadCompanionArt·rulerArt(loadUnitArt)·loadDirArt·loadLeaderWalk·vnActor의 img.src만 fc/로 바꾼다(dataset.sprite·artName·발 위치 계산은 원래 이름 기준 그대로). **되돌리기: `let FACTION_OUTFIT=true`를 false로**(fc/ 폴더는 남아도 무해, 완전히 지우려면 fc/·tools/faction-outfit.py·tests/faction-outfit.cjs 삭제). `tests/faction-outfit.cjs`(켜짐/꺼짐 경로·귀왕·통일파·초상 그대로·404 없음·사본 수).
 
+## 지키기 목표 턴 판정·승리 확인·군량 숫자 · 2026-11-08
+- 사용자 「부두 4턴 지키기가 끝나지 않는다, 전체 확인」. 26장 모두 목표를 채우면 ending→결과 화면→천하 지도→장 완료가 되는 것은 확인(c13 holdAll은 중앙 보급소가 `capture` 변수라 그것까지 채워야 함). 문제는 hold 진행이 「적이 없을 때 1배·아군>적×2일 때 .5배·적만 있으면 감소」라서 지점에 서 있어도 적이 오가면 1~2턴이 늘거나 줄어 표시 「n/4턴」과 체감이 달랐다(c12·x4 실제 진행 12턴에도 미달).
+- goalTick hold: 턴(`Math.floor(time/AP_TURN)`)마다 `s.ok`(아군>적 시간)·`s.bad`(적>아군 시간), `HOLD_TURN`=.6 × 턴을 먼저 채운 쪽으로 그 턴 1회 판정(`s.cnt`) → `s.n` ±1(say 알림), `s.n>=turns`면 그 순간 win. `s.prog`는 그리기·문구용((n+진행)×턴). showResult 승리 제목은 goal이 있으면 「목표 달성 · goalText」(남은 턴 문구 제거). `tests/all-goals.cjs`(26장 강제 달성→종료·결과·완료, hold 5장 실제 서 있기→정해진 턴에 종료), ap-stragglers hold 검사를 새 상태로 맞춤.
+- 군량 숫자: 굴림이 끝난 자리 띠가 화면 배율에 따라 위 칸 조각을 남겼다. foodDigits가 1.25초 뒤 굴림을 정적 숫자로 다시 그리고, 칸 높이를 정수 16px, 굴림 중 위아래 가장자리 마스크.
+
+## 절벽·협곡·능선·숲 HD 연결(요청 8) · 2026-11-08
+- HD_ART_FILES에 qing-cliff-top·qing-gorge·qing-ridge·qing-canopy·qing-cliff-face. pixelRegionBackground(HD일 때만): pass·canyon `cliff` 안쪽=HP.cliffTop(북 끝 밝게·옆 그늘), 앞쪽 띠(아래 44 안에 통행 칸)=HP.ridge+깊이 그늘, `pass` 지형=HP.gorge(빗금 대신), valley `cliff`=HP.ridge(+북 밝게·남 그늘, 돌무더기 루프 생략), forest `cliff`=HP.canopy(+가장자리 그늘, 수관 덩어리 루프 생략). 헬퍼 `pat`·`tint`.
+- 절벽 면: `HD_CLIFF`{u0 334,u1 694,k0 .6422,c0 696.2(측정 아랫선),g 32,h .6}, `cliffEdges()`(canyon·pass·valley에서 cliff 칸 중 +y/+x 이웃이 통행 칸이면 가장자리 점, battleRegion·layout·WS 키로 캐시 `cliffEdgeCache`), `drawCliffSlice(e)`: 칸 하나 길이의 화면 벡터에 그림 조각(폭 sw=화면 폭/h)을 아랫선 기울기 보정해 붙임(남쪽 면은 '-m' 반전), 조각 x는 가장자리 좌표로 순환. draw의 objs에 project y+1로 넣어 유닛과 깊이 정렬. 귀왕 지역은 hdImg가 없어 그리지 않는다. `tests/hd-cliff.cjs`.
+
+## 제자리 공격 = 남은 AP 전부로 계속 공격 · 2026-11-08
+- 사용자 「AP가 남아 있을 때 공격하면 몇 번이고 다시 공격을 누르게 됨, 일단 공격하면 계속 공격」. 원인: `attack`(제자리 공격)이 2 AP 고정이라 남은 AP로 원형 메뉴가 다시 뜨고, 그 행동은 첫 타격에 `apCommitted`가 되어 한 번만 쳤다. apAdd에서 attack 비용을 engage·garrison·water처럼 남은 AP 전부로, apStart는 attack도 u.ap를 미리 빼지 않고 `apActionLeft`=비용, apCanStrike/apStrike는 attack을 engage와 같이 공격마다 apCost만큼 apActionLeft·u.ap 차감(이동은 없음, 신호 문구 없음). 목표 창 문구 「남은 n AP · 계속 공격」. c2 측정: 궁병 실행 11→28회, 창병 11→46회, 공격 뒤 남은 AP 0(메뉴 재표시 없음).
+

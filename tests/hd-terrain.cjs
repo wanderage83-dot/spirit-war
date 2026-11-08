@@ -1,6 +1,6 @@
 // 귀왕 영토를 제외한 12개 전장은 공통 HD 그림을 사용한다. 판정·충돌·경로는 그대로다.
 const{chromium}=require('playwright'),assert=require('node:assert/strict');(async()=>{const b=await chromium.launch({executablePath:'/usr/bin/chromium'}),errs=[];
-for(const v of[{width:390,height:844},{width:844,height:390},{width:1280,height:800}]){const p=await b.newPage({viewport:v});p.on('pageerror',e=>errs.push(e.message));await p.goto(process.argv[2]||'http://127.0.0.1:8782');await p.waitForFunction(()=>typeof hdArt!=='undefined'&&hdArt.size===29,null,{timeout:15000});
+for(const v of[{width:390,height:844},{width:844,height:390},{width:1280,height:800}]){const p=await b.newPage({viewport:v});p.on('pageerror',e=>errs.push(e.message));await p.goto(process.argv[2]||'http://127.0.0.1:8782');await p.waitForFunction(()=>typeof hdArt!=='undefined'&&hdArt.size===HD_ART_FILES.length,null,{timeout:15000});
  const r=await p.evaluate(()=>{setRoute('qing');newRealm();showRealm();launchChapter(SAGA[0]);weather='clear';const out={region:battleRegion,on:hdOn(),tiles:[hdTile('qing-ground').width,hdTile('qing-road').width,hdTile('qing-road').height]};
   const col=Array.from(blockGrid).join(''),route=JSON.stringify(battleRoutes());const px=bg.getContext('2d').getImageData(600,1200,200,200).data;const fine=d=>{let n=0;for(let y=0;y<200;y++)for(let x=1;x<200;x++){const i=(y*200+x)*4;if(d[i]!==d[i-4]||d[i+1]!==d[i-3])n++}return n/(200*199)};out.fine=+fine(px).toFixed(3);
   // 그림별 실제 drawImage 호출 수

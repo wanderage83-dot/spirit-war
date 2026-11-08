@@ -541,3 +541,73 @@ Canva 크레딧이 없어 `tools/pixel-walk.py`로 장수 20명×4방향×4동�
 
 ### 게임에 넣기(그림이 올라오면 Claude가 연결)
 - 귀왕 적 병사만 `characters/soldier-gui/<병종>/`(fr·방향·걷기)을 진영색 없이 쓰고, 그림이 없는 병종·방향은 지금처럼 아군 그림+잿빛 색을 쓴다. 발 위치는 `SOLDIER_FOOT`처럼 눈으로 재서 넣는다. 다른 진영 적·흑화 장수·장수 그림은 바꾸지 않는다.
+
+## 요청 8 · 절벽·협곡·능선·숲 벽 HD 그림 — 상태: 5장 게임 연결 완료(2026-11-08, cliff-face 각도는 코드에서 보정), 휴대폰 실기 검수 대기
+
+### canopy 전달 (Codex)
+- `terrain/hd/qing-canopy.png` 한 장을 추가했다. 사용자 숲 수관 프롬프트와 요청 6 공통 문장을 사용하고 `qing-bush.png`를 화풍/색 참고로 첨부했다. 바닥이 보이지 않는 빽빽한 활엽수 수관과 소수의 소나무·대나무 꼭대기다. 초안의 옆모습 삼각 소나무는 바로 위에서 보는 방사형 잎 모양으로 수정했다. 길·빈터·줄기·테두리·사람·글자는 넣지 않았다.
+- 최종 1024×1024 불투명 RGB PNG, 40색, 4×4 도트 격자다. BOX 축소·40색 제한·nearest 4배 확대 후 규격·불투명·색 수·격자와 브라우저 PNG 디코딩을 확인하고 2×2 반복 미리보기를 검수했다. 전장 배율에서의 경계는 연결 후 확인한다.
+- 이번 전달은 canopy 한 장만이다. 기존 그림·게임 코드·판정·충돌·길찾기는 변경하지 않았다. 요청 8의 다섯 파일은 모두 올라왔으며 Claude가 forest 벽을 포함해 연결한다. cliff-face의 목표 각도/양 끝 높이 보정 필요 사항은 해당 전달 기록 그대로다. 전체 실기 검수 완료는 아니다. 브랜치 `ccr-fa9b3dba-6er4z1`에 커밋·푸시하며 main에는 병합하지 않는다.
+
+### ridge 전달 (Codex)
+- `terrain/hd/qing-ridge.png` 한 장을 추가했다. 사용자 능선 바위 프롬프트와 요청 6 공통 문장을 사용하고 `qing-cliff-top.png`를 화풍/광물 색 참고로 첨부했다. 바로 위에서 본 날카로운 회색 화강암 덩어리·깊은 균열·지의류·작은 관목이 촘촘한 바위 표면이며, 흙길/풀 고원과 구분되도록 바위 비중을 높였다. 길·절벽 옆면·테두리는 넣지 않았다.
+- 최종 1024×1024 불투명 RGB PNG, 40색, 4×4 도트 격자다. BOX 축소·40색 제한·nearest 4배 확대 후 규격·불투명·색 수·격자와 브라우저 PNG 디코딩을 확인하고 2×2 반복 미리보기를 검수했다. 실제 전장 투영의 반복 경계는 연결 후 확인한다.
+- 이번 전달은 ridge 한 장만이다. 기존 그림·게임 코드·판정·충돌·길찾기는 변경하지 않았다. Claude가 valley 능선 바위 패턴으로 연결한다. canopy는 아직 만들지 않았다. 브랜치 `ccr-fa9b3dba-6er4z1`에 커밋·푸시하며 main에는 병합하지 않는다.
+
+### gorge 전달 (Codex)
+- `terrain/hd/qing-gorge.png` 한 장을 추가했다. 사용자가 준 협곡 바닥 프롬프트와 요청 6 공통 문장을 사용하고 `qing-cliff-top.png`를 화풍/색 참고로 첨부했다. 바로 위에서 본 다져진 흙·자갈·흩어진 평평한 돌·틈새의 드문 풀이다. 전체가 길 표면이며 테두리·줄무늬·절벽 옆면은 넣지 않았다.
+- 최종 1024×1024 불투명 RGB PNG다. BOX 축소·40색 제한·nearest 4배 확대를 적용해 4×4 도트 격자를 맞췄다. 규격·불투명·색 수·도트 격자와 브라우저 PNG 디코딩을 확인하고 2×2 반복 미리보기를 검수했다. 실제 전장 배율의 경계는 연결 후 확인한다.
+- 이번 전달은 gorge 한 장만이다. 기존 그림·게임 코드·판정·충돌·길찾기는 변경하지 않았다. Claude가 협곡 바닥 길 패턴으로 연결한다. ridge·canopy는 아직 만들지 않았다. 브랜치 `ccr-fa9b3dba-6er4z1`에 커밋·푸시하며 main에는 병합하지 않는다.
+
+### cliff-face 전달 (Codex)
+- `terrain/hd/qing-cliff-face.png`를 추가했다. cliff-top을 화풍/색 참고로 첨부하고 사용자 프롬프트와 공통 문장을 사용했다. 얇은 풀 윗단·회갈색 퇴적암 층·균열·양치식물·발밑 잔돌이 있는 직선 조각이다. 별도의 땅/투사 그림자는 없고 양 끝은 수직 절단 형태다.
+- 최초 초안이 완만해 두 차례 더 가파르게/평행하게 수정 요청했다. 최종 1024×512, 40색, 4×4 도트 격자, 알파 0/255 투명 PNG다. 바위 면의 세로 두께 중앙값은 약 159px로 캔버스 높이 약 1/3이다. 형식·알파·도트/색 수·브라우저 PNG 디코딩을 확인했다. 게임 코드는 바꾸지 않았다.
+- **목표 기울기에 정확히 맞지는 않는다.** 알파 아래 윤곽 회귀는 약 −0.6422(32.71°), 위 윤곽은 약 −0.71888이다. 장식 픽셀을 포함한 근사값이며 오른쪽 끝에 조금 더 두꺼운 부분도 남아 있다. 성벽 때처럼 연결 시 목표 0.707에 맞춘 각도 보정과 끝부분 자르기/겹침 정렬이 필요하다. 완전 무보정 접합 검수 완료로 취급하지 않는다. 실제 캔버스/연결점 범위와 회귀식은 `terrain/hd/README.md` 참고.
+- 이번 전달은 cliff-face 한 장이며 게임 연결은 Claude가 한다. gorge·ridge·canopy는 아직 만들지 않았다. 브랜치 `ccr-fa9b3dba-6er4z1`에 커밋·푸시하며 main에는 병합하지 않는다.
+
+### cliff-top 전달 (Codex)
+- 사용자에게 받은 첫 번째 프롬프트와 요청 6 공통 문장을 사용해 `terrain/hd/qing-cliff-top.png` 한 장을 생성했다. 기존 `qing-ground.png`·`qing-hill.png`를 화풍 참고로 첨부했다. 바로 위에서 본 마른 짧은 풀·드러난 평평한 회색 판석·지의류·잔돌·작은 들풀이며, 절벽 옆면/가장자리/길 테두리는 넣지 않았다.
+- 최종 1024×1024 불투명 RGB PNG다. BOX 축소·40색 제한·nearest 4배 확대를 적용해 4×4 도트 격자를 맞췄다. 규격·불투명·색 수·도트 격자 검사와 Chromium PNG 디코딩을 통과했고 2×2 반복 미리보기를 검수했다. 타일 끝의 픽셀이 수학적으로 동일하다고 보장하는 검사는 아니며 실제 전장 배율에서 반복 경계를 확인한다.
+- 이번 전달은 요청한 cliff-top 한 장만이다. `index.html`·판정·충돌·길찾기는 바꾸지 않았다. Claude가 로더/절벽 위 고원에 연결하고 휴대폰에서 크기와 반복을 확인한다. cliff-face·gorge·ridge·canopy는 아직 만들지 않았다. 브랜치 `ccr-fa9b3dba-6er4z1`에 커밋·푸시하며 main에는 병합하지 않는다.
+
+### 왜 필요한가
+흑수(x2)·모래관(x4)·혼령곡 같은 **pass·canyon 전장**의 절벽 위가 아직 HD 그림이 없어 「연두색 평면 + 흰 점선」으로 보이고, 절벽 사이 협곡 길은 빗금 친 계단처럼 보인다. **valley 전장**의 능선 바위(회색 띠)와 **forest 전장**의 숲 벽(진한 녹색 덩어리)도 옛 단순 그림이다. 판정·충돌·길찾기는 그대로 두고 그림만 바꾼다.
+
+### 만들 그림 5장 (`terrain/hd/`에 이 이름으로 커밋)
+| 파일 | 크기·형식 | 쓰는 곳 |
+|---|---|---|
+| `qing-cliff-top.png` | 1024×1024 불투명, 위에서 본 반복 타일 | 절벽 위 고원(지금 연두색 평면) |
+| `qing-cliff-face.png` | 1024×512 투명, 등각 띠(끝끼리 이어짐) | 절벽 가장자리, 고원과 협곡 바닥이 만나는 낭떠러지 면 |
+| `qing-gorge.png` | 1024×1024 불투명, 위에서 본 반복 타일 | 협곡 바닥 길(지금 빗금 계단) |
+| `qing-ridge.png` | 1024×1024 불투명, 위에서 본 반복 타일 | 골짜기 능선 바위(지금 회색 띠) |
+| `qing-canopy.png` | 1024×1024 불투명, 위에서 본 반복 타일 | 숲 벽(지금 진한 녹색 덩어리) |
+
+- 바닥 타일 4장은 요청 6의 「게임 쪽 약속」과 같다. 바로 위에서 본 정사각형이고 원근·그림자 방향이 없으며 네 변이 이음새 없이 이어진다. 타일 한 장은 월드 512(병사 약 10명 폭)에 깔린다.
+- 절벽 면은 요청 6의 「바로잡은 각도」와 같다. 아랫선이 왼쪽 아래→오른쪽 위로 기울기 0.707로 오른다. 양 끝은 같은 그림을 이어 붙여도 맞닿게 하고, 반대 방향은 게임이 좌우 반전한다. 위 가장자리는 고원 풀(cliff-top과 같은 색)이 살짝 걸치고, 아래는 협곡 바닥에 닿는다. 높이는 병사 2~3명 정도다.
+- 진영 색은 청룡 공통(귀왕 외 4진영이 함께 쓴다, 요청 6 최신 결정). 혼령곡은 귀왕 영토라 지금처럼 잿빛 그림을 유지한다.
+
+### ChatGPT 프롬프트 (각각 따로, 끝에 요청 6 「공통 문장」을 붙인다)
+1. `qing-cliff-top.png`
+> A seamless tileable top-down ground texture of a highland plateau on top of a cliff, viewed straight down at 90 degrees with no perspective and no cast shadows, 1024×1024, edges tile perfectly on all four sides. Short wind-swept grass with patches of exposed flat grey rock slabs, small lichen spots, a few pebbles and tiny wild herbs; slightly paler and drier than lowland grass so it reads as higher ground. Palette: fresh greens, teal, jade, cool grey stone. [공통 문장]
+2. `qing-cliff-face.png`
+> A horizontal strip of a natural rock cliff face for a game map edge, true isometric projection (35.26° — the cliff's base line rises from lower left to upper right with a slope of 0.707, i.e. 1 pixel up for every 1.414 pixels across), no perspective. Layered grey-brown sedimentary rock with cracks and ledges, moss and grass tufts hanging over the top edge, small ferns and loose stones at the foot. The strip is 1024×512 with a transparent background, the left and right ends cut cleanly so identical copies join end to end seamlessly. Height of the cliff about one third of the canvas height. Light from the upper left. No ground shadow. Palette: cool grey stone, warm brown strata, fresh green moss. [공통 문장]
+3. `qing-gorge.png`
+> A seamless tileable top-down ground texture of a narrow mountain gorge floor, viewed straight down at 90 degrees with no perspective and no cast shadows, 1024×1024, edges tile perfectly on all four sides. Packed gravel and dirt trail surface with scattered flat stepping stones, small rocks, sparse grass in the cracks; the trail fills the whole tile edge to edge, no borders or stripes. Palette: warm brown earth, cool grey stone, a few green tufts. [공통 문장]
+4. `qing-ridge.png`
+> A seamless tileable top-down texture of a bare rocky mountain ridge, viewed straight down at 90 degrees with no perspective and no cast shadows, 1024×1024, edges tile perfectly on all four sides. Jagged grey granite outcrops and boulders packed together with deep cracks, patches of lichen and small hardy shrubs between the rocks; clearly impassable terrain. Palette: cool grey stone, slate blue shadows, small jade-green shrubs. [공통 문장]
+5. `qing-canopy.png`
+> A seamless tileable top-down texture of a dense old forest canopy, viewed straight down at 90 degrees with no perspective and no cast shadows, 1024×1024, edges tile perfectly on all four sides. Rounded clusters of tree crowns of different sizes (broadleaf and a few pines and bamboo tops) packed tightly with dark gaps between crowns, varied greens with a warm sunlit side on the upper left of each crown; no ground visible. Palette: deep forest green, jade, teal, a few yellow-green highlights. [공통 문장]
+
+### 검수(받은 뒤)
+- [ ] 바닥 4장은 2×2로 붙였을 때 이음새·줄무늬·큰 반복 무늬가 없음
+- [ ] 절벽 면은 아랫선 기울기 약 0.7, 두 장을 이었을 때 끊김 없음, 배경 투명
+- [ ] 글자·사람·그림자 방향 없음, 도트 4×4 느낌(조금 매끈하면 `tools/pixelize.py`로 맞춤)
+
+### 게임에 넣기(그림이 올라오면 Claude가 연결)
+- `HD_ART_FILES`에 5장을 추가하고, `pixelRegionBackground`의 pass·canyon 절벽 칸은 `cliff-top`, 절벽과 통행 칸의 경계에는 `cliff-face` 띠를, 협곡 길은 `gorge`, valley 능선은 `ridge`, forest 벽은 `canopy` 패턴으로 바꾼다. 충돌·사격 차단·길찾기는 지형 마스크 그대로라 변하지 않는다.
+
+### 연결 결과 (Claude · 2026-11-08)
+- `cliff-top`: pass·canyon 절벽 안쪽. 북쪽 끝은 밝게, 옆은 살짝 그늘. `gorge`: 협곡 통로(`pass` 지형, 예전 빗금 계단 대신). `ridge`: valley 능선 전체와 pass·canyon 절벽 앞쪽 띠(아래로 갈수록 그늘). `canopy`: forest 숲 벽(예전 녹색 덩어리·흩뿌린 수관 대신, 숲길 쪽 가장자리 그늘).
+- `cliff-face`: 남·동쪽이 트인 절벽 칸(격자 32)마다 그림의 폭 약 82px 조각을 하나씩 세운다(`cliffEdges`·`drawCliffSlice`). 측정한 아랫선 y=−0.6422x+696.2를 게임 투영에 맞게 기울여 붙이므로 각도·끝점은 코드에서 처리했고 그림 수정은 필요 없다. 조각 위치에 따라 그림의 다른 부분(x 334~694)을 써서 이어 보이며, 대각선 가장자리는 계단식 절벽으로 보인다. 높이 배율 .6(병사 1.5명 정도). 남쪽 면은 좌우 반전 그림.
+- 귀왕 지역(혼령곡 등)은 예전 잿빛 그림 그대로. 충돌·사격 차단·길찾기는 지형 마스크 그대로(`tests/hd-cliff.cjs`가 그림을 빼고 다시 만든 충돌 격자와 비교).
+- 소프트웨어 렌더 기준 협곡 전장 전체 화면 그리기 21.6→26.3ms(절벽 조각 254개 중 화면 안 것만).
