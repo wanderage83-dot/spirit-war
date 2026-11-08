@@ -446,3 +446,8 @@
 
 ## 남은 AP로 같은 부대 이어서 지정 · 2026-11-08
 - apConfirm의 1초 타이머 끝에서 `AP_RING_CONTINUE`이고 그 부대 남은 AP>0이면 apNext 대신 selected=g·openRing(g). ringItems의 add에 필요 AP(`need`)를 받아 남은 AP보다 큰 행동은 숨김(공격·이동·진형·방향·주둔·후퇴 1, 필살기 2, 돌격·도술 3, 계략 화공·수공 3·유인 2). 군량·기력·재사용 대기는 흐리게+이유 유지. 마지막 항목은 계획이 있으면 「다음 부대」(apSkip). team-planning은 마지막 부대에서 apSkip 후 실행 확인을 기대, ring-back-base에 검사 추가.
+
+## 취소 버튼 위치·왼쪽 안내 쌓기·군량 표시 · 2026-11-08
+- #ringback이 bottom:12px라 #battlefooter(카드 줄)·#apstrip 아래에 가려 이동 고르기 중 보이지 않았다. ringBackTick이 보일 때 두 요소 중 가장 높은 top 위 10px로 bottom을 맞추고 z-index 12.
+- `hudStack()`(loop, ringBackTick 뒤): #goalchip·#raidchip·#basewarn·#basealert 중 보이는 것을 42px부터 4px 간격으로 왼쪽에 쌓고(최대 폭은 군량 표시 왼쪽까지), #toast top을 그 아래(최소 78px)로 둔다. raidchip의 옛 top 지정은 제거. #basewarn은 가운데→왼쪽, 문구 「⚠ 본진 피습 n% · 눌러서 보기」(cine-alarm 검사 갱신).
+- `#foodhud`(`foodTick`, 오른쪽 위 42px): 🌾 군량·`foodRate()`(economyUI와 공용)/초. 늘면 .9초마다(25 이상이면 즉시) 바뀐 자리 숫자 `.fd.roll` 굴림+`.ffloat` 「+N」 떠오름, 줄면 즉시 바꿈. 동작 줄이기면 페이드. 판정·저장 불변. `tests/hud-food.cjs`(4규격 겹침 없음·취소 버튼 최상단·+N).
