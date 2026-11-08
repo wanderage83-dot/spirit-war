@@ -480,3 +480,7 @@
 - goalTick hold: 턴(`Math.floor(time/AP_TURN)`)마다 `s.ok`(아군>적 시간)·`s.bad`(적>아군 시간), `HOLD_TURN`=.6 × 턴을 먼저 채운 쪽으로 그 턴 1회 판정(`s.cnt`) → `s.n` ±1(say 알림), `s.n>=turns`면 그 순간 win. `s.prog`는 그리기·문구용((n+진행)×턴). showResult 승리 제목은 goal이 있으면 「목표 달성 · goalText」(남은 턴 문구 제거). `tests/all-goals.cjs`(26장 강제 달성→종료·결과·완료, hold 5장 실제 서 있기→정해진 턴에 종료), ap-stragglers hold 검사를 새 상태로 맞춤.
 - 군량 숫자: 굴림이 끝난 자리 띠가 화면 배율에 따라 위 칸 조각을 남겼다. foodDigits가 1.25초 뒤 굴림을 정적 숫자로 다시 그리고, 칸 높이를 정수 16px, 굴림 중 위아래 가장자리 마스크.
 
+## 절벽·협곡·능선·숲 HD 연결(요청 8) · 2026-11-08
+- HD_ART_FILES에 qing-cliff-top·qing-gorge·qing-ridge·qing-canopy·qing-cliff-face. pixelRegionBackground(HD일 때만): pass·canyon `cliff` 안쪽=HP.cliffTop(북 끝 밝게·옆 그늘), 앞쪽 띠(아래 44 안에 통행 칸)=HP.ridge+깊이 그늘, `pass` 지형=HP.gorge(빗금 대신), valley `cliff`=HP.ridge(+북 밝게·남 그늘, 돌무더기 루프 생략), forest `cliff`=HP.canopy(+가장자리 그늘, 수관 덩어리 루프 생략). 헬퍼 `pat`·`tint`.
+- 절벽 면: `HD_CLIFF`{u0 334,u1 694,k0 .6422,c0 696.2(측정 아랫선),g 32,h .6}, `cliffEdges()`(canyon·pass·valley에서 cliff 칸 중 +y/+x 이웃이 통행 칸이면 가장자리 점, battleRegion·layout·WS 키로 캐시 `cliffEdgeCache`), `drawCliffSlice(e)`: 칸 하나 길이의 화면 벡터에 그림 조각(폭 sw=화면 폭/h)을 아랫선 기울기 보정해 붙임(남쪽 면은 '-m' 반전), 조각 x는 가장자리 좌표로 순환. draw의 objs에 project y+1로 넣어 유닛과 깊이 정렬. 귀왕 지역은 hdImg가 없어 그리지 않는다. `tests/hd-cliff.cjs`.
+
