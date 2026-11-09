@@ -3,7 +3,7 @@ const {chromium}=require('playwright'),assert=require('node:assert/strict');
 (async()=>{
  const browser=await chromium.launch({executablePath:'/usr/bin/chromium'}),page=await browser.newPage({viewport:{width:1280,height:800}}),errors=[];
  page.on('pageerror',e=>errors.push(e.message));await page.goto(process.argv[2]||'http://127.0.0.1:8804/');
- await page.waitForFunction(()=>hdArt.size===29);
+ await page.waitForFunction(()=>hdArt.size===HD_ART_FILES.length);
  await page.evaluate(()=>{window.requestAnimationFrame=()=>0;setRoute('qing');newRealm();showRealm();launchChapter(SAGA[0]);hideBattleVoice()});
  const rows=await page.evaluate(()=>{
   const rows=[];
