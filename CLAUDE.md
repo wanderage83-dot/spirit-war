@@ -463,3 +463,11 @@
 
 ## 클로즈업 짧게·원래 화면 복귀 · 2026-11-08
 - 사용자 「안 누르면 12초 실행 중 잠깐 클로즈업 후 바로 원래 화면으로」: `CINE_HOLD` 3.2→1.3초. cineEvent가 처음 확대할 때 화면 가운데 월드 좌표 `cine.c0`를 저장하고, 복귀 때 `cineHome(k)`로 배율과 함께 카메라 위치도 그 화면으로 되돌린다(`CINE_BACK`7/초, 이전에는 배율만 3.2×.8로 천천히 돌아오고 위치는 사건 지점에 남았다). 계획 단계로 넘어가면 즉시 복귀(단 cine.plan이 있으면 위치는 그대로 두어 완공 지점을 계속 비춘다). cineUser·cineReset이 c0를 지운다. 슬로우모션·최소 간격 1.8초·쿨다운은 그대로. auto-camera(복귀 3.2초 안·위치 오차<6), cine-alarm(유지 .5~1.3초, 바로 뒤 겹침 무시).
+
+## 누르기 손맛·실행 시작 군주 시점 · 2026-11-09
+- 사용자 「조작감이 흐물흐물」: 휴대폰 기본 배율(.42)에서 판정 반지름이 우리 8px·적 12px(지도 24/34)라 빗나가면 지금 부대 이동 명령이나 160 안 적 짐작 공격 창이 됐고, 선택·명령 때 카메라가 즉시 95~187px 순간이동했고, 누르는 순간 반응이 없었다.
+- `tapPick(x,y)`: 화면 픽셀 판정 `tapPx`(pointerdown의 pointerType: touch 24·pen 18·mouse 12, 프로그램 호출 14). 발~머리(병사 49.4·장수 91.2·관문 120 × 화면 배율) 선분까지의 거리가 가장 작은 우리/적 중 가까운 쪽. 예전 지도 거리 판정도 인정. 목책은 직사각형. commandAt의 160 근처 적 짐작은 제거(`near=enemy`). 고리 「이동」 고르기(`wasPick`) 중에는 우리 부대를 옛 24 거리로만 잡아 이동 지점이 부대 선택으로 바뀌지 않게 한다. `scrPt`·`inView`.
+- `#tapring`: `tapDown`(pointerdown, 판정 결과 색 ally 금·enemy 빨강·ground 흰)·`tapMark(k)`(commandAt 결과, 조여드는 .38초)·`tapCancel`(끌기·핀치). 고른 부대는 soldier에서 selFlash .6→.42 동안 크기 1→1.13→1(동작 줄이기 제외).
+- `glideCam`·`camGlideTick`(loop, clampCam 앞, .22초 감속): choose의 focusPoint(…,true), apConfirm은 지점이 `inView`면 카메라 고정·아니면 미끄럼. pointerdown이 미끄럼을 끊는다. 다른 focusPoint 호출(배치·전체 보기)은 즉시.
+- `lordView()`: resumeCombat(true)에서 실행 시작 때 군주(ally hero)로 focusPoint 미끄럼. 클로즈업 복귀 기준(cine.c0)도 군주 화면이 된다.
+- `tests/tap-feel.cjs`(휴대폰 터치·PC 마우스: 12~18px 빗나간 누르기 우리 5/5·적 5/5, 땅은 이동, 미끄럼, 화면 안 지점 고정, 실행 시작 군주). select-focus는 미끄럼이 끝난 뒤(320ms) 가운데 오차를 잰다. 저장·전투 판정 불변.
