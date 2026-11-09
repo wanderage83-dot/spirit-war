@@ -1,5 +1,7 @@
 # spirit-war · 사신기 — 왕인 전쟁
 
+**그림 보관함:** [아트 라이브러리](asset-library/index.html)에서 에셋 검색·미리보기·다운로드를 할 수 있다. 다른 프로젝트용 묶음은 [ZIP 만들기](asset-library/README.md) 참고.
+
 죽은 왕의 명령 때문에 끝나지 않는 전쟁을, 살아 있는 네 나라가 약속을 지키며 끝내는 동양 판타지 SRPG. 정적 `index.html` 단일 파일 게임이다.
 
 개발을 이어갈 담당자는 [클로드 인수인계서](CLAUDE_HANDOFF.md)를 먼저 확인한다.

@@ -497,3 +497,9 @@
 - 「진영을 옮기면 이유가 있어야」: 합류 장면에 그 나라 군주의 파견 명령과 본인 이유를 2~3줄씩 추가(c2 비연, c4 설화·연백, c5 호연·사율, c6 은랑, c8 홍염·해린, x5 홍염·해린, x8 은랑).
 - 현무편 x3 `joinAfter:['o_muk']` 삭제(사용자 결정: 청명편에서 같은 시기 묵철이 청명 곁에 있음). x4·x5 slots 4→3. loadRealm이 xuan 저장(연대기 twin 포함)의 roster·party에서 o_muk을 뺀다. x4 이후 묵철 대사 없음.
 
+
+## 에셋 보관·재사용 도감
+- asset-library/index.html: 최근 지형/천하도/망자군 67파일과 전체 게임 그림 957파일(최초 정리 기준)을 검색·확대·다운로드하는 독립 도감. 파일 경로를 옮기거나 게임 코드를 바꾸지 않는다. catalog.js를 읽으므로 로컬 HTML에서도 fetch가 필요 없다. 프레임·방향·알파·크기·SHA·HD 소품 4칸 분할·사용 문서 링크를 보관한다.
+- 그림을 추가한 뒤 python3 tools/asset-library.py build로 catalog.json/catalog.js를 재생성한다. Pillow 사용, 기존 생성/변환 도구와 같은 환경. 새 종류를 만들면 도구 분류/라벨도 보완한다. 이미지와 index.html은 수정하지 않는 명령이다.
+- python3 tools/asset-library.py pack --output /workspace/exports/spirit-war-art-library.zip; --collection recent이면 최근 묶음만. 저장소 밖에 ZIP을 만들고 Git에 중복 저장하지 않는다. ZIP에는 원래 폴더 경로·도감·목록·제작 요청서·기준점 문서·효과 라이선스·재생성 도구를 함께 넣는다. 업로드된 게임용 PNG/WebP를 보관하며 생성 서비스의 임시 고해상도 초안까지 포함한다는 뜻은 아니다.
+- tests/asset-library.cjs: 최근/전체 검색·인물명·방향·시트 정보·반복 보기·JSON 다운로드·4화면 검사. ZIP은 CRC/모든 이미지 SHA를 검사했고 압축 내용만 공급한 브라우저로 도감/이미지 경로 완결을 확인했다. 현재 클라우드 Chrome은 file:// 이동을 관리자 정책으로 차단하므로 그 프로토콜 자체의 실행 검증은 하지 못했고, 네트워크 의존성을 없앤 로컬 구성으로 제공한다.
