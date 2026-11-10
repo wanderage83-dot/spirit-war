@@ -1,0 +1,8 @@
+// 대화 무대: 모든 화자의 이등신이 상대 쪽(무대 가운데)을 보도록 거울 방향 결정. 왼쪽 원본(주작·귀왕 군주·백륜·도겸)은 .lf, 나머지는 원본 오른쪽.
+// Requires Playwright and Chromium. Serve the repository and pass its URL.
+const{chromium}=require('playwright'),fs=require('fs'),assert=require('node:assert/strict');(async()=>{const exe=['/usr/bin/chromium','/opt/pw-browsers/chromium'].find(p=>fs.existsSync(p)),b=await chromium.launch(exe?{executablePath:exe}:{}),p=await b.newPage({viewport:{width:390,height:844}}),errs=[];p.on('pageerror',e=>errs.push(String(e)));await p.goto(process.argv[2]||'http://127.0.0.1:8782/');await p.waitForTimeout(900);
+const LEFT=['zhu-ruler','gui-ruler','baekryun','dogyeom'];
+const r=await p.evaluate(async(LEFT)=>{closeModal();const out=[];for(const route of['qing','xuan']){setRoute(route);const ids=new Set();for(const c of SAGA)for(const k of['pov','pre','post'])(c[k]||[]).forEach(l=>l[0]&&l[0]!=='o_hero'&&ids.add(l[0]));for(const id of ids){vnPlay([[id,'시험'],['o_hero','시험']],{});await new Promise(r=>setTimeout(r,10));const R=$('#vn .vn-p.vn-r'),L=$('#vn .vn-p.vn-l'),src=vnSprite(id),left=LEFT.some(n=>src.includes(n+'.webp'));const sr=getComputedStyle(R).scale,sl=getComputedStyle(L).scale;
+ // 오른쪽 인물은 화면 왼쪽(가운데)을 봐야 한다: 원본 왼쪽이면 거울 없음, 원본 오른쪽이면 거울
+ const mirrored=String(sr).startsWith('-1');out.push({route,id,src,left,ok:left?!mirrored:mirrored,heroMirror:String(sl).startsWith('-1')});vnStop()}}return out},LEFT);
+const bad=r.filter(x=>!x.ok);console.log(r.length,'speakers',bad.length?JSON.stringify(bad):'all face centre');assert.equal(bad.length,0);assert(r.every(x=>!x.heroMirror),'왼쪽 주인공 원본 방향');assert(r.some(x=>x.id==='o_baek'&&x.ok));assert.deepEqual(errs,[]);console.log('PASS dialogue sprites face each other');await b.close()})();
