@@ -23,6 +23,8 @@ LABELS = {'ground': '흙바닥', 'road': '길', 'field': '들판', 'bush': '덤�
           'cliff-top': '절벽 위 고원', 'cliff-face': '절벽 면', 'gorge': '협곡 바닥',
           'ridge': '능선 바위', 'canopy': '숲 수관', 'prop-willow': '버드나무',
           'prop-reeds': '갈대', 'prop-boulder': '이끼 바위', 'prop-bamboo-clump': '대숲',
+          'prop-dead-tree': '고사목', 'prop-dead-grove': '고사목 무리',
+          'prop-ruin-rock': '폐허 바위', 'prop-talisman': '부적·묘비',
           'house': '마을 집', 'keep': '본진', 'tower': '망루', 'wall': '성벽',
           'wall-corner': '성벽 모서리', 'facility-shield': '방패 훈련장',
           'facility-spear': '창 훈련장', 'facility-bow': '궁술 시설', 'facility-horse': '마구간',
@@ -80,6 +82,8 @@ def build():
                 note = '같은 종류의 변형 4칸. 애니메이션 시트가 아닙니다.'
             elif stem == 'qing-cliff-face':
                 note = '아랫선 약 32.71도. 목표 35.26도에 맞춘 각도·끝점 보정 필요.'
+            elif stem == 'gui-cliff-face':
+                note = '아랫선 약 32.78도. 목표 35.26도 보정·끝점 겹침 필요. gui-request9-manifest.json 참고.'
             elif stripped in {'ground', 'road', 'field', 'bush', 'stone', 'water', 'marsh', 'paddy', 'hill', 'bank', 'cliff-top', 'gorge', 'ridge', 'canopy'}:
                 note = '위에서 본 바닥 타일. 게임에서 투영. 실제 배율에서 반복 경계 확인.'
             else:
@@ -133,7 +137,7 @@ def pack(data, output, collection):
     files.update(['asset-library/index.html', 'asset-library/catalog.js', 'asset-library/catalog.json',
                   'asset-library/README.md', 'ASSET_MANIFEST.json', 'ASSETS.md', 'ART_REQUESTS.md',
                   'terrain/hd/README.md', 'terrain/hd/qing-second-manifest.json',
-                  'terrain/hd/qing-third-manifest.json', 'terrain/realm/README.md',
+                  'terrain/hd/qing-third-manifest.json', 'terrain/hd/gui-request9-manifest.json', 'terrain/realm/README.md',
                   'characters/soldier-gui/README.md', 'fx/LICENSE-pixelfx.txt', 'tools/asset-library.py'])
     dest = Path(output).resolve()
     if dest.is_relative_to(ROOT):

@@ -1,0 +1,566 @@
+{
+  "request": 9,
+  "status": "assets-delivered-game-integration-pending",
+  "common_style_source": "ART_REQUESTS.md request 6",
+  "processing": "BOX resize to logical grid; max40 colors; alpha110 threshold; NEAREST4x. Sheet cells fit independently without stretching, foot y496. House foot y992. No colour shift or new artwork painted in processing.",
+  "assets": [
+    {
+      "file": "gui-ground.png",
+      "width": 1024,
+      "height": 1024,
+      "transparent": false,
+      "alpha_bbox": [
+        0,
+        0,
+        1024,
+        1024
+      ],
+      "visible_colors": 40,
+      "sha256": "7a664e7a6bc86125e4489f771785630600862e09f87de4c8f64fdc4e08b466fc",
+      "source_sha256": "54829c92cfac855a1d1e76e6f1fb1f6d95dc6f330e78906eb337c50c69c1dcb6",
+      "prompt": "Create ONE game terrain texture gui-ground.png,1024×1024, qing-ground for scale/viewpoint and gui-outpost for palette. A seamless tileable top-down ground texture, viewed straight down at90 degrees with no perspective and no cast shadows,1024×1024, edges tile perfectly on all four sides. Grey ash soil with cracked dark earth, sparse withered grass tufts, small bone-white pebbles and a few fallen dead leaves; medium brightness so dark-armoured figures stand out on it. Palette: ash grey, cold slate, muted violet shadows, bone white, desaturated dead grass, rare faint violet glow. Uniform medium-grey lighting, no central focal point or edge darkening, tiny battlefield surface features. Style: high-detail pixel art with an HD-2D diorama feel — crisp chunky pixel textures (each art pixel reads as a 4×4 block), a limited palette of about 40 colors per image, soft volumetric sunlight from the upper left, gentle ambient occlusion in crevices, warm rim light on edges, moss and grass tufts along stone edges, a handcrafted miniature-set look. Clean and sharp: no depth-of-field blur, no fog, no vignette, no bloom, no text, no logo, no UI, no characters or soldiers.",
+      "references": [
+        "terrain/hd/qing-ground.png",
+        "terrain/hd/gui-outpost.png"
+      ],
+      "references_note": "첫 생성 참고. 능선·절벽 수정은 해당 생성본을 이어 참고했다."
+    },
+    {
+      "file": "gui-road.png",
+      "width": 1024,
+      "height": 1024,
+      "transparent": false,
+      "alpha_bbox": [
+        0,
+        0,
+        1024,
+        1024
+      ],
+      "visible_colors": 40,
+      "sha256": "a77707a4afe3e4007b9c31e503d93ede7b2e4d69137e6e6ed5e0e2dd4a17a4e0",
+      "source_sha256": "ef18fd295dbb6a8a5f8d2ffcf08d3663c3fc7e3f0c8f70dec27d06534409b114",
+      "prompt": "Create ONE game terrain texture gui-road.png, 1024×1024. Reference 1 defines texture scale and straight-down camera, reference 2 defines undead colors/mood only; do not draw a building. A seamless tileable top-down ground texture, viewed straight down at 90 degrees with no perspective and no cast shadows, 1024×1024, edges tile perfectly on all four sides. A worn road of packed grey ash and broken old paving stones with faint cart ruts; the road fills the whole tile edge to edge, no curbs, no darker border strips at the sides. Palette: ash grey, cold slate, muted violet shadows, bone white, desaturated dead grass, rare faint violet glow. Keep same style, light direction, chunky pixel size and undead palette as gui-ground; medium grey, fine small-scale details, no centre focal point. Style: high-detail pixel art with an HD-2D diorama feel — crisp chunky pixel textures (each art pixel reads as a 4×4 block), a limited palette of about 40 colors per image, soft volumetric sunlight from the upper left, gentle ambient occlusion in crevices, warm rim light on edges, moss and grass tufts along stone edges, a handcrafted miniature-set look. Clean and sharp: no depth-of-field blur, no fog, no vignette, no bloom, no text, no logo, no UI, no characters or soldiers.",
+      "references": [
+        "terrain/hd/qing-road.png",
+        "terrain/hd/gui-outpost.png"
+      ],
+      "references_note": "첫 생성 참고. 능선·절벽 수정은 해당 생성본을 이어 참고했다."
+    },
+    {
+      "file": "gui-bush.png",
+      "width": 1024,
+      "height": 1024,
+      "transparent": false,
+      "alpha_bbox": [
+        0,
+        0,
+        1024,
+        1024
+      ],
+      "visible_colors": 40,
+      "sha256": "56f78635ed4575e2649e873565644861f8868290f0f57efe8a06bec0787b4a26",
+      "source_sha256": "d4d02ec431c571c0189984a00738cc1ee7da795f42917e20a261304d2adf148f",
+      "prompt": "Create ONE game terrain texture gui-bush.png, 1024×1024, reference 1 is scale/top-down shrub texture, reference 2 is undead color/mood only, do not draw architecture. A seamless tileable top-down ground texture, viewed straight down at 90 degrees with no perspective and no cast shadows, 1024×1024, edges tile perfectly on all four sides. Dense withered undergrowth seen from above: dry thorny shrubs, dead ferns, brittle grey-violet brambles and a few pale mushrooms, packed together. Palette: ash grey, cold slate, muted violet shadows, bone white, desaturated dead grass, rare faint violet glow. Same style/light direction/pixel size/palette as this set. Strictly orthographic bird's-eye view of small tangled brush crowns, no skyline or horizon, uniform distribution right up to all edges. Clear midtones and small deep shadows between twigs. Style: high-detail pixel art with an HD-2D diorama feel — crisp chunky pixel textures (each art pixel reads as a 4×4 block), a limited palette of about 40 colors per image, soft volumetric sunlight from the upper left, gentle ambient occlusion in crevices, warm rim light on edges, moss and grass tufts along stone edges, a handcrafted miniature-set look. Clean and sharp: no depth-of-field blur, no fog, no vignette, no bloom, no text, no logo, no UI, no characters or soldiers.",
+      "references": [
+        "terrain/hd/qing-bush.png",
+        "terrain/hd/gui-outpost.png"
+      ],
+      "references_note": "첫 생성 참고. 능선·절벽 수정은 해당 생성본을 이어 참고했다."
+    },
+    {
+      "file": "gui-field.png",
+      "width": 1024,
+      "height": 1024,
+      "transparent": false,
+      "alpha_bbox": [
+        0,
+        0,
+        1024,
+        1024
+      ],
+      "visible_colors": 40,
+      "sha256": "9f6aa95f843d192fbe40d58d930e81171e9e8f99249a782e757db121db10a8d6",
+      "source_sha256": "b7b9fe483d21dbc0c4b6f9f2dc5cc3c96e9d629b72354d81a739b6182e91efee",
+      "prompt": "Create ONE game terrain texture gui-field.png, 1024×1024. Reference 1 sets top-down texture scale, reference 2 provides undead palette only; no building. A seamless tileable top-down ground texture, viewed straight down at 90 degrees with no perspective and no cast shadows, 1024×1024, edges tile perfectly on all four sides. An open clearing of pale dead grass and dry reeds lying flat, scattered small bones and grey stones, a few faint violet wildflowers. Palette: ash grey, cold slate, muted violet shadows, bone white, desaturated dead grass, rare faint violet glow. Same style/light direction/pixel size/palette as gui-ground. A relatively open quiet small-scale surface, plentiful light ash-grey spaces between flattened wiry grass; no large bones, no skull piles, no centre composition or edge borders. Style: high-detail pixel art with an HD-2D diorama feel — crisp chunky pixel textures (each art pixel reads as a 4×4 block), a limited palette of about 40 colors per image, soft volumetric sunlight from the upper left, gentle ambient occlusion in crevices, warm rim light on edges, moss and grass tufts along stone edges, a handcrafted miniature-set look. Clean and sharp: no depth-of-field blur, no fog, no vignette, no bloom, no text, no logo, no UI, no characters or soldiers.",
+      "references": [
+        "terrain/hd/qing-field.png",
+        "terrain/hd/gui-outpost.png"
+      ],
+      "references_note": "첫 생성 참고. 능선·절벽 수정은 해당 생성본을 이어 참고했다."
+    },
+    {
+      "file": "gui-stone.png",
+      "width": 1024,
+      "height": 1024,
+      "transparent": false,
+      "alpha_bbox": [
+        0,
+        0,
+        1024,
+        1024
+      ],
+      "visible_colors": 40,
+      "sha256": "955f9c6d29514d090560b839621372c2a9f4ba8dd65a850cedc424ecf7c0fd09",
+      "source_sha256": "4136f0f60ae5c40cab2de4dfbabc60d5bae123f16bef7437400deb98218ca537",
+      "prompt": "Create ONE game terrain texture gui-stone.png, 1024×1024. Reference 1 sets top-down stone paving scale and pixel style; reference 2 supplies undead realm color/mood only, no building. A seamless tileable top-down ground texture, viewed straight down at 90 degrees with no perspective and no cast shadows, 1024×1024, edges tile perfectly on all four sides. A paved courtyard of cracked grey flagstones, some tilted or missing, with ash and dead moss in the joints and a few faded paper talisman scraps. Palette: ash grey, cold slate, muted violet shadows, bone white, desaturated dead grass, rare faint violet glow. Same style/light direction/pixel size/palette as gui-ground. Medium bright grey paving, flat strict overhead, no raised slab sides, no legible writing on scraps, no curbs or border. Style: high-detail pixel art with an HD-2D diorama feel — crisp chunky pixel textures (each art pixel reads as a 4×4 block), a limited palette of about 40 colors per image, soft volumetric sunlight from the upper left, gentle ambient occlusion in crevices, warm rim light on edges, moss and grass tufts along stone edges, a handcrafted miniature-set look. Clean and sharp: no depth-of-field blur, no fog, no vignette, no bloom, no text, no logo, no UI, no characters or soldiers.",
+      "references": [
+        "terrain/hd/qing-stone.png",
+        "terrain/hd/gui-outpost.png"
+      ],
+      "references_note": "첫 생성 참고. 능선·절벽 수정은 해당 생성본을 이어 참고했다."
+    },
+    {
+      "file": "gui-hill.png",
+      "width": 1024,
+      "height": 1024,
+      "transparent": false,
+      "alpha_bbox": [
+        0,
+        0,
+        1024,
+        1024
+      ],
+      "visible_colors": 40,
+      "sha256": "533d46ad8e4bb7e37252efd92888f5de5646b7b4085ea5ed8ba5ba7db984bcc3",
+      "source_sha256": "e2b7e348fb35ed13246d274d8da5bd92a63267595df4e235dd7f777134f01296",
+      "prompt": "Create ONE game terrain texture gui-hill.png, 1024×1024. Reference 1 sets surface scale/top-down view, reference 2 sets undead colors/mood only; no building. A seamless tileable top-down ground texture, viewed straight down at 90 degrees with no perspective and no cast shadows, 1024×1024, edges tile perfectly on all four sides. A low rocky rise of grey shale and ash, loose scree, sparse dry grass; slightly lighter than the surrounding ground so it reads as higher ground. Palette: ash grey, cold slate, muted violet shadows, bone white, desaturated dead grass, rare faint violet glow. Same style/light direction/pixel size/palette as gui-ground, but paler. Flat continuous rough surface seen vertically from overhead, no hill outline, no horizon, no slopes or cliff sides; small flaky shale pieces distributed evenly. Style: high-detail pixel art with an HD-2D diorama feel — crisp chunky pixel textures (each art pixel reads as a 4×4 block), a limited palette of about 40 colors per image, soft volumetric sunlight from the upper left, gentle ambient occlusion in crevices, warm rim light on edges, moss and grass tufts along stone edges, a handcrafted miniature-set look. Clean and sharp: no depth-of-field blur, no fog, no vignette, no bloom, no text, no logo, no UI, no characters or soldiers.",
+      "references": [
+        "terrain/hd/qing-hill.png",
+        "terrain/hd/gui-outpost.png"
+      ],
+      "references_note": "첫 생성 참고. 능선·절벽 수정은 해당 생성본을 이어 참고했다."
+    },
+    {
+      "file": "gui-canopy.png",
+      "width": 1024,
+      "height": 1024,
+      "transparent": false,
+      "alpha_bbox": [
+        0,
+        0,
+        1024,
+        1024
+      ],
+      "visible_colors": 40,
+      "sha256": "28ca04b6743097ce4e906e8b8629eabd40e71ba9cf6c0d331ee9c086aaaba4b7",
+      "source_sha256": "091f2c6df1ea55d06abcdd0b66938452ef9b6a1c2ac798d8f2ca8eb12e09987d",
+      "prompt": "Create ONE game terrain texture gui-canopy.png, 1024×1024, reference 1 sets overhead tree crown scale/texture; reference 2 sets undead colors only, do not draw buildings. A seamless tileable top-down ground texture, viewed straight down at 90 degrees with no perspective and no cast shadows, 1024×1024, edges tile perfectly on all four sides. A dense dead forest seen from directly above: tightly packed crowns of leafless twisted grey branches with a few dark withered pines, deep shadowy gaps between the trees, no ground visible; clearly an impassable wall of trees. Palette: ash grey, cold slate, muted violet shadows, bone white, desaturated dead grass, rare faint violet glow. SAME style/light direction/pixel size/palette as this set, darker overall than gui-ground. Branch crowns radiate in every direction around invisible trunk centers, pines are radial starburst crowns seen vertically down, absolutely NO side-view triangular pines, no vertical trunks, no pathways or open ground. Dense full-frame texture. Style: high-detail pixel art with an HD-2D diorama feel — crisp chunky pixel textures (each art pixel reads as a 4×4 block), a limited palette of about 40 colors per image, soft volumetric sunlight from the upper left, gentle ambient occlusion in crevices, warm rim light on edges, moss and grass tufts along stone edges, a handcrafted miniature-set look. Clean and sharp: no depth-of-field blur, no fog, no vignette, no bloom, no text, no logo, no UI, no characters or soldiers.",
+      "references": [
+        "terrain/hd/qing-canopy.png",
+        "terrain/hd/gui-outpost.png"
+      ],
+      "references_note": "첫 생성 참고. 능선·절벽 수정은 해당 생성본을 이어 참고했다."
+    },
+    {
+      "file": "gui-cliff-top.png",
+      "width": 1024,
+      "height": 1024,
+      "transparent": false,
+      "alpha_bbox": [
+        0,
+        0,
+        1024,
+        1024
+      ],
+      "visible_colors": 40,
+      "sha256": "0f8a4aa50808151ef7d0f60a02139a3caffe11d91d08217859239210ea77da0c",
+      "source_sha256": "ec7e6957f58a2d888afad19159a4d5ef3b1f4864c4c07b2eff79b22ef0dbaf9e",
+      "prompt": "Create ONE game terrain texture gui-cliff-top.png, 1024×1024. Reference 1 sets scale, top-down plateau texture and chunky pixel style; reference 2 supplies undead palette only, NO buildings. A seamless tileable top-down ground texture, viewed straight down at 90 degrees with no perspective and no cast shadows, 1024×1024, edges tile perfectly on all four sides. A highland plateau on top of a cliff: grey ash soil with exposed flat slate slabs, cracks, lichen in bone white and dull violet, a few withered shrubs; slightly paler than the lowland ground. Palette: ash grey, cold slate, muted violet shadows, bone white, desaturated dead grass, rare faint violet glow. Same style, same light direction, same pixel size, same palette as gui-ground, but paler flat stone patches with angular slab outlines and thin crusts of lichen. Entire canvas is TOP SURFACE, NO cliff side or outer edge. Style: high-detail pixel art with an HD-2D diorama feel — crisp chunky pixel textures (each art pixel reads as a 4×4 block), a limited palette of about 40 colors per image, soft volumetric sunlight from the upper left, gentle ambient occlusion in crevices, warm rim light on edges, moss and grass tufts along stone edges, a handcrafted miniature-set look. Clean and sharp: no depth-of-field blur, no fog, no vignette, no bloom, no text, no logo, no UI, no characters or soldiers.",
+      "references": [
+        "terrain/hd/qing-cliff-top.png",
+        "terrain/hd/gui-outpost.png"
+      ],
+      "references_note": "첫 생성 참고. 능선·절벽 수정은 해당 생성본을 이어 참고했다."
+    },
+    {
+      "file": "gui-gorge.png",
+      "width": 1024,
+      "height": 1024,
+      "transparent": false,
+      "alpha_bbox": [
+        0,
+        0,
+        1024,
+        1024
+      ],
+      "visible_colors": 40,
+      "sha256": "8cd44bad5a710af79126d86855c8d819588ee40288e2ccfada64256be503e1e0",
+      "source_sha256": "d3b2db6048be9581f6a9a4a876ed91fc68ac8aca3b4943b2b6a8795001dc553c",
+      "prompt": "Create ONE game terrain texture gui-gorge.png, 1024×1024. Reference 1 sets overhead ravine surface scale/pixel style; reference 2 sets undead palette only, no building. A seamless tileable top-down ground texture, viewed straight down at 90 degrees with no perspective and no cast shadows, 1024×1024, edges tile perfectly on all four sides. A narrow ravine floor: packed grey gravel and ash trail with scattered flat stones, small fallen rocks and a few old paper talismans pressed into the dirt; the trail fills the whole tile edge to edge, no borders or stripes. Palette: ash grey, cold slate, muted violet shadows, bone white, desaturated dead grass, rare faint violet glow. Same style/light direction/pixel size/palette as gui-ground. Mostly fine gravel with scattered small flat stones, navigable medium grey surface, no cliff side, no channel edges, no oversized boulders. Paper scraps have abstract faded marks not text. Style: high-detail pixel art with an HD-2D diorama feel — crisp chunky pixel textures (each art pixel reads as a 4×4 block), a limited palette of about 40 colors per image, soft volumetric sunlight from the upper left, gentle ambient occlusion in crevices, warm rim light on edges, moss and grass tufts along stone edges, a handcrafted miniature-set look. Clean and sharp: no depth-of-field blur, no fog, no vignette, no bloom, no text, no logo, no UI, no characters or soldiers.",
+      "references": [
+        "terrain/hd/qing-gorge.png",
+        "terrain/hd/gui-outpost.png"
+      ],
+      "references_note": "첫 생성 참고. 능선·절벽 수정은 해당 생성본을 이어 참고했다."
+    },
+    {
+      "file": "gui-ridge.png",
+      "width": 1024,
+      "height": 1024,
+      "transparent": false,
+      "alpha_bbox": [
+        0,
+        0,
+        1024,
+        1024
+      ],
+      "visible_colors": 40,
+      "sha256": "3f7ab968a0eb0b07b46dabd6f2c2158cdaccba81e64192877a4a763683b5d8d3",
+      "source_sha256": "7cc708297ee19045469215ab7d9dc3e0445eee722a59d5ea543d2054c4721f5e",
+      "prompt": "Revise this gui-ridge terrain tile. Reference 1 is generated undead ridge, reference 2 is required overhead qing ridge. Keep reference1 materials and undead palette but correct camera to true 90-degree orthographic overhead, like looking straight down on flat tightly packed angular rock TOPS. The current long visible vertical side faces make it look isometric: REMOVE those vertical block sides. Each rock should read as an irregular polygon viewed from directly above, with etched cracks/chips, not a cubic cliff seen from the side. Full1024×1024 edge-to-edge seamless surface. A seamless tileable top-down ground texture, viewed straight down at 90 degrees with no perspective and no cast shadows, 1024×1024, edges tile perfectly on all four sides. A bare rocky ridge: jagged dark slate outcrops and boulders packed together with deep cracks, a few dead shrubs and faint violet crystals in the crevices; clearly impassable terrain. Palette: ash grey, cold slate, muted violet shadows, bone white, desaturated dead grass, rare faint violet glow. Darker than walkable ash ground, evenly filled, no horizon, no terrain silhouette or borders, no diagonal repeated bands, randomized rock orientation and small scale, almost all stone rather than plants. Style: high-detail pixel art with an HD-2D diorama feel — crisp chunky pixel textures (each art pixel reads as a 4×4 block), a limited palette of about 40 colors per image, soft volumetric sunlight from the upper left, gentle ambient occlusion in crevices, warm rim light on edges, moss and grass tufts along stone edges, a handcrafted miniature-set look. Clean and sharp: no depth-of-field blur, no fog, no vignette, no bloom, no text, no logo, no UI, no characters or soldiers.",
+      "references": [
+        "terrain/hd/qing-ridge.png",
+        "terrain/hd/gui-outpost.png"
+      ],
+      "references_note": "첫 생성 참고. 능선·절벽 수정은 해당 생성본을 이어 참고했다."
+    },
+    {
+      "file": "gui-cliff-face.png",
+      "width": 1024,
+      "height": 512,
+      "transparent": true,
+      "alpha_bbox": [
+        320,
+        40,
+        704,
+        468
+      ],
+      "visible_colors": 39,
+      "sha256": "634d3a95e33e66b5bf932ace3cc867945628e5d410c400b9e1b8f0da9a9922b0",
+      "source_sha256": "7a90a39c62d0dbf175743fa78a3d082df67c8c6c5fe6f90118d5f4c94605f07a",
+      "prompt": "Correct ONLY the geometry of the attached transparent undead cliff strip, keep same pixel art, palette, materials, roots, talismans and layout. Its TOP edge is already correctly about35 degrees, but its BOTTOM edge is too shallow at32 degrees and the strip gets taller toward the right. Make TOP and BOTTOM perfectly parallel at35.26 degrees: bottom rises1px per1.414px across, slope0.707. The rock face must have constant vertical height about160px from left end to right end on1024×512 canvas. The entire visible sprite should occupy x320..720. Exact four corners of main rock face: bottom left(320,480), bottom right(720,197), top right(720,37), top left(320,320). Strong straight diagonal, same top line and base line vectors, not tapered, no sagging. Ends VERTICAL clean cuts, matching rock strata heights at ends to tile together, no end caps or side faces. Details must stay within strip; no disconnected stones outside baseline, no ground shadow. Transparent background. A horizontal strip of a natural rock cliff face for a game map edge, true isometric projection (35.26°, base line rises lower left to upper right with slope0.707), no perspective. Layered dark slate and ash-grey rock strata with cracks and ledges, dead roots and withered grass at top, faded paper talismans, small loose stones inside lower edge. Height one third canvas. Palette: ash grey, cold slate, muted violet shadows, bone white, desaturated dead grass. Style: high-detail pixel art with an HD-2D diorama feel — crisp chunky pixel textures (each art pixel reads as a 4×4 block), a limited palette of about 40 colors per image, soft volumetric sunlight from the upper left, gentle ambient occlusion in crevices, warm rim light on edges, moss and grass tufts along stone edges, a handcrafted miniature-set look. Clean and sharp: no depth-of-field blur, no fog, no vignette, no bloom, no text, no logo, no UI, no characters or soldiers.",
+      "geometry": {
+        "base_y_mx_b": [
+          -0.6439170928326824,
+          676.2742075090566
+        ],
+        "top_y_mx_b": [
+          -0.7050982606515784,
+          526.1326206584779
+        ],
+        "base_angle_degrees": 32.77817743045641,
+        "median_vertical_height": 180.0,
+        "target_slope": -0.70710678,
+        "usable_x": [
+          333,
+          690
+        ]
+      },
+      "references": [
+        "terrain/hd/qing-cliff-face.png",
+        "terrain/hd/gui-outpost.png"
+      ],
+      "references_note": "첫 생성 참고. 능선·절벽 수정은 해당 생성본을 이어 참고했다."
+    },
+    {
+      "file": "gui-prop-dead-tree.png",
+      "width": 2048,
+      "height": 512,
+      "transparent": true,
+      "alpha_bbox": [
+        104,
+        24,
+        1936,
+        496
+      ],
+      "visible_colors": 39,
+      "sha256": "7a7bfacd12194dca557d5e504e0c14cf985dcf52c80923ab14770d8f4387d32e",
+      "source_sha256": "3654517e30edd6be1e9b714ca56e7516137fd838e8e530a0009b9f378207f2d5",
+      "prompt": "Create ONE transparent sprite sheet gui-prop-dead-tree.png, extremely wide 2048×512 canvas, FOUR equal square cells in one horizontal row, each512×512. Reference 1 defines the exact four-tree sheet layout, pixel scale/isometric view, reference 2 defines undead ash/violet palette only (no building). A single dead twisted leafless tree with grey bark and a few hanging paper charms, about as tall as four soldiers standing alone, isometric view from 30 degrees above (2:1 dimetric, no vanishing point), base touching the bottom 3% of the canvas, transparent background, no ground shadow. Make 4 slightly different variations side by side on a 2048×512 sheet with clear transparent space between them (each variation centered in its own 512×512 cell). Palette: ash grey, cold slate, muted violet shadows, bone white, desaturated dead grass. Same style, same light direction, same chunky pixel size, same palette as gui-outpost. Exactly FOUR trees, one per cell, full tree from branch tips to bare roots, all four roots share the same bottom baseline y496 of512, max width400 per cell, no branches entering adjacent cell, transparent gutters at least40px either side, no ground disk, no border or grid. Paper charms are tiny faded abstract geometric marks, not readable writing. Style: high-detail pixel art with an HD-2D diorama feel — crisp chunky pixel textures (each art pixel reads as a 4×4 block), a limited palette of about 40 colors per image, soft volumetric sunlight from the upper left, gentle ambient occlusion in crevices, warm rim light on edges, moss and grass tufts along stone edges, a handcrafted miniature-set look. Clean and sharp: no depth-of-field blur, no fog, no vignette, no bloom, no text, no logo, no UI, no characters or soldiers.",
+      "layout": {
+        "columns": 4,
+        "rows": 1,
+        "cell_width": 512,
+        "cell_height": 512,
+        "base_y_exclusive": 496
+      },
+      "cells": [
+        {
+          "index": 0,
+          "alpha_bbox": [
+            104,
+            24,
+            404,
+            496
+          ],
+          "foot_y_exclusive": 496
+        },
+        {
+          "index": 1,
+          "alpha_bbox": [
+            100,
+            24,
+            408,
+            496
+          ],
+          "foot_y_exclusive": 496
+        },
+        {
+          "index": 2,
+          "alpha_bbox": [
+            96,
+            24,
+            416,
+            496
+          ],
+          "foot_y_exclusive": 496
+        },
+        {
+          "index": 3,
+          "alpha_bbox": [
+            108,
+            24,
+            400,
+            496
+          ],
+          "foot_y_exclusive": 496
+        }
+      ],
+      "references": [
+        "terrain/hd/qing-prop-willow.png",
+        "terrain/hd/gui-outpost.png"
+      ],
+      "references_note": "첫 생성 참고. 능선·절벽 수정은 해당 생성본을 이어 참고했다."
+    },
+    {
+      "file": "gui-prop-dead-grove.png",
+      "width": 2048,
+      "height": 512,
+      "transparent": true,
+      "alpha_bbox": [
+        96,
+        24,
+        1952,
+        496
+      ],
+      "visible_colors": 39,
+      "sha256": "9d2a2a6ab169ada5ee3e2eae0420fa31dc130688ff6e107f0c0f49292ac42793",
+      "source_sha256": "01d3b599aba5cae88c776cdc0999fa5c4e9bfc4b4a91ec1277f6d02e996f1f71",
+      "prompt": "Create ONE transparent game sprite sheet gui-prop-dead-grove.png, VERY WIDE 2048×512, FOUR square cells in ONE horizontal row. Reference 1 defines four separate plant clusters and sheet layout/scale/isometric view, reference 2 defines undead palette and art only; no building. A single tight cluster of three or four thin withered dead trees and dry thorn bushes growing together standing alone, isometric view from 30 degrees above (2:1 dimetric, no vanishing point), base touching the bottom 3% of the canvas, transparent background, no ground shadow. Make 4 slightly different variations side by side on a 2048×512 sheet with clear transparent space between them (each variation centered in its own 512×512 cell). Palette: ash grey, cold slate, muted violet shadows, bone white, desaturated dead grass. Same style, same light direction, same pixel size and palette as gui-outpost. FOUR GROVES TOTAL, each cluster has3-4 slender leafless trunks with forked twisting bare branches and tiny thorn brush at foot, each in its own cell, separated by broad transparent gutters. Full trunks and roots visible, all four bases aligned to y496/512, generous empty space above, NO horizontal connections between groves, no ground patches/disks/shadows. Style: high-detail pixel art with an HD-2D diorama feel — crisp chunky pixel textures (each art pixel reads as a 4×4 block), a limited palette of about 40 colors per image, soft volumetric sunlight from the upper left, gentle ambient occlusion in crevices, warm rim light on edges, moss and grass tufts along stone edges, a handcrafted miniature-set look. Clean and sharp: no depth-of-field blur, no fog, no vignette, no bloom, no text, no logo, no UI, no characters or soldiers.",
+      "layout": {
+        "columns": 4,
+        "rows": 1,
+        "cell_width": 512,
+        "cell_height": 512,
+        "base_y_exclusive": 496
+      },
+      "cells": [
+        {
+          "index": 0,
+          "alpha_bbox": [
+            96,
+            28,
+            412,
+            496
+          ],
+          "foot_y_exclusive": 496
+        },
+        {
+          "index": 1,
+          "alpha_bbox": [
+            104,
+            28,
+            412,
+            496
+          ],
+          "foot_y_exclusive": 496
+        },
+        {
+          "index": 2,
+          "alpha_bbox": [
+            96,
+            24,
+            420,
+            496
+          ],
+          "foot_y_exclusive": 496
+        },
+        {
+          "index": 3,
+          "alpha_bbox": [
+            80,
+            28,
+            416,
+            496
+          ],
+          "foot_y_exclusive": 496
+        }
+      ],
+      "references": [
+        "terrain/hd/qing-prop-bamboo-clump.png",
+        "terrain/hd/gui-outpost.png"
+      ],
+      "references_note": "첫 생성 참고. 능선·절벽 수정은 해당 생성본을 이어 참고했다."
+    },
+    {
+      "file": "gui-prop-ruin-rock.png",
+      "width": 2048,
+      "height": 512,
+      "transparent": true,
+      "alpha_bbox": [
+        32,
+        28,
+        2016,
+        496
+      ],
+      "visible_colors": 39,
+      "sha256": "8be2bdc594a8bef720559cacef1607b4404dd52670a5b4dce3ed3b57cea1ca09",
+      "source_sha256": "356488d4027c71b0a8000b53aa4dc38ee1d0b9698eeb3088802e5bd2bf721966",
+      "prompt": "Create ONE transparent game sprite sheet gui-prop-ruin-rock.png, WIDE2048×512 canvas, FOUR square cells in ONE row. Reference 1 defines four boulder sheet layout/scale/angle, reference 2 gives undead ash/violet colors only; no building. A single cracked grey boulder with an old carved rune and dead moss, some variations a fallen ruin pillar fragment standing alone, isometric view from 30 degrees above (2:1 dimetric, no vanishing point), base touching the bottom 3% of the canvas, transparent background, no ground shadow. Make 4 slightly different variations side by side on a 2048×512 sheet with clear transparent space between them (each variation centered in its own 512×512 cell). Palette: ash grey, cold slate, muted violet shadows, bone white, desaturated dead grass. Same style, light direction, pixel size and palette as gui-outpost. Four clearly different forms: first squat cracked boulder, second angular tall boulder, third broken collapsed rectangular pillar, fourth fallen carved column fragment. Rune is just a worn abstract diamond motif, not text. All bases y496/512, no floor disks, no debris spreading into adjacent cell, generous transparent gutters, every silhouette entire. Style: high-detail pixel art with an HD-2D diorama feel — crisp chunky pixel textures (each art pixel reads as a 4×4 block), a limited palette of about 40 colors per image, soft volumetric sunlight from the upper left, gentle ambient occlusion in crevices, warm rim light on edges, moss and grass tufts along stone edges, a handcrafted miniature-set look. Clean and sharp: no depth-of-field blur, no fog, no vignette, no bloom, no text, no logo, no UI, no characters or soldiers.",
+      "layout": {
+        "columns": 4,
+        "rows": 1,
+        "cell_width": 512,
+        "cell_height": 512,
+        "base_y_exclusive": 496
+      },
+      "cells": [
+        {
+          "index": 0,
+          "alpha_bbox": [
+            32,
+            96,
+            480,
+            496
+          ],
+          "foot_y_exclusive": 496
+        },
+        {
+          "index": 1,
+          "alpha_bbox": [
+            44,
+            28,
+            464,
+            496
+          ],
+          "foot_y_exclusive": 496
+        },
+        {
+          "index": 2,
+          "alpha_bbox": [
+            32,
+            56,
+            480,
+            496
+          ],
+          "foot_y_exclusive": 496
+        },
+        {
+          "index": 3,
+          "alpha_bbox": [
+            32,
+            156,
+            480,
+            496
+          ],
+          "foot_y_exclusive": 496
+        }
+      ],
+      "references": [
+        "terrain/hd/qing-prop-boulder.png",
+        "terrain/hd/gui-outpost.png"
+      ],
+      "references_note": "첫 생성 참고. 능선·절벽 수정은 해당 생성본을 이어 참고했다."
+    },
+    {
+      "file": "gui-prop-talisman.png",
+      "width": 2048,
+      "height": 512,
+      "transparent": true,
+      "alpha_bbox": [
+        144,
+        24,
+        2016,
+        496
+      ],
+      "visible_colors": 39,
+      "sha256": "80bcec7eaf4226947a0e15878e5ebc04e23362bdfe6c187afec1db2e882b48bd",
+      "source_sha256": "97e5dcd177a8d7ba4e4e2b13120b4a80aeedb133913026fb2f161e87f62247fb",
+      "prompt": "Create ONE transparent game sprite sheet gui-prop-talisman.png, very wide2048×512 canvas, FOUR square cells in ONE horizontal row. Reference 1 defines the four low plant props arrangement, reference 2 gives undead realm palette/style only; no buildings. A single low talisman pole or tilted grave marker with fluttering paper charms and dry reeds at its base, knee to waist height of a soldier standing alone, isometric view from 30 degrees above (2:1 dimetric, no vanishing point), base touching the bottom 3% of the canvas, transparent background, no ground shadow. Make 4 slightly different variations side by side on a 2048×512 sheet with clear transparent space between them (each variation centered in its own 512×512 cell). Palette: ash grey, cold slate, muted violet shadows, bone white, desaturated dead grass. Same style, light direction, pixel size and palette as gui-outpost. Designs: one simple low wooden pole with two paper charms; one tilted small stone grave slab; one forked stake with tied long paper strip; one short leaning grave marker with a handful of dry reeds. Small humble props, NOT tall totem towers, NO skeleton/skull pile, NO people. All bases align y496/512, silhouettes fully visible and separated by transparent gutters; paper markings and stone carvings are faded abstract geometric motifs NOT readable text. No ground disk/shadow/grid. Style: high-detail pixel art with an HD-2D diorama feel — crisp chunky pixel textures (each art pixel reads as a 4×4 block), a limited palette of about 40 colors per image, soft volumetric sunlight from the upper left, gentle ambient occlusion in crevices, warm rim light on edges, moss and grass tufts along stone edges, a handcrafted miniature-set look. Clean and sharp: no depth-of-field blur, no fog, no vignette, no bloom, no text, no logo, no UI, no characters or soldiers.",
+      "layout": {
+        "columns": 4,
+        "rows": 1,
+        "cell_width": 512,
+        "cell_height": 512,
+        "base_y_exclusive": 496
+      },
+      "cells": [
+        {
+          "index": 0,
+          "alpha_bbox": [
+            144,
+            24,
+            368,
+            496
+          ],
+          "foot_y_exclusive": 496
+        },
+        {
+          "index": 1,
+          "alpha_bbox": [
+            32,
+            80,
+            480,
+            496
+          ],
+          "foot_y_exclusive": 496
+        },
+        {
+          "index": 2,
+          "alpha_bbox": [
+            140,
+            24,
+            372,
+            496
+          ],
+          "foot_y_exclusive": 496
+        },
+        {
+          "index": 3,
+          "alpha_bbox": [
+            32,
+            72,
+            480,
+            496
+          ],
+          "foot_y_exclusive": 496
+        }
+      ],
+      "references": [
+        "terrain/hd/qing-prop-reeds.png",
+        "terrain/hd/gui-outpost.png"
+      ],
+      "references_note": "첫 생성 참고. 능선·절벽 수정은 해당 생성본을 이어 참고했다."
+    },
+    {
+      "file": "gui-house.png",
+      "width": 1024,
+      "height": 1024,
+      "transparent": true,
+      "alpha_bbox": [
+        76,
+        32,
+        948,
+        992
+      ],
+      "visible_colors": 39,
+      "sha256": "6b7fded1442e4308f798fab4453e8839aab94fea831b7283ee404e5835bc3cd0",
+      "source_sha256": "f134b724dc6a5f4144db2fe0662d319614c31cbb2778d55c54fbc424f3ac2a43",
+      "prompt": "Create ONE transparent game building sprite gui-house.png, square1024×1024, reference 1 sets small house silhouette/framing/isometric view, reference 2 sets undead architectural colors/materials only. A single ruined village house of the undead realm, isometric view from 30 degrees above (2:1 dimetric, no vanishing point), East-Asian fantasy architecture with a curved tiled roof that is partly broken, grey weathered wooden walls, torn violet banners and paper talismans on the door, a stone base, base touching the bottom 3% of the canvas, transparent background, no ground shadow, no people. Palette: ash grey, cold slate, muted violet shadows, bone white, desaturated dead grass, rare faint violet glow. Same style, same light direction, same chunky pixel size, same palette as gui-outpost. This is a SIMPLE small abandoned village dwelling, one storey, NOT a fortress, no guard towers, no perimeter wall, no big skull decorations. Missing roof tiles reveal a few dark broken rafters, drooping banners, crooked wooden doorway, tiny bone-white paper strips with abstract faded marks not readable text. Complete building including eaves and stone foundation, base y990/1024, transparent all around, ample side/top margins, no ground disk or cast shadow. Style: high-detail pixel art with an HD-2D diorama feel — crisp chunky pixel textures (each art pixel reads as a 4×4 block), a limited palette of about 40 colors per image, soft volumetric sunlight from the upper left, gentle ambient occlusion in crevices, warm rim light on edges, moss and grass tufts along stone edges, a handcrafted miniature-set look. Clean and sharp: no depth-of-field blur, no fog, no vignette, no bloom, no text, no logo, no UI, no characters or soldiers.",
+      "references": [
+        "terrain/hd/qing-house.png",
+        "terrain/hd/gui-outpost.png"
+      ],
+      "references_note": "첫 생성 참고. 능선·절벽 수정은 해당 생성본을 이어 참고했다."
+    }
+  ],
+  "verification": {
+    "png_dimensions_alpha_grid_palette": "passed-16",
+    "sheet_cells_gutters_feet": "passed-4-sheets",
+    "browser_decode": "passed-16",
+    "gallery_mobile_and_desktop": "passed",
+    "floor_2x2_preview": "visually-reviewed; actual battlefield projection pending",
+    "cliff_exact_target_angle_and_seamless_join": "not-passed; measured32.78deg vs target35.26deg, integration correction required",
+    "game_integration_and_phone_playtest": "not-performed"
+  }
+}

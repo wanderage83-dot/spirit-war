@@ -2,7 +2,7 @@
 
 그림을 찾아 다음 작업에 재사용하는 도감이다. **[index.html](index.html)을 브라우저로 열면 된다.** 별도 서버나 빌드 없이도 동작한다. 그림은 기존 경로에 두며 게임의 로딩 경로를 바꾸지 않는다.
 
-최근 제작 묶음은 HD 지형·건물 34장, 천하도 1장, 망자군 PNG 전달본/WebP 게임용 32개로 총 67개다. 전체 목록에는 초상·SD·장수 도트·방향·걷기·진영 의상·일반 병사·서막/대화 배경·기존 지형·수레·효과도 포함한다. 최초 정리 시 957개 파일, 약 32MiB다. PNG/WebP 변형이나 방향·프레임은 각각 한 파일로 센다. 새 그림을 추가한 뒤의 정확한 수는 도감 상단에서 확인한다.
+최근 제작 묶음은 HD 지형·건물 50장, 천하도 1장, 망자군 PNG 전달본/WebP 게임용 32개로 총 83개다. 전체 목록에는 초상·SD·장수 도트·방향·걷기·진영 의상·일반 병사·서막/대화 배경·기존 지형·수레·효과도 포함한다. 최초 정리 시 957개 파일, 약 32MiB다. PNG/WebP 변형이나 방향·프레임은 각각 한 파일로 센다. 새 그림을 추가한 뒤의 정확한 수는 도감 상단에서 확인한다.
 
 ## 찾기와 받기
 
@@ -41,8 +41,8 @@ python3 tools/asset-library.py build
 # 모든 그림·로컬 도감·프롬프트·사용 문서
 python3 tools/asset-library.py pack --output /workspace/exports/spirit-war-art-library.zip
 
-# 최근 제작 67파일만
+# 최근 제작 묶음만
 python3 tools/asset-library.py pack --collection recent --output /workspace/exports/spirit-war-recent-art.zip
 ```
 
-저장소 밖의 원하는 출력 경로로 바꿔도 된다. ZIP은 Git에 중복 저장하지 않으며 언제든 다시 만들 수 있다. 압축을 풀고 `spirit-war-art/asset-library/index.html`을 연다. 원래 폴더 구조를 보존하므로 오프라인에서 미리보기·검색·개별 파일 열기를 할 수 있다. 최근 묶음 ZIP에는 최근 파일만, 전체 ZIP에는 957개 파일을 넣는다.
+저장소 밖의 원하는 출력 경로로 바꿔도 된다. ZIP은 Git에 중복 저장하지 않으며 언제든 다시 만들 수 있다. 압축을 풀고 `spirit-war-art/asset-library/index.html`을 연다. 원래 폴더 구조를 보존하므로 오프라인에서 미리보기·검색·개별 파일 열기를 할 수 있다. 최근 묶음 ZIP에는 최근 파일만, 전체 ZIP에는 현재 목록의 모든 그림을 넣는다.

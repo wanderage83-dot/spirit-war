@@ -4,7 +4,7 @@ const{chromium}=require('playwright'),assert=require('node:assert/strict');
  const b=await chromium.launch({executablePath:'/usr/bin/chromium'}),p=await b.newPage({viewport:{width:1280,height:900}}),errors=[];
  p.on('pageerror',e=>errors.push(e.message));p.on('response',r=>{if(r.status()>=400&&!r.url().endsWith('favicon.ico'))errors.push(r.status()+' '+r.url())});
  await p.goto(process.argv[2]||'http://127.0.0.1:8808/asset-library/');
- const meta=await p.evaluate(()=>({all:D.image_count,recent:D.assets.filter(a=>a.recent).length,filtered:filtered.length,shown}));assert(meta.all>900&&meta.recent===67&&meta.filtered===67&&meta.shown===48);
+ const meta=await p.evaluate(()=>({all:D.image_count,recent:D.assets.filter(a=>a.recent).length,filtered:filtered.length,shown}));assert(meta.all>900&&meta.recent>=67&&meta.filtered===meta.recent&&meta.shown===48);
  await p.locator('#search').fill('qing-canopy');assert.equal(await p.locator('.card').count(),1);await p.locator('.preview').click();assert(await p.locator('#detail').evaluate(e=>e.open));assert((await p.locator('#details').textContent()).includes('1024 × 1024'));await p.locator('#repeat').click();assert(await p.locator('#large').evaluate(e=>e.classList.contains('repeat')));await p.locator('#close').click();
  await p.locator('#search').fill('qing-prop-willow');await p.locator('.preview').click();assert((await p.locator('#details').textContent()).includes('4칸 × 1줄'));await p.locator('#close').click();
  await p.getByRole('button',{name:'인물 초상',exact:true}).click();await p.locator('#search').fill('청명');assert.equal(await p.locator('.card').count(),1);assert((await p.locator('.card .actions a').getAttribute('href')).endsWith('/portraits/qing.webp'));
