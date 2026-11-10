@@ -15,7 +15,7 @@ const r=await p.evaluate(async()=>{setRoute('qing');newRealm();showRealm();launc
  const fh=units.find(v=>v.type==='boss')||u;fh.commander='o_heuk';await new Promise(r=>setTimeout(r,50));
  const img=companionArt.get('o_heuk')||[...companionArt.values()].find(a=>a.faceLeft);o.heukLeft=!!img?.faceLeft;ctx.scale=orig;
  // 대화: 오른쪽에 오른쪽 보는 그림은 거울, 왼쪽 보는 그림은 원본 / 왼쪽은 그 반대
- const el=document.querySelector('.vn-r'),el2=document.querySelector('.vn-l');vnActor(el,'o_dog');o.r1=getComputedStyle(el).scale;vnActor(el2,'o_hero');o.l1=getComputedStyle(el2).scale;
+ const el=document.querySelector('.vn-r'),el2=document.querySelector('.vn-l');vnActor(el,'o_muk');o.r1=getComputedStyle(el).scale;vnActor(el2,'o_hero');o.l1=getComputedStyle(el2).scale;
  const lid='ruler:gui';vnActor(el,lid);o.r2=getComputedStyle(el).scale;vnActor(el2,lid);o.l2=getComputedStyle(el2).scale;o.lid=lid;return o});
 console.log(r);assert.equal(r.leftMove,-1);assert.equal(r.rightMove,1);assert.equal(r.dirStill,1);assert.ok(r.real.frames>200&&r.real.back/r.real.frames<.03,'backpedal');assert.ok(r.artLeft);assert.equal(r.drawn,-1);assert.equal(r.heukLeft,false);
 assert.equal(r.r1,'-1 1');assert.ok(['1 1','1','none'].includes(r.l1));assert.ok(['1 1','1','none'].includes(r.r2));assert.equal(r.l2,'-1 1');assert.deepEqual(errors,[]);console.log('PASS facing follows screen movement, left-facing art flipped in battle/dialogue/map');await b.close()})();
