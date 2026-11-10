@@ -524,3 +524,7 @@
 
 ## 귀왕 전장 HD 연결(요청 9) · 2026-11-10
 - HD_ART_REGIONS 15지역 전부. `hdGui()`(지역 theme gui)·`GUI_HD`(qing→gui 키 16개)·`hdKey(k)`. hdImg·hdTile(캐시 키도 gui 이름)·hdPropArt(`GUI_PROP_FOOT`)·pixelHouse(gui-house 발 992)·drawCliffSlice(`HD_CLIFF_GUI`{u0 333,u1 690,k0 .6439,c0 676.27,h .53})가 사용. pixelColors·mapTheme는 귀왕 지역이면 청룡 공통 대신 귀왕 팔레트. 귀왕 거점·귀문·망자군 병사는 기존 그대로. hd-common(15지역 HD, 귀왕은 gui-prop·귀왕 팔레트)·hd-cliff(혼령곡 gui 타일·절벽 면) 기대값 갱신.
+
+## 이어 찍은 이동 경유·원형 메뉴 계속 공격 · 2026-11-10
+- 원인: 이동은 AP 시간 칸으로 나뉘어 둘째 이동이 첫 칸 끝에 시작되므로, 지형·대형 유지로 늦어 A에 못 닿으면 출발 위치에서 B로 지름길을 갔다(측정: A에 가장 가까이 간 거리 228). apStart의 move/retreat가 바로 앞의 이어진 move/retreat 중 `reached`가 아닌 것을 `ap.wp`(부대별 경유지 목록)에 넣고 첫 경유지로 formation, `apWpTick`(apTick 첫머리, 매 프레임)이 중심이 `WP_REACH`110 안이면 reached·다음 경유지로 formation. 시간 칸이 끝나면 기존대로 apHold. apEndRound가 ap.wp를 비운다. AP 비용 계산(apPoint 기준)은 그대로. 경로가 길어지므로 시간이 모자라면 B 앞에서 멈출 수 있다(의도).
+- `ap.intent`: attack·engage·charge의 대상을 기억(`ap.intentKind` attack/engage), retreat·garrison에서만 지운다(이전에는 engage 외 모든 행동이 지움). 라운드 넘김 시 쓰러진 대상의 같은 squad 병사로 바꾸는 기존 처리 유지. `apContinue`: 지난 행동이 제자리 공격이고 apTargetInfo 사거리 안이면 attack, 아니면 engage. ringItems 맨 앞 `cont` 「⟳ 계속 공격」(hint=대상 이름, `intentLabel`, 보이지 않는 적이면 숨김, 2 AP 필요). `tests/ring-move-continue.cjs`(이전 코드 실패 확인).
