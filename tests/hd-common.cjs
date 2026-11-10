@@ -1,4 +1,4 @@
-// Four living factions share HD scenery; undead territories retain their own art and all geometry stays unchanged.
+// Four living factions share HD scenery; undead territories use their own gui-* HD art (request 9) and all geometry stays unchanged.
 const {chromium}=require('playwright'),assert=require('node:assert/strict');
 (async()=>{
  const browser=await chromium.launch({executablePath:'/usr/bin/chromium'}),page=await browser.newPage({viewport:{width:1280,height:800}}),errors=[];
@@ -19,8 +19,8 @@ const {chromium}=require('playwright'),assert=require('node:assert/strict');
   }
   return rows;
  });
- assert.equal(rows.length,15);assert.equal(rows.filter(r=>r.enabled).length,12);
- for(const r of rows){assert(r.same&&r.restored,r.id+' geometry/cache');if(r.theme==='gui'){assert(!r.enabled&&!r.palette&&!r.prop&&!r.artChanges,r.id)}else{assert(r.enabled&&r.palette&&r.artChanges,r.id);assert.equal(r.roof,'#426d68');assert(r.prop?.startsWith('qing-prop-'),r.id)}}
+ assert.equal(rows.length,15);assert.equal(rows.filter(r=>r.enabled).length,15);
+ for(const r of rows){assert(r.same&&r.restored,r.id+' geometry/cache');if(r.theme==='gui'){assert(r.enabled&&!r.palette&&r.artChanges,r.id);assert(r.prop?.startsWith('gui-prop-'),r.id+' '+r.prop)}else{assert(r.enabled&&r.palette&&r.artChanges,r.id);assert.equal(r.roof,'#426d68');assert(r.prop?.startsWith('qing-prop-'),r.id)}}
  assert(new Set(rows.map(r=>r.layout)).size>=3,'terrain patterns must remain varied');
  const banks=await page.evaluate(()=>{
   const patterns=new Map(),proto=CanvasRenderingContext2D.prototype,create=proto.createPattern,fill=proto.fillRect;let used=0;
@@ -37,5 +37,5 @@ const {chromium}=require('playwright'),assert=require('node:assert/strict');
    await page.screenshot({path:'/tmp/common-hd-'+id+'-'+viewport.width+'.png'});
   }
  }
- assert.deepEqual(errors,[]);await browser.close();console.log('PASS hd-common: 12 shared regions, 3 undead exceptions, 15 unchanged collision/routes, bridge bank texture, 3 viewport sizes');
+ assert.deepEqual(errors,[]);await browser.close();console.log('PASS hd-common: 12 shared regions, 3 undead regions on gui-* art, 15 unchanged collision/routes, bridge bank texture, 3 viewport sizes');
 })().catch(e=>{console.error(e);process.exit(1)});

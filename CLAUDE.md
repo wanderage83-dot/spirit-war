@@ -521,3 +521,6 @@
 - 절벽은 약32.78도(base y=-.6439171x+676.2742), 위쪽 y=-.7050983x+526.1326, bbox320,40,704,468, 회귀x333~690. 목표-.70710678 보정·끝 겹침/클리핑 필요. 두 차례 생성에도 정확한35.26도가 아니므로 무보정 접합 완료로 취급하지 않는다. 청룡 drawCliffSlice 수치를 그대로 복사하지 말 것.
 - PNG16장 규격/알파/색/격자/해시, 소품4시트 칸/발 위치, Chromium16장 decode, 에셋 도감 모바일·PC 검사 통과. 바닥2×2 미리보기 확인; 게임 연결/휴대폰 실기와 실제 투영 배율 반복은 대기. 그림을 연결했다는 의미가 아니다.
 - 도감 catalog 갱신: 전체973/최근83(HD50). tools/asset-library.py의 새 소품 한글 이름·절벽 주의와 ZIP manifest 동봉, 도감 테스트의 고정67개 기대값만 최신 확장 가능하게 바꿨다. 게임 코드는 이번 그림 제작 커밋에서 그대로다. 기존 도감 보존을 위해 최신 main을 작업 브랜치에 가져온 merge99226e7 이후에 제작했다. main으로 병합하지 않는다.
+
+## 귀왕 전장 HD 연결(요청 9) · 2026-11-10
+- HD_ART_REGIONS 15지역 전부. `hdGui()`(지역 theme gui)·`GUI_HD`(qing→gui 키 16개)·`hdKey(k)`. hdImg·hdTile(캐시 키도 gui 이름)·hdPropArt(`GUI_PROP_FOOT`)·pixelHouse(gui-house 발 992)·drawCliffSlice(`HD_CLIFF_GUI`{u0 333,u1 690,k0 .6439,c0 676.27,h .53})가 사용. pixelColors·mapTheme는 귀왕 지역이면 청룡 공통 대신 귀왕 팔레트. 귀왕 거점·귀문·망자군 병사는 기존 그대로. hd-common(15지역 HD, 귀왕은 gui-prop·귀왕 팔레트)·hd-cliff(혼령곡 gui 타일·절벽 면) 기대값 갱신.
