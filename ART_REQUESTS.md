@@ -611,3 +611,84 @@ Canva 크레딧이 없어 `tools/pixel-walk.py`로 장수 20명×4방향×4동�
 - `cliff-face`: 남·동쪽이 트인 절벽 칸(격자 32)마다 그림의 폭 약 82px 조각을 하나씩 세운다(`cliffEdges`·`drawCliffSlice`). 측정한 아랫선 y=−0.6422x+696.2를 게임 투영에 맞게 기울여 붙이므로 각도·끝점은 코드에서 처리했고 그림 수정은 필요 없다. 조각 위치에 따라 그림의 다른 부분(x 334~694)을 써서 이어 보이며, 대각선 가장자리는 계단식 절벽으로 보인다. 높이 배율 .6(병사 1.5명 정도). 남쪽 면은 좌우 반전 그림.
 - 귀왕 지역(혼령곡 등)은 예전 잿빛 그림 그대로. 충돌·사격 차단·길찾기는 지형 마스크 그대로(`tests/hd-cliff.cjs`가 그림을 빼고 다시 만든 충돌 격자와 비교).
 - 소프트웨어 렌더 기준 협곡 전장 전체 화면 그리기 21.6→26.3ms(절벽 조각 254개 중 화면 안 것만).
+
+---
+
+## 요청 9 · 귀왕 영토 전장 HD 그림(귀왕성·혼령곡·망자벌) — 상태: 프롬프트 작성(2026-11-10), 그림 대기
+
+### 왜 필요한가
+귀왕 영토 세 전장(귀왕성·망자벌은 숲 배치, 혼령곡은 협곡 배치)은 요청 6 결정대로 예전 잿빛 단순 그림이 남아 있다. 다른 12지역은 청룡 HD 그림이라 귀왕 전장만 낡아 보인다. 판정·충돌·길찾기는 그대로 두고 그림만 바꾼다. 귀왕군 거점(`gui-outpost.png`)·귀문(`gui-ghost-gate.png`)·망자군 병사는 이미 있다.
+
+세 전장에서 실제로 쓰는 지형(검사로 확인): 맨땅, 길, 덤불(숲길 가장자리), 빈터 들판, 본진 마당, 고지, 숲 벽, 절벽 위·절벽 면·협곡 바닥·능선. **물·습지·논은 없다.** 그래서 아래 16장은 지금 쓰는 청룡 HD 파일과 하나씩 짝이 맞는다(이름의 `qing-`만 `gui-`로). 아군 본진·성벽·망루·시설·보급소·관문·목책은 우리 군 건물이라 청룡 그림을 그대로 쓴다.
+
+### 첨부(화풍 참고)
+- 같은 종류의 청룡 그림 1장(예: `gui-ground`를 만들 때 `terrain/hd/qing-ground.png`) — 크기·시점·도트 굵기를 맞추기 위해.
+- 귀왕 분위기 참고 1장: `terrain/hd/gui-outpost.png` 또는 `terrain/hd/gui-ghost-gate.png`.
+- 끝에는 항상 요청 6의 **[공통 문장]**을 붙인다. 한 대화창에서 이어 그리고, 첫 장이 마음에 들면 「같은 화풍·같은 빛 방향·같은 도트 크기·같은 팔레트로」를 붙인다.
+
+### 귀왕 팔레트(모든 프롬프트에 들어 있음)
+`Palette: ash grey, cold slate, muted violet shadows, bone white, desaturated dead grass, rare faint violet glow.` 음산하지만 **너무 어둡지 않게**: 병사(검은 갑주 망자군·청록 아군)가 바닥 위에서 또렷이 보여야 한다. 바닥은 중간 밝기 회색 계열, 가장 어두운 색은 그늘·틈에만.
+
+### 만들 그림 16장 (`terrain/hd/`에 이 이름으로 커밋)
+| 파일 | 크기·형식 | 짝(청룡) | 쓰는 곳 |
+|---|---|---|---|
+| `gui-ground.png` | 1024×1024 불투명 타일 | qing-ground | 맨땅 |
+| `gui-road.png` | 1024×1024 불투명 타일 | qing-road | 길 |
+| `gui-bush.png` | 1024×1024 불투명 타일 | qing-bush | 숲길 가장자리 덤불 |
+| `gui-field.png` | 1024×1024 불투명 타일 | qing-field | 숲속 빈터 |
+| `gui-stone.png` | 1024×1024 불투명 타일 | qing-stone | 본진 마당 |
+| `gui-hill.png` | 1024×1024 불투명 타일 | qing-hill | 고지 |
+| `gui-canopy.png` | 1024×1024 불투명 타일 | qing-canopy | 숲 벽(지나갈 수 없음) |
+| `gui-cliff-top.png` | 1024×1024 불투명 타일 | qing-cliff-top | 협곡 절벽 위 |
+| `gui-gorge.png` | 1024×1024 불투명 타일 | qing-gorge | 협곡 바닥 길 |
+| `gui-ridge.png` | 1024×1024 불투명 타일 | qing-ridge | 절벽 앞 바위 띠 |
+| `gui-cliff-face.png` | 1024×512 투명 띠 | qing-cliff-face | 절벽 낭떠러지 면 |
+| `gui-prop-dead-tree.png` | 2048×512 투명, 4칸 | qing-prop-willow | 숲·들판 나무 |
+| `gui-prop-dead-grove.png` | 2048×512 투명, 4칸 | qing-prop-bamboo-clump | 나무 무리 |
+| `gui-prop-ruin-rock.png` | 2048×512 투명, 4칸 | qing-prop-boulder | 바위 |
+| `gui-prop-talisman.png` | 2048×512 투명, 4칸 | qing-prop-reeds | 지도 가장자리 장식 |
+| `gui-house.png` | 1024×1024 투명 | qing-house | 전장 안 적 쪽 건물 |
+
+### ChatGPT 프롬프트 (각각 따로, 끝에 [공통 문장])
+
+**바닥 타일 10장** — 모두 같은 앞문장:
+> A seamless tileable top-down ground texture, viewed straight down at 90 degrees with no perspective and no cast shadows, 1024×1024, edges tile perfectly on all four sides. {내용} Palette: ash grey, cold slate, muted violet shadows, bone white, desaturated dead grass, rare faint violet glow. [공통 문장]
+
+`{내용}`:
+1. `gui-ground` → `Grey ash soil with cracked dark earth, sparse withered grass tufts, small bone-white pebbles and a few fallen dead leaves; medium brightness so dark-armoured figures stand out on it.`
+2. `gui-road` → `A worn road of packed grey ash and broken old paving stones with faint cart ruts; the road fills the whole tile edge to edge, no curbs, no darker border strips at the sides.`
+3. `gui-bush` → `Dense withered undergrowth seen from above: dry thorny shrubs, dead ferns, brittle grey-violet brambles and a few pale mushrooms, packed together.`
+4. `gui-field` → `An open clearing of pale dead grass and dry reeds lying flat, scattered small bones and grey stones, a few faint violet wildflowers.`
+5. `gui-stone` → `A paved courtyard of cracked grey flagstones, some tilted or missing, with ash and dead moss in the joints and a few faded paper talisman scraps.`
+6. `gui-hill` → `A low rocky rise of grey shale and ash, loose scree, sparse dry grass; slightly lighter than the surrounding ground so it reads as higher ground.`
+7. `gui-canopy` → `A dense dead forest seen from directly above: tightly packed crowns of leafless twisted grey branches with a few dark withered pines, deep shadowy gaps between the trees, no ground visible; clearly an impassable wall of trees.`
+8. `gui-cliff-top` → `A highland plateau on top of a cliff: grey ash soil with exposed flat slate slabs, cracks, lichen in bone white and dull violet, a few withered shrubs; slightly paler than the lowland ground.`
+9. `gui-gorge` → `A narrow ravine floor: packed grey gravel and ash trail with scattered flat stones, small fallen rocks and a few old paper talismans pressed into the dirt; the trail fills the whole tile edge to edge, no borders or stripes.`
+10. `gui-ridge` → `A bare rocky ridge: jagged dark slate outcrops and boulders packed together with deep cracks, a few dead shrubs and faint violet crystals in the crevices; clearly impassable terrain.`
+
+**절벽 면 1장**:
+11. `gui-cliff-face`
+> A horizontal strip of a natural rock cliff face for a game map edge, true isometric projection (35.26° — the cliff's base line rises from lower left to upper right with a slope of 0.707, i.e. 1 pixel up for every 1.414 pixels across), no perspective. Layered dark slate and ash-grey rock strata with cracks and ledges, dead roots and withered grass hanging over the top edge, a few faded paper talismans tied to roots, loose stones at the foot. The strip is 1024×512 with a transparent background, the left and right ends cut cleanly so identical copies join end to end seamlessly. Height of the cliff about one third of the canvas height. Light from the upper left. No ground shadow. Palette: ash grey, cold slate, muted violet shadows, bone white, desaturated dead grass. [공통 문장]
+
+**소품 시트 4장** — 모두 같은 앞문장:
+> A single {소품} standing alone, isometric view from 30 degrees above (2:1 dimetric, no vanishing point), base touching the bottom 3% of the canvas, transparent background, no ground shadow. Make 4 slightly different variations side by side on a 2048×512 sheet with clear transparent space between them (each variation centered in its own 512×512 cell). Palette: ash grey, cold slate, muted violet shadows, bone white, desaturated dead grass. [공통 문장]
+
+`{소품}`:
+12. `gui-prop-dead-tree` → `dead twisted leafless tree with grey bark and a few hanging paper charms, about as tall as four soldiers`
+13. `gui-prop-dead-grove` → `tight cluster of three or four thin withered dead trees and dry thorn bushes growing together`
+14. `gui-prop-ruin-rock` → `cracked grey boulder with an old carved rune and dead moss, some variations a fallen ruin pillar fragment`
+15. `gui-prop-talisman` → `low talisman pole or tilted grave marker with fluttering paper charms and dry reeds at its base, knee to waist height of a soldier`
+
+**건물 1장**:
+16. `gui-house`
+> A single ruined village house of the undead realm, isometric view from 30 degrees above (2:1 dimetric, no vanishing point), East-Asian fantasy architecture with a curved tiled roof that is partly broken, grey weathered wooden walls, torn violet banners and paper talismans on the door, a stone base, base touching the bottom 3% of the canvas, transparent background, no ground shadow, no people. Palette: ash grey, cold slate, muted violet shadows, bone white, desaturated dead grass, rare faint violet glow. [공통 문장]
+
+### 검수(받은 뒤)
+- [ ] 바닥 10장: 2×2로 붙여 이음새·줄무늬·큰 반복 무늬 없음, 원근·그림자 없음
+- [ ] 바닥이 너무 어둡지 않음(검은 갑주 망자군·청록 아군이 위에서 또렷이 보임), 숲 벽(canopy)·능선(ridge)은 맨땅보다 확실히 어둡고 지나갈 수 없어 보임
+- [ ] 절벽 면: 아랫선 기울기 약 0.7, 두 장을 이었을 때 끊김 없음, 투명 배경
+- [ ] 소품 시트: 512 네 칸 각각 한 물체, 칸을 넘지 않음, 발밑이 칸 아래쪽
+- [ ] 글자·사람·그림자 방향·흐림 없음, 도트 4×4 느낌(조금 매끈하면 `tools/pixelize.py`로 맞춤)
+
+### 게임에 넣기(그림이 올라오면 Claude가 연결)
+- `HD_ART_FILES`에 16장을 추가하고, 귀왕 지역(theme `gui`)에서는 `HP`·`hdPropArt`·`HD_HOUSE`가 `qing-*` 대신 같은 짝의 `gui-*`를 쓰게 한다. 소품 발 위치(`HD_PROP_FOOT`)는 받은 그림에서 다시 잰다. 충돌·사격 차단·길찾기는 지형 마스크 그대로라 변하지 않는다.
