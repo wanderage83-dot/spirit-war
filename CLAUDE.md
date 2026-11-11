@@ -576,3 +576,6 @@
 
 ## 적 매복·기습 큰 경보 · 2026-11-11
 - 사용자 「적도 기습·매복 하나? 알 수가 없다, 크게 띄워」: 적 매복(amb 12장)·적 기습(숨어 있던 적의 첫 타격, surpriseMul)은 이미 있었지만 매복은 일반 powerBanner, 기습은 say 한 줄뿐이었다(적은 잠행 이동은 하지 않는다). `alertBanner(title,sub)`: #powerup에 `.alert`(화면 가로 붉은 띠·글씨 30~58px·3.4초 alertPop)+#stage의 `#dangerflash`(가장자리 붉은 번쩍임 1.6초), `alertAt`(reset이 −99). powerBanner는 경보가 떠 있는 2.6초 동안 무시(이어진 기습 경보도 같은 간격으로 생략). ambushTick 적 쪽·surpriseMul 적 쪽(당한 부대 이름)에서 호출. goalBanner sub에 c.amb면 「⚠ 숲에 적 매복 주의」. 동작 줄이기는 페이드만. `tests/danger-alert.cjs`(3화면 큰 글씨·화면 안·덮지 않음·우리 기습은 기존 금빛).
+
+## 인물 소개 오래 머물기·천천히 들고 나기 · 2026-11-11
+- 사용자 「소개가 좀 오래 머물게, 들어갈 때도 나갈 때도」: `VN_INTRO_PAUSE`320ms 뒤 `VN_INTRO_FLY`1100ms(이전 0·620)로 날아옴(fill both), 다 쓴 뒤 `VN_INTRO_HOLD`4800ms 머묾(이전 1700), `vnIntroLeave()`가 소개 그림을 무대 자리로 되돌려 날리며(vnImgRect 기준, 오차 ≤1px) .vn-intro.out 1초 페이드 후 vnIntroClose(true)(`VN_INTRO_OUT`1000, 이전 .42초 즉시). `vnIntroTap()`(vnNext가 소개 중 호출): 날아오는 중이면 an.finish+skip(글 전체 즉시), 쓰는 중이면 글 완성+머묾 재시작, 다 보이면 leave, 나가는 중이면 무시. vnIntroHide가 leaving/typing/skip/an 정리. vn-intro 검사 갱신(느린 날기·쓰는 중 누르기=완성·머묾·되돌아 날기·자동 머묾).
