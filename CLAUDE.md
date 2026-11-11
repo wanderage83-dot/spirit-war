@@ -573,3 +573,6 @@
 
 ## 인물 소개 날아온 뒤 크기 유지 · 2026-11-11
 - 원인: 복제 그림을 상자 높이 비율(tr.height/sr.height)로만 키웠는데 무대 .vn-p와 소개 .vi-sd는 상자 비율·object-position(가운데/오른쪽 아래)·최대 폭이 달라 object-fit:contain으로 실제 그려지는 그림 크기가 달랐다(320에서 도착 순간 약 39px 변함). `vnImgRect(im)`(natural 크기·object-position·거울 반영 실제 그림 영역)로 출발·도착을 재고 복제는 그 영역 크기에 objectFit fill로, `vnIntroFly`가 그 영역끼리 이동·확대. 소개 그림이 아직 안 불러졌으면 load 뒤 날린다. vn-intro에 4화면×5인물 도착 직전 복제 = 도착 뒤 그림(오차<4px, 실제 0) 검사, 이전 코드 실패 확인.
+
+## 적 매복·기습 큰 경보 · 2026-11-11
+- 사용자 「적도 기습·매복 하나? 알 수가 없다, 크게 띄워」: 적 매복(amb 12장)·적 기습(숨어 있던 적의 첫 타격, surpriseMul)은 이미 있었지만 매복은 일반 powerBanner, 기습은 say 한 줄뿐이었다(적은 잠행 이동은 하지 않는다). `alertBanner(title,sub)`: #powerup에 `.alert`(화면 가로 붉은 띠·글씨 30~58px·3.4초 alertPop)+#stage의 `#dangerflash`(가장자리 붉은 번쩍임 1.6초), `alertAt`(reset이 −99). powerBanner는 경보가 떠 있는 2.6초 동안 무시(이어진 기습 경보도 같은 간격으로 생략). ambushTick 적 쪽·surpriseMul 적 쪽(당한 부대 이름)에서 호출. goalBanner sub에 c.amb면 「⚠ 숲에 적 매복 주의」. 동작 줄이기는 페이드만. `tests/danger-alert.cjs`(3화면 큰 글씨·화면 안·덮지 않음·우리 기습은 기존 금빛).
