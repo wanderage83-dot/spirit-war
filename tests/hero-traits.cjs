@@ -1,7 +1,7 @@
 // 장수 전투 특성(HERO_TRAITS): 각 장수가 출진해 살아 있을 때와 없을 때를 비교해 수치가 바뀌는지 검사한다.
 // Requires Playwright and Chromium. Serve the repository and pass its URL.
 const{chromium}=require('playwright'),assert=require('node:assert/strict');(async()=>{const b=await chromium.launch({executablePath:'/usr/bin/chromium'}),p=await b.newPage(),errors=[];p.on('pageerror',e=>errors.push(String(e)));await p.goto(process.argv[2]||'http://127.0.0.1:8797/');await p.waitForTimeout(600);
-const r=await p.evaluate(()=>{window.requestAnimationFrame=()=>0;const fresh=()=>{setRoute('qing');newRealm();showRealm();launchChapter(SAGA[1]);hideBattleVoice&&hideBattleVoice();events=[];nextRaid=1e9;state='playing';groups.forEach((g,i)=>{if(i)g.leader=null});units.forEach(u=>{if(!u.side)u.commander=null})};
+const r=await p.evaluate(()=>{window.requestAnimationFrame=()=>0;const fresh=()=>{setRoute('qing');newRealm();showRealm();launchChapter(SAGA[1]);exileLv=0;hideBattleVoice&&hideBattleVoice();events=[];nextRaid=1e9;state='playing';groups.forEach((g,i)=>{if(i)g.leader=null});units.forEach(u=>{if(!u.side)u.commander=null})};
  // g번 부대를 id 장수가 이끌게 만든다(시험용)
  const lead=(g,id)=>{groups[g].leader=id;const us=apUnits(g);us.forEach(u=>{if(u.commander)u.commander=null});us[0].commander=id;return us};
  const out={};

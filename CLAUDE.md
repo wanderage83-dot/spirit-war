@@ -593,3 +593,4 @@
 
 ## 인물 소개는 평생 한 번 · 2026-11-11
 - 사용자 「한 번이라도 나온 인물 소개는 두 번 다시 나오지 않게」. 기존 R.saga.met(이야기별 저장)에 더해 브라우저 전체 기록 localStorage `spiritwar-met-ever-v1`(`metEver`·`metEverAdd`, try/catch). vnIntroCheck가 셋 중 하나라도 있으면 건너뛰고, vnIntroStart가 기록한다. 새 게임·다른 갈래·다른 저장에서도 다시 안 나온다. 검사에서 소개를 다시 보려면 그 키를 지운다(vn-intro는 R.saga.met을 비울 때 함께 지움, 새 게임·다른 갈래 검사 추가).
+- hero-traits는 c2(쫓기는 몸)에서 재므로 launchChapter 뒤 exileLv=0으로 특성만 비교한다.
