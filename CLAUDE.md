@@ -594,3 +594,12 @@
 ## 인물 소개는 평생 한 번 · 2026-11-11
 - 사용자 「한 번이라도 나온 인물 소개는 두 번 다시 나오지 않게」. 기존 R.saga.met(이야기별 저장)에 더해 브라우저 전체 기록 localStorage `spiritwar-met-ever-v1`(`metEver`·`metEverAdd`, try/catch). vnIntroCheck가 셋 중 하나라도 있으면 건너뛰고, vnIntroStart가 기록한다. 새 게임·다른 갈래·다른 저장에서도 다시 안 나온다. 검사에서 소개를 다시 보려면 그 키를 지운다(vn-intro는 R.saga.met을 비울 때 함께 지움, 새 게임·다른 갈래 검사 추가).
 - hero-traits는 c2(쫓기는 몸)에서 재므로 launchChapter 뒤 exileLv=0으로 특성만 비교한다.
+
+## 거점 단순화·봉화 올리기·레벨업·상점·천하도 새 단장 · 2026-11-11
+- 거점 문구 통일(「이름 · 효과」/「세우면 확보(효과)」): 군량소 군량 +8/초, 영맥 기력 2배, 봉화대. 중앙 보급소의 겹친 이름표는 그리지 않는다(군량소 이름표 하나). #tactics 상태 단추 문구도 같다.
+- 봉화: `BEACON_CD=4`턴·`beaconAt`(reset −999)·`beaconLeft()`·`beaconFire()`(planning/playing, beacon≥1): 적 전원 `revT=time+AP_TURN`(숨은 적 드러남)·`aidArrive(.5,'beacon')`(원군 절반·체력 +10%·사기 +20·주황 배너). `beaconUI()`가 `#beaconbtn`을 #stage에 만들고 hudStack 왼쪽 쌓기 맨 아래에 둔다. commandAt 첫머리: 봉화대 90 안 탭이면 올림. 조기 경보·증원 미리 보기·매복 흔적은 그대로. `aidArrive(k=1,src)`.
+- 레벨: `sagaHero`가 `st{atk,hp,cd}`·`pt`를 채운다(옛 저장은 pt=레벨−1). `gainXp(h,n)`(LV_MAX 20, 레벨마다 pt+1)·`GROW`·`GROW_MAX`8·`growSpend/growReset/growPoints/growStat`·`heroPower`·`openGrowth(id,back)`(back 'close'|'prep:<장>')·`openRoster`. applySagaUnitLevel이 ×(1+.04·수비)·×(1+.03·무력)·`battleCfg.vigor`, skillCd ×(1−.05·지략)(saga 전투만), 군주 지략은 시작 기력 +5. joinHero는 pt=레벨−1.
+- 전공: `merit{kills,dead,n0}`(reset·launchChapter), hit 전사 분기 `meritDown(u)`(쓰러진 적은 700 안 가장 가까운 아군 부대 장수의 공, 적장·장수 5), end(true)에서 `meritReport()`→`battleReport{id,rank,kills,mvp}`. `RANKS` S ≤20%·A ≤50% 손실. sagaBattleDone: 출진 c.xp+min(킬×2, c.xp×.5)+수훈 15%(×장비 xp), 대기 30%, 금 보너스. 결과 창 `xpRows(gains)`(div role=button, 창의 첫 button은 #saga-next 유지)·`xpAnimate()`.
+- 상점: `SHOP_CATS`·`shopCat`·`shopBody(cid)`(출진 준비 탭 2와 `openShop()` 공용)·`buyItem/sellItem/shopRefresh`·`shopLocked`(ITEMS.act). 새 장비 glaive·scalemail·sealshard(act 2), 보급 ration(food)·manastone(mana0)·herbs(vigor), `SUPPLY_MAX`3. `useSupplies(c)`(launchChapter 끝): 종류마다 1개 소모, `R.saga.supUsed{id,list}`로 재시작·이어하기 때 다시 쓰지 않음, sagaBattleDone 승리 때 삭제.
+- 천하도: `</style>` 앞 「천하도 새 단장」 블록(#realm.saga 한정). #rend는 숨김(위쪽 `#rcoin` 금 단추=상점), #rmapwrap::before가 atlas 그림을 흐리게 깔고 drawRealm은 clearRect+지도 그림자, drawSagaMarks 장 표지는 어두운 알약+금테. sagaPanel `.saga-peek.dock`(dk-main·dk-steps·dk-party·dk-side). realmView 계산은 그대로.
+- `tests/growth-shop-beacon.cjs`. 저장: R.saga.heroes[id].st/pt, R.saga.supUsed 추가(기본값 채움, 키 불변).
