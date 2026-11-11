@@ -603,3 +603,8 @@
 - 상점: `SHOP_CATS`·`shopCat`·`shopBody(cid)`(출진 준비 탭 2와 `openShop()` 공용)·`buyItem/sellItem/shopRefresh`·`shopLocked`(ITEMS.act). 새 장비 glaive·scalemail·sealshard(act 2), 보급 ration(food)·manastone(mana0)·herbs(vigor), `SUPPLY_MAX`3. `useSupplies(c)`(launchChapter 끝): 종류마다 1개 소모, `R.saga.supUsed{id,list}`로 재시작·이어하기 때 다시 쓰지 않음, sagaBattleDone 승리 때 삭제.
 - 천하도: `</style>` 앞 「천하도 새 단장」 블록(#realm.saga 한정). #rend는 숨김(위쪽 `#rcoin` 금 단추=상점), #rmapwrap::before가 atlas 그림을 흐리게 깔고 drawRealm은 clearRect+지도 그림자, drawSagaMarks 장 표지는 어두운 알약+금테. sagaPanel `.saga-peek.dock`(dk-main·dk-steps·dk-party·dk-side). realmView 계산은 그대로.
 - `tests/growth-shop-beacon.cjs`. 저장: R.saga.heroes[id].st/pt, R.saga.supUsed 추가(기본값 채움, 키 불변).
+
+## 원형 메뉴 누르기 씹힘 · 2026-11-11
+- 사용자 「여전히 종종 메뉴가 번쩍이며 안 눌림」. 재현: 부대를 고른 직후 0~0.16초에 원형 메뉴 항목을 누르면 휴대폰 11/24·PC 15/24 실패. 원인 ① choose의 카메라 미끄럼(.22초) 동안 ringTick이 메뉴를 매 프레임 따라 옮김 ② 항목 등장 `ringPop`이 transform을 덮어써 .22초 동안 항목이 가운데에서 바깥으로 날아감(누를 자리가 움직이고 번쩍임).
+- ringTick: camGlide 중에는 도착 카메라(gx,gy) 기준 자리에 바로 고정, 반올림·3px 미만 변화 무시, `ring.hold`(메뉴 위 pointerdown~pointerup) 동안 위치 고정, --R 값 캐시(`ring.R`). openRing이 ring.x/y/R 초기화. ringPop은 `scale:.82`+투명도만(.14초, transform을 건드리지 않음).
+- `tests/ring-tap-glide.cjs`(고른 뒤 0~500ms 터치·마우스 24번 전부 성공, 고치기 전 실패 확인).
