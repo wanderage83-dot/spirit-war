@@ -590,3 +590,6 @@
 - `EXILE`[{inc1,cost1},{inc .6,cost 1.5,'쫓기는 몸'},{inc .8,cost 1.25,'쫓기는 몸 · 주작의 몰래 보급'}]. foodRate(표시·HUD)와 updateEconomy(실제 수입)에 inc를 곱하고, `rcost(r)`가 충원 비용(기존 r.cost 7곳: 버튼 비활성·표시·자동 판단·train). queue에는 낸 값(cost:rcost(r))을 저장해 취소·전멸 반환이 낸 만큼. 레시피 원본은 바꾸지 않는다(재시작 누적 없음).
 - mercy: shaken 첫머리에서 적 일반병이 hp0이면 `fled`(항복, 35% 확률로 「항복」 라벨), 적 사기 감소 k×1.6. 승리 조건(rout 3)은 그대로라 더 빨리 무너진다.
 - 브리핑 줄 「⚠ 쫓기는 몸…」「🕊 항복 받기」, goalBanner 아래 줄에 효과 문구. 저장 구조 불변. `tests/exile-mercy.cjs`.
+
+## 인물 소개는 평생 한 번 · 2026-11-11
+- 사용자 「한 번이라도 나온 인물 소개는 두 번 다시 나오지 않게」. 기존 R.saga.met(이야기별 저장)에 더해 브라우저 전체 기록 localStorage `spiritwar-met-ever-v1`(`metEver`·`metEverAdd`, try/catch). vnIntroCheck가 셋 중 하나라도 있으면 건너뛰고, vnIntroStart가 기록한다. 새 게임·다른 갈래·다른 저장에서도 다시 안 나온다. 검사에서 소개를 다시 보려면 그 키를 지운다(vn-intro는 R.saga.met을 비울 때 함께 지움, 새 게임·다른 갈래 검사 추가).
