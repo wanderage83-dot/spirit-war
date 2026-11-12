@@ -608,3 +608,6 @@
 - 사용자 「여전히 종종 메뉴가 번쩍이며 안 눌림」. 재현: 부대를 고른 직후 0~0.16초에 원형 메뉴 항목을 누르면 휴대폰 11/24·PC 15/24 실패. 원인 ① choose의 카메라 미끄럼(.22초) 동안 ringTick이 메뉴를 매 프레임 따라 옮김 ② 항목 등장 `ringPop`이 transform을 덮어써 .22초 동안 항목이 가운데에서 바깥으로 날아감(누를 자리가 움직이고 번쩍임).
 - ringTick: camGlide 중에는 도착 카메라(gx,gy) 기준 자리에 바로 고정, 반올림·3px 미만 변화 무시, `ring.hold`(메뉴 위 pointerdown~pointerup) 동안 위치 고정, --R 값 캐시(`ring.R`). openRing이 ring.x/y/R 초기화. ringPop은 `scale:.82`+투명도만(.14초, transform을 건드리지 않음).
 - `tests/ring-tap-glide.cjs`(고른 뒤 0~500ms 터치·마우스 24번 전부 성공, 고치기 전 실패 확인).
+
+## 대화 배경 장소 맞춤 · 2026-11-12
+- 사용자 「7장 남화 국경 대화가 왕성 배경」: 줄거리 개편 뒤 배경이 옛 설정으로 남은 장면을 대사 내용으로 다시 고름. c7 pre·post palace→forest(남화 숲 국경), c10 pre palace→frontier(포위된 청룡성 밖), c11 pre→frontier·post→camp(현무 연구소 구출), c13 post→camp(그날 밤 염산), x7 pre→frontier·post→camp. 군주 시점(pov)·c10 post(성 안)·c16·x1 post·x9 pre는 왕성 그대로. 사신기.md 무대 표기 동기화.
