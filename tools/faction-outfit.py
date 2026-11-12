@@ -6,6 +6,7 @@
 게임은 FACTION_OUTFIT=true일 때 fcSrc()로 fc/<원래 경로>를 읽는다. false로 두면 원래 그림.
 
 사용: python3 tools/faction-outfit.py            # 전부 다시 만들기
+      python3 tools/faction-outfit.py --only bai         # 한 진영만
       python3 tools/faction-outfit.py --sheet out.png   # 비교 시트만
 """
 import os, sys, glob
@@ -62,6 +63,8 @@ HEAD = {'hoyeon': .4, 'sayul': .4, 'biyeon': .36, 'bai-ruler': .4, 'eunrang': .3
 
 
 def recolor(im, f, name='', head=None):
+  if f == 'bai' and head is None:
+    return recolor_bai(im, name)
   """머리(그림 위쪽 head 비율)는 그대로, 그 아래 몸에서 피부·진한 갈색(말·가죽·나무)·금을 뺀 천을 진영색으로."""
   im = im.convert('RGBA'); a = np.asarray(im).astype(float) / 255
   rgb, al = a[..., :3], a[..., 3]
@@ -102,6 +105,36 @@ def recolor(im, f, name='', head=None):
   return Image.fromarray((np.clip(res, 0, 1) * 255 + .5).astype(np.uint8), 'RGBA')
 
 
+def recolor_bai(im, name=''):
+  """백호: 머리·얼굴·머리카락만 남기고 옷·갑옷·장식을 모두 하양으로(노랑·주황·갈색 천도 바랜다). 말 탄 인물은 말도 흰말로."""
+  im = im.convert('RGBA'); a = np.asarray(im).astype(float) / 255
+  rgb, al = a[..., :3], a[..., 3]
+  h, s, v = rgb2hsv(rgb); hd = h * 360; vis = al > .05
+  ys = np.where(vis.any(1))[0]
+  top, bot = (ys[0], ys[-1]) if len(ys) else (0, al.shape[0] - 1)
+  hh = max(bot - top, 1)
+  yy = np.arange(al.shape[0])[:, None] * np.ones((1, al.shape[1]))
+  if name in MOUNTED:   # 말 머리가 사람 머리 높이까지 올라오므로 사람 머리 둘레만 남긴다
+    xx = np.arange(al.shape[1])[None, :] * np.ones((al.shape[0], 1))
+    band = vis[top:int(top + hh * .14)]; cx = np.where(band.any(0))[0].mean() if band.any() else al.shape[1] / 2
+    inh = (yy < top + hh * .42) & (np.abs(xx - cx) < hh * .21)
+    red = ((hd < 8) | (hd > 330)) & (s >= .45)
+    hair = ((v < .55) & ~red) | ((hd >= 8) & (hd <= 34) & (s >= .3) & (v < .7))
+    face = (hd >= 5) & (hd <= 45) & (s >= .05) & (s <= .62) & (v >= .5)
+    wgt = np.where(inh & (hair | face), 0, 1.)
+    cloth = vis & (wgt > 0) & (v >= .1) & ~((v < .3) & (s < .5))
+  else:
+    hy = top + hh * HEAD.get(name, .36); ramp = hh * .05
+    wgt = np.clip((yy - hy) / max(ramp, 1), 0, 1)
+    skin = (hd >= 0) & (hd <= 42) & (s >= .08) & (s <= .62) & (v >= .58)
+    cloth = vis & (wgt > 0) & (v >= .1) & ~((v < .3) & (s < .5)) & ~(skin & (yy < top + hh * .62) & (s < .45))
+  S, V = s.copy(), v.copy()
+  S[cloth] = s[cloth] * .1; V[cloth] = np.clip(.42 + v[cloth] * .7, 0, 1)
+  out = hsv2rgb(h, S, V); w = (wgt * cloth)[..., None]
+  out = rgb * (1 - w) + out * w
+  return Image.fromarray((np.clip(np.concatenate([out, al[..., None]], -1), 0, 1) * 255 + .5).astype(np.uint8), 'RGBA')
+
+
 def targets():
   for n, (f, vn, face) in CHARS.items():
     yield f, 'characters/pixel/%s.webp' % n
@@ -112,9 +145,11 @@ def targets():
     yield f, vn
 
 
-def build():
+def build(only=None):
   n = 0
   for f, rel in targets():
+    if only and f != only:
+      continue
     src = os.path.join(ROOT, rel); dst = os.path.join(ROOT, 'fc', rel)
     if not os.path.exists(src):
       print('없음', rel); continue
@@ -145,4 +180,4 @@ if __name__ == '__main__':
     p = sys.argv[sys.argv.index('--sheet') + 1]
     sheet(p, sys.argv[sys.argv.index('--sheet') + 2] if len(sys.argv) > sys.argv.index('--sheet') + 2 else 'pixel')
   else:
-    build()
+    build(sys.argv[sys.argv.index('--only') + 1] if '--only' in sys.argv else None)
