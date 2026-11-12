@@ -129,6 +129,10 @@ RIDER_POLY = {
 SCARF_X = {'sayul': {'fr': (0, 162), 'fl': (92, 256), 'br': (0, 142), 'bl': (78, 220), 'vn': (0, 300)}}
 
 
+# 호연은 갑옷·말이 같은 갈색이라 몸통 윤곽을 칠하면 말까지 얼룩진다. 사람에게만 있는 빨강 망토만 하양으로.
+CAPE_ONLY = {'hoyeon'}
+
+
 def _white(rgb, h, s, v, al, cloth, wgt):
   S, V = s.copy(), v.copy()
   S[cloth] = s[cloth] * .1; V[cloth] = np.clip(.42 + v[cloth] * .7, 0, 1)
@@ -149,7 +153,8 @@ def recolor_bai(im, name='', key='fr'):
   yy = np.arange(al.shape[0])[:, None] * np.ones((1, al.shape[1]))
   dark = (v < .3) & (s < .5)
   if name in RIDER_POLY:
-    m = Image.new('L', im.size, 0); ImageDraw.Draw(m).polygon(RIDER_POLY[name].get(key, RIDER_POLY[name]['fr']), fill=255)
+    m = Image.new('L', im.size, 0)
+    if name not in CAPE_ONLY: ImageDraw.Draw(m).polygon(RIDER_POLY[name].get(key, RIDER_POLY[name]['fr']), fill=255)
     zone = np.asarray(m) > 0
     red = ((hd < 10) | (hd > 340)) & (s >= .5) & (v >= .3); scarf = (hd >= 22) & (hd <= 36) & (s >= .64) & (v >= .5)
     xx = np.arange(al.shape[1])[None, :] * np.ones((al.shape[0], 1))
