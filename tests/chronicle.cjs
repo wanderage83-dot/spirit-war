@@ -5,7 +5,7 @@ const menu=await p.evaluate(()=>({h:$('#rmodal h3')?.textContent,fit:(m=>m.scrol
 await p.evaluate(()=>{startNewRealm();prologueEnd()});await p.waitForTimeout(300);
 const r=await p.evaluate(async side=>{const wait=t=>new Promise(r=>setTimeout(r,t));const flush=async()=>{for(let k=0;k<40;k++){if(VN){VN.o.choices?vnStop():vnStop(true);await wait(5);continue}const g=document.querySelector('#saga-next,#chron-go');if(g){g.click();await wait(5);continue}break}};
 const log=[],shots=[];let clash=null,guard=0;closeModal();sagaAfterChapter();await flush();
-while(guard++<40){const n=chronNext();if(!n)break;if(n.length>1){clash={modal:!!document.querySelector('.chron-pick'),opts:document.querySelectorAll('.chron-side').length,fits:(m=>m.scrollHeight<=m.clientHeight+1)(document.querySelector('#rmodal .scroll'))};chronPick(side);closeModal()}
+while(guard++<40){const n=chronNext();if(!n)break;if(n.length>1){clash={modal:!!document.querySelector('.chron-pick'),opts:document.querySelectorAll('.chron-side').length,fits:(m=>m.scrollHeight<=m.clientHeight+1)(document.querySelector('#chronscreen .chron-tl'))};chronPick(side);closeModal()}
 const id=chronNext().length>1?side:chronNext()[0];const c=sagaCh(id);if(!c||!chapterOpen(c))return{err:'not open '+id+' route '+ROUTE,log};log.push(ROUTE[0]+':'+id);if(c.choices){R.saga.choices[c.id]=c.choices[0][0]}battleCfg={...battleCfg,campaign:{saga:id}};sagaBattleDone(true);await flush();if(R.over)break}
 const q=chronR('qing'),x=chronR('xuan');return{log,clash,over:R.over,route:ROUTE,qc:q.saga.cleared.length,xc:x.saga.cleared.length,xover:x.over,qlv:q.saga.heroes.o_hero?.lv,xlv:x.saga.heroes.o_hero?.lv,key:SAVE_KEY,saved:!!localStorage.getItem(CHRON_KEY)}},side);
 assert(!r.err,JSON.stringify(r));
