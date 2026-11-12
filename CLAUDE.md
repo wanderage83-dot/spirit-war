@@ -614,3 +614,8 @@
 
 ## 백호 옷 하양 · 2026-11-12
 - 사용자 「백호 인물 일부가 노랑·주황, 흰 옷으로」: 이전 규칙은 갈색·주황 천과 말 탄 인물의 따뜻한 색을 남겨 사율(주황 목도리·누런 말)·호연(갈색 가죽)이 그대로였다. `tools/faction-outfit.py`의 `recolor_bai`: 강현·은랑은 머리 위쪽 비율만 남기고 피부·어두운 외곽선 외 전부 하양(채도×.1, 밝기 .42+.7v), 말 탄 호연·사율은 (2026-11-12 후속 「말은 원래 색으로, 사람 옷만」) 말과 옷 색이 겹쳐 색으로 못 가르므로 `RIDER_POLY`(그림별 사람 몸통 윤곽, 픽셀 fr·fl·br·bl·대화 vn, 걷기 프레임은 같은 방향 윤곽)를 손으로 잡아 그 안만 하양, 진한 빨강 망토·주황 목도리는 윤곽 밖(그림 위 60%, 사율은 `SCARF_X`로 말 머리 쪽 제외)도 하양. 말은 원래 색. `--only bai`로 백호 84장만 다시 만듦. 원본·다른 진영 불변, 되돌리기는 기존대로 FACTION_OUTFIT=false.
+
+## 연대기 화면·장 제목 연출·옛 저장 무시 · 2026-11-12
+- 사용자 「청명·현무를 돌아가며, 이전 세이브 무시, 청명|현무 두 칸 장 목록에 연출, 장 대화 전 제목 연출, 골라서 따로 진행 없음, 맞붙을 때 편만 고름」. `CHRON_KEY` v1→`spiritwar-chronicle-v2`(옛 저장 전부 무시). 시작 메뉴의 「예전 저장」 줄 삭제, resumeRealmSave는 CHRON 고정, 부팅 때 저장이 없거나 chron이 아니면 newChronicle. HELP[0] 문구 갱신.
+- `openTimeline(o)`({mode:'start'|'step'|'clash'|'view', done, next, onGo, K}): 모달에 `.chron-tl`·`.ctl-cols`(qing·xuan 열, `chronRowsOf`, 창 높이로 행 수 K를 정하고 넘치면 K−1로 다시 그림, 「⋯ 앞/뒤 n장」). 순서: 열·행 등장 → .52초 `stamped`(끝낸 장 `.ctl-seal`「完」) → .98초 SVG `.ctl-link` 붓줄(stroke-dashoffset) → 1.7초 `arrived`(다음 장 빛·문구·단추). 동작 줄이기·view는 즉시. 단추: step/start/view `#chron-go`, clash는 `.chron-pick .chron-side`(chronPick). `chronStep`이 장마다 열고(다른 갈래면 chronSwap 먼저), `chronClash(ids)`=clash 화면, worldIntro 끝·이어하기에서 start. `chronLastId`(sagaBattleDone이 기록). 안내판 「📜 연대기」·메뉴 「사신전기 연대기」.
+- `chapterCard(c,then)`(#chapcard, z 95): startChapter→chapterCard→`startChapter0`(옛 본문). 초상·「○○의 이야기」·「제n장」·제목(clip 펼침)·붓선·막·지역, 2.7초 자동(동작 줄이기 1.3초)·누르기/Enter/Esc로 넘김. `CHAPTER_CARD=false`면 바로 대화(dialogue-stage 검사). `tests/timeline-card.cjs`, chronicle 검사 키 v2.

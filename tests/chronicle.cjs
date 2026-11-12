@@ -11,7 +11,7 @@ const q=chronR('qing'),x=chronR('xuan');return{log,clash,over:R.over,route:ROUTE
 assert(!r.err,JSON.stringify(r));
 const want=['c1','x1','c2',side,'c4','x3','c5','c6','x4','c7','x5','c8','c9','x6','c10','x7','c11','c12','x8','c13','x9','c14','c15','x10','c16'];assert.deepEqual(r.log.map(s=>s.slice(2)),want);
 assert(r.log.every(s=>s[0]===(s[2]==='x'?'x':'q')),'각 장은 자기 군주 갈래에서');assert.equal(r.qc,16);assert.equal(r.xc,10);assert.equal(r.over,'win');assert.equal(r.route,'qing');assert(!r.xover,'현무 마지막 장은 게임을 끝내지 않음');
-assert(r.clash.modal&&r.clash.opts===2&&r.clash.fits,JSON.stringify(r.clash)+'흑수 편 선택 창');assert.equal(r.key,'spiritwar-chronicle-v1');assert(r.saved);
+assert(r.clash.modal&&r.clash.opts===2&&r.clash.fits,JSON.stringify(r.clash)+'흑수 편 선택 창');assert.equal(r.key,'spiritwar-chronicle-v2');assert(r.saved);
 assert.equal(menu.h,'사신전기');assert(menu.fit,'시작 메뉴 무스크롤');assert.equal(menu.rows[0],'사신전기');
 // 이어하기: 저장을 다시 불러와도 두 갈래 유지
 const res=await p.evaluate(()=>{localStorage.removeItem(CHRON_KEY);startNewRealm();prologueEnd();R.saga.cleared.push('c1');saveRealm();resumeRealmSave(CHRON_KEY);return{route:ROUTE,twin:R.twin?.saga.route,chron:R.chron,turn:!!document.querySelector('#chron-go')}});
