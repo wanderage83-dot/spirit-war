@@ -4,6 +4,7 @@ You are making game art for a Korean fantasy strategy game. Each attached image 
 
 ## Style rules (apply to every image)
 - Exactly the same character as the reference: same face, hairstyle, outfit, armor, weapon, colors and cute chibi SD (2–3 heads tall) proportions.
+- **Keep the reference colors exactly.** The references are already in each nation's color: Azure Dragon (Cheongmyeong, Unhak, Dansim, Mukcheol) = blue clothes, Black Tortoise (Seojin, Seolhwa, Yeonbaek, Dogyeom) = dark navy/black clothes, White Tiger (Ganghyeon, Hoyeon, Eunrang, Sayul) = white clothes, Vermilion Bird (Yeonhwa, Biyeon, Hongyeom, Haerin) = red clothes. Ghost King side (Gwiwang, Heukcheol, Mujin, Baekryun) keeps its own colors. Every new direction and walk frame must use the same clothing colors as its reference. The nation list is only a hint; when in doubt copy the reference (e.g. Hoyeon keeps brown leather armor with a white cape).
 - Anime illustration, clean dark-brown outlines, soft cel shading, bright colors. NOT pixel art, NOT photo, NOT 3D.
 - 45-degree diagonal view, seen slightly from above (isometric game camera), same as the reference.
 - Never mirror the character: the weapon stays in the same hand as in the reference.
