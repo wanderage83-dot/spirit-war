@@ -17,7 +17,7 @@ ctx.drawImage=orig;backArt.clear();
 // 대화 SD는 원본 그림을 쓴다
 vnPlay([['o_muk','시험']],{});await new Promise(r=>setTimeout(r,400));const vn=[...document.querySelectorAll('#vn img')].map(i=>i.src);window.closeVN?.();
 return{srcs,rulers,front,up,down,brief,vn,files:await Promise.all(srcs.concat(rulers).map(s=>fetch(s).then(r=>r.ok)))}});
-const ill=s=>/(xuan-ruler|seolhwa|yeonbaek|dogyeom)\.webp/.test(s);assert(r.srcs.length>=15&&r.srcs.every(s=>s.includes('/characters/pixel/')!==ill(s)),JSON.stringify(r.srcs));assert(r.rulers.every(s=>s.includes('/characters/pixel/')!==ill(s)),JSON.stringify(r.rulers));assert(r.files.every(Boolean));
+assert(r.srcs.length>=15&&r.srcs.every(s=>s.includes('/characters/pixel/')),JSON.stringify(r.srcs));assert(r.rulers.every(s=>s.includes('/characters/pixel/')),JSON.stringify(r.rulers));assert(r.files.every(Boolean));
 for(const l of r.front){assert(l.length===1&&l[0].src.includes('/characters/pixel/')&&l[0].smooth===false&&!l[0].back,JSON.stringify(r.front))}
 assert(r.up[2]===true&&r.up[3]===true&&r.up.slice(0,2).every(l=>l[0].back&&l[0].smooth===false),JSON.stringify(r.up));
 assert(r.down[2]===false&&r.down[3]===false&&r.down.slice(0,2).every(l=>!l[0].back),JSON.stringify(r.down));
