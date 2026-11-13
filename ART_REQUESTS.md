@@ -768,6 +768,9 @@ Canva 크레딧이 없어 `tools/pixel-walk.py`로 장수 20명×4방향×4동�
 - [ ] 80장(2단계): 네 칸 발 높이·머리 높이 일정, 발이 번갈아 나감
 - [ ] 기병(호연·사율): 말 전체가 보이고 기수와 같은 방향
 
+### 한 번에 맡기기
+- ChatGPT·Codex에 넘길 영어 지시서: `art-requests/request-10-brief.md`(이 요청을 그대로 옮긴 것, 20명 표·방향·저장 이름·작업 순서 포함). 원본 20장을 파일 이름대로 첨부하고 「Follow the attached brief. Start with character 1 and continue.」라고 보내면 된다.
+
 ### 게임에 넣기(그림이 오면 Claude가 처리)
 - PNG를 아무 폴더에 올리고 「올렸다」고 알려 준다. Claude가 흰 배경 제거·자르기·높이 맞춤 후 `characters/illust/dir/<파일 이름>/<방향>.webp`·`characters/illust/walk/<파일 이름>/<방향>-1..4.webp`로 저장하고, 발 위치를 재고, 진영색 사본(`tools/faction-outfit.py`)을 다시 만들고, 전장 장수 그림을 일러스트로 교체하며 도트 경로(`PIXEL_LEADERS`·`characters/pixel/`)를 끈다.
 - 1단계만 먼저 와도 방향 그림은 교체할 수 있다(걷기는 몸 기우뚱으로 대신). 2단계까지 오면 걷기 프레임도 쓴다.
