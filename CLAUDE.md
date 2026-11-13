@@ -625,3 +625,4 @@
 
 ## 진영색 행군 먼지 · 2026-11-12
 - 사용자 「부대가 이동할 때 뒤에 고유 색 흙먼지, 청룡 파랑·주작 빨강」. `TRAIL_COL`{qing #4fa6ff, zhu #ff5a3c, xuan #3c4a6a, bai #f6f2e6, gui #9a6ad8}·`TRAIL_ON`. `unitFac(u)`: 적은 battleCfg.faction(없으면 tintFaction), 아군은 부대 장수(groupLeaderId)의 characterInfo faction, 군주·없으면 갈래 진영. `trailTick(u,dt,dx,dy,sp)`를 facingFromMotion의 footfall 옆에서 실제 이동(sp≥MOVE_FACE)일 때 호출: 초당 병사 3.2·장수 6·기병 9개(속도/40 배, 최대 1.6), 진행 반대쪽 18(기병 34) 뒤에 fx dust `tr:1`·col. 화면 밖·건물·수레·rReduced 제외, `trailN`(drawGroundFx가 매 프레임 세어 다시 맞춤) 260 상한. drawGroundFx가 tr이면 진영색 덩어리 3개+흰 하이라이트(알파 .62)로 그린다. 판정·저장 불변. `tests/faction-trail.cjs`.
+- 2026-11-13 후속(「흙먼지 더 크고 잘 보이게」): 반지름 (13+p·28)×s(이전 11+22), 크기 병사 .72·장수 .95·기병 1.25, 수명 .85/기병 1.1초, 알파 .72에서 줄어듦, 아래에 어두운 그림자(.3)를 깔아 바닥과 대비. 더 키운 시험(18+34, 알파 .85)은 부대가 파란 구름 덩어리처럼 덮여 버렸다.
