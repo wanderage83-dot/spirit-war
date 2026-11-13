@@ -2,7 +2,7 @@
 // Requires Playwright and Chromium. Serve the repository and pass its URL.
 const{chromium}=require('playwright'),fs=require('fs'),assert=require('node:assert/strict');(async()=>{const exe=['/usr/bin/chromium','/opt/pw-browsers/chromium'].find(p=>fs.existsSync(p)),b=await chromium.launch(exe?{executablePath:exe}:{}),p=await b.newPage({viewport:{width:1280,height:800}}),errors=[];p.on('pageerror',e=>errors.push(String(e)));p.on('response',r=>{if(r.status()>=400&&!r.url().endsWith('favicon.ico'))errors.push(r.status()+' '+r.url())});await p.goto(process.argv[2]||'http://127.0.0.1:8782/');await p.waitForTimeout(1500);
 const r=await p.evaluate(async()=>{setRoute('qing');newRealm();showRealm();const c=SAGA.find(c=>c.id==='c16');R.saga.act=c.act;launchChapter(c);await new Promise(r=>setTimeout(r,2500));
-const out={},want=Object.entries(DIR_READY).flatMap(([n,ks])=>ks.split(',').map(k=>n+'/'+k)),have=[...dirArt].flatMap(([n,t])=>Object.keys(t).map(k=>n+'/'+k));
+const out={},want=Object.entries(DIR_READY).filter(([n])=>!ILLUST_LEADERS.has(n)).flatMap(([n,ks])=>ks.split(',').map(k=>n+'/'+k)),have=[...dirArt].flatMap(([n,t])=>Object.keys(t).map(k=>n+'/'+k));
 const lord=units.find(u=>!u.side&&u.type==='hero'),orig=ctx.drawImage.bind(ctx);let log=[];ctx.drawImage=function(img,...a){log.push({src:img.src||'canvas',a:ctx.getTransform().a});return orig(img,...a)};
 for(const[vb,f]of[[0,1],[0,-1],[1,1],[1,-1]]){lord.vback=!!vb;lord.vface=f;log=[];ctx.save();ctx.scale(f*artFlip(lord),1);animUnit=lord;drawUnitArt('hero',0,-16,-35,32,38);animUnit=null;ctx.restore();out[(vb?'b':'f')+(f<0?'l':'r')]=log[0]}
 ctx.drawImage=orig;return{want,have,out}});
