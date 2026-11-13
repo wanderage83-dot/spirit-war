@@ -705,3 +705,69 @@ Canva 크레딧이 없어 `tools/pixel-walk.py`로 장수 20명×4방향×4동�
 - 귀왕 3지역도 HD 지역에 넣고, theme `gui`에서는 `GUI_HD` 표로 `qing-*` 키를 짝 `gui-*`로 바꿔 쓴다(바닥 패턴·소품·폐가·절벽 면). 그림이 없으면 예전 잿빛 코드 그림으로 돌아간다. 귀왕 지역의 전장 색(덤불·들판 옅은 색)은 청룡 공통이 아니라 귀왕 팔레트를 쓴다.
 - 소품 발 위치는 칸마다 아래 15% 알파 평균으로 다시 쟀다(`GUI_PROP_FOOT`). 폐가는 밑끝 992에 맞춰 세운다. 절벽 면은 전달된 측정값(아랫선 −0.6439x+676.27, x333~690)을 `HD_CLIFF_GUI`에 넣어 0.707로 기울여 붙이고, 그림이 청룡보다 키가 커 높이 배율을 .53으로 맞췄다(병사 1.5명 정도).
 - 충돌·사격 차단·길찾기 불변(`tests/hd-cliff.cjs`·`tests/hd-common.cjs`가 그림을 빼고 만든 격자와 비교). 휴대폰 화면에서 망자군이 잿빛 바닥 위에서 또렷이 보이는 것을 확인했다.
+
+---
+
+## 요청 10 · 장수 20명 일러스트 4방향·걷기(도트 폐기용) — 상태: 그림 대기 (2026-11-13)
+
+### 왜 필요한가
+전장 장수는 지금 도트 그림(`characters/pixel/…`)으로 4방향·걷기를 한다. 사용자 결정: **도트를 폐기하고 대화 화면의 일러스트로 통일**한다. 그런데 대화 일러스트는 한 사람당 앞 비스듬한 한 장뿐이라 뒤돌아선 모습·걷는 동작이 없다. 그래서 같은 일러스트 화풍으로 나머지 방향과 걷기를 새로 그린다. 그림이 모두 오면 Claude가 한 번에 교체하고 도트 경로를 끈다(그 전까지 게임은 도트 그대로).
+
+### 공통 규칙
+- **원본 일러스트를 꼭 첨부**한다(아래 표의 경로). 같은 인물의 다른 각도여야 한다: 얼굴·머리 모양·옷·갑옷·무기·색·SD 비율 동일. 진영색(청룡 파랑 등)은 게임이 나중에 입히므로 **원본 색 그대로** 그린다.
+- 화풍: 대화 화면과 같은 귀여운 SD(이등신~삼등신) 애니메이션 일러스트, 짙은 갈색 외곽선, 부드러운 셀 셰이딩. **도트·사진풍·3D 금지.**
+- 배경 **완전 투명**(안 되면 흰 단색). 그림자·바닥·글자·테두리 없음. 한 명만(기병은 말과 함께), 전신, 발·말발굽이 잘리지 않게.
+- 45도 대각선 시점, 살짝 위에서. **좌우를 뒤집은 그림 금지**: 무기를 든 손이 원본과 같은 손.
+- 크기: 원본과 같은 비율로, 서 있는 키가 원본과 같게(게임이 높이를 맞추지만 차이가 크면 어색하다).
+
+### 1단계 · 방향 그림 60장 (20명 × 3방향)
+원본이 오른쪽을 보면 원본=**fr**(앞-오른쪽)이고 **fl·br·bl**을, 원본이 왼쪽을 보면 원본=**fl**이고 **fr·br·bl**을 그린다. 표의 「원본 방향」은 게임 등록값 기준이다. 그릴 때 원본이 실제로 반대쪽을 보는 것 같으면 원본과 **반대 쪽 앞모습 1장 + 뒤 2장**을 그리면 된다(받은 뒤 Claude가 방향을 다시 잰다).
+
+| 인물 | 소속 | 원본(첨부) | 파일 이름 | 원본 방향 | 그릴 방향 |
+|---|---|---|---|---|---|
+| 청명 | qing 군주 | `hero.webp` | `hero` | 오른쪽 | fl·br·bl |
+| 서진 | xuan 군주 | `characters/xuan-ruler.webp` | `xuan-ruler` | 오른쪽 | fl·br·bl |
+| 강현 | bai 군주 | `characters/bai-ruler.webp` | `bai-ruler` | 오른쪽 | fl·br·bl |
+| 연화 | zhu 군주 | `characters/zhu-ruler.webp` | `zhu-ruler` | 왼쪽 | fr·br·bl |
+| 귀왕 | gui 군주 | `characters/gui-ruler.webp` | `gui-ruler` | 왼쪽 | fr·br·bl |
+| 운학 | 청룡 | `characters/unhak.webp` | `unhak` | 오른쪽 | fl·br·bl |
+| 단심 | 청룡 | `characters/dansim.webp` | `dansim` | 오른쪽 | fl·br·bl |
+| 묵철 | 청룡 | `characters/mukcheol.webp` | `mukcheol` | 오른쪽 | fl·br·bl |
+| 설화 | 현무 | `characters/factions/seolhwa.webp` | `seolhwa` | 오른쪽 | fl·br·bl |
+| 연백 | 현무 | `characters/factions/yeonbaek.webp` | `yeonbaek` | 오른쪽 | fl·br·bl |
+| 도겸 | 현무 | `characters/factions/dogyeom.webp` | `dogyeom` | 왼쪽 | fr·br·bl |
+| 호연 | 백호(기병) | `characters/hoyeon.webp` | `hoyeon` | 오른쪽 | fl·br·bl |
+| 은랑 | 백호 | `characters/factions/eunrang.webp` | `eunrang` | 오른쪽 | fl·br·bl |
+| 사율 | 백호(기병) | `characters/factions/sayul.webp` | `sayul` | 오른쪽 | fl·br·bl |
+| 비연 | 주작 | `characters/biyeon.webp` | `biyeon` | 오른쪽 | fl·br·bl |
+| 홍염 | 주작 | `characters/factions/hongyeom.webp` | `hongyeom` | 오른쪽 | fl·br·bl |
+| 해린 | 주작 | `characters/factions/haerin.webp` | `haerin` | 오른쪽 | fl·br·bl |
+| 흑철 | 귀왕군 | `characters/factions/heukcheol.webp` | `heukcheol` | 오른쪽 | fl·br·bl |
+| 무진 | 귀왕군 | `characters/factions/mujin.webp` | `mujin` | 오른쪽 | fl·br·bl |
+| 백륜 | 통일파 | `characters/factions/baekryun.webp` | `baekryun` | 왼쪽 | fr·br·bl |
+
+방향 문구(`{방향}` 자리):
+- **fr** → `turned to face the viewer's RIGHT: front three-quarter view at 45 degrees, face and chest visible, looking toward the lower right`
+- **fl** → `turned to face the viewer's LEFT: front three-quarter view at 45 degrees, face and chest visible, looking toward the lower left`
+- **br** → `seen from behind at a 45-degree back diagonal, body turned away from the viewer toward the upper RIGHT, back of the head visible`
+- **bl** → `seen from behind at a 45-degree back diagonal, body turned away from the viewer toward the upper LEFT, back of the head visible`
+
+프롬프트(원본 1장 첨부 + 방향마다 한 번):
+> The same character as the attached image, {방향}. Full body, same face, hairstyle, outfit, armor, weapon, colors and cute chibi SD proportions as the reference; the weapon stays in the same hand as in the reference (do not mirror the character). If the character rides a horse, the whole horse is visible and turns the same way. Clean dark-brown outlines, soft cel shading, bright colors, anime illustration (not pixel art). Single character only, transparent background, no shadow, no ground, no text, nothing cropped.
+
+저장: `<파일 이름>-<방향>.png` (예: `seolhwa-bl.png`, `zhu-ruler-fr.png`).
+
+### 2단계 · 걷기 4동작 80장 (20명 × 4방향, 한 장에 4칸)
+1단계 그림(같은 방향)과 원본을 함께 첨부하고, 한 방향당 **가로 4칸 한 장**으로 그린다: 1 오른발 앞·2 모음·3 왼발 앞·4 모음. 네 칸 모두 같은 크기·같은 발 높이·같은 머리 높이. 기병은 말의 네 다리 걸음.
+> A 4-frame walk cycle sheet of the same character, {방향}, four poses side by side in equal cells left to right: right foot forward, feet together, left foot forward, feet together. Same size, same ground line and same head height in every cell. (나머지는 1단계 프롬프트의 「Full body, …」 문장 그대로)
+
+저장: `<파일 이름>-<방향>-walk.png` (방향 fr·fl·br·bl 네 장씩, 원본 방향 포함).
+
+### 확인 기준
+- [ ] 60장(1단계): 원본과 같은 인물, 방향이 맞음(fl은 얼굴이 왼쪽 아래, br·bl은 뒤통수가 보이고 각각 오른쪽·왼쪽 위로 향함), 무기 손 같음, 전신·투명
+- [ ] 80장(2단계): 네 칸 발 높이·머리 높이 일정, 발이 번갈아 나감
+- [ ] 기병(호연·사율): 말 전체가 보이고 기수와 같은 방향
+
+### 게임에 넣기(그림이 오면 Claude가 처리)
+- PNG를 아무 폴더에 올리고 「올렸다」고 알려 준다. Claude가 흰 배경 제거·자르기·높이 맞춤 후 `characters/illust/dir/<파일 이름>/<방향>.webp`·`characters/illust/walk/<파일 이름>/<방향>-1..4.webp`로 저장하고, 발 위치를 재고, 진영색 사본(`tools/faction-outfit.py`)을 다시 만들고, 전장 장수 그림을 일러스트로 교체하며 도트 경로(`PIXEL_LEADERS`·`characters/pixel/`)를 끈다.
+- 1단계만 먼저 와도 방향 그림은 교체할 수 있다(걷기는 몸 기우뚱으로 대신). 2단계까지 오면 걷기 프레임도 쓴다.

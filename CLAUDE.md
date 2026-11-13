@@ -636,3 +636,6 @@
 ## 명령 손맛 · 2026-11-13
 - 사용자 「3번 명령 손맛도」. `CMD_CUE`(false면 끔)·`CMD_SHOUT`(행동 종류→말풍선 문구)·`CMD_FLAG`(move·retreat·sneak·garrison·ambush·fire·water)·`CMD_HIT`(attack·engage·charge·lure). apConfirm 첫머리 `cmdCue(g,a)`: 부대원 `cmdAt`=지금+장수와 거리/320×140ms(최대 140), 장수 `shout{text,t,hit}`, 지점이 있으면 `ap.cmdFlag{x,y,t,hit}`. 모두 performance.now 기준이라 계획 중(시간 정지)에도 움직인다.
 - `cmdPose(u,o)`: soldier가 beatPose 결과에 곱한다(계획 중에도 적용). .38초: 앞 28% 웅크림 y×.89, 뒤 72% y×1.07·위 8px(장수 1.25배). `drawCmdFx()`(drawStratGround 뒤, 지면층): 깃발이 .22초 동안 위에서 떨어져 꽂히고 착지 순간 눌림, 지면 물결 고리+점 6개, 1.1초부터 .5초 페이드(1.6초에 null). 이동 계열 금색 ▲, 공격 계열 붉은 ⚔. `drawCmdBubbles()`(drawSquadFlags 직전, upright): 장수 머리 위 둥근 말풍선(글씨 14/viewScale를 15~38로), 튀어나오며 커졌다 제자리, .95초부터 페이드, 1.3초에 삭제. 동작 줄이기면 움찔·낙하·튀어나옴 없음(말풍선·깃발은 정지 상태로 표시). 판정·AP·저장 불변. `tests/command-cue.cjs`.
+
+## 장수 일러스트 4방향 요청(요청 10) · 2026-11-13
+- 사용자 「모든 전장 캐릭터 움직임·상하좌우를 대화 모드 그림 기준으로, 도트 폐기」 → 대화 일러스트는 한 방향 한 장뿐이라 선택지 중 「그림 요청서만 작성」. ART_REQUESTS 요청 10: 20명×3방향(60장, `<이름>-<방향>.png`) + 걷기 4칸 시트 20명×4방향(80장, `<이름>-<방향>-walk.png`). 넣을 경로 `characters/illust/dir/<이름>/<방향>.webp`·`characters/illust/walk/<이름>/<방향>-1..4.webp`. 그림이 오면 흰 배경 제거·높이·발 위치·진영색 사본을 만들고 장수 그림을 일러스트로 교체·PIXEL_LEADERS를 끈다. 그 전까지 게임은 도트 그대로(현무 4명 일러스트 시험은 사용자 요청으로 되돌림, 2075c39).
