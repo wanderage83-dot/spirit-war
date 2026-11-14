@@ -639,3 +639,12 @@
 
 ## 장수 일러스트 4방향 요청(요청 10) · 2026-11-13
 - 사용자 「모든 전장 캐릭터 움직임·상하좌우를 대화 모드 그림 기준으로, 도트 폐기」 → 대화 일러스트는 한 방향 한 장뿐이라 선택지 중 「그림 요청서만 작성」. ART_REQUESTS 요청 10: 20명×3방향(60장, `<이름>-<방향>.png`) + 걷기 4칸 시트 20명×4방향(80장, `<이름>-<방향>-walk.png`). 넣을 경로 `characters/illust/dir/<이름>/<방향>.webp`·`characters/illust/walk/<이름>/<방향>-1..4.webp`. 그림이 오면 흰 배경 제거·높이·발 위치·진영색 사본을 만들고 장수 그림을 일러스트로 교체·PIXEL_LEADERS를 끈다. 그 전까지 게임은 도트 그대로(현무 4명 일러스트 시험은 사용자 요청으로 되돌림, 2075c39).
+
+## 장수 일러스트 4방향 연결(요청 10) · 2026-11-14
+- 사용자 지시: 작업 브랜치 `art/request-10-standing-20`, **명시적 요청 전에는 main에 병합하지 않는다**(이 작업은 위 자동 병합 규칙의 예외). 걷기 시트는 만들지 않고 코드로.
+- 원본: `art-requests/request-10-standing/exports/<이름>/<이름>-<방향>.png`(보병 256, 기병 호연·사율·비연 384, 명세 exports/manifest.json). 상위 폴더 1254 원본은 보존용. `tools/illust-leaders.py`가 해시 확인 후 인물마다 네 방향 알파 합집합+2px 상자로 잘라 `characters/illust/dir/<이름>/<fr|fl|br|bl>.webp`(무손실, 4.5MB)를 만들고 `ILLUST_META={이름:[발x비율,발선y비율,머리위y비율]}`·`ILLUST_CAV` JS 한 줄을 출력한다(그림을 바꾸면 다시 실행해 index.html의 그 줄을 교체). 귀왕 발선은 명세대로 y=223.
+- 게임: `ILLUST_LEADERS`(주소 `?pixel=1`이면 false, 옛 도트·fc 경로 그대로)·`loadIllust`(loadDirArt에서, 켜져 있으면 도트 dir/walk 로드 생략)·`illustOf(src)`(walkKey로 방향)·`drawIllust(il,x,y,w,h,dark)`: 머리~발 = h×`ILLUST_BODY`(1, 즉 91.2), 발 기준점을 x+w/2·y+h에, 변환 a<0이면 되뒤집어 반전 없음, 보간 high. drawCompanionArt(id 있을 때만, 무명 병사 제외)·drawUnitArt 군주/적장이 맨 앞에서 사용. 흑화는 `illustDark` 캔버스. fcSrc(재채색) 미적용.
+- 코드 걸음: vmT>0·보병·동작 줄이기 아님이면 머리~발의 아래 24%를 발 x에서 좌우로 나눠 엉덩이 선 기준 전단(발끝 ±`ILLUST_STRIDE`.05×몸높이×sin(stp·π))과 디딤 발 들기(`ILLUST_LIFT`.03) 두 조각+몸통 한 조각. 기병은 1장. hasWalk는 보병 장수 true(soldier 코드 도약 작게), 기병 false.
+- 검사 `tests/illust-leaders.cjs`. 옛 도트 경로 검사 8개(battle-size·cast-deployment·dir-art·leader-walk·leader-facing·pixel-leaders·faction-outfit·sprite-anim)는 URL에 `?pixel=1`을 붙여 연다. 대화·인물첩·천하도 그림은 불변.
+- 그림 방향 의심(반전 금지라 그대로): mujin·heukcheol·yeonbaek fr이 왼쪽을 보는 듯, bai-ruler·baekryun fr은 fl과 거의 같은 정면.
+

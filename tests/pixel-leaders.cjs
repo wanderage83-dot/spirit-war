@@ -1,6 +1,7 @@
 // 장수급 도트 그림: 전투에서만 characters/pixel을 쓰고(대화 SD는 원본), 보간 없이 그리며, 뒷모습(BACK_READY)은 화면 위쪽으로 움직일 때만 쓴다.
+// 옛 도트 장수 경로 검사: 일러스트 장수(ILLUST_LEADERS)를 끈 ?pixel=1로 연다.
 // Requires Playwright and Chromium. Serve the repository and pass its URL.
-const{chromium}=require('playwright'),assert=require('node:assert/strict');(async()=>{const b=await chromium.launch({executablePath:'/usr/bin/chromium'}),p=await b.newPage({viewport:{width:1280,height:800}}),errors=[];p.on('pageerror',e=>errors.push(String(e)));await p.goto(process.argv[2]||'http://127.0.0.1:8797/');await p.waitForTimeout(1500);
+const{chromium}=require('playwright'),assert=require('node:assert/strict');(async()=>{const b=await chromium.launch({executablePath:'/usr/bin/chromium'}),p=await b.newPage({viewport:{width:1280,height:800}}),errors=[];p.on('pageerror',e=>errors.push(String(e)));await p.goto((process.argv[2]||'http://127.0.0.1:8797/').replace(/\/?$/,'/?pixel=1'));await p.waitForTimeout(1500);
 const r=await p.evaluate(async()=>{setRoute('qing');newRealm();showRealm();const c=SAGA.find(c=>c.id==='c16');R.saga.act=c.act;launchChapter(c);await new Promise(r=>setTimeout(r,1500));
 const ids=Object.keys({...COMPANIONS,...FACTION_CHARACTERS}),srcs=ids.map(id=>companionArt.get(id)?.src||'').filter(Boolean),rulers=FKEYS.map(f=>rulerArt.get(f)?.src||'');
 const lord=units.find(u=>!u.side&&u.type==='hero'),led=units.find(u=>!u.side&&u.commander&&u.type!=='hero');

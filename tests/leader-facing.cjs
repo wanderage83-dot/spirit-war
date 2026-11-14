@@ -1,8 +1,9 @@
 // Regression: Mujin/Heukcheol base art faces right. Check actual rendered files, not only direction flags.
+// 옛 도트 장수 경로 검사: 일러스트 장수(ILLUST_LEADERS)를 끈 ?pixel=1로 연다.
 const {chromium}=require('playwright'),assert=require('node:assert/strict');
 (async()=>{
  const b=await chromium.launch({executablePath:'/usr/bin/chromium'}),p=await b.newPage({viewport:{width:1280,height:800}}),errors=[];
- p.on('pageerror',e=>errors.push(e.message));await p.goto(process.argv[2]||'http://127.0.0.1:8806/');
+ p.on('pageerror',e=>errors.push(e.message));await p.goto((process.argv[2]||'http://127.0.0.1:8806/').replace(/\/?$/,'/?pixel=1'));
  await p.waitForFunction(()=>['mujin','heukcheol'].every(n=>['fr','fl','br','bl'].every(k=>leaderWalk.get(n)?.[k]?.length===4))&&companionArt.has('o_mujin')&&companionArt.has('o_heuk'));
  const result=await p.evaluate(()=>{
   const equal=(a,b)=>{if(a.width!==b.width||a.height!==b.height)return false;const c=document.createElement('canvas');c.width=a.width;c.height=a.height;const x=c.getContext('2d');x.drawImage(a,0,0);const one=x.getImageData(0,0,c.width,c.height).data;x.clearRect(0,0,c.width,c.height);x.drawImage(b,0,0);const two=x.getImageData(0,0,c.width,c.height).data;return one.every((v,i)=>v===two[i])};

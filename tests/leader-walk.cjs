@@ -1,7 +1,8 @@
 // 장수 걷기 프레임(characters/pixel/walk/<이름>/<방향>-1..4.webp, PIXEL_WALK_READY): 20명×4방향 로드, 걷는 동안만 걸음 위상으로 순환,
+// 옛 도트 장수 경로 검사: 일러스트 장수(ILLUST_LEADERS)를 끈 ?pixel=1로 연다.
 // 방향별·뒤집기 상쇄·적장(진영 군주) 포함, 멈추면 정지 그림, 흑화는 제외, 네 프레임 발 위치 동일.
 // Requires Playwright and Chromium. Serve the repository and pass its URL.
-const{chromium}=require('playwright'),fs=require('fs'),assert=require('node:assert/strict');(async()=>{const exe=['/usr/bin/chromium','/opt/pw-browsers/chromium'].find(p=>fs.existsSync(p)),b=await chromium.launch(exe?{executablePath:exe}:{}),p=await b.newPage({viewport:{width:1280,height:800}}),errors=[];p.on('pageerror',e=>errors.push(String(e)));p.on('response',r=>{if(r.status()>=400&&!r.url().endsWith('favicon.ico'))errors.push(r.status()+' '+r.url())});await p.goto(process.argv[2]||'http://127.0.0.1:8782/');await p.waitForTimeout(1500);
+const{chromium}=require('playwright'),fs=require('fs'),assert=require('node:assert/strict');(async()=>{const exe=['/usr/bin/chromium','/opt/pw-browsers/chromium'].find(p=>fs.existsSync(p)),b=await chromium.launch(exe?{executablePath:exe}:{}),p=await b.newPage({viewport:{width:1280,height:800}}),errors=[];p.on('pageerror',e=>errors.push(String(e)));p.on('response',r=>{if(r.status()>=400&&!r.url().endsWith('favicon.ico'))errors.push(r.status()+' '+r.url())});await p.goto((process.argv[2]||'http://127.0.0.1:8782/').replace(/\/?$/,'/?pixel=1'));await p.waitForTimeout(1500);
 const r=await p.evaluate(async()=>{setRoute('qing');newRealm();showRealm();const c=SAGA.find(c=>c.id==='c16');R.saga.act=c.act;launchChapter(c);await new Promise(r=>setTimeout(r,4000));
  const want=Object.entries(PIXEL_WALK_READY).flatMap(([n,ks])=>ks.split(',').map(k=>n+'/'+k)),have=[...leaderWalk].flatMap(([n,t])=>Object.keys(t).map(k=>n+'/'+k));
  const feet=[...leaderWalk].flatMap(([n,t])=>Object.values(t).map(s=>new Set(s.map(m=>m.foot)).size));
