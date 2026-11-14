@@ -666,3 +666,6 @@
 - 원인: battleImpactTick의 부대 알림은 체력 35% 이하에서 「위기」를 한 번 내고 armed로 막아(55% 넘게 회복해야 풀림) 이어진 전멸은 알리지 않았다. 
 - battleImpactTick 끝: `B.live`(살아 있는 아군 squad의 중심·대표 유닛·g)를 매 틱 기록, 기록된 squad에 살아 있는 유닛이 없으면 `squadWiped(sq,info)` 한 번(`B.wiped`, 군주 부대 g0 제외 — 군주 전사는 패배). say 「○○ 부대 전멸」, cine.last 무시하고 `cineEvent(...,4)`(그 자리 클로즈업·슬로우), battleImpactEmit '전멸'(띠, 우선순위 9, 게이트 무시), powerBanner 붉은 「✖ ○○ 부대 전멸」. `WIPE_CUE=false`면 기록만. reset이 battleImpacts를 새로 만들어 초기화. `tests/squad-wipe.cjs`.
 
+## 게임 속도 1.3배 · 2026-11-14
+- 사용자 「게임 속도를 1.3배로」: `GAME_SPEED=1.3`(loop 앞 상수). loop가 playing일 때만 advancePhase에 dt×슬로우모션×GAME_SPEED를 넘긴다(12초 턴이 실제 약 9.2초). 계획 중 정지·AP·판정·턴 길이 수치는 그대로이고, 화면 연출(클로즈업 유지·띠·배너·말풍선·먼지 수명)은 실제 시간 그대로. 테스트의 advancePhase 직접 호출은 영향 없음. `tests/game-speed.cjs`(효과 시간 대비 1.2~1.4배, 계획 중 0).
+
