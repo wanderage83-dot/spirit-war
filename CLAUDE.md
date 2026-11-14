@@ -662,3 +662,7 @@
 - 후속: 붕괴 후퇴(아군 m.fall)에서 처음 거리 `u.routD0`보다 80 넘게 멀어지는 병사는 멈춤(막힌 길 옆걸음으로 711px 달아나던 것, no-flee 272). facingFromMotion `MOVE_EMA` 8→12, `MOVE_LOCK` .55→.45, 빠른 이동 좌우 `MOVE_LOCK_FAST`.3·앞뒤 `MOVE_LOCK_BACK`.35(이전 앞뒤는 빠르면 잠금 없음, 깜박임 .219→.149, 좌우 불일치 2.09→1.37%). battle-forms 야전은 「양쪽 체력 감소+전사 합 >0」으로(적이 빨리 와 3턴 적 전사 0이 나옴).
 - 전체 84개 중 asset-library(이전 속도에서도 실패, 기존 문제)만 실패. vn-intro는 동시 실행 부하로 가끔 실패, 단독 통과.
 
+## 아군 부대 전멸 클로즈업·소식 · 2026-11-14
+- 원인: battleImpactTick의 부대 알림은 체력 35% 이하에서 「위기」를 한 번 내고 armed로 막아(55% 넘게 회복해야 풀림) 이어진 전멸은 알리지 않았다. 
+- battleImpactTick 끝: `B.live`(살아 있는 아군 squad의 중심·대표 유닛·g)를 매 틱 기록, 기록된 squad에 살아 있는 유닛이 없으면 `squadWiped(sq,info)` 한 번(`B.wiped`, 군주 부대 g0 제외 — 군주 전사는 패배). say 「○○ 부대 전멸」, cine.last 무시하고 `cineEvent(...,4)`(그 자리 클로즈업·슬로우), battleImpactEmit '전멸'(띠, 우선순위 9, 게이트 무시), powerBanner 붉은 「✖ ○○ 부대 전멸」. `WIPE_CUE=false`면 기록만. reset이 battleImpacts를 새로 만들어 초기화. `tests/squad-wipe.cjs`.
+
