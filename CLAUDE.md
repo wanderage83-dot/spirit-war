@@ -683,3 +683,8 @@
 - 배포 보호: 기본 「all_except_custom_domains」라 vercel.app 주소도 Vercel 로그인이 필요했다 → `ssoProtection.deploymentType='prod_deployment_urls_and_all_previews'`로 바꿔 대표 주소(spirit-war.vercel.app 등 프로덕션 도메인)는 공개, 해시 붙은 개별 배포 주소·미리보기는 로그인 필요.
 - 새 버전 반영: main에 올린 뒤 같은 create_deployment(gitSource ref main, target production)를 다시 부른다(자동 배포 연결 여부는 확인 안 함). 이 컨테이너 네트워크는 vercel.app을 막아 확인은 web_fetch_vercel_url로 한다.
 
+
+## 인물 드라마 보강 · 2026-11-14
+- 사용자 요청 「청명과 두 여인의 로맨스, 서진과 백호 여왕의 이루어질 수 없는 사랑, 서진 부하의 짝사랑, 청명의 고뇌, 친구의 배신, 백호 내부 갈등, 주작 통일파·주전파 갈등」. SAGA_Q/X에 대사 124줄을 기존 줄 사이에 끼워 넣고(기존 줄·순서 보존), 새 군주 시점 3장면(c6 백호 강현·c8 주작 갈라진 조정·x8 백호 강현, 각 povTitle), 인연 2편(BONDS_Q `bi` 「등불 신호」 after c8, BONDS_X `seol2` 「돌려주지 못한 열쇠」 after x9). 전투·합류·선택·생사·보상·장 순서 불변. 9판/x6 전 「아버지」 없음, 남성 해요체 없음, 새 줄 55자 이하.
+- 친구의 배신 = 운학이 어촌에서 노헌에게 보낸 흑수 편지(c2 복선·c3 칙서·c7 거짓말·c10 폭로·c12 화해, x1 도겸). STORY.md 「유일한 반전」 문구를 「정체를 숨긴 적의 첩자 같은 추가 반전은 없다」로 고침(운학은 첩자가 아니라 신뢰를 배반한 친구). 정본은 STORY.md 「인물 드라마 보강」.
+- 사신기.md는 같은 위치에 줄을 끼워 넣었다(새 시점 블록·인연 2절). dialogue-stage의 청명편 군주 시점 수 8→10. 대화 1068줄×3화면 무스크롤 통과.
