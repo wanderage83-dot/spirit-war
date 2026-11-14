@@ -652,3 +652,8 @@
 - `PROLOGUE_X` 3장(story/xuan-prologue-{1-north-gate,2-seal-research,3-dawn}.webp). `openPrologue(done,list)`: list 없고 done 없으면(메뉴 「서막 다시보기」) PROLOGUE+PROLOGUE_X 6장, done 있으면 PROLOGUE. `prologue.list`로 쪽수·끝 판정. `chronStep`이 현무로 넘어간 뒤 `xuanIntroDue()`(ROUTE xuan·현무 완료 0·`storyState().xintro` 없음)면 PROLOGUE_X 뒤 연대기 화면. worldIntro는 현무로 시작하면 두 서막을 이어 재생. xintro는 story에 새 불린(옛 저장은 없음=아직 안 봄, 현무 완료가 있으면 안 나옴).
 - 관리자 메뉴: `#admin-route`(청명/현무)·`fill(r,sel)`(SAGA_Q/X 목록)·`jump(id,route)`·`build(route,index,bond)`(앞선 판 재구성, 옛 jump 본문)·`swap()`(천하도에서 chronSwap, 진행 그대로)·`bondOf()`. CHRON이면 jump가 CHRONICLE에서 그 판 앞 항목들의 다른 갈래 id 수만큼 다른 갈래를 build해 R.twin(chron)으로 붙인다. restore는 백업의 saga.route로 resumeRealmSave. tests/xuan-prologue-admin.cjs, chronicle·timeline-card는 현무 서막을 한 번 거친다.
 
+## 땅에 붙은 건물 → 서 있는 그림 · 2026-11-14
+- 사용자 「일부 건물이 여전히 땅에 붙은 그림」. 찾은 것: 보급소(서·동·본진, drawSupplySites가 지면층에 사각형·삼각형), 영맥(작은 마름모), 귀왕 외 적 거점(납작한 판+집), 목표 구조물(c10 유도 깃발·c15 관문·x10 북문이 보라색 「귀」 판에 「귀문 · undefined 증원」 글자).
+- hdOn()이면: draw의 objs에 보급소 `drawDepotSite`(supply-depot, 확보 시 초록 깃발)·영맥 `drawSpiritStone`(gui-prop-talisman 2번 칸 비석+확보 시 빛)을 깊이 정렬로 넣고 지면층 도형은 그리지 않음. 보급소 글씨 y−172. drawCitadel은 `<faction>-outpost`가 없으면 ally-keep(폭 330)+진영 깃발 둘. drawGate 첫머리 `drawObjective(u)`(u.objective): 「깃발」이면 talisman 1번 칸(높이 190)+빛, 그 밖은 pass-gate(폭 250), 체력 막대·「목표 · 이름 n%」. HD가 없을 때의 옛 그림도 글자는 고침. 판정·충돌 불변. `tests/structure-art.cjs`.
+- 남은 것: c10 가운데 유도 깃발이 군량소 자리와 겹친다(목표 위치 GOAL_SPOTS center = 군량소 근처, 기존 배치).
+
