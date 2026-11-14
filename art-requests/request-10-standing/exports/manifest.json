@@ -1,0 +1,3220 @@
+{
+  "count": 80,
+  "infantry_size": [
+    256,
+    256
+  ],
+  "cavalry_size": [
+    384,
+    384
+  ],
+  "cavalry": [
+    "biyeon",
+    "hoyeon",
+    "sayul"
+  ],
+  "measurement_alpha_threshold": 16,
+  "method": "Uniform scale and translation only; premultiplied-alpha bicubic sampling. Shared head-to-foot height per character; footprint-centered anchor. No mirroring, recoloring, repainting or walk frames.",
+  "images": [
+    {
+      "name": "hero",
+      "direction": "fr",
+      "file": "exports/hero/hero-fr.png",
+      "source": "hero/hero-fr.png",
+      "size": [
+        256,
+        256
+      ],
+      "mode": "RGBA",
+      "sha256": "727c30f391c5c15a8265a245929b3f01721179086f45412ed039467965ff265d",
+      "source_sha256": "62d408886a07400944807df97cc3684d576fa73e7465bc8003e383d16d7571aa",
+      "source_visible_bbox_alpha16": [
+        29,
+        98,
+        1230,
+        1185
+      ],
+      "visible_bbox_alpha16": [
+        41,
+        72,
+        226,
+        239
+      ],
+      "source_head_top_y": 98,
+      "source_foot_anchor": [
+        591.5,
+        1184
+      ],
+      "target_foot_anchor": [
+        127.5,
+        239
+      ],
+      "display_head_to_foot_height": 167.2246,
+      "scale": 0.15398214150850226,
+      "translation": [
+        36.41956329772091,
+        56.68514445393333
+      ]
+    },
+    {
+      "name": "hero",
+      "direction": "fl",
+      "file": "exports/hero/hero-fl.png",
+      "source": "hero/hero-fl.png",
+      "size": [
+        256,
+        256
+      ],
+      "mode": "RGBA",
+      "sha256": "b55e74d0cc61f5a64872c2dc4da5baf9a0726ed2b2e6fa715f7bf658526c88c8",
+      "source_sha256": "5aa2756e4017d62abd16826ff437f30e5abce1bc1470cff8dbae2f8a0cca631e",
+      "source_visible_bbox_alpha16": [
+        23,
+        54,
+        1211,
+        1164
+      ],
+      "visible_bbox_alpha16": [
+        68,
+        72,
+        247,
+        239
+      ],
+      "source_head_top_y": 54,
+      "source_foot_anchor": [
+        420.5,
+        1163
+      ],
+      "target_foot_anchor": [
+        127.5,
+        239
+      ],
+      "display_head_to_foot_height": 167.2246,
+      "scale": 0.15078864353312305,
+      "translation": [
+        64.09337539432175,
+        63.63280757097789
+      ]
+    },
+    {
+      "name": "hero",
+      "direction": "br",
+      "file": "exports/hero/hero-br.png",
+      "source": "hero/hero-br.png",
+      "size": [
+        256,
+        256
+      ],
+      "mode": "RGBA",
+      "sha256": "222506eba3adee67e17aee3ebd6b9d867d016e338f2ef9b9abcac5981112b90d",
+      "source_sha256": "d4d17569a6b6c0dc4e7e1a595466ca7e6da95e042f5f501a9dae6164b409ee79",
+      "source_visible_bbox_alpha16": [
+        52,
+        107,
+        1213,
+        1163
+      ],
+      "visible_bbox_alpha16": [
+        47,
+        72,
+        231,
+        239
+      ],
+      "source_head_top_y": 107,
+      "source_foot_anchor": [
+        558.5,
+        1162
+      ],
+      "target_foot_anchor": [
+        127.5,
+        239
+      ],
+      "display_head_to_foot_height": 167.2246,
+      "scale": 0.1585067352400317,
+      "translation": [
+        38.97398836844229,
+        54.81517365108317
+      ]
+    },
+    {
+      "name": "hero",
+      "direction": "bl",
+      "file": "exports/hero/hero-bl.png",
+      "source": "hero/hero-bl.png",
+      "size": [
+        256,
+        256
+      ],
+      "mode": "RGBA",
+      "sha256": "179fe1a8d724fe170b143305985a9cf48eb68c750aa9d768c8bfa8194e39f6d4",
+      "source_sha256": "b051c7b0135e5759bdb29c9c8e083fe0bb3ac0d534602b3d463d091fe14effeb",
+      "source_visible_bbox_alpha16": [
+        45,
+        99,
+        1208,
+        1156
+      ],
+      "visible_bbox_alpha16": [
+        29,
+        72,
+        213,
+        239
+      ],
+      "source_head_top_y": 99,
+      "source_foot_anchor": [
+        667.0,
+        1155
+      ],
+      "target_foot_anchor": [
+        127.5,
+        239
+      ],
+      "display_head_to_foot_height": 167.2246,
+      "scale": 0.1583566341649938,
+      "translation": [
+        21.876125011949142,
+        56.09808753943216
+      ]
+    },
+    {
+      "name": "xuan-ruler",
+      "direction": "fr",
+      "file": "exports/xuan-ruler/xuan-ruler-fr.png",
+      "source": "xuan-ruler/xuan-ruler-fr.png",
+      "size": [
+        256,
+        256
+      ],
+      "mode": "RGBA",
+      "sha256": "74b6e5e2f1bb481a75de0de21b2ce55c3dec276a6f1d873b3a5692ee7d5205c8",
+      "source_sha256": "c77618ffbd8e9483b7ab5ae891fbaf7d1c8a9fe17e5fd465adf700acfabc9701",
+      "source_visible_bbox_alpha16": [
+        116,
+        13,
+        1132,
+        1214
+      ],
+      "visible_bbox_alpha16": [
+        37,
+        40,
+        205,
+        239
+      ],
+      "source_head_top_y": 15,
+      "source_foot_anchor": [
+        661.0,
+        1213
+      ],
+      "target_foot_anchor": [
+        127.5,
+        239
+      ],
+      "display_head_to_foot_height": 198.5689,
+      "scale": 0.1657503296763364,
+      "translation": [
+        17.93903208394164,
+        37.94485010260394
+      ]
+    },
+    {
+      "name": "xuan-ruler",
+      "direction": "fl",
+      "file": "exports/xuan-ruler/xuan-ruler-fl.png",
+      "source": "xuan-ruler/xuan-ruler-fl.png",
+      "size": [
+        256,
+        256
+      ],
+      "mode": "RGBA",
+      "sha256": "a9698383eefab4d144f208f5543c91f8f79486486c008ed735a72326b7fb2e2a",
+      "source_sha256": "e6c85b0f3ca7355ffaeb27b4f70ee2357d9efe20d7a906755ab4f2e9808a9027",
+      "source_visible_bbox_alpha16": [
+        64,
+        9,
+        1221,
+        1229
+      ],
+      "visible_bbox_alpha16": [
+        58,
+        40,
+        247,
+        239
+      ],
+      "source_head_top_y": 10,
+      "source_foot_anchor": [
+        490.0,
+        1228
+      ],
+      "target_foot_anchor": [
+        127.5,
+        239
+      ],
+      "display_head_to_foot_height": 198.5689,
+      "scale": 0.16302864938608458,
+      "translation": [
+        47.61596180081855,
+        38.80081855388815
+      ]
+    },
+    {
+      "name": "xuan-ruler",
+      "direction": "br",
+      "file": "exports/xuan-ruler/xuan-ruler-br.png",
+      "source": "xuan-ruler/xuan-ruler-br.png",
+      "size": [
+        256,
+        256
+      ],
+      "mode": "RGBA",
+      "sha256": "ee46ea8be3789b204910ba814d80474e081883b1586a9d7c565bba3faa973c52",
+      "source_sha256": "45acb69cdf2cbcb4ad75ebeb5ad1f3ec6284be3b865df18fc299e48b5e9980cb",
+      "source_visible_bbox_alpha16": [
+        83,
+        18,
+        1182,
+        1207
+      ],
+      "visible_bbox_alpha16": [
+        47,
+        42,
+        229,
+        239
+      ],
+      "source_head_top_y": 8,
+      "source_foot_anchor": [
+        570.5,
+        1206
+      ],
+      "target_foot_anchor": [
+        127.5,
+        239
+      ],
+      "display_head_to_foot_height": 198.5689,
+      "scale": 0.1657503296763364,
+      "translation": [
+        32.93943691965008,
+        39.105102410338304
+      ]
+    },
+    {
+      "name": "xuan-ruler",
+      "direction": "bl",
+      "file": "exports/xuan-ruler/xuan-ruler-bl.png",
+      "source": "xuan-ruler/xuan-ruler-bl.png",
+      "size": [
+        256,
+        256
+      ],
+      "mode": "RGBA",
+      "sha256": "e581407a66da5e53d67f056e48c9d8cb8605a59efcfdce1fefd2c296ce042c44",
+      "source_sha256": "6ba505af848df31e113faf22175b83cf33a0bc5dc3875e240fd109e19b01fb84",
+      "source_visible_bbox_alpha16": [
+        81,
+        18,
+        1136,
+        1221
+      ],
+      "visible_bbox_alpha16": [
+        41,
+        40,
+        215,
+        239
+      ],
+      "source_head_top_y": 20,
+      "source_foot_anchor": [
+        604.5,
+        1220
+      ],
+      "target_foot_anchor": [
+        127.5,
+        239
+      ],
+      "display_head_to_foot_height": 198.5689,
+      "scale": 0.16547407912687584,
+      "translation": [
+        27.470919167803558,
+        37.121623465211485
+      ]
+    },
+    {
+      "name": "bai-ruler",
+      "direction": "fr",
+      "file": "exports/bai-ruler/bai-ruler-fr.png",
+      "source": "bai-ruler/bai-ruler-fr.png",
+      "size": [
+        256,
+        256
+      ],
+      "mode": "RGBA",
+      "sha256": "93c754636cf5b13c5f607a4ad822f2f230044e959f67fe719167fd0734272d46",
+      "source_sha256": "419d307f09be3d3d1bb33ac0ee91ba145af7b4c398079aff8282366b9e621289",
+      "source_visible_bbox_alpha16": [
+        92,
+        10,
+        1095,
+        1235
+      ],
+      "visible_bbox_alpha16": [
+        30,
+        24,
+        206,
+        239
+      ],
+      "source_head_top_y": 10,
+      "source_foot_anchor": [
+        645.5,
+        1234
+      ],
+      "target_foot_anchor": [
+        127.5,
+        239
+      ],
+      "display_head_to_foot_height": 215.04,
+      "scale": 0.17568627450980392,
+      "translation": [
+        14.094509803921568,
+        22.203137254901947
+      ]
+    },
+    {
+      "name": "bai-ruler",
+      "direction": "fl",
+      "file": "exports/bai-ruler/bai-ruler-fl.png",
+      "source": "bai-ruler/bai-ruler-fl.png",
+      "size": [
+        256,
+        256
+      ],
+      "mode": "RGBA",
+      "sha256": "3d2bf8c58088e949b8a702ab61eacba7ededfe17c282b32c25d0bbcb8fa598e1",
+      "source_sha256": "d6967535765f89a8ed04eb5c4959155998195e60c4e6373b85e06c59357de788",
+      "source_visible_bbox_alpha16": [
+        175,
+        8,
+        1015,
+        1241
+      ],
+      "visible_bbox_alpha16": [
+        37,
+        24,
+        184,
+        239
+      ],
+      "source_head_top_y": 10,
+      "source_foot_anchor": [
+        692.0,
+        1240
+      ],
+      "target_foot_anchor": [
+        127.5,
+        239
+      ],
+      "display_head_to_foot_height": 215.04,
+      "scale": 0.17482926829268292,
+      "translation": [
+        6.518146341463421,
+        22.211707317073177
+      ]
+    },
+    {
+      "name": "bai-ruler",
+      "direction": "br",
+      "file": "exports/bai-ruler/bai-ruler-br.png",
+      "source": "bai-ruler/bai-ruler-br.png",
+      "size": [
+        256,
+        256
+      ],
+      "mode": "RGBA",
+      "sha256": "d88032ccfe0ac9a47edadc98824adf620c4085119ef841931463f97be94f8407",
+      "source_sha256": "10ddfc3dae91f94929c91e1b63072a656ec068d5f2d2b175ccbf351a777ffd14",
+      "source_visible_bbox_alpha16": [
+        98,
+        19,
+        1212,
+        1240
+      ],
+      "visible_bbox_alpha16": [
+        47,
+        23,
+        244,
+        239
+      ],
+      "source_head_top_y": 26,
+      "source_foot_anchor": [
+        554.5,
+        1239
+      ],
+      "target_foot_anchor": [
+        127.5,
+        239
+      ],
+      "display_head_to_foot_height": 215.04,
+      "scale": 0.17727947238252267,
+      "translation": [
+        29.198532563891177,
+        19.350733718054414
+      ]
+    },
+    {
+      "name": "bai-ruler",
+      "direction": "bl",
+      "file": "exports/bai-ruler/bai-ruler-bl.png",
+      "source": "bai-ruler/bai-ruler-bl.png",
+      "size": [
+        256,
+        256
+      ],
+      "mode": "RGBA",
+      "sha256": "6dc92696422c87772ba51bcb2f7a43c5a3c079b0e83f90aea1f23d90c183d0c0",
+      "source_sha256": "e5f5b3bc22bcc9561e54ed00780d6c321cc3ab459f8260d66694c3e32effa64a",
+      "source_visible_bbox_alpha16": [
+        104,
+        15,
+        1120,
+        1241
+      ],
+      "visible_bbox_alpha16": [
+        35,
+        25,
+        213,
+        239
+      ],
+      "source_head_top_y": 10,
+      "source_foot_anchor": [
+        632.5,
+        1240
+      ],
+      "target_foot_anchor": [
+        127.5,
+        239
+      ],
+      "display_head_to_foot_height": 215.04,
+      "scale": 0.17482926829268292,
+      "translation": [
+        16.92048780487805,
+        22.211707317073177
+      ]
+    },
+    {
+      "name": "zhu-ruler",
+      "direction": "fr",
+      "file": "exports/zhu-ruler/zhu-ruler-fr.png",
+      "source": "zhu-ruler/zhu-ruler-fr.png",
+      "size": [
+        256,
+        256
+      ],
+      "mode": "RGBA",
+      "sha256": "2962aa7166a2368f73b0675a7406efbdebeeda8aab6bf94b17470f4e5eb4bcb3",
+      "source_sha256": "5c0b6a9b7c377cc58b225e09b79eff8e36823147deb28fea00e5e279d2aea4b5",
+      "source_visible_bbox_alpha16": [
+        94,
+        5,
+        1115,
+        1244
+      ],
+      "visible_bbox_alpha16": [
+        25,
+        25,
+        201,
+        239
+      ],
+      "source_head_top_y": 5,
+      "source_foot_anchor": [
+        687.5,
+        1243
+      ],
+      "target_foot_anchor": [
+        127.5,
+        239
+      ],
+      "display_head_to_foot_height": 213.7762,
+      "scale": 0.17267867334797288,
+      "translation": [
+        8.78341207326865,
+        24.360409028469718
+      ]
+    },
+    {
+      "name": "zhu-ruler",
+      "direction": "fl",
+      "file": "exports/zhu-ruler/zhu-ruler-fl.png",
+      "source": "zhu-ruler/zhu-ruler-fl.png",
+      "size": [
+        256,
+        256
+      ],
+      "mode": "RGBA",
+      "sha256": "10542cc56d191b36691f62ce7d07461b87f5804211ce90c2b6e739e963cd56af",
+      "source_sha256": "fb4a95dc3e9eba2bb660669289a21c9ddea8c6307c35822024e2454ae8e3d218",
+      "source_visible_bbox_alpha16": [
+        33,
+        4,
+        1170,
+        1249
+      ],
+      "visible_bbox_alpha16": [
+        27,
+        25,
+        223,
+        239
+      ],
+      "source_head_top_y": 5,
+      "source_foot_anchor": [
+        615.5,
+        1248
+      ],
+      "target_foot_anchor": [
+        127.5,
+        239
+      ],
+      "display_head_to_foot_height": 213.7762,
+      "scale": 0.17198406886950154,
+      "translation": [
+        21.6438056108218,
+        24.36388205086206
+      ]
+    },
+    {
+      "name": "zhu-ruler",
+      "direction": "br",
+      "file": "exports/zhu-ruler/zhu-ruler-br.png",
+      "source": "zhu-ruler/zhu-ruler-br.png",
+      "size": [
+        256,
+        256
+      ],
+      "mode": "RGBA",
+      "sha256": "0b466ebff96cbaa13795f004ea6b73a418214a5d60177b6e73fe5ec376eba44e",
+      "source_sha256": "96e5b046b927f15f5576fa1a6c18183f2dc14bfb8c43af95743356a89c86e68e",
+      "source_visible_bbox_alpha16": [
+        39,
+        17,
+        1228,
+        1213
+      ],
+      "visible_bbox_alpha16": [
+        34,
+        25,
+        247,
+        239
+      ],
+      "source_head_top_y": 17,
+      "source_foot_anchor": [
+        562.0,
+        1212
+      ],
+      "target_foot_anchor": [
+        127.5,
+        239
+      ],
+      "display_head_to_foot_height": 213.7762,
+      "scale": 0.17889221556886226,
+      "translation": [
+        26.96257485029942,
+        22.18263473053895
+      ]
+    },
+    {
+      "name": "zhu-ruler",
+      "direction": "bl",
+      "file": "exports/zhu-ruler/zhu-ruler-bl.png",
+      "source": "zhu-ruler/zhu-ruler-bl.png",
+      "size": [
+        256,
+        256
+      ],
+      "mode": "RGBA",
+      "sha256": "62ba6a7df8f905b83743eb1d72ee102c3e2b3d0e6dd912e2a743f3a63dfada03",
+      "source_sha256": "36adb050a659a322f6b126309c1998fa1b86e26465ef29e7d948305c248e9a11",
+      "source_visible_bbox_alpha16": [
+        60,
+        14,
+        1167,
+        1222
+      ],
+      "visible_bbox_alpha16": [
+        23,
+        25,
+        220,
+        239
+      ],
+      "source_head_top_y": 17,
+      "source_foot_anchor": [
+        649.0,
+        1221
+      ],
+      "target_foot_anchor": [
+        127.5,
+        239
+      ],
+      "display_head_to_foot_height": 213.7762,
+      "scale": 0.17755498139932757,
+      "translation": [
+        12.2668170718364,
+        22.205367711421047
+      ]
+    },
+    {
+      "name": "gui-ruler",
+      "direction": "fr",
+      "file": "exports/gui-ruler/gui-ruler-fr.png",
+      "source": "gui-ruler/gui-ruler-fr.png",
+      "size": [
+        256,
+        256
+      ],
+      "mode": "RGBA",
+      "sha256": "1a21613212a8852b753a0bc49bc559c67e271aaca0b406f1486cda357961ae31",
+      "source_sha256": "8dbfe4943a6308db81dfcb4e4973210d865c1e43ece925f40777c09170acf1e5",
+      "source_visible_bbox_alpha16": [
+        94,
+        2,
+        1150,
+        1247
+      ],
+      "visible_bbox_alpha16": [
+        38,
+        19,
+        220,
+        234
+      ],
+      "source_head_top_y": 5,
+      "source_foot_anchor": [
+        612.5,
+        1184
+      ],
+      "target_foot_anchor": [
+        127.5,
+        223
+      ],
+      "display_head_to_foot_height": 203.7542,
+      "scale": 0.17281951949376256,
+      "translation": [
+        21.648044310070432,
+        18.381688919385113
+      ]
+    },
+    {
+      "name": "gui-ruler",
+      "direction": "fl",
+      "file": "exports/gui-ruler/gui-ruler-fl.png",
+      "source": "gui-ruler/gui-ruler-fl.png",
+      "size": [
+        256,
+        256
+      ],
+      "mode": "RGBA",
+      "sha256": "0ecfdc576b6671f5dcd5d7bd1b7287c3006edb0dc0fe2207eea73a49955a39e6",
+      "source_sha256": "2852088be5dd57df0433c3aa8ab22faece8ab4934ef296d372cd5f76df78f798",
+      "source_visible_bbox_alpha16": [
+        30,
+        17,
+        1229,
+        1235
+      ],
+      "visible_bbox_alpha16": [
+        46,
+        19,
+        247,
+        223
+      ],
+      "source_head_top_y": 20,
+      "source_foot_anchor": [
+        519.0,
+        1234
+      ],
+      "target_foot_anchor": [
+        127.5,
+        223
+      ],
+      "display_head_to_foot_height": 203.7542,
+      "scale": 0.1678370786516854,
+      "translation": [
+        40.39255617977528,
+        15.88904494382021
+      ]
+    },
+    {
+      "name": "gui-ruler",
+      "direction": "br",
+      "file": "exports/gui-ruler/gui-ruler-br.png",
+      "source": "gui-ruler/gui-ruler-br.png",
+      "size": [
+        256,
+        256
+      ],
+      "mode": "RGBA",
+      "sha256": "ef4cf34812210abcf77db4ce0ad7879f4156323c3da6b1ddc3543b49272dc9d7",
+      "source_sha256": "f44bd2974b593242d2a2e00d4ccf37143dd6c6efa1a0e5179089fcb828eb6ae4",
+      "source_visible_bbox_alpha16": [
+        21,
+        8,
+        1243,
+        1225
+      ],
+      "visible_bbox_alpha16": [
+        40,
+        19,
+        244,
+        223
+      ],
+      "source_head_top_y": 8,
+      "source_foot_anchor": [
+        545.0,
+        1224
+      ],
+      "target_foot_anchor": [
+        127.5,
+        223
+      ],
+      "display_head_to_foot_height": 203.7542,
+      "scale": 0.16756103082495563,
+      "translation": [
+        36.17923820039918,
+        17.90529827025432
+      ]
+    },
+    {
+      "name": "gui-ruler",
+      "direction": "bl",
+      "file": "exports/gui-ruler/gui-ruler-bl.png",
+      "source": "gui-ruler/gui-ruler-bl.png",
+      "size": [
+        256,
+        256
+      ],
+      "mode": "RGBA",
+      "sha256": "2a2d5fab15139f92d3c78286e7db18e5cc96cb553b62ead2d18f4ce368708c0c",
+      "source_sha256": "8df6f6db65e7ff21fa45d268035af58175be4533c61e9dd0dd46b1d5fef96c50",
+      "source_visible_bbox_alpha16": [
+        17,
+        7,
+        1216,
+        1242
+      ],
+      "visible_bbox_alpha16": [
+        32,
+        19,
+        230,
+        223
+      ],
+      "source_head_top_y": 8,
+      "source_foot_anchor": [
+        594.5,
+        1241
+      ],
+      "target_foot_anchor": [
+        127.5,
+        223
+      ],
+      "display_head_to_foot_height": 203.7542,
+      "scale": 0.16525078141374377,
+      "translation": [
+        29.258410449529322,
+        17.923780265543968
+      ]
+    },
+    {
+      "name": "unhak",
+      "direction": "fr",
+      "file": "exports/unhak/unhak-fr.png",
+      "source": "unhak/unhak-fr.png",
+      "size": [
+        256,
+        256
+      ],
+      "mode": "RGBA",
+      "sha256": "23b2a0442c05965dc055573677920f05a4456f2436033f4a115e7d2dc5d07595",
+      "source_sha256": "e6cb7cc6a0b98fa8d0bb0886e949ec5b58c0ec3fd5c4f8937134165da67c4c50",
+      "source_visible_bbox_alpha16": [
+        231,
+        26,
+        1055,
+        1214
+      ],
+      "visible_bbox_alpha16": [
+        67,
+        26,
+        216,
+        239
+      ],
+      "source_head_top_y": 30,
+      "source_foot_anchor": [
+        566.0,
+        1213
+      ],
+      "target_foot_anchor": [
+        127.5,
+        239
+      ],
+      "display_head_to_foot_height": 212.7384,
+      "scale": 0.17982957422490994,
+      "translation": [
+        25.716460988700973,
+        20.86672646518423
+      ]
+    },
+    {
+      "name": "unhak",
+      "direction": "fl",
+      "file": "exports/unhak/unhak-fl.png",
+      "source": "unhak/unhak-fl.png",
+      "size": [
+        256,
+        256
+      ],
+      "mode": "RGBA",
+      "sha256": "68462d326cac1273fa13f53a37cedcab9f5f603accd5a3e6364c8907e97a03c1",
+      "source_sha256": "a42c7ff15926ba2e5ae6bd6d0308f766253b10255ae866c22445519e14d58370",
+      "source_visible_bbox_alpha16": [
+        114,
+        6,
+        1068,
+        1220
+      ],
+      "visible_bbox_alpha16": [
+        34,
+        24,
+        203,
+        239
+      ],
+      "source_head_top_y": 20,
+      "source_foot_anchor": [
+        640.0,
+        1219
+      ],
+      "target_foot_anchor": [
+        127.5,
+        239
+      ],
+      "display_head_to_foot_height": 212.7384,
+      "scale": 0.17742984679572016,
+      "translation": [
+        13.944898050739098,
+        22.71301675601714
+      ]
+    },
+    {
+      "name": "unhak",
+      "direction": "br",
+      "file": "exports/unhak/unhak-br.png",
+      "source": "unhak/unhak-br.png",
+      "size": [
+        256,
+        256
+      ],
+      "mode": "RGBA",
+      "sha256": "5245f883a7d1a12682f1f7c93aeb6445e0cb8dc8573f245835db9e6b94a6196d",
+      "source_sha256": "06f8fe95804622c2d87ae36ccfc1b10e258526a9f2fb89cbdaad1c839824fccb",
+      "source_visible_bbox_alpha16": [
+        192,
+        13,
+        1090,
+        1230
+      ],
+      "visible_bbox_alpha16": [
+        63,
+        25,
+        221,
+        239
+      ],
+      "source_head_top_y": 20,
+      "source_foot_anchor": [
+        555.5,
+        1229
+      ],
+      "target_foot_anchor": [
+        127.5,
+        239
+      ],
+      "display_head_to_foot_height": 212.7384,
+      "scale": 0.17596227155340652,
+      "translation": [
+        29.752958152082684,
+        22.7423682608634
+      ]
+    },
+    {
+      "name": "unhak",
+      "direction": "bl",
+      "file": "exports/unhak/unhak-bl.png",
+      "source": "unhak/unhak-bl.png",
+      "size": [
+        256,
+        256
+      ],
+      "mode": "RGBA",
+      "sha256": "165eecf0cf105695133ca5fbeb2e4fc3472455f49de7b828e926b9c96454ec19",
+      "source_sha256": "ebff80e90bacfdc5075239ea4c6c976aaf689407eb4bdc90dde675065ddedf21",
+      "source_visible_bbox_alpha16": [
+        174,
+        5,
+        1072,
+        1231
+      ],
+      "visible_bbox_alpha16": [
+        39,
+        8,
+        208,
+        239
+      ],
+      "source_head_top_y": 100,
+      "source_foot_anchor": [
+        645.0,
+        1230
+      ],
+      "target_foot_anchor": [
+        127.5,
+        239
+      ],
+      "display_head_to_foot_height": 212.7384,
+      "scale": 0.1882640586797066,
+      "translation": [
+        6.069682151589234,
+        7.435207823960866
+      ]
+    },
+    {
+      "name": "dansim",
+      "direction": "fr",
+      "file": "exports/dansim/dansim-fr.png",
+      "source": "dansim/dansim-fr.png",
+      "size": [
+        256,
+        256
+      ],
+      "mode": "RGBA",
+      "sha256": "35ee2bff358dcbdf2a31fb0bc05b17fd8199eedc1b74b2c31e1b5e1cc774043e",
+      "source_sha256": "0932ee193364a07cd761b0b98cd74924fdf773abe3f8e62fb8b33b614737e4f5",
+      "source_visible_bbox_alpha16": [
+        277,
+        31,
+        990,
+        1210
+      ],
+      "visible_bbox_alpha16": [
+        62,
+        9,
+        202,
+        239
+      ],
+      "source_head_top_y": 110,
+      "source_foot_anchor": [
+        610.0,
+        1209
+      ],
+      "target_foot_anchor": [
+        127.5,
+        239
+      ],
+      "display_head_to_foot_height": 215.04,
+      "scale": 0.1956687898089172,
+      "translation": [
+        8.142038216560508,
+        2.436433121019121
+      ]
+    },
+    {
+      "name": "dansim",
+      "direction": "fl",
+      "file": "exports/dansim/dansim-fl.png",
+      "source": "dansim/dansim-fl.png",
+      "size": [
+        256,
+        256
+      ],
+      "mode": "RGBA",
+      "sha256": "ace3c2f49a11a4eb2f71dcdd33f6eaa1f4c660e1c6e100587d19c418f543f282",
+      "source_sha256": "494840f1bf6f325f4fe9b401d9a70b02057408b423953e175d19da92e0b66419",
+      "source_visible_bbox_alpha16": [
+        274,
+        46,
+        1125,
+        1208
+      ],
+      "visible_bbox_alpha16": [
+        76,
+        18,
+        238,
+        239
+      ],
+      "source_head_top_y": 80,
+      "source_foot_anchor": [
+        544.5,
+        1207
+      ],
+      "target_foot_anchor": [
+        127.5,
+        239
+      ],
+      "display_head_to_foot_height": 215.04,
+      "scale": 0.19080745341614905,
+      "translation": [
+        23.60534161490685,
+        8.695403726708093
+      ]
+    },
+    {
+      "name": "dansim",
+      "direction": "br",
+      "file": "exports/dansim/dansim-br.png",
+      "source": "dansim/dansim-br.png",
+      "size": [
+        256,
+        256
+      ],
+      "mode": "RGBA",
+      "sha256": "a19b20030bbf13b61062fe95fc2629da29f82552a5f4698006a0c7a0e51b93b0",
+      "source_sha256": "b3718a9b73797a4b8e708ea874a88e748c4bf2f53e6f9837ce10da034b31e723",
+      "source_visible_bbox_alpha16": [
+        255,
+        32,
+        964,
+        1209
+      ],
+      "visible_bbox_alpha16": [
+        51,
+        11,
+        188,
+        239
+      ],
+      "source_head_top_y": 97,
+      "source_foot_anchor": [
+        649.5,
+        1208
+      ],
+      "target_foot_anchor": [
+        127.5,
+        239
+      ],
+      "display_head_to_foot_height": 215.04,
+      "scale": 0.19355535553555356,
+      "translation": [
+        1.7857965796579691,
+        5.185130513051291
+      ]
+    },
+    {
+      "name": "dansim",
+      "direction": "bl",
+      "file": "exports/dansim/dansim-bl.png",
+      "source": "dansim/dansim-bl.png",
+      "size": [
+        256,
+        256
+      ],
+      "mode": "RGBA",
+      "sha256": "6ac71cfb827e30200026df97b546b7f45b741fdcb836d4168cb72390069f4fcb",
+      "source_sha256": "6b612a9c18f6c02a83a9e2fdb6cd00228ded0305d4621be42e55b4ec9fe928c3",
+      "source_visible_bbox_alpha16": [
+        184,
+        42,
+        1108,
+        1210
+      ],
+      "visible_bbox_alpha16": [
+        52,
+        13,
+        230,
+        239
+      ],
+      "source_head_top_y": 97,
+      "source_foot_anchor": [
+        576.0,
+        1209
+      ],
+      "target_foot_anchor": [
+        127.5,
+        239
+      ],
+      "display_head_to_foot_height": 215.04,
+      "scale": 0.19338129496402878,
+      "translation": [
+        16.11237410071942,
+        5.202014388489204
+      ]
+    },
+    {
+      "name": "mukcheol",
+      "direction": "fr",
+      "file": "exports/mukcheol/mukcheol-fr.png",
+      "source": "mukcheol/mukcheol-fr.png",
+      "size": [
+        256,
+        256
+      ],
+      "mode": "RGBA",
+      "sha256": "1da46f68f86f47a2877e1d6f4f8495f26a0290898b2912e781fce17624c3de1e",
+      "source_sha256": "98529b31453b261a87956d7880c31e212104e970dbb7c1be741913c1fb0ad86a",
+      "source_visible_bbox_alpha16": [
+        108,
+        55,
+        1103,
+        1178
+      ],
+      "visible_bbox_alpha16": [
+        34,
+        31,
+        219,
+        239
+      ],
+      "source_head_top_y": 55,
+      "source_foot_anchor": [
+        610.0,
+        1177
+      ],
+      "target_foot_anchor": [
+        127.5,
+        239
+      ],
+      "display_head_to_foot_height": 207.7421,
+      "scale": 0.18515338805350476,
+      "translation": [
+        14.556433287362097,
+        21.074462261024905
+      ]
+    },
+    {
+      "name": "mukcheol",
+      "direction": "fl",
+      "file": "exports/mukcheol/mukcheol-fl.png",
+      "source": "mukcheol/mukcheol-fl.png",
+      "size": [
+        256,
+        256
+      ],
+      "mode": "RGBA",
+      "sha256": "28dc427468eee1bdc62faab44ba3c52b22bf8a80002ca40a3e9bcf262aa1be87",
+      "source_sha256": "d80223d3e17d15e1129649b49b648a056162db99fa130cabad77726618a6c50e",
+      "source_visible_bbox_alpha16": [
+        137,
+        13,
+        1037,
+        1198
+      ],
+      "visible_bbox_alpha16": [
+        50,
+        29,
+        210,
+        239
+      ],
+      "source_head_top_y": 25,
+      "source_foot_anchor": [
+        574.0,
+        1197
+      ],
+      "target_foot_anchor": [
+        127.5,
+        239
+      ],
+      "display_head_to_foot_height": 207.7421,
+      "scale": 0.17725435272699003,
+      "translation": [
+        25.75600153470772,
+        26.82653978579293
+      ]
+    },
+    {
+      "name": "mukcheol",
+      "direction": "br",
+      "file": "exports/mukcheol/mukcheol-br.png",
+      "source": "mukcheol/mukcheol-br.png",
+      "size": [
+        256,
+        256
+      ],
+      "mode": "RGBA",
+      "sha256": "30d505033f906688cd02f7006d8a6926a96cb28708d0b7ce2a71e9aac2a6f225",
+      "source_sha256": "47977569240a5c54a727eb553a1c0dc2e676f28421dd222e74af26a3e1a1fa65",
+      "source_visible_bbox_alpha16": [
+        42,
+        30,
+        1238,
+        1219
+      ],
+      "visible_bbox_alpha16": [
+        37,
+        30,
+        247,
+        239
+      ],
+      "source_head_top_y": 35,
+      "source_foot_anchor": [
+        559.5,
+        1218
+      ],
+      "target_foot_anchor": [
+        127.5,
+        239
+      ],
+      "display_head_to_foot_height": 207.7421,
+      "scale": 0.17560617193240263,
+      "translation": [
+        29.248346803820723,
+        25.111682586333586
+      ]
+    },
+    {
+      "name": "mukcheol",
+      "direction": "bl",
+      "file": "exports/mukcheol/mukcheol-bl.png",
+      "source": "mukcheol/mukcheol-bl.png",
+      "size": [
+        256,
+        256
+      ],
+      "mode": "RGBA",
+      "sha256": "d9120c6eb4660c7ca63efca0788ef9e1106b02ae087e184715ea812883f7d8d8",
+      "source_sha256": "aaf423633795d5ef7df2aa14e5bd8b04fa000a04af2c83a742bbaba11f6667f0",
+      "source_visible_bbox_alpha16": [
+        35,
+        27,
+        1169,
+        1219
+      ],
+      "visible_bbox_alpha16": [
+        22,
+        31,
+        220,
+        239
+      ],
+      "source_head_top_y": 30,
+      "source_foot_anchor": [
+        638.0,
+        1218
+      ],
+      "target_foot_anchor": [
+        127.5,
+        239
+      ],
+      "display_head_to_foot_height": 207.7421,
+      "scale": 0.17486708871719892,
+      "translation": [
+        15.934797398427094,
+        26.011885942451727
+      ]
+    },
+    {
+      "name": "seolhwa",
+      "direction": "fr",
+      "file": "exports/seolhwa/seolhwa-fr.png",
+      "source": "seolhwa/seolhwa-fr.png",
+      "size": [
+        256,
+        256
+      ],
+      "mode": "RGBA",
+      "sha256": "7dae73c1a1d677fde9045e971d1b7b57144c7df36b47bec625055cb8a18dfc7a",
+      "source_sha256": "efbd3ad7f260e369841b0c4e42eef42858bbe29a6abf598635b867c824d4b67b",
+      "source_visible_bbox_alpha16": [
+        115,
+        33,
+        1173,
+        1223
+      ],
+      "visible_bbox_alpha16": [
+        42,
+        24,
+        233,
+        239
+      ],
+      "source_head_top_y": 33,
+      "source_foot_anchor": [
+        587.0,
+        1222
+      ],
+      "target_foot_anchor": [
+        127.5,
+        239
+      ],
+      "display_head_to_foot_height": 215.04,
+      "scale": 0.18085786375105128,
+      "translation": [
+        21.336433978132902,
+        17.99169049621534
+      ]
+    },
+    {
+      "name": "seolhwa",
+      "direction": "fl",
+      "file": "exports/seolhwa/seolhwa-fl.png",
+      "source": "seolhwa/seolhwa-fl.png",
+      "size": [
+        256,
+        256
+      ],
+      "mode": "RGBA",
+      "sha256": "ae54ac785b3054a276428141b47704995c685621428d2db3cd84813d14adad22",
+      "source_sha256": "225a8810b85e9a87390ea97e11e0327bea45e272f2331fbc58170e7c5381b004",
+      "source_visible_bbox_alpha16": [
+        51,
+        24,
+        1175,
+        1231
+      ],
+      "visible_bbox_alpha16": [
+        22,
+        24,
+        222,
+        239
+      ],
+      "source_head_top_y": 24,
+      "source_foot_anchor": [
+        645.5,
+        1230
+      ],
+      "target_foot_anchor": [
+        127.5,
+        239
+      ],
+      "display_head_to_foot_height": 215.04,
+      "scale": 0.17830845771144277,
+      "translation": [
+        12.40189054726369,
+        19.680597014925382
+      ]
+    },
+    {
+      "name": "seolhwa",
+      "direction": "br",
+      "file": "exports/seolhwa/seolhwa-br.png",
+      "source": "seolhwa/seolhwa-br.png",
+      "size": [
+        256,
+        256
+      ],
+      "mode": "RGBA",
+      "sha256": "143e359e714b43dfca4a4ea8870175766d8eba91c910ea937deae98e47b3143e",
+      "source_sha256": "a739ea1b89529cba39ac0e5e2b741e47dc25ea4a0b90684bca7e7bcbf3c755af",
+      "source_visible_bbox_alpha16": [
+        72,
+        12,
+        1166,
+        1235
+      ],
+      "visible_bbox_alpha16": [
+        38,
+        24,
+        230,
+        239
+      ],
+      "source_head_top_y": 12,
+      "source_foot_anchor": [
+        583.0,
+        1234
+      ],
+      "target_foot_anchor": [
+        127.5,
+        239
+      ],
+      "display_head_to_foot_height": 215.04,
+      "scale": 0.17597381342062193,
+      "translation": [
+        24.907266775777416,
+        21.848314238952526
+      ]
+    },
+    {
+      "name": "seolhwa",
+      "direction": "bl",
+      "file": "exports/seolhwa/seolhwa-bl.png",
+      "source": "seolhwa/seolhwa-bl.png",
+      "size": [
+        256,
+        256
+      ],
+      "mode": "RGBA",
+      "sha256": "e12b483a9c34b6def6bf76eb51b29a7785a16857f46064ca9ade2512312c8187",
+      "source_sha256": "003a2513e5cf79cebebdcf853ad3d2294368ce53d3ac30384338e519a69da5d8",
+      "source_visible_bbox_alpha16": [
+        128,
+        7,
+        1117,
+        1234
+      ],
+      "visible_bbox_alpha16": [
+        36,
+        21,
+        212,
+        239
+      ],
+      "source_head_top_y": 25,
+      "source_foot_anchor": [
+        641.5,
+        1233
+      ],
+      "target_foot_anchor": [
+        127.5,
+        239
+      ],
+      "display_head_to_foot_height": 215.04,
+      "scale": 0.17801324503311258,
+      "translation": [
+        13.304503311258273,
+        19.509668874172178
+      ]
+    },
+    {
+      "name": "yeonbaek",
+      "direction": "fr",
+      "file": "exports/yeonbaek/yeonbaek-fr.png",
+      "source": "yeonbaek/yeonbaek-fr.png",
+      "size": [
+        256,
+        256
+      ],
+      "mode": "RGBA",
+      "sha256": "e18bbbf0d9a70e59c671e772cc68a6a0e965f8f6207c0de320032bb0e8df78de",
+      "source_sha256": "9c958c464ed3cd47544e72f952c9344f9ddf1456393cb7a72c2c617d979a4692",
+      "source_visible_bbox_alpha16": [
+        79,
+        17,
+        1134,
+        1237
+      ],
+      "visible_bbox_alpha16": [
+        31,
+        25,
+        216,
+        239
+      ],
+      "source_head_top_y": 12,
+      "source_foot_anchor": [
+        630.5,
+        1236
+      ],
+      "target_foot_anchor": [
+        127.5,
+        239
+      ],
+      "display_head_to_foot_height": 215.04,
+      "scale": 0.17568627450980392,
+      "translation": [
+        16.72980392156863,
+        21.851764705882346
+      ]
+    },
+    {
+      "name": "yeonbaek",
+      "direction": "fl",
+      "file": "exports/yeonbaek/yeonbaek-fl.png",
+      "source": "yeonbaek/yeonbaek-fl.png",
+      "size": [
+        256,
+        256
+      ],
+      "mode": "RGBA",
+      "sha256": "75d14bbb96eeae6f4d308db5e24985823ea2ab7f168c2a156140110c1294f136",
+      "source_sha256": "993b03b12a36fb34424e8acf91b9d174b6d2ecad8f7c8954de858d3a46eff5a8",
+      "source_visible_bbox_alpha16": [
+        80,
+        20,
+        1150,
+        1223
+      ],
+      "visible_bbox_alpha16": [
+        47,
+        24,
+        238,
+        239
+      ],
+      "source_head_top_y": 20,
+      "source_foot_anchor": [
+        532.0,
+        1222
+      ],
+      "target_foot_anchor": [
+        127.5,
+        239
+      ],
+      "display_head_to_foot_height": 215.04,
+      "scale": 0.17890183028286188,
+      "translation": [
+        32.32422628951748,
+        20.38196339434279
+      ]
+    },
+    {
+      "name": "yeonbaek",
+      "direction": "br",
+      "file": "exports/yeonbaek/yeonbaek-br.png",
+      "source": "yeonbaek/yeonbaek-br.png",
+      "size": [
+        256,
+        256
+      ],
+      "mode": "RGBA",
+      "sha256": "587b84f591e3ac1ce52cb216e2fd2388b0dbb70d93935155fe1b408cc00c5481",
+      "source_sha256": "3a950c23f0706774ffe3d44a576006da5baebcde6a1d94e1e53e6d388ea1043e",
+      "source_visible_bbox_alpha16": [
+        65,
+        32,
+        1224,
+        1203
+      ],
+      "visible_bbox_alpha16": [
+        25,
+        22,
+        239,
+        239
+      ],
+      "source_head_top_y": 40,
+      "source_foot_anchor": [
+        621.0,
+        1202
+      ],
+      "target_foot_anchor": [
+        127.5,
+        239
+      ],
+      "display_head_to_foot_height": 215.04,
+      "scale": 0.18506024096385543,
+      "translation": [
+        12.577590361445786,
+        16.55759036144579
+      ]
+    },
+    {
+      "name": "yeonbaek",
+      "direction": "bl",
+      "file": "exports/yeonbaek/yeonbaek-bl.png",
+      "source": "yeonbaek/yeonbaek-bl.png",
+      "size": [
+        256,
+        256
+      ],
+      "mode": "RGBA",
+      "sha256": "75fc02e1c08ec4aede0ab5ab58d2b382b999b3a14c362662bb26475cc836ccc3",
+      "source_sha256": "f45eeefca1e8a6ad44f2be4149e96c42b66077fbb6e6ce1fb7aa3da0fc00108b",
+      "source_visible_bbox_alpha16": [
+        58,
+        27,
+        1178,
+        1207
+      ],
+      "visible_bbox_alpha16": [
+        25,
+        23,
+        231,
+        239
+      ],
+      "source_head_top_y": 35,
+      "source_foot_anchor": [
+        614.0,
+        1206
+      ],
+      "target_foot_anchor": [
+        127.5,
+        239
+      ],
+      "display_head_to_foot_height": 215.04,
+      "scale": 0.18363791631084542,
+      "translation": [
+        14.746319385140907,
+        17.532672929120423
+      ]
+    },
+    {
+      "name": "dogyeom",
+      "direction": "fr",
+      "file": "exports/dogyeom/dogyeom-fr.png",
+      "source": "dogyeom/dogyeom-fr.png",
+      "size": [
+        256,
+        256
+      ],
+      "mode": "RGBA",
+      "sha256": "7d131c9b6b06a5b338e4c5f4b8e0fd53368bca0e9b763a59071257d1b529d8a8",
+      "source_sha256": "7c1d74feebb48722d75db0a72ae393e179e215dd5674b5dff6cf546c9909c51b",
+      "source_visible_bbox_alpha16": [
+        124,
+        8,
+        1118,
+        1248
+      ],
+      "visible_bbox_alpha16": [
+        40,
+        28,
+        209,
+        239
+      ],
+      "source_head_top_y": 15,
+      "source_foot_anchor": [
+        640.5,
+        1247
+      ],
+      "target_foot_anchor": [
+        127.5,
+        239
+      ],
+      "display_head_to_foot_height": 209.6822,
+      "scale": 0.17019659859509215,
+      "translation": [
+        18.48907859984348,
+        26.764841551920085
+      ]
+    },
+    {
+      "name": "dogyeom",
+      "direction": "fl",
+      "file": "exports/dogyeom/dogyeom-fl.png",
+      "source": "dogyeom/dogyeom-fl.png",
+      "size": [
+        256,
+        256
+      ],
+      "mode": "RGBA",
+      "sha256": "7fca3d7bc4432cd74ddaf9c1ec52c1ea35aa504a988f7377c34e669f73446c29",
+      "source_sha256": "f295f6330bce3c7dd5561d9b29b6a5f604864275214bf2e33ac27925998275c3",
+      "source_visible_bbox_alpha16": [
+        151,
+        13,
+        1043,
+        1232
+      ],
+      "visible_bbox_alpha16": [
+        50,
+        29,
+        204,
+        239
+      ],
+      "source_head_top_y": 12,
+      "source_foot_anchor": [
+        599.5,
+        1231
+      ],
+      "target_foot_anchor": [
+        127.5,
+        239
+      ],
+      "display_head_to_foot_height": 209.6822,
+      "scale": 0.1720116566605033,
+      "translation": [
+        24.37901183202827,
+        27.253650650920434
+      ]
+    },
+    {
+      "name": "dogyeom",
+      "direction": "br",
+      "file": "exports/dogyeom/dogyeom-br.png",
+      "source": "dogyeom/dogyeom-br.png",
+      "size": [
+        256,
+        256
+      ],
+      "mode": "RGBA",
+      "sha256": "2e47552d53d2afcb9a58cc3fff0b4a1d27b00f34ab067290e48f3f998979849f",
+      "source_sha256": "61d63d9de14c880a83b33c0bb9375205b3ac82712936925e6fc090ee117f2833",
+      "source_visible_bbox_alpha16": [
+        47,
+        18,
+        1177,
+        1236
+      ],
+      "visible_bbox_alpha16": [
+        28,
+        31,
+        221,
+        239
+      ],
+      "source_head_top_y": 10,
+      "source_foot_anchor": [
+        630.0,
+        1235
+      ],
+      "target_foot_anchor": [
+        127.5,
+        239
+      ],
+      "display_head_to_foot_height": 209.6822,
+      "scale": 0.1711691505870641,
+      "translation": [
+        19.663435130149608,
+        27.606099024975833
+      ]
+    },
+    {
+      "name": "dogyeom",
+      "direction": "bl",
+      "file": "exports/dogyeom/dogyeom-bl.png",
+      "source": "dogyeom/dogyeom-bl.png",
+      "size": [
+        256,
+        256
+      ],
+      "mode": "RGBA",
+      "sha256": "5086639e0bdc687810245d41b7fcb6fd94a031f4b0378ea6e425a6e7128e3a82",
+      "source_sha256": "abab8794ec17984e637b3e06b5fba6a812485bac5b52842eb90be1cc70e339a9",
+      "source_visible_bbox_alpha16": [
+        125,
+        5,
+        1137,
+        1234
+      ],
+      "visible_bbox_alpha16": [
+        73,
+        28,
+        247,
+        239
+      ],
+      "source_head_top_y": 10,
+      "source_foot_anchor": [
+        442.0,
+        1233
+      ],
+      "target_foot_anchor": [
+        127.5,
+        239
+      ],
+      "display_head_to_foot_height": 209.6822,
+      "scale": 0.1714490674318508,
+      "translation": [
+        51.71951219512195,
+        27.60329985652797
+      ]
+    },
+    {
+      "name": "hoyeon",
+      "direction": "fr",
+      "file": "exports/hoyeon/hoyeon-fr.png",
+      "source": "hoyeon/hoyeon-fr.png",
+      "size": [
+        384,
+        384
+      ],
+      "mode": "RGBA",
+      "sha256": "16c8f6aae059ed7240913687683620ba6ea7ac54a1ef7d2279912578a5928c73",
+      "source_sha256": "8dd3d88ab71115928395db690b8f883fce722c551039028dd84ee1f4a4308fb8",
+      "source_visible_bbox_alpha16": [
+        227,
+        21,
+        1080,
+        1220
+      ],
+      "visible_bbox_alpha16": [
+        80,
+        36,
+        310,
+        359
+      ],
+      "source_head_top_y": 21,
+      "source_foot_anchor": [
+        640.0,
+        1219
+      ],
+      "target_foot_anchor": [
+        191.5,
+        359
+      ],
+      "display_head_to_foot_height": 322.56,
+      "scale": 0.26924874791318865,
+      "translation": [
+        19.180801335559266,
+        30.785776293823062
+      ]
+    },
+    {
+      "name": "hoyeon",
+      "direction": "fl",
+      "file": "exports/hoyeon/hoyeon-fl.png",
+      "source": "hoyeon/hoyeon-fl.png",
+      "size": [
+        384,
+        384
+      ],
+      "mode": "RGBA",
+      "sha256": "4eefcc83d085e42418b830f3d948cbaeb36550435d70d34f44667630269f4d8c",
+      "source_sha256": "5cc1ac04031fad0169fa6f2203a55377367117a65b822f0cd0da7979cfde1e2c",
+      "source_visible_bbox_alpha16": [
+        24,
+        51,
+        925,
+        1204
+      ],
+      "visible_bbox_alpha16": [
+        71,
+        36,
+        323,
+        359
+      ],
+      "source_head_top_y": 51,
+      "source_foot_anchor": [
+        453.5,
+        1203
+      ],
+      "target_foot_anchor": [
+        191.5,
+        359
+      ],
+      "display_head_to_foot_height": 322.56,
+      "scale": 0.28,
+      "translation": [
+        64.51999999999998,
+        22.159999999999968
+      ]
+    },
+    {
+      "name": "hoyeon",
+      "direction": "br",
+      "file": "exports/hoyeon/hoyeon-br.png",
+      "source": "hoyeon/hoyeon-br.png",
+      "size": [
+        384,
+        384
+      ],
+      "mode": "RGBA",
+      "sha256": "f746ef0955214192ee51ba0ea2269976b4a9daf6f4030aa705c3aee397653a74",
+      "source_sha256": "2c95696583827af1c8b10f8af6464379e6bbe3a8f8369f21e885afd8dbd0fbba",
+      "source_visible_bbox_alpha16": [
+        162,
+        13,
+        1119,
+        1241
+      ],
+      "visible_bbox_alpha16": [
+        78,
+        30,
+        334,
+        359
+      ],
+      "source_head_top_y": 35,
+      "source_foot_anchor": [
+        585.5,
+        1240
+      ],
+      "target_foot_anchor": [
+        191.5,
+        359
+      ],
+      "display_head_to_foot_height": 322.56,
+      "scale": 0.2676846473029046,
+      "translation": [
+        34.77063900414936,
+        27.07103734439829
+      ]
+    },
+    {
+      "name": "hoyeon",
+      "direction": "bl",
+      "file": "exports/hoyeon/hoyeon-bl.png",
+      "source": "hoyeon/hoyeon-bl.png",
+      "size": [
+        384,
+        384
+      ],
+      "mode": "RGBA",
+      "sha256": "d5b2315f45bc91aed026006f623d3c9ff01fc12f362fb1f13e366b2056aeb74b",
+      "source_sha256": "4edfdf72bb8eabe8fe9683523af207676caca27704bad2ef63dae675f7578390",
+      "source_visible_bbox_alpha16": [
+        82,
+        24,
+        1158,
+        1222
+      ],
+      "visible_bbox_alpha16": [
+        74,
+        36,
+        365,
+        359
+      ],
+      "source_head_top_y": 25,
+      "source_foot_anchor": [
+        516.0,
+        1221
+      ],
+      "target_foot_anchor": [
+        191.5,
+        359
+      ],
+      "display_head_to_foot_height": 322.56,
+      "scale": 0.2696989966555184,
+      "translation": [
+        52.3353177257525,
+        29.69752508361205
+      ]
+    },
+    {
+      "name": "eunrang",
+      "direction": "fr",
+      "file": "exports/eunrang/eunrang-fr.png",
+      "source": "eunrang/eunrang-fr.png",
+      "size": [
+        256,
+        256
+      ],
+      "mode": "RGBA",
+      "sha256": "59a429e086ab467da94f37d792078c0366d25deaf6f7abb0c1ce768ecb5762f0",
+      "source_sha256": "5b3b4b91a8d0bf0be691de9c2050ed851d269cd32788083ac5771d6522c3fcf9",
+      "source_visible_bbox_alpha16": [
+        81,
+        9,
+        1215,
+        1227
+      ],
+      "visible_bbox_alpha16": [
+        59,
+        52,
+        233,
+        239
+      ],
+      "source_head_top_y": 10,
+      "source_foot_anchor": [
+        525.0,
+        1226
+      ],
+      "target_foot_anchor": [
+        127.5,
+        239
+      ],
+      "display_head_to_foot_height": 186.8122,
+      "scale": 0.15362848620159578,
+      "translation": [
+        46.84504474416222,
+        50.651475916843566
+      ]
+    },
+    {
+      "name": "eunrang",
+      "direction": "fl",
+      "file": "exports/eunrang/eunrang-fl.png",
+      "source": "eunrang/eunrang-fl.png",
+      "size": [
+        256,
+        256
+      ],
+      "mode": "RGBA",
+      "sha256": "bf090c9280f5c7d5f36e0bc217742c4f351a972db323c22d23314ef2d5c6633e",
+      "source_sha256": "3437632094986c9840af03b61e29267a17f8074434d0aafeb8c48ccc7cbb6b68",
+      "source_visible_bbox_alpha16": [
+        38,
+        54,
+        1197,
+        1213
+      ],
+      "visible_bbox_alpha16": [
+        24,
+        52,
+        212,
+        239
+      ],
+      "source_head_top_y": 55,
+      "source_foot_anchor": [
+        676.5,
+        1212
+      ],
+      "target_foot_anchor": [
+        127.5,
+        239
+      ],
+      "display_head_to_foot_height": 186.8122,
+      "scale": 0.16146260952561836,
+      "translation": [
+        18.27054465591918,
+        43.30731725495053
+      ]
+    },
+    {
+      "name": "eunrang",
+      "direction": "br",
+      "file": "exports/eunrang/eunrang-br.png",
+      "source": "eunrang/eunrang-br.png",
+      "size": [
+        256,
+        256
+      ],
+      "mode": "RGBA",
+      "sha256": "e5a4a0df2a314f1a91a553218b845b474cb5f86381fc7309082aa79ca0471438",
+      "source_sha256": "caef3aa79f8da4aa0885df7726eeb8fc0a41c6b40c1cbe68b573b4cfa764d277",
+      "source_visible_bbox_alpha16": [
+        34,
+        57,
+        1212,
+        1180
+      ],
+      "visible_bbox_alpha16": [
+        51,
+        53,
+        247,
+        239
+      ],
+      "source_head_top_y": 55,
+      "source_foot_anchor": [
+        495.0,
+        1179
+      ],
+      "target_foot_anchor": [
+        127.5,
+        239
+      ],
+      "display_head_to_foot_height": 186.8122,
+      "scale": 0.1662030598052851,
+      "translation": [
+        45.22948539638388,
+        43.046592489568866
+      ]
+    },
+    {
+      "name": "eunrang",
+      "direction": "bl",
+      "file": "exports/eunrang/eunrang-bl.png",
+      "source": "eunrang/eunrang-bl.png",
+      "size": [
+        256,
+        256
+      ],
+      "mode": "RGBA",
+      "sha256": "1ea9fef6eab97e484f4c5d89d341fa04421e06afd65dd4fc133eedc75a153fdb",
+      "source_sha256": "f36dd4902a7e0c8e4d5e17d4af2ad463c2162c1681b9de00c0a633e3b6e53cb7",
+      "source_visible_bbox_alpha16": [
+        26,
+        22,
+        1163,
+        1210
+      ],
+      "visible_bbox_alpha16": [
+        56,
+        53,
+        235,
+        239
+      ],
+      "source_head_top_y": 20,
+      "source_foot_anchor": [
+        481.5,
+        1209
+      ],
+      "target_foot_anchor": [
+        127.5,
+        239
+      ],
+      "display_head_to_foot_height": 186.8122,
+      "scale": 0.15711710615739316,
+      "translation": [
+        51.8481133852152,
+        49.04541865571167
+      ]
+    },
+    {
+      "name": "sayul",
+      "direction": "fr",
+      "file": "exports/sayul/sayul-fr.png",
+      "source": "sayul/sayul-fr.png",
+      "size": [
+        384,
+        384
+      ],
+      "mode": "RGBA",
+      "sha256": "c1ddde0a103317248580484b4613b802c32417c369cf6bb4ae90e22f10cc55af",
+      "source_sha256": "c6b8ccee2d5080248db063b25f000c4235780034f6e5d7cb706e79bb841167cd",
+      "source_visible_bbox_alpha16": [
+        57,
+        20,
+        1194,
+        1236
+      ],
+      "visible_bbox_alpha16": [
+        42,
+        35,
+        345,
+        359
+      ],
+      "source_head_top_y": 25,
+      "source_foot_anchor": [
+        616.5,
+        1235
+      ],
+      "target_foot_anchor": [
+        191.5,
+        359
+      ],
+      "display_head_to_foot_height": 322.56,
+      "scale": 0.2665785123966942,
+      "translation": [
+        27.154347107438014,
+        29.775537190082616
+      ]
+    },
+    {
+      "name": "sayul",
+      "direction": "fl",
+      "file": "exports/sayul/sayul-fl.png",
+      "source": "sayul/sayul-fl.png",
+      "size": [
+        384,
+        384
+      ],
+      "mode": "RGBA",
+      "sha256": "9dd4410dcd6922982b8a55d76175d08db301559ed21e2d0c5ad6f10ca962a644",
+      "source_sha256": "ce4f87508cbe4e029106bda9ee9af7cd593b36c2bd0d5d37722c2a9d6ebd7048",
+      "source_visible_bbox_alpha16": [
+        21,
+        10,
+        1198,
+        1230
+      ],
+      "visible_bbox_alpha16": [
+        32,
+        32,
+        347,
+        359
+      ],
+      "source_head_top_y": 25,
+      "source_foot_anchor": [
+        617.5,
+        1229
+      ],
+      "target_foot_anchor": [
+        191.5,
+        359
+      ],
+      "display_head_to_foot_height": 322.56,
+      "scale": 0.26790697674418606,
+      "translation": [
+        26.067441860465095,
+        29.742325581395335
+      ]
+    },
+    {
+      "name": "sayul",
+      "direction": "br",
+      "file": "exports/sayul/sayul-br.png",
+      "source": "sayul/sayul-br.png",
+      "size": [
+        384,
+        384
+      ],
+      "mode": "RGBA",
+      "sha256": "f46f4627516c5488054b3e4735f72bed70f42a568f9d5328a5b3337337842175",
+      "source_sha256": "778bb87f25eb89b178a43217a049395322af708c24011a659baa385928ced00d",
+      "source_visible_bbox_alpha16": [
+        83,
+        16,
+        1100,
+        1193
+      ],
+      "visible_bbox_alpha16": [
+        59,
+        35,
+        339,
+        359
+      ],
+      "source_head_top_y": 20,
+      "source_foot_anchor": [
+        565.5,
+        1192
+      ],
+      "target_foot_anchor": [
+        191.5,
+        359
+      ],
+      "display_head_to_foot_height": 322.56,
+      "scale": 0.27522184300341296,
+      "translation": [
+        35.86204778156997,
+        30.93556313993173
+      ]
+    },
+    {
+      "name": "sayul",
+      "direction": "bl",
+      "file": "exports/sayul/sayul-bl.png",
+      "source": "sayul/sayul-bl.png",
+      "size": [
+        384,
+        384
+      ],
+      "mode": "RGBA",
+      "sha256": "c0cd4cf354b32a3ee7603554d0d0beff086e0fd17a24854071cca44d811730d9",
+      "source_sha256": "19b84c6e46d24f69392c0a5f58405df3ee7cdf121d3410ef8de1229b3ca06f05",
+      "source_visible_bbox_alpha16": [
+        62,
+        10,
+        1199,
+        1218
+      ],
+      "visible_bbox_alpha16": [
+        47,
+        37,
+        351,
+        359
+      ],
+      "source_head_top_y": 10,
+      "source_foot_anchor": [
+        601.0,
+        1217
+      ],
+      "target_foot_anchor": [
+        191.5,
+        359
+      ],
+      "display_head_to_foot_height": 322.56,
+      "scale": 0.2672410936205468,
+      "translation": [
+        30.88810273405136,
+        33.7675890637945
+      ]
+    },
+    {
+      "name": "biyeon",
+      "direction": "fr",
+      "file": "exports/biyeon/biyeon-fr.png",
+      "source": "biyeon/biyeon-fr.png",
+      "size": [
+        384,
+        384
+      ],
+      "mode": "RGBA",
+      "sha256": "7ec5bec2ab2073d37d4b2197a23afb41567189c2c0163de7ecb52e74167dd018",
+      "source_sha256": "22b40deb00d888b06784a2e05f8a9963c730618fe06c18aa4dd64e051059b9cf",
+      "source_visible_bbox_alpha16": [
+        170,
+        18,
+        1088,
+        1222
+      ],
+      "visible_bbox_alpha16": [
+        74,
+        39,
+        318,
+        359
+      ],
+      "source_head_top_y": 10,
+      "source_foot_anchor": [
+        611.5,
+        1221
+      ],
+      "target_foot_anchor": [
+        191.5,
+        359
+      ],
+      "display_head_to_foot_height": 322.56,
+      "scale": 0.26635838150289015,
+      "translation": [
+        28.621849710982673,
+        33.77641618497114
+      ]
+    },
+    {
+      "name": "biyeon",
+      "direction": "fl",
+      "file": "exports/biyeon/biyeon-fl.png",
+      "source": "biyeon/biyeon-fl.png",
+      "size": [
+        384,
+        384
+      ],
+      "mode": "RGBA",
+      "sha256": "7fdc74e866194743260b3857421163f677b2afe1119e48a8024dee5b8c9fbe0f",
+      "source_sha256": "6b7b7f6c2adf2808f2a6e7b4d017c0002224d3a96edaee34626a88513c3c1ad8",
+      "source_visible_bbox_alpha16": [
+        55,
+        6,
+        1094,
+        1249
+      ],
+      "visible_bbox_alpha16": [
+        65,
+        35,
+        336,
+        359
+      ],
+      "source_head_top_y": 10,
+      "source_foot_anchor": [
+        539.0,
+        1248
+      ],
+      "target_foot_anchor": [
+        191.5,
+        359
+      ],
+      "display_head_to_foot_height": 322.56,
+      "scale": 0.2605492730210016,
+      "translation": [
+        51.06394184168013,
+        33.83450726978998
+      ]
+    },
+    {
+      "name": "biyeon",
+      "direction": "br",
+      "file": "exports/biyeon/biyeon-br.png",
+      "source": "biyeon/biyeon-br.png",
+      "size": [
+        384,
+        384
+      ],
+      "mode": "RGBA",
+      "sha256": "e5917c908c067e172442c94477385fb1a01766ac47dcaa864783435cfd5e4699",
+      "source_sha256": "e3850c67c59edefb37e08e13240b73910c745d86ec09fb4129e63e4217ce81b8",
+      "source_visible_bbox_alpha16": [
+        179,
+        10,
+        1053,
+        1232
+      ],
+      "visible_bbox_alpha16": [
+        90,
+        36,
+        321,
+        359
+      ],
+      "source_head_top_y": 10,
+      "source_foot_anchor": [
+        564.5,
+        1231
+      ],
+      "target_foot_anchor": [
+        191.5,
+        359
+      ],
+      "display_head_to_foot_height": 322.56,
+      "scale": 0.2641769041769042,
+      "translation": [
+        42.37213759213759,
+        33.79823095823093
+      ]
+    },
+    {
+      "name": "biyeon",
+      "direction": "bl",
+      "file": "exports/biyeon/biyeon-bl.png",
+      "source": "biyeon/biyeon-bl.png",
+      "size": [
+        384,
+        384
+      ],
+      "mode": "RGBA",
+      "sha256": "efac04c84f4e8da7d275d52c04911bea070369faefd27b25bdd3732c9ee3dd88",
+      "source_sha256": "a5b0ad1d6598c16b5ea00b10f5fe58843dc84c4197169cd792856b4f0fdc1d0f",
+      "source_visible_bbox_alpha16": [
+        149,
+        9,
+        1090,
+        1199
+      ],
+      "visible_bbox_alpha16": [
+        65,
+        36,
+        320,
+        359
+      ],
+      "source_head_top_y": 10,
+      "source_foot_anchor": [
+        616.5,
+        1198
+      ],
+      "target_foot_anchor": [
+        191.5,
+        359
+      ],
+      "display_head_to_foot_height": 322.56,
+      "scale": 0.27151515151515154,
+      "translation": [
+        24.110909090909075,
+        33.72484848484845
+      ]
+    },
+    {
+      "name": "hongyeom",
+      "direction": "fr",
+      "file": "exports/hongyeom/hongyeom-fr.png",
+      "source": "hongyeom/hongyeom-fr.png",
+      "size": [
+        256,
+        256
+      ],
+      "mode": "RGBA",
+      "sha256": "4d09356f30e26bee04009c3663e25a503c0fd6d6ebcafc5d370645dfe4e1780f",
+      "source_sha256": "2ff689cd7ea9cc7b1b463490f2e8ed0468cf2645e9320860e3a39244eb855885",
+      "source_visible_bbox_alpha16": [
+        84,
+        22,
+        1201,
+        1228
+      ],
+      "visible_bbox_alpha16": [
+        38,
+        37,
+        226,
+        239
+      ],
+      "source_head_top_y": 30,
+      "source_foot_anchor": [
+        616.0,
+        1227
+      ],
+      "target_foot_anchor": [
+        127.5,
+        239
+      ],
+      "display_head_to_foot_height": 201.0529,
+      "scale": 0.16796401402764108,
+      "translation": [
+        24.034167358973093,
+        32.9081547880844
+      ]
+    },
+    {
+      "name": "hongyeom",
+      "direction": "fl",
+      "file": "exports/hongyeom/hongyeom-fl.png",
+      "source": "hongyeom/hongyeom-fl.png",
+      "size": [
+        256,
+        256
+      ],
+      "mode": "RGBA",
+      "sha256": "d747a959386c04e7bbf1563c007f54a1c6c0b9536037b72aac94bbd0e2be0c3c",
+      "source_sha256": "35f3a2c3d30ca2bc18a73ad5d0994cac268b2542ce9a6b708806a77d441f751b",
+      "source_visible_bbox_alpha16": [
+        70,
+        40,
+        1146,
+        1220
+      ],
+      "visible_bbox_alpha16": [
+        36,
+        38,
+        219,
+        239
+      ],
+      "source_head_top_y": 40,
+      "source_foot_anchor": [
+        608.5,
+        1219
+      ],
+      "target_foot_anchor": [
+        127.5,
+        239
+      ],
+      "display_head_to_foot_height": 201.0529,
+      "scale": 0.1705283501196661,
+      "translation": [
+        23.73349895218317,
+        31.12594120412703
+      ]
+    },
+    {
+      "name": "hongyeom",
+      "direction": "br",
+      "file": "exports/hongyeom/hongyeom-br.png",
+      "source": "hongyeom/hongyeom-br.png",
+      "size": [
+        256,
+        256
+      ],
+      "mode": "RGBA",
+      "sha256": "bc2ab29446614ed8e84596a638c79f89f2926be7089def00fe6ebeaff4553214",
+      "source_sha256": "abdfd781422ee3f3f16b6f2af7225074db4ef20b4d42a98190a9dde9d4a86f5f",
+      "source_visible_bbox_alpha16": [
+        19,
+        30,
+        1232,
+        1224
+      ],
+      "visible_bbox_alpha16": [
+        34,
+        40,
+        237,
+        239
+      ],
+      "source_head_top_y": 20,
+      "source_foot_anchor": [
+        576.5,
+        1223
+      ],
+      "target_foot_anchor": [
+        127.5,
+        239
+      ],
+      "display_head_to_foot_height": 201.0529,
+      "scale": 0.16712628827189224,
+      "translation": [
+        31.151694811254117,
+        34.604549443475776
+      ]
+    },
+    {
+      "name": "hongyeom",
+      "direction": "bl",
+      "file": "exports/hongyeom/hongyeom-bl.png",
+      "source": "hongyeom/hongyeom-bl.png",
+      "size": [
+        256,
+        256
+      ],
+      "mode": "RGBA",
+      "sha256": "78b029404e955b32019b97c6b92181f9b543eab965995e9a4c45cfc643fa1dd1",
+      "source_sha256": "4795745d60c1ccd69169c443c61911bb56b24aea627f74cea6f3cea4a9dcf75c",
+      "source_visible_bbox_alpha16": [
+        47,
+        28,
+        1202,
+        1229
+      ],
+      "visible_bbox_alpha16": [
+        54,
+        39,
+        247,
+        239
+      ],
+      "source_head_top_y": 20,
+      "source_foot_anchor": [
+        486.0,
+        1228
+      ],
+      "target_foot_anchor": [
+        127.5,
+        239
+      ],
+      "display_head_to_foot_height": 201.0529,
+      "scale": 0.16643454038997216,
+      "translation": [
+        46.61281337047353,
+        34.618384401114184
+      ]
+    },
+    {
+      "name": "haerin",
+      "direction": "fr",
+      "file": "exports/haerin/haerin-fr.png",
+      "source": "haerin/haerin-fr.png",
+      "size": [
+        256,
+        256
+      ],
+      "mode": "RGBA",
+      "sha256": "0392cdfbbedea8462019f77fad7e8336479e90e5a128c4863fe05fb364709036",
+      "source_sha256": "6cbc5a6cb0b9290d82e678b71f434126a45dd2d8de6628b62f363c84fe67b910",
+      "source_visible_bbox_alpha16": [
+        158,
+        28,
+        1133,
+        1228
+      ],
+      "visible_bbox_alpha16": [
+        56,
+        27,
+        228,
+        239
+      ],
+      "source_head_top_y": 10,
+      "source_foot_anchor": [
+        560.5,
+        1227
+      ],
+      "target_foot_anchor": [
+        127.5,
+        239
+      ],
+      "display_head_to_foot_height": 215.04,
+      "scale": 0.17669679539852096,
+      "translation": [
+        28.461446179129,
+        22.193032046014793
+      ]
+    },
+    {
+      "name": "haerin",
+      "direction": "fl",
+      "file": "exports/haerin/haerin-fl.png",
+      "source": "haerin/haerin-fl.png",
+      "size": [
+        256,
+        256
+      ],
+      "mode": "RGBA",
+      "sha256": "137b24e0b63b782703fbdf866ea2f9a9019ece82e01f94c752e550bf0424b337",
+      "source_sha256": "7a7a34bbe8c5392eaa831326be7fc082de0c4102a321052a5bbb6100223c82bf",
+      "source_visible_bbox_alpha16": [
+        145,
+        26,
+        1061,
+        1220
+      ],
+      "visible_bbox_alpha16": [
+        34,
+        26,
+        197,
+        239
+      ],
+      "source_head_top_y": 15,
+      "source_foot_anchor": [
+        671.5,
+        1219
+      ],
+      "target_foot_anchor": [
+        127.5,
+        239
+      ],
+      "display_head_to_foot_height": 215.04,
+      "scale": 0.1786046511627907,
+      "translation": [
+        7.56697674418605,
+        21.28093023255815
+      ]
+    },
+    {
+      "name": "haerin",
+      "direction": "br",
+      "file": "exports/haerin/haerin-br.png",
+      "source": "haerin/haerin-br.png",
+      "size": [
+        256,
+        256
+      ],
+      "mode": "RGBA",
+      "sha256": "1ff2235c32dfacbf85964d6702d2bb96bebaa94a233e27eff4ddaf171144cd97",
+      "source_sha256": "fc0904ab55fbaf001ad878f1f7d054be5e6ddc48cf4d8dc7a332546586bd0008",
+      "source_visible_bbox_alpha16": [
+        180,
+        22,
+        1114,
+        1210
+      ],
+      "visible_bbox_alpha16": [
+        48,
+        9,
+        229,
+        239
+      ],
+      "source_head_top_y": 100,
+      "source_foot_anchor": [
+        588.0,
+        1209
+      ],
+      "target_foot_anchor": [
+        127.5,
+        239
+      ],
+      "display_head_to_foot_height": 215.04,
+      "scale": 0.1939044183949504,
+      "translation": [
+        13.484201983769168,
+        4.569558160504954
+      ]
+    },
+    {
+      "name": "haerin",
+      "direction": "bl",
+      "file": "exports/haerin/haerin-bl.png",
+      "source": "haerin/haerin-bl.png",
+      "size": [
+        256,
+        256
+      ],
+      "mode": "RGBA",
+      "sha256": "45cc754d5caa96a7fab5468bc9fb482928f9eae2290d21608fa1804672486da6",
+      "source_sha256": "bf5fced72b53f99167c439979b5318507115bdedccbc2057dc6ab895f4919705",
+      "source_visible_bbox_alpha16": [
+        134,
+        15,
+        1100,
+        1214
+      ],
+      "visible_bbox_alpha16": [
+        43,
+        21,
+        218,
+        239
+      ],
+      "source_head_top_y": 30,
+      "source_foot_anchor": [
+        600.0,
+        1213
+      ],
+      "target_foot_anchor": [
+        127.5,
+        239
+      ],
+      "display_head_to_foot_height": 215.04,
+      "scale": 0.18177514792899407,
+      "translation": [
+        18.43491124260356,
+        18.50674556213019
+      ]
+    },
+    {
+      "name": "heukcheol",
+      "direction": "fr",
+      "file": "exports/heukcheol/heukcheol-fr.png",
+      "source": "heukcheol/heukcheol-fr.png",
+      "size": [
+        256,
+        256
+      ],
+      "mode": "RGBA",
+      "sha256": "2f6ed260ed1088e4b8f6978c0c3ec49c56181a030b259614822f31db373be1fd",
+      "source_sha256": "9e13c7f05aaaf4a7cd1aa27eb63b8de40cd12ef94ff3e00b5510d5f3778727e7",
+      "source_visible_bbox_alpha16": [
+        43,
+        14,
+        1214,
+        1240
+      ],
+      "visible_bbox_alpha16": [
+        15,
+        44,
+        201,
+        239
+      ],
+      "source_head_top_y": 85,
+      "source_foot_anchor": [
+        750.5,
+        1239
+      ],
+      "target_foot_anchor": [
+        127.5,
+        239
+      ],
+      "display_head_to_foot_height": 183.5268,
+      "scale": 0.1590353160231867,
+      "translation": [
+        8.143995324598379,
+        41.95524344727167
+      ]
+    },
+    {
+      "name": "heukcheol",
+      "direction": "fl",
+      "file": "exports/heukcheol/heukcheol-fl.png",
+      "source": "heukcheol/heukcheol-fl.png",
+      "size": [
+        256,
+        256
+      ],
+      "mode": "RGBA",
+      "sha256": "e9a71fd8054d09e0f51a81a16c20e4e936492b7b7484a1d8a2a4bdcf1c3de52b",
+      "source_sha256": "568e33249944af5fd082ce4bb752d580eb8450bd727cb464863aabdf870297d9",
+      "source_visible_bbox_alpha16": [
+        17,
+        80,
+        1218,
+        1202
+      ],
+      "visible_bbox_alpha16": [
+        19,
+        57,
+        215,
+        239
+      ],
+      "source_head_top_y": 75,
+      "source_foot_anchor": [
+        682.0,
+        1201
+      ],
+      "target_foot_anchor": [
+        127.5,
+        239
+      ],
+      "display_head_to_foot_height": 183.5268,
+      "scale": 0.16299001304685387,
+      "translation": [
+        16.340811102045663,
+        43.24899433072849
+      ]
+    },
+    {
+      "name": "heukcheol",
+      "direction": "br",
+      "file": "exports/heukcheol/heukcheol-br.png",
+      "source": "heukcheol/heukcheol-br.png",
+      "size": [
+        256,
+        256
+      ],
+      "mode": "RGBA",
+      "sha256": "c8d48949cb40546ade8f2dfa204a8b3b6bc8cb1943fb3cca364d5eccb6bd9e28",
+      "source_sha256": "06e1cbd95cb3822e07bb6a23fa0d21bf1565c68822b7862b2e8c2ee33388168b",
+      "source_visible_bbox_alpha16": [
+        14,
+        11,
+        1241,
+        1221
+      ],
+      "visible_bbox_alpha16": [
+        43,
+        38,
+        247,
+        239
+      ],
+      "source_head_top_y": 115,
+      "source_foot_anchor": [
+        523.5,
+        1220
+      ],
+      "target_foot_anchor": [
+        127.5,
+        239
+      ],
+      "display_head_to_foot_height": 183.5268,
+      "scale": 0.16608756080611534,
+      "translation": [
+        40.55316191799862,
+        36.37317581653929
+      ]
+    },
+    {
+      "name": "heukcheol",
+      "direction": "bl",
+      "file": "exports/heukcheol/heukcheol-bl.png",
+      "source": "heukcheol/heukcheol-bl.png",
+      "size": [
+        256,
+        256
+      ],
+      "mode": "RGBA",
+      "sha256": "696018158e68142d94fdf542d2472e7648db259c3256cc89a9da890907206170",
+      "source_sha256": "fb0bdc15076daeb2076af27520e990c83c1504df8d207eb0e85d1f5c6fe32804",
+      "source_visible_bbox_alpha16": [
+        10,
+        8,
+        1236,
+        1230
+      ],
+      "visible_bbox_alpha16": [
+        49,
+        56,
+        233,
+        239
+      ],
+      "source_head_top_y": 5,
+      "source_foot_anchor": [
+        531.0,
+        1229
+      ],
+      "target_foot_anchor": [
+        127.5,
+        239
+      ],
+      "display_head_to_foot_height": 183.5268,
+      "scale": 0.14994015906107636,
+      "translation": [
+        47.88177553856846,
+        54.723544513937156
+      ]
+    },
+    {
+      "name": "mujin",
+      "direction": "fr",
+      "file": "exports/mujin/mujin-fr.png",
+      "source": "mujin/mujin-fr.png",
+      "size": [
+        256,
+        256
+      ],
+      "mode": "RGBA",
+      "sha256": "4b4ea85088e1fbb1dff231e8e64e6e930b38b4e5c5b170e610a127d38664a58d",
+      "source_sha256": "fa8d86ba7a0952f8379f31728f8eda0b34f237c539de380a4d53ef424b2ebcca",
+      "source_visible_bbox_alpha16": [
+        15,
+        27,
+        1197,
+        1235
+      ],
+      "visible_bbox_alpha16": [
+        20,
+        46,
+        208,
+        239
+      ],
+      "source_head_top_y": 40,
+      "source_foot_anchor": [
+        690.0,
+        1234
+      ],
+      "target_foot_anchor": [
+        127.5,
+        239
+      ],
+      "display_head_to_foot_height": 190.5519,
+      "scale": 0.15959117622008345,
+      "translation": [
+        17.382088408142423,
+        42.06448854441703
+      ]
+    },
+    {
+      "name": "mujin",
+      "direction": "fl",
+      "file": "exports/mujin/mujin-fl.png",
+      "source": "mujin/mujin-fl.png",
+      "size": [
+        256,
+        256
+      ],
+      "mode": "RGBA",
+      "sha256": "4aab1ff418d3e445de99fada1419abfa18bba68ea3772a58fc4d928777a83bd4",
+      "source_sha256": "d8abb87152c6e9bc252a2280940c7cb6a4b65ef6b2163547da3426475ab6990c",
+      "source_visible_bbox_alpha16": [
+        63,
+        44,
+        1186,
+        1217
+      ],
+      "visible_bbox_alpha16": [
+        8,
+        49,
+        190,
+        239
+      ],
+      "source_head_top_y": 40,
+      "source_foot_anchor": [
+        798.5,
+        1216
+      ],
+      "target_foot_anchor": [
+        127.5,
+        239
+      ],
+      "display_head_to_foot_height": 190.5519,
+      "scale": 0.16203389830508474,
+      "translation": [
+        -1.884067796610168,
+        41.96677966101694
+      ]
+    },
+    {
+      "name": "mujin",
+      "direction": "br",
+      "file": "exports/mujin/mujin-br.png",
+      "source": "mujin/mujin-br.png",
+      "size": [
+        256,
+        256
+      ],
+      "mode": "RGBA",
+      "sha256": "ffbd1d6866559c60ed34130f294d70143d8009b04c09146e14c30c58421de14e",
+      "source_sha256": "bc68c9c7842d1affdac5dd78b232ecfec0588a3d043fb633c797d576742e6baf",
+      "source_visible_bbox_alpha16": [
+        40,
+        23,
+        1217,
+        1226
+      ],
+      "visible_bbox_alpha16": [
+        34,
+        48,
+        222,
+        239
+      ],
+      "source_head_top_y": 25,
+      "source_foot_anchor": [
+        625.5,
+        1225
+      ],
+      "target_foot_anchor": [
+        127.5,
+        239
+      ],
+      "display_head_to_foot_height": 190.5519,
+      "scale": 0.15879322033898305,
+      "translation": [
+        28.174840677966102,
+        44.478305084745756
+      ]
+    },
+    {
+      "name": "mujin",
+      "direction": "bl",
+      "file": "exports/mujin/mujin-bl.png",
+      "source": "mujin/mujin-bl.png",
+      "size": [
+        256,
+        256
+      ],
+      "mode": "RGBA",
+      "sha256": "baa84578a1299e08761c9df46748e9ecdec2475a0ae8cf8af4cdcc2323fdb73a",
+      "source_sha256": "d81986884b3f5f7b654aa4eda804317b376098d408e3a60c2c82070fe64d252b",
+      "source_visible_bbox_alpha16": [
+        9,
+        19,
+        1185,
+        1223
+      ],
+      "visible_bbox_alpha16": [
+        34,
+        47,
+        221,
+        239
+      ],
+      "source_head_top_y": 25,
+      "source_foot_anchor": [
+        596.0,
+        1222
+      ],
+      "target_foot_anchor": [
+        127.5,
+        239
+      ],
+      "display_head_to_foot_height": 190.5519,
+      "scale": 0.1591911983348201,
+      "translation": [
+        32.622045792447224,
+        44.46835563484984
+      ]
+    },
+    {
+      "name": "baekryun",
+      "direction": "fr",
+      "file": "exports/baekryun/baekryun-fr.png",
+      "source": "baekryun/baekryun-fr.png",
+      "size": [
+        256,
+        256
+      ],
+      "mode": "RGBA",
+      "sha256": "0814842618e491e51adfc67ee95ed0eb4512f9ebc3e59fa0502bfa8c84dcdfdc",
+      "source_sha256": "ae9a4f4399d78ea8e05202b0407bd5a02700a3fa95c5878d6ee7df6477dcf5e7",
+      "source_visible_bbox_alpha16": [
+        60,
+        2,
+        1190,
+        1251
+      ],
+      "visible_bbox_alpha16": [
+        23,
+        29,
+        213,
+        239
+      ],
+      "source_head_top_y": 2,
+      "source_foot_anchor": [
+        682.5,
+        1250
+      ],
+      "target_foot_anchor": [
+        127.5,
+        239
+      ],
+      "display_head_to_foot_height": 210.0666,
+      "scale": 0.16832261130703108,
+      "translation": [
+        12.619817782951287,
+        28.596735866211162
+      ]
+    },
+    {
+      "name": "baekryun",
+      "direction": "fl",
+      "file": "exports/baekryun/baekryun-fl.png",
+      "source": "baekryun/baekryun-fl.png",
+      "size": [
+        256,
+        256
+      ],
+      "mode": "RGBA",
+      "sha256": "176c9068e2110b1be98ea9eee52785724e71e7207f0651b87380fe06fe3c2034",
+      "source_sha256": "547b5f9713e4c8138b659f662a45c3499b1572e5a99df6d5c65b2b3af752f462",
+      "source_visible_bbox_alpha16": [
+        3,
+        4,
+        1237,
+        1251
+      ],
+      "visible_bbox_alpha16": [
+        24,
+        29,
+        233,
+        239
+      ],
+      "source_head_top_y": 4,
+      "source_foot_anchor": [
+        614.0,
+        1250
+      ],
+      "target_foot_anchor": [
+        127.5,
+        239
+      ],
+      "display_head_to_foot_height": 210.0666,
+      "scale": 0.16859279206354316,
+      "translation": [
+        23.9840256729845,
+        28.25900992057106
+      ]
+    },
+    {
+      "name": "baekryun",
+      "direction": "br",
+      "file": "exports/baekryun/baekryun-br.png",
+      "source": "baekryun/baekryun-br.png",
+      "size": [
+        256,
+        256
+      ],
+      "mode": "RGBA",
+      "sha256": "100c3e14f6a76967e3beab3425f090b821016c60f790148d271d46cf4c03e363",
+      "source_sha256": "797edee2ea07b6fc92c8368399bc86381b830f17addb8c68cf0178b95f0f4b36",
+      "source_visible_bbox_alpha16": [
+        63,
+        12,
+        1183,
+        1236
+      ],
+      "visible_bbox_alpha16": [
+        33,
+        29,
+        226,
+        239
+      ],
+      "source_head_top_y": 12,
+      "source_foot_anchor": [
+        611.5,
+        1235
+      ],
+      "target_foot_anchor": [
+        127.5,
+        239
+      ],
+      "display_head_to_foot_height": 210.0666,
+      "scale": 0.17176338422827045,
+      "translation": [
+        22.466690544412614,
+        26.872220478086007
+      ]
+    },
+    {
+      "name": "baekryun",
+      "direction": "bl",
+      "file": "exports/baekryun/baekryun-bl.png",
+      "source": "baekryun/baekryun-bl.png",
+      "size": [
+        256,
+        256
+      ],
+      "mode": "RGBA",
+      "sha256": "9576fe712bb303e4d384ae92d7f7a9dba8c4f526f5f574375e8d6b32bb378e89",
+      "source_sha256": "3044eb2d2291d8c6cd74a9eabb68efa0dd02f651f6444ce01d87908e67dd9754",
+      "source_visible_bbox_alpha16": [
+        24,
+        8,
+        1212,
+        1236
+      ],
+      "visible_bbox_alpha16": [
+        43,
+        29,
+        247,
+        239
+      ],
+      "source_head_top_y": 8,
+      "source_foot_anchor": [
+        516.0,
+        1235
+      ],
+      "target_foot_anchor": [
+        127.5,
+        239
+      ],
+      "display_head_to_foot_height": 210.0666,
+      "scale": 0.17120343839541546,
+      "translation": [
+        39.15902578796562,
+        27.5637535816619
+      ]
+    }
+  ]
+}

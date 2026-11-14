@@ -4,7 +4,7 @@
     1254,
     1254
   ],
-  "exports": "pending",
+  "exports": "complete",
   "images": [
     {
       "character": 1,
@@ -30,7 +30,8 @@
       ],
       "target_size": 256,
       "status": "generated_master",
-      "export_status": "pending"
+      "export_status": "complete",
+      "export_file": "exports/hero/hero-fr.png"
     },
     {
       "character": 1,
@@ -56,7 +57,8 @@
       ],
       "target_size": 256,
       "status": "generated_master",
-      "export_status": "pending"
+      "export_status": "complete",
+      "export_file": "exports/hero/hero-fl.png"
     },
     {
       "character": 1,
@@ -82,7 +84,8 @@
       ],
       "target_size": 256,
       "status": "generated_master",
-      "export_status": "pending"
+      "export_status": "complete",
+      "export_file": "exports/hero/hero-br.png"
     },
     {
       "character": 1,
@@ -108,7 +111,8 @@
       ],
       "target_size": 256,
       "status": "generated_master",
-      "export_status": "pending"
+      "export_status": "complete",
+      "export_file": "exports/hero/hero-bl.png"
     },
     {
       "character": 2,
@@ -134,7 +138,8 @@
       ],
       "target_size": 256,
       "status": "generated_master",
-      "export_status": "pending"
+      "export_status": "complete",
+      "export_file": "exports/xuan-ruler/xuan-ruler-fr.png"
     },
     {
       "character": 2,
@@ -160,7 +165,8 @@
       ],
       "target_size": 256,
       "status": "generated_master",
-      "export_status": "pending"
+      "export_status": "complete",
+      "export_file": "exports/xuan-ruler/xuan-ruler-fl.png"
     },
     {
       "character": 2,
@@ -186,7 +192,8 @@
       ],
       "target_size": 256,
       "status": "generated_master",
-      "export_status": "pending"
+      "export_status": "complete",
+      "export_file": "exports/xuan-ruler/xuan-ruler-br.png"
     },
     {
       "character": 2,
@@ -212,7 +219,8 @@
       ],
       "target_size": 256,
       "status": "generated_master",
-      "export_status": "pending"
+      "export_status": "complete",
+      "export_file": "exports/xuan-ruler/xuan-ruler-bl.png"
     },
     {
       "character": 3,
@@ -238,7 +246,8 @@
       ],
       "target_size": 256,
       "status": "generated_master",
-      "export_status": "pending"
+      "export_status": "complete",
+      "export_file": "exports/bai-ruler/bai-ruler-fr.png"
     },
     {
       "character": 3,
@@ -264,7 +273,8 @@
       ],
       "target_size": 256,
       "status": "generated_master",
-      "export_status": "pending"
+      "export_status": "complete",
+      "export_file": "exports/bai-ruler/bai-ruler-fl.png"
     },
     {
       "character": 3,
@@ -290,7 +300,8 @@
       ],
       "target_size": 256,
       "status": "generated_master",
-      "export_status": "pending"
+      "export_status": "complete",
+      "export_file": "exports/bai-ruler/bai-ruler-br.png"
     },
     {
       "character": 3,
@@ -316,7 +327,8 @@
       ],
       "target_size": 256,
       "status": "generated_master",
-      "export_status": "pending"
+      "export_status": "complete",
+      "export_file": "exports/bai-ruler/bai-ruler-bl.png"
     },
     {
       "character": 4,
@@ -342,7 +354,8 @@
       ],
       "target_size": 256,
       "status": "generated_master",
-      "export_status": "pending"
+      "export_status": "complete",
+      "export_file": "exports/zhu-ruler/zhu-ruler-fr.png"
     },
     {
       "character": 4,
@@ -368,7 +381,8 @@
       ],
       "target_size": 256,
       "status": "generated_master",
-      "export_status": "pending"
+      "export_status": "complete",
+      "export_file": "exports/zhu-ruler/zhu-ruler-fl.png"
     },
     {
       "character": 4,
@@ -394,7 +408,8 @@
       ],
       "target_size": 256,
       "status": "generated_master",
-      "export_status": "pending"
+      "export_status": "complete",
+      "export_file": "exports/zhu-ruler/zhu-ruler-br.png"
     },
     {
       "character": 4,
@@ -420,7 +435,8 @@
       ],
       "target_size": 256,
       "status": "generated_master",
-      "export_status": "pending"
+      "export_status": "complete",
+      "export_file": "exports/zhu-ruler/zhu-ruler-bl.png"
     },
     {
       "character": 5,
@@ -446,7 +462,8 @@
       ],
       "target_size": 256,
       "status": "generated_master",
-      "export_status": "pending"
+      "export_status": "complete",
+      "export_file": "exports/gui-ruler/gui-ruler-fr.png"
     },
     {
       "character": 5,
@@ -472,7 +489,8 @@
       ],
       "target_size": 256,
       "status": "generated_master",
-      "export_status": "pending"
+      "export_status": "complete",
+      "export_file": "exports/gui-ruler/gui-ruler-fl.png"
     },
     {
       "character": 5,
@@ -498,7 +516,8 @@
       ],
       "target_size": 256,
       "status": "generated_master",
-      "export_status": "pending"
+      "export_status": "complete",
+      "export_file": "exports/gui-ruler/gui-ruler-br.png"
     },
     {
       "character": 5,
@@ -524,7 +543,8 @@
       ],
       "target_size": 256,
       "status": "generated_master",
-      "export_status": "pending"
+      "export_status": "complete",
+      "export_file": "exports/gui-ruler/gui-ruler-bl.png"
     },
     {
       "character": 6,
@@ -550,7 +570,8 @@
       ],
       "target_size": 256,
       "status": "generated_master",
-      "export_status": "pending"
+      "export_status": "complete",
+      "export_file": "exports/unhak/unhak-fr.png"
     },
     {
       "character": 6,
@@ -576,7 +597,8 @@
       ],
       "target_size": 256,
       "status": "generated_master",
-      "export_status": "pending"
+      "export_status": "complete",
+      "export_file": "exports/unhak/unhak-fl.png"
     },
     {
       "character": 6,
@@ -602,7 +624,8 @@
       ],
       "target_size": 256,
       "status": "generated_master",
-      "export_status": "pending"
+      "export_status": "complete",
+      "export_file": "exports/unhak/unhak-br.png"
     },
     {
       "character": 6,
@@ -628,7 +651,8 @@
       ],
       "target_size": 256,
       "status": "generated_master",
-      "export_status": "pending"
+      "export_status": "complete",
+      "export_file": "exports/unhak/unhak-bl.png"
     },
     {
       "character": 7,
@@ -654,7 +678,8 @@
       ],
       "target_size": 256,
       "status": "generated_master",
-      "export_status": "pending"
+      "export_status": "complete",
+      "export_file": "exports/dansim/dansim-fr.png"
     },
     {
       "character": 7,
@@ -680,7 +705,8 @@
       ],
       "target_size": 256,
       "status": "generated_master",
-      "export_status": "pending"
+      "export_status": "complete",
+      "export_file": "exports/dansim/dansim-fl.png"
     },
     {
       "character": 7,
@@ -706,7 +732,8 @@
       ],
       "target_size": 256,
       "status": "generated_master",
-      "export_status": "pending"
+      "export_status": "complete",
+      "export_file": "exports/dansim/dansim-br.png"
     },
     {
       "character": 7,
@@ -732,7 +759,8 @@
       ],
       "target_size": 256,
       "status": "generated_master",
-      "export_status": "pending"
+      "export_status": "complete",
+      "export_file": "exports/dansim/dansim-bl.png"
     },
     {
       "character": 8,
@@ -758,7 +786,8 @@
       ],
       "target_size": 256,
       "status": "generated_master",
-      "export_status": "pending"
+      "export_status": "complete",
+      "export_file": "exports/mukcheol/mukcheol-fr.png"
     },
     {
       "character": 8,
@@ -784,7 +813,8 @@
       ],
       "target_size": 256,
       "status": "generated_master",
-      "export_status": "pending"
+      "export_status": "complete",
+      "export_file": "exports/mukcheol/mukcheol-fl.png"
     },
     {
       "character": 8,
@@ -810,7 +840,8 @@
       ],
       "target_size": 256,
       "status": "generated_master",
-      "export_status": "pending"
+      "export_status": "complete",
+      "export_file": "exports/mukcheol/mukcheol-br.png"
     },
     {
       "character": 8,
@@ -836,7 +867,8 @@
       ],
       "target_size": 256,
       "status": "generated_master",
-      "export_status": "pending"
+      "export_status": "complete",
+      "export_file": "exports/mukcheol/mukcheol-bl.png"
     },
     {
       "character": 9,
@@ -862,7 +894,8 @@
       ],
       "target_size": 256,
       "status": "generated_master",
-      "export_status": "pending"
+      "export_status": "complete",
+      "export_file": "exports/seolhwa/seolhwa-fr.png"
     },
     {
       "character": 9,
@@ -888,7 +921,8 @@
       ],
       "target_size": 256,
       "status": "generated_master",
-      "export_status": "pending"
+      "export_status": "complete",
+      "export_file": "exports/seolhwa/seolhwa-fl.png"
     },
     {
       "character": 9,
@@ -914,7 +948,8 @@
       ],
       "target_size": 256,
       "status": "generated_master",
-      "export_status": "pending"
+      "export_status": "complete",
+      "export_file": "exports/seolhwa/seolhwa-br.png"
     },
     {
       "character": 9,
@@ -940,7 +975,8 @@
       ],
       "target_size": 256,
       "status": "generated_master",
-      "export_status": "pending"
+      "export_status": "complete",
+      "export_file": "exports/seolhwa/seolhwa-bl.png"
     },
     {
       "character": 10,
@@ -966,7 +1002,8 @@
       ],
       "target_size": 256,
       "status": "generated_master",
-      "export_status": "pending"
+      "export_status": "complete",
+      "export_file": "exports/yeonbaek/yeonbaek-fr.png"
     },
     {
       "character": 10,
@@ -992,7 +1029,8 @@
       ],
       "target_size": 256,
       "status": "generated_master",
-      "export_status": "pending"
+      "export_status": "complete",
+      "export_file": "exports/yeonbaek/yeonbaek-fl.png"
     },
     {
       "character": 10,
@@ -1018,7 +1056,8 @@
       ],
       "target_size": 256,
       "status": "generated_master",
-      "export_status": "pending"
+      "export_status": "complete",
+      "export_file": "exports/yeonbaek/yeonbaek-br.png"
     },
     {
       "character": 10,
@@ -1044,7 +1083,8 @@
       ],
       "target_size": 256,
       "status": "generated_master",
-      "export_status": "pending"
+      "export_status": "complete",
+      "export_file": "exports/yeonbaek/yeonbaek-bl.png"
     },
     {
       "character": 11,
@@ -1070,7 +1110,8 @@
       ],
       "target_size": 256,
       "status": "generated_master",
-      "export_status": "pending"
+      "export_status": "complete",
+      "export_file": "exports/dogyeom/dogyeom-fr.png"
     },
     {
       "character": 11,
@@ -1096,7 +1137,8 @@
       ],
       "target_size": 256,
       "status": "generated_master",
-      "export_status": "pending"
+      "export_status": "complete",
+      "export_file": "exports/dogyeom/dogyeom-fl.png"
     },
     {
       "character": 11,
@@ -1122,7 +1164,8 @@
       ],
       "target_size": 256,
       "status": "generated_master",
-      "export_status": "pending"
+      "export_status": "complete",
+      "export_file": "exports/dogyeom/dogyeom-br.png"
     },
     {
       "character": 11,
@@ -1148,7 +1191,8 @@
       ],
       "target_size": 256,
       "status": "generated_master",
-      "export_status": "pending"
+      "export_status": "complete",
+      "export_file": "exports/dogyeom/dogyeom-bl.png"
     },
     {
       "character": 12,
@@ -1174,7 +1218,8 @@
       ],
       "target_size": 384,
       "status": "generated_master",
-      "export_status": "pending"
+      "export_status": "complete",
+      "export_file": "exports/hoyeon/hoyeon-fr.png"
     },
     {
       "character": 12,
@@ -1200,7 +1245,8 @@
       ],
       "target_size": 384,
       "status": "generated_master",
-      "export_status": "pending"
+      "export_status": "complete",
+      "export_file": "exports/hoyeon/hoyeon-fl.png"
     },
     {
       "character": 12,
@@ -1226,7 +1272,8 @@
       ],
       "target_size": 384,
       "status": "generated_master",
-      "export_status": "pending"
+      "export_status": "complete",
+      "export_file": "exports/hoyeon/hoyeon-br.png"
     },
     {
       "character": 12,
@@ -1252,7 +1299,8 @@
       ],
       "target_size": 384,
       "status": "generated_master",
-      "export_status": "pending"
+      "export_status": "complete",
+      "export_file": "exports/hoyeon/hoyeon-bl.png"
     },
     {
       "character": 13,
@@ -1278,7 +1326,8 @@
       ],
       "target_size": 256,
       "status": "generated_master",
-      "export_status": "pending"
+      "export_status": "complete",
+      "export_file": "exports/eunrang/eunrang-fr.png"
     },
     {
       "character": 13,
@@ -1304,7 +1353,8 @@
       ],
       "target_size": 256,
       "status": "generated_master",
-      "export_status": "pending"
+      "export_status": "complete",
+      "export_file": "exports/eunrang/eunrang-fl.png"
     },
     {
       "character": 13,
@@ -1330,7 +1380,8 @@
       ],
       "target_size": 256,
       "status": "generated_master",
-      "export_status": "pending"
+      "export_status": "complete",
+      "export_file": "exports/eunrang/eunrang-br.png"
     },
     {
       "character": 13,
@@ -1356,7 +1407,8 @@
       ],
       "target_size": 256,
       "status": "generated_master",
-      "export_status": "pending"
+      "export_status": "complete",
+      "export_file": "exports/eunrang/eunrang-bl.png"
     },
     {
       "character": 14,
@@ -1382,7 +1434,8 @@
       ],
       "target_size": 384,
       "status": "generated_master",
-      "export_status": "pending"
+      "export_status": "complete",
+      "export_file": "exports/sayul/sayul-fr.png"
     },
     {
       "character": 14,
@@ -1408,7 +1461,8 @@
       ],
       "target_size": 384,
       "status": "generated_master",
-      "export_status": "pending"
+      "export_status": "complete",
+      "export_file": "exports/sayul/sayul-fl.png"
     },
     {
       "character": 14,
@@ -1434,7 +1488,8 @@
       ],
       "target_size": 384,
       "status": "generated_master",
-      "export_status": "pending"
+      "export_status": "complete",
+      "export_file": "exports/sayul/sayul-br.png"
     },
     {
       "character": 14,
@@ -1460,7 +1515,8 @@
       ],
       "target_size": 384,
       "status": "generated_master",
-      "export_status": "pending"
+      "export_status": "complete",
+      "export_file": "exports/sayul/sayul-bl.png"
     },
     {
       "character": 15,
@@ -1486,7 +1542,8 @@
       ],
       "target_size": 384,
       "status": "generated_master",
-      "export_status": "pending"
+      "export_status": "complete",
+      "export_file": "exports/biyeon/biyeon-fr.png"
     },
     {
       "character": 15,
@@ -1512,7 +1569,8 @@
       ],
       "target_size": 384,
       "status": "generated_master",
-      "export_status": "pending"
+      "export_status": "complete",
+      "export_file": "exports/biyeon/biyeon-fl.png"
     },
     {
       "character": 15,
@@ -1538,7 +1596,8 @@
       ],
       "target_size": 384,
       "status": "generated_master",
-      "export_status": "pending"
+      "export_status": "complete",
+      "export_file": "exports/biyeon/biyeon-br.png"
     },
     {
       "character": 15,
@@ -1564,7 +1623,8 @@
       ],
       "target_size": 384,
       "status": "generated_master",
-      "export_status": "pending"
+      "export_status": "complete",
+      "export_file": "exports/biyeon/biyeon-bl.png"
     },
     {
       "character": 16,
@@ -1590,7 +1650,8 @@
       ],
       "target_size": 256,
       "status": "generated_master",
-      "export_status": "pending"
+      "export_status": "complete",
+      "export_file": "exports/hongyeom/hongyeom-fr.png"
     },
     {
       "character": 16,
@@ -1616,7 +1677,8 @@
       ],
       "target_size": 256,
       "status": "generated_master",
-      "export_status": "pending"
+      "export_status": "complete",
+      "export_file": "exports/hongyeom/hongyeom-fl.png"
     },
     {
       "character": 16,
@@ -1642,7 +1704,8 @@
       ],
       "target_size": 256,
       "status": "generated_master",
-      "export_status": "pending"
+      "export_status": "complete",
+      "export_file": "exports/hongyeom/hongyeom-br.png"
     },
     {
       "character": 16,
@@ -1668,7 +1731,8 @@
       ],
       "target_size": 256,
       "status": "generated_master",
-      "export_status": "pending"
+      "export_status": "complete",
+      "export_file": "exports/hongyeom/hongyeom-bl.png"
     },
     {
       "character": 17,
@@ -1694,7 +1758,8 @@
       ],
       "target_size": 256,
       "status": "generated_master",
-      "export_status": "pending"
+      "export_status": "complete",
+      "export_file": "exports/haerin/haerin-fr.png"
     },
     {
       "character": 17,
@@ -1720,7 +1785,8 @@
       ],
       "target_size": 256,
       "status": "generated_master",
-      "export_status": "pending"
+      "export_status": "complete",
+      "export_file": "exports/haerin/haerin-fl.png"
     },
     {
       "character": 17,
@@ -1746,7 +1812,8 @@
       ],
       "target_size": 256,
       "status": "generated_master",
-      "export_status": "pending"
+      "export_status": "complete",
+      "export_file": "exports/haerin/haerin-br.png"
     },
     {
       "character": 17,
@@ -1772,7 +1839,8 @@
       ],
       "target_size": 256,
       "status": "generated_master",
-      "export_status": "pending"
+      "export_status": "complete",
+      "export_file": "exports/haerin/haerin-bl.png"
     },
     {
       "character": 18,
@@ -1798,7 +1866,8 @@
       ],
       "target_size": 256,
       "status": "generated_master",
-      "export_status": "pending"
+      "export_status": "complete",
+      "export_file": "exports/heukcheol/heukcheol-fr.png"
     },
     {
       "character": 18,
@@ -1824,7 +1893,8 @@
       ],
       "target_size": 256,
       "status": "generated_master",
-      "export_status": "pending"
+      "export_status": "complete",
+      "export_file": "exports/heukcheol/heukcheol-fl.png"
     },
     {
       "character": 18,
@@ -1850,7 +1920,8 @@
       ],
       "target_size": 256,
       "status": "generated_master",
-      "export_status": "pending"
+      "export_status": "complete",
+      "export_file": "exports/heukcheol/heukcheol-br.png"
     },
     {
       "character": 18,
@@ -1876,7 +1947,8 @@
       ],
       "target_size": 256,
       "status": "generated_master",
-      "export_status": "pending"
+      "export_status": "complete",
+      "export_file": "exports/heukcheol/heukcheol-bl.png"
     },
     {
       "character": 19,
@@ -1902,7 +1974,8 @@
       ],
       "target_size": 256,
       "status": "generated_master",
-      "export_status": "pending"
+      "export_status": "complete",
+      "export_file": "exports/mujin/mujin-fr.png"
     },
     {
       "character": 19,
@@ -1928,7 +2001,8 @@
       ],
       "target_size": 256,
       "status": "generated_master",
-      "export_status": "pending"
+      "export_status": "complete",
+      "export_file": "exports/mujin/mujin-fl.png"
     },
     {
       "character": 19,
@@ -1954,7 +2028,8 @@
       ],
       "target_size": 256,
       "status": "generated_master",
-      "export_status": "pending"
+      "export_status": "complete",
+      "export_file": "exports/mujin/mujin-br.png"
     },
     {
       "character": 19,
@@ -1980,7 +2055,8 @@
       ],
       "target_size": 256,
       "status": "generated_master",
-      "export_status": "pending"
+      "export_status": "complete",
+      "export_file": "exports/mujin/mujin-bl.png"
     },
     {
       "character": 20,
@@ -2006,7 +2082,8 @@
       ],
       "target_size": 256,
       "status": "generated_master",
-      "export_status": "pending"
+      "export_status": "complete",
+      "export_file": "exports/baekryun/baekryun-fr.png"
     },
     {
       "character": 20,
@@ -2032,7 +2109,8 @@
       ],
       "target_size": 256,
       "status": "generated_master",
-      "export_status": "pending"
+      "export_status": "complete",
+      "export_file": "exports/baekryun/baekryun-fl.png"
     },
     {
       "character": 20,
@@ -2058,7 +2136,8 @@
       ],
       "target_size": 256,
       "status": "generated_master",
-      "export_status": "pending"
+      "export_status": "complete",
+      "export_file": "exports/baekryun/baekryun-br.png"
     },
     {
       "character": 20,
@@ -2084,7 +2163,9 @@
       ],
       "target_size": 256,
       "status": "generated_master",
-      "export_status": "pending"
+      "export_status": "complete",
+      "export_file": "exports/baekryun/baekryun-bl.png"
     }
-  ]
+  ],
+  "export_manifest": "exports/manifest.json"
 }
