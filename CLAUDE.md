@@ -657,3 +657,8 @@
 - hdOn()이면: draw의 objs에 보급소 `drawDepotSite`(supply-depot, 확보 시 초록 깃발)·영맥 `drawSpiritStone`(gui-prop-talisman 2번 칸 비석+확보 시 빛)을 깊이 정렬로 넣고 지면층 도형은 그리지 않음. 보급소 글씨 y−172. drawCitadel은 `<faction>-outpost`가 없으면 ally-keep(폭 330)+진영 깃발 둘. drawGate 첫머리 `drawObjective(u)`(u.objective): 「깃발」이면 talisman 1번 칸(높이 190)+빛, 그 밖은 pass-gate(폭 250), 체력 막대·「목표 · 이름 n%」. HD가 없을 때의 옛 그림도 글자는 고침. 판정·충돌 불변. `tests/structure-art.cjs`.
 - 남은 것: c10 가운데 유도 깃발이 군량소 자리와 겹친다(목표 위치 GOAL_SPOTS center = 군량소 근처, 기존 배치).
 
+## 이동 속도 1.5배 · 2026-11-14
+- 사용자 「이동속도와 거리를 좀 더 시원하게 1.5로」: `MARCH_SPEED` 1.6→2.4. 계획 apAdd의 AP당 거리도 u.speed를 쓰므로 함께 1.5배. 사거리·턴 길이·간격 불변.
+- 후속: 붕괴 후퇴(아군 m.fall)에서 처음 거리 `u.routD0`보다 80 넘게 멀어지는 병사는 멈춤(막힌 길 옆걸음으로 711px 달아나던 것, no-flee 272). facingFromMotion `MOVE_EMA` 8→12, `MOVE_LOCK` .55→.45, 빠른 이동 좌우 `MOVE_LOCK_FAST`.3·앞뒤 `MOVE_LOCK_BACK`.35(이전 앞뒤는 빠르면 잠금 없음, 깜박임 .219→.149, 좌우 불일치 2.09→1.37%). battle-forms 야전은 「양쪽 체력 감소+전사 합 >0」으로(적이 빨리 와 3턴 적 전사 0이 나옴).
+- 전체 84개 중 asset-library(이전 속도에서도 실패, 기존 문제)만 실패. vn-intro는 동시 실행 부하로 가끔 실패, 단독 통과.
+
