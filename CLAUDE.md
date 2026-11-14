@@ -648,3 +648,7 @@
 - 검사 `tests/illust-leaders.cjs`. 옛 도트 경로 검사 8개(battle-size·cast-deployment·dir-art·leader-walk·leader-facing·pixel-leaders·faction-outfit·sprite-anim)는 URL에 `?pixel=1`을 붙여 연다. 대화·인물첩·천하도 그림은 불변.
 - 그림 방향 의심(반전 금지라 그대로): mujin·heukcheol·yeonbaek fr이 왼쪽을 보는 듯, bai-ruler·baekryun fr은 fl과 거의 같은 정면.
 
+## 현무 서막·관리자 갈래 이동 · 2026-11-14
+- `PROLOGUE_X` 3장(story/xuan-prologue-{1-north-gate,2-seal-research,3-dawn}.webp). `openPrologue(done,list)`: list 없고 done 없으면(메뉴 「서막 다시보기」) PROLOGUE+PROLOGUE_X 6장, done 있으면 PROLOGUE. `prologue.list`로 쪽수·끝 판정. `chronStep`이 현무로 넘어간 뒤 `xuanIntroDue()`(ROUTE xuan·현무 완료 0·`storyState().xintro` 없음)면 PROLOGUE_X 뒤 연대기 화면. worldIntro는 현무로 시작하면 두 서막을 이어 재생. xintro는 story에 새 불린(옛 저장은 없음=아직 안 봄, 현무 완료가 있으면 안 나옴).
+- 관리자 메뉴: `#admin-route`(청명/현무)·`fill(r,sel)`(SAGA_Q/X 목록)·`jump(id,route)`·`build(route,index,bond)`(앞선 판 재구성, 옛 jump 본문)·`swap()`(천하도에서 chronSwap, 진행 그대로)·`bondOf()`. CHRON이면 jump가 CHRONICLE에서 그 판 앞 항목들의 다른 갈래 id 수만큼 다른 갈래를 build해 R.twin(chron)으로 붙인다. restore는 백업의 saga.route로 resumeRealmSave. tests/xuan-prologue-admin.cjs, chronicle·timeline-card는 현무 서막을 한 번 거친다.
+
