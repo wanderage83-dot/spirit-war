@@ -1,0 +1,11 @@
+# 배포에서 뺄 것: 그림 원본·검사·도구·작업 문서
+art-requests
+tests
+tools
+mockups
+asset-library
+*.md
+ASSET_MANIFEST.json
+**/raw
+**/*.py
+**/*.sh
