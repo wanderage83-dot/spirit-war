@@ -1,0 +1,2090 @@
+{
+  "scope": "20 characters, four static diagonal directions; no walk sheets; no mirrored transforms",
+  "master_size": [
+    1254,
+    1254
+  ],
+  "exports": "pending",
+  "images": [
+    {
+      "character": 1,
+      "name": "hero",
+      "label": "청명",
+      "direction": "fr",
+      "file": "hero/hero-fr.png",
+      "sha256": "62d408886a07400944807df97cc3684d576fa73e7465bc8003e383d16d7571aa",
+      "size": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "alpha_extrema": [
+        0,
+        255
+      ],
+      "alpha_bbox": [
+        26,
+        21,
+        1240,
+        1254
+      ],
+      "target_size": 256,
+      "status": "generated_master",
+      "export_status": "pending"
+    },
+    {
+      "character": 1,
+      "name": "hero",
+      "label": "청명",
+      "direction": "fl",
+      "file": "hero/hero-fl.png",
+      "sha256": "5aa2756e4017d62abd16826ff437f30e5abce1bc1470cff8dbae2f8a0cca631e",
+      "size": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "alpha_extrema": [
+        0,
+        255
+      ],
+      "alpha_bbox": [
+        0,
+        51,
+        1214,
+        1224
+      ],
+      "target_size": 256,
+      "status": "generated_master",
+      "export_status": "pending"
+    },
+    {
+      "character": 1,
+      "name": "hero",
+      "label": "청명",
+      "direction": "br",
+      "file": "hero/hero-br.png",
+      "sha256": "d4d17569a6b6c0dc4e7e1a595466ca7e6da95e042f5f501a9dae6164b409ee79",
+      "size": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "alpha_extrema": [
+        0,
+        255
+      ],
+      "alpha_bbox": [
+        0,
+        73,
+        1220,
+        1254
+      ],
+      "target_size": 256,
+      "status": "generated_master",
+      "export_status": "pending"
+    },
+    {
+      "character": 1,
+      "name": "hero",
+      "label": "청명",
+      "direction": "bl",
+      "file": "hero/hero-bl.png",
+      "sha256": "b051c7b0135e5759bdb29c9c8e083fe0bb3ac0d534602b3d463d091fe14effeb",
+      "size": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "alpha_extrema": [
+        0,
+        255
+      ],
+      "alpha_bbox": [
+        0,
+        55,
+        1224,
+        1202
+      ],
+      "target_size": 256,
+      "status": "generated_master",
+      "export_status": "pending"
+    },
+    {
+      "character": 2,
+      "name": "xuan-ruler",
+      "label": "서진",
+      "direction": "fr",
+      "file": "xuan-ruler/xuan-ruler-fr.png",
+      "sha256": "c77618ffbd8e9483b7ab5ae891fbaf7d1c8a9fe17e5fd465adf700acfabc9701",
+      "size": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "alpha_extrema": [
+        0,
+        255
+      ],
+      "alpha_bbox": [
+        39,
+        0,
+        1234,
+        1236
+      ],
+      "target_size": 256,
+      "status": "generated_master",
+      "export_status": "pending"
+    },
+    {
+      "character": 2,
+      "name": "xuan-ruler",
+      "label": "서진",
+      "direction": "fl",
+      "file": "xuan-ruler/xuan-ruler-fl.png",
+      "sha256": "e6c85b0f3ca7355ffaeb27b4f70ee2357d9efe20d7a906755ab4f2e9808a9027",
+      "size": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "alpha_extrema": [
+        0,
+        255
+      ],
+      "alpha_bbox": [
+        21,
+        6,
+        1232,
+        1254
+      ],
+      "target_size": 256,
+      "status": "generated_master",
+      "export_status": "pending"
+    },
+    {
+      "character": 2,
+      "name": "xuan-ruler",
+      "label": "서진",
+      "direction": "br",
+      "file": "xuan-ruler/xuan-ruler-br.png",
+      "sha256": "45acb69cdf2cbcb4ad75ebeb5ad1f3ec6284be3b865df18fc299e48b5e9980cb",
+      "size": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "alpha_extrema": [
+        0,
+        255
+      ],
+      "alpha_bbox": [
+        0,
+        15,
+        1245,
+        1228
+      ],
+      "target_size": 256,
+      "status": "generated_master",
+      "export_status": "pending"
+    },
+    {
+      "character": 2,
+      "name": "xuan-ruler",
+      "label": "서진",
+      "direction": "bl",
+      "file": "xuan-ruler/xuan-ruler-bl.png",
+      "sha256": "6ba505af848df31e113faf22175b83cf33a0bc5dc3875e240fd109e19b01fb84",
+      "size": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "alpha_extrema": [
+        0,
+        255
+      ],
+      "alpha_bbox": [
+        0,
+        16,
+        1235,
+        1234
+      ],
+      "target_size": 256,
+      "status": "generated_master",
+      "export_status": "pending"
+    },
+    {
+      "character": 3,
+      "name": "bai-ruler",
+      "label": "강현",
+      "direction": "fr",
+      "file": "bai-ruler/bai-ruler-fr.png",
+      "sha256": "419d307f09be3d3d1bb33ac0ee91ba145af7b4c398079aff8282366b9e621289",
+      "size": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "alpha_extrema": [
+        0,
+        255
+      ],
+      "alpha_bbox": [
+        0,
+        7,
+        1253,
+        1254
+      ],
+      "target_size": 256,
+      "status": "generated_master",
+      "export_status": "pending"
+    },
+    {
+      "character": 3,
+      "name": "bai-ruler",
+      "label": "강현",
+      "direction": "fl",
+      "file": "bai-ruler/bai-ruler-fl.png",
+      "sha256": "d6967535765f89a8ed04eb5c4959155998195e60c4e6373b85e06c59357de788",
+      "size": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "alpha_extrema": [
+        0,
+        255
+      ],
+      "alpha_bbox": [
+        59,
+        6,
+        1232,
+        1244
+      ],
+      "target_size": 256,
+      "status": "generated_master",
+      "export_status": "pending"
+    },
+    {
+      "character": 3,
+      "name": "bai-ruler",
+      "label": "강현",
+      "direction": "br",
+      "file": "bai-ruler/bai-ruler-br.png",
+      "sha256": "10ddfc3dae91f94929c91e1b63072a656ec068d5f2d2b175ccbf351a777ffd14",
+      "size": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "alpha_extrema": [
+        0,
+        255
+      ],
+      "alpha_bbox": [
+        0,
+        16,
+        1234,
+        1254
+      ],
+      "target_size": 256,
+      "status": "generated_master",
+      "export_status": "pending"
+    },
+    {
+      "character": 3,
+      "name": "bai-ruler",
+      "label": "강현",
+      "direction": "bl",
+      "file": "bai-ruler/bai-ruler-bl.png",
+      "sha256": "e5f5b3bc22bcc9561e54ed00780d6c321cc3ab459f8260d66694c3e32effa64a",
+      "size": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "alpha_extrema": [
+        0,
+        255
+      ],
+      "alpha_bbox": [
+        0,
+        4,
+        1240,
+        1254
+      ],
+      "target_size": 256,
+      "status": "generated_master",
+      "export_status": "pending"
+    },
+    {
+      "character": 4,
+      "name": "zhu-ruler",
+      "label": "연화",
+      "direction": "fr",
+      "file": "zhu-ruler/zhu-ruler-fr.png",
+      "sha256": "5c0b6a9b7c377cc58b225e09b79eff8e36823147deb28fea00e5e279d2aea4b5",
+      "size": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "alpha_extrema": [
+        0,
+        255
+      ],
+      "alpha_bbox": [
+        41,
+        0,
+        1218,
+        1254
+      ],
+      "target_size": 256,
+      "status": "generated_master",
+      "export_status": "pending"
+    },
+    {
+      "character": 4,
+      "name": "zhu-ruler",
+      "label": "연화",
+      "direction": "fl",
+      "file": "zhu-ruler/zhu-ruler-fl.png",
+      "sha256": "fb4a95dc3e9eba2bb660669289a21c9ddea8c6307c35822024e2454ae8e3d218",
+      "size": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "alpha_extrema": [
+        0,
+        255
+      ],
+      "alpha_bbox": [
+        0,
+        0,
+        1174,
+        1254
+      ],
+      "target_size": 256,
+      "status": "generated_master",
+      "export_status": "pending"
+    },
+    {
+      "character": 4,
+      "name": "zhu-ruler",
+      "label": "연화",
+      "direction": "br",
+      "file": "zhu-ruler/zhu-ruler-br.png",
+      "sha256": "96e5b046b927f15f5576fa1a6c18183f2dc14bfb8c43af95743356a89c86e68e",
+      "size": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "alpha_extrema": [
+        0,
+        255
+      ],
+      "alpha_bbox": [
+        0,
+        15,
+        1238,
+        1254
+      ],
+      "target_size": 256,
+      "status": "generated_master",
+      "export_status": "pending"
+    },
+    {
+      "character": 4,
+      "name": "zhu-ruler",
+      "label": "연화",
+      "direction": "bl",
+      "file": "zhu-ruler/zhu-ruler-bl.png",
+      "sha256": "36adb050a659a322f6b126309c1998fa1b86e26465ef29e7d948305c248e9a11",
+      "size": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "alpha_extrema": [
+        0,
+        255
+      ],
+      "alpha_bbox": [
+        0,
+        11,
+        1218,
+        1254
+      ],
+      "target_size": 256,
+      "status": "generated_master",
+      "export_status": "pending"
+    },
+    {
+      "character": 5,
+      "name": "gui-ruler",
+      "label": "귀왕",
+      "direction": "fr",
+      "file": "gui-ruler/gui-ruler-fr.png",
+      "sha256": "8dbfe4943a6308db81dfcb4e4973210d865c1e43ece925f40777c09170acf1e5",
+      "size": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "alpha_extrema": [
+        0,
+        255
+      ],
+      "alpha_bbox": [
+        33,
+        0,
+        1231,
+        1249
+      ],
+      "target_size": 256,
+      "status": "generated_master",
+      "export_status": "pending"
+    },
+    {
+      "character": 5,
+      "name": "gui-ruler",
+      "label": "귀왕",
+      "direction": "fl",
+      "file": "gui-ruler/gui-ruler-fl.png",
+      "sha256": "2852088be5dd57df0433c3aa8ab22faece8ab4934ef296d372cd5f76df78f798",
+      "size": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "alpha_extrema": [
+        0,
+        255
+      ],
+      "alpha_bbox": [
+        25,
+        15,
+        1236,
+        1237
+      ],
+      "target_size": 256,
+      "status": "generated_master",
+      "export_status": "pending"
+    },
+    {
+      "character": 5,
+      "name": "gui-ruler",
+      "label": "귀왕",
+      "direction": "br",
+      "file": "gui-ruler/gui-ruler-br.png",
+      "sha256": "f44bd2974b593242d2a2e00d4ccf37143dd6c6efa1a0e5179089fcb828eb6ae4",
+      "size": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "alpha_extrema": [
+        0,
+        255
+      ],
+      "alpha_bbox": [
+        17,
+        4,
+        1254,
+        1230
+      ],
+      "target_size": 256,
+      "status": "generated_master",
+      "export_status": "pending"
+    },
+    {
+      "character": 5,
+      "name": "gui-ruler",
+      "label": "귀왕",
+      "direction": "bl",
+      "file": "gui-ruler/gui-ruler-bl.png",
+      "sha256": "8df6f6db65e7ff21fa45d268035af58175be4533c61e9dd0dd46b1d5fef96c50",
+      "size": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "alpha_extrema": [
+        0,
+        255
+      ],
+      "alpha_bbox": [
+        15,
+        0,
+        1220,
+        1254
+      ],
+      "target_size": 256,
+      "status": "generated_master",
+      "export_status": "pending"
+    },
+    {
+      "character": 6,
+      "name": "unhak",
+      "label": "운학",
+      "direction": "fr",
+      "file": "unhak/unhak-fr.png",
+      "sha256": "e6cb7cc6a0b98fa8d0bb0886e949ec5b58c0ec3fd5c4f8937134165da67c4c50",
+      "size": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "alpha_extrema": [
+        0,
+        255
+      ],
+      "alpha_bbox": [
+        73,
+        24,
+        1226,
+        1219
+      ],
+      "target_size": 256,
+      "status": "generated_master",
+      "export_status": "pending"
+    },
+    {
+      "character": 6,
+      "name": "unhak",
+      "label": "운학",
+      "direction": "fl",
+      "file": "unhak/unhak-fl.png",
+      "sha256": "a42c7ff15926ba2e5ae6bd6d0308f766253b10255ae866c22445519e14d58370",
+      "size": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "alpha_extrema": [
+        0,
+        255
+      ],
+      "alpha_bbox": [
+        2,
+        3,
+        1232,
+        1223
+      ],
+      "target_size": 256,
+      "status": "generated_master",
+      "export_status": "pending"
+    },
+    {
+      "character": 6,
+      "name": "unhak",
+      "label": "운학",
+      "direction": "br",
+      "file": "unhak/unhak-br.png",
+      "sha256": "06f8fe95804622c2d87ae36ccfc1b10e258526a9f2fb89cbdaad1c839824fccb",
+      "size": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "alpha_extrema": [
+        0,
+        255
+      ],
+      "alpha_bbox": [
+        0,
+        11,
+        1228,
+        1254
+      ],
+      "target_size": 256,
+      "status": "generated_master",
+      "export_status": "pending"
+    },
+    {
+      "character": 6,
+      "name": "unhak",
+      "label": "운학",
+      "direction": "bl",
+      "file": "unhak/unhak-bl.png",
+      "sha256": "ebff80e90bacfdc5075239ea4c6c976aaf689407eb4bdc90dde675065ddedf21",
+      "size": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "alpha_extrema": [
+        0,
+        255
+      ],
+      "alpha_bbox": [
+        0,
+        0,
+        1249,
+        1238
+      ],
+      "target_size": 256,
+      "status": "generated_master",
+      "export_status": "pending"
+    },
+    {
+      "character": 7,
+      "name": "dansim",
+      "label": "단심",
+      "direction": "fr",
+      "file": "dansim/dansim-fr.png",
+      "sha256": "0932ee193364a07cd761b0b98cd74924fdf773abe3f8e62fb8b33b614737e4f5",
+      "size": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "alpha_extrema": [
+        0,
+        255
+      ],
+      "alpha_bbox": [
+        37,
+        28,
+        1230,
+        1218
+      ],
+      "target_size": 256,
+      "status": "generated_master",
+      "export_status": "pending"
+    },
+    {
+      "character": 7,
+      "name": "dansim",
+      "label": "단심",
+      "direction": "fl",
+      "file": "dansim/dansim-fl.png",
+      "sha256": "494840f1bf6f325f4fe9b401d9a70b02057408b423953e175d19da92e0b66419",
+      "size": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "alpha_extrema": [
+        0,
+        255
+      ],
+      "alpha_bbox": [
+        0,
+        21,
+        1184,
+        1210
+      ],
+      "target_size": 256,
+      "status": "generated_master",
+      "export_status": "pending"
+    },
+    {
+      "character": 7,
+      "name": "dansim",
+      "label": "단심",
+      "direction": "br",
+      "file": "dansim/dansim-br.png",
+      "sha256": "b3718a9b73797a4b8e708ea874a88e748c4bf2f53e6f9837ce10da034b31e723",
+      "size": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "alpha_extrema": [
+        0,
+        255
+      ],
+      "alpha_bbox": [
+        0,
+        30,
+        1236,
+        1219
+      ],
+      "target_size": 256,
+      "status": "generated_master",
+      "export_status": "pending"
+    },
+    {
+      "character": 7,
+      "name": "dansim",
+      "label": "단심",
+      "direction": "bl",
+      "file": "dansim/dansim-bl.png",
+      "sha256": "6b612a9c18f6c02a83a9e2fdb6cd00228ded0305d4621be42e55b4ec9fe928c3",
+      "size": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "alpha_extrema": [
+        0,
+        255
+      ],
+      "alpha_bbox": [
+        0,
+        19,
+        1204,
+        1222
+      ],
+      "target_size": 256,
+      "status": "generated_master",
+      "export_status": "pending"
+    },
+    {
+      "character": 8,
+      "name": "mukcheol",
+      "label": "묵철",
+      "direction": "fr",
+      "file": "mukcheol/mukcheol-fr.png",
+      "sha256": "98529b31453b261a87956d7880c31e212104e970dbb7c1be741913c1fb0ad86a",
+      "size": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "alpha_extrema": [
+        0,
+        255
+      ],
+      "alpha_bbox": [
+        0,
+        23,
+        1236,
+        1254
+      ],
+      "target_size": 256,
+      "status": "generated_master",
+      "export_status": "pending"
+    },
+    {
+      "character": 8,
+      "name": "mukcheol",
+      "label": "묵철",
+      "direction": "fl",
+      "file": "mukcheol/mukcheol-fl.png",
+      "sha256": "d80223d3e17d15e1129649b49b648a056162db99fa130cabad77726618a6c50e",
+      "size": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "alpha_extrema": [
+        0,
+        255
+      ],
+      "alpha_bbox": [
+        0,
+        11,
+        1214,
+        1208
+      ],
+      "target_size": 256,
+      "status": "generated_master",
+      "export_status": "pending"
+    },
+    {
+      "character": 8,
+      "name": "mukcheol",
+      "label": "묵철",
+      "direction": "br",
+      "file": "mukcheol/mukcheol-br.png",
+      "sha256": "47977569240a5c54a727eb553a1c0dc2e676f28421dd222e74af26a3e1a1fa65",
+      "size": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "alpha_extrema": [
+        0,
+        255
+      ],
+      "alpha_bbox": [
+        0,
+        25,
+        1240,
+        1222
+      ],
+      "target_size": 256,
+      "status": "generated_master",
+      "export_status": "pending"
+    },
+    {
+      "character": 8,
+      "name": "mukcheol",
+      "label": "묵철",
+      "direction": "bl",
+      "file": "mukcheol/mukcheol-bl.png",
+      "sha256": "aaf423633795d5ef7df2aa14e5bd8b04fa000a04af2c83a742bbaba11f6667f0",
+      "size": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "alpha_extrema": [
+        0,
+        255
+      ],
+      "alpha_bbox": [
+        0,
+        24,
+        1222,
+        1223
+      ],
+      "target_size": 256,
+      "status": "generated_master",
+      "export_status": "pending"
+    },
+    {
+      "character": 9,
+      "name": "seolhwa",
+      "label": "설화",
+      "direction": "fr",
+      "file": "seolhwa/seolhwa-fr.png",
+      "sha256": "efbd3ad7f260e369841b0c4e42eef42858bbe29a6abf598635b867c824d4b67b",
+      "size": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "alpha_extrema": [
+        0,
+        255
+      ],
+      "alpha_bbox": [
+        0,
+        30,
+        1238,
+        1254
+      ],
+      "target_size": 256,
+      "status": "generated_master",
+      "export_status": "pending"
+    },
+    {
+      "character": 9,
+      "name": "seolhwa",
+      "label": "설화",
+      "direction": "fl",
+      "file": "seolhwa/seolhwa-fl.png",
+      "sha256": "225a8810b85e9a87390ea97e11e0327bea45e272f2331fbc58170e7c5381b004",
+      "size": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "alpha_extrema": [
+        0,
+        255
+      ],
+      "alpha_bbox": [
+        41,
+        21,
+        1200,
+        1254
+      ],
+      "target_size": 256,
+      "status": "generated_master",
+      "export_status": "pending"
+    },
+    {
+      "character": 9,
+      "name": "seolhwa",
+      "label": "설화",
+      "direction": "br",
+      "file": "seolhwa/seolhwa-br.png",
+      "sha256": "a739ea1b89529cba39ac0e5e2b741e47dc25ea4a0b90684bca7e7bcbf3c755af",
+      "size": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "alpha_extrema": [
+        0,
+        255
+      ],
+      "alpha_bbox": [
+        0,
+        8,
+        1200,
+        1254
+      ],
+      "target_size": 256,
+      "status": "generated_master",
+      "export_status": "pending"
+    },
+    {
+      "character": 9,
+      "name": "seolhwa",
+      "label": "설화",
+      "direction": "bl",
+      "file": "seolhwa/seolhwa-bl.png",
+      "sha256": "003a2513e5cf79cebebdcf853ad3d2294368ce53d3ac30384338e519a69da5d8",
+      "size": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "alpha_extrema": [
+        0,
+        255
+      ],
+      "alpha_bbox": [
+        0,
+        0,
+        1218,
+        1254
+      ],
+      "target_size": 256,
+      "status": "generated_master",
+      "export_status": "pending"
+    },
+    {
+      "character": 10,
+      "name": "yeonbaek",
+      "label": "연백",
+      "direction": "fr",
+      "file": "yeonbaek/yeonbaek-fr.png",
+      "sha256": "9c958c464ed3cd47544e72f952c9344f9ddf1456393cb7a72c2c617d979a4692",
+      "size": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "alpha_extrema": [
+        0,
+        255
+      ],
+      "alpha_bbox": [
+        0,
+        14,
+        1238,
+        1254
+      ],
+      "target_size": 256,
+      "status": "generated_master",
+      "export_status": "pending"
+    },
+    {
+      "character": 10,
+      "name": "yeonbaek",
+      "label": "연백",
+      "direction": "fl",
+      "file": "yeonbaek/yeonbaek-fl.png",
+      "sha256": "993b03b12a36fb34424e8acf91b9d174b6d2ecad8f7c8954de858d3a46eff5a8",
+      "size": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "alpha_extrema": [
+        0,
+        255
+      ],
+      "alpha_bbox": [
+        0,
+        18,
+        1234,
+        1254
+      ],
+      "target_size": 256,
+      "status": "generated_master",
+      "export_status": "pending"
+    },
+    {
+      "character": 10,
+      "name": "yeonbaek",
+      "label": "연백",
+      "direction": "br",
+      "file": "yeonbaek/yeonbaek-br.png",
+      "sha256": "3a950c23f0706774ffe3d44a576006da5baebcde6a1d94e1e53e6d388ea1043e",
+      "size": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "alpha_extrema": [
+        0,
+        255
+      ],
+      "alpha_bbox": [
+        0,
+        30,
+        1228,
+        1254
+      ],
+      "target_size": 256,
+      "status": "generated_master",
+      "export_status": "pending"
+    },
+    {
+      "character": 10,
+      "name": "yeonbaek",
+      "label": "연백",
+      "direction": "bl",
+      "file": "yeonbaek/yeonbaek-bl.png",
+      "sha256": "f45eeefca1e8a6ad44f2be4149e96c42b66077fbb6e6ce1fb7aa3da0fc00108b",
+      "size": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "alpha_extrema": [
+        0,
+        255
+      ],
+      "alpha_bbox": [
+        49,
+        25,
+        1220,
+        1254
+      ],
+      "target_size": 256,
+      "status": "generated_master",
+      "export_status": "pending"
+    },
+    {
+      "character": 11,
+      "name": "dogyeom",
+      "label": "도겸",
+      "direction": "fr",
+      "file": "dogyeom/dogyeom-fr.png",
+      "sha256": "7c1d74feebb48722d75db0a72ae393e179e215dd5674b5dff6cf546c9909c51b",
+      "size": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "alpha_extrema": [
+        0,
+        255
+      ],
+      "alpha_bbox": [
+        0,
+        6,
+        1240,
+        1254
+      ],
+      "target_size": 256,
+      "status": "generated_master",
+      "export_status": "pending"
+    },
+    {
+      "character": 11,
+      "name": "dogyeom",
+      "label": "도겸",
+      "direction": "fl",
+      "file": "dogyeom/dogyeom-fl.png",
+      "sha256": "f295f6330bce3c7dd5561d9b29b6a5f604864275214bf2e33ac27925998275c3",
+      "size": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "alpha_extrema": [
+        0,
+        255
+      ],
+      "alpha_bbox": [
+        33,
+        10,
+        1103,
+        1234
+      ],
+      "target_size": 256,
+      "status": "generated_master",
+      "export_status": "pending"
+    },
+    {
+      "character": 11,
+      "name": "dogyeom",
+      "label": "도겸",
+      "direction": "br",
+      "file": "dogyeom/dogyeom-br.png",
+      "sha256": "61d63d9de14c880a83b33c0bb9375205b3ac82712936925e6fc090ee117f2833",
+      "size": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "alpha_extrema": [
+        0,
+        255
+      ],
+      "alpha_bbox": [
+        45,
+        16,
+        1218,
+        1240
+      ],
+      "target_size": 256,
+      "status": "generated_master",
+      "export_status": "pending"
+    },
+    {
+      "character": 11,
+      "name": "dogyeom",
+      "label": "도겸",
+      "direction": "bl",
+      "file": "dogyeom/dogyeom-bl.png",
+      "sha256": "abab8794ec17984e637b3e06b5fba6a812485bac5b52842eb90be1cc70e339a9",
+      "size": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "alpha_extrema": [
+        0,
+        255
+      ],
+      "alpha_bbox": [
+        39,
+        0,
+        1198,
+        1240
+      ],
+      "target_size": 256,
+      "status": "generated_master",
+      "export_status": "pending"
+    },
+    {
+      "character": 12,
+      "name": "hoyeon",
+      "label": "호연",
+      "direction": "fr",
+      "file": "hoyeon/hoyeon-fr.png",
+      "sha256": "8dd3d88ab71115928395db690b8f883fce722c551039028dd84ee1f4a4308fb8",
+      "size": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "alpha_extrema": [
+        0,
+        255
+      ],
+      "alpha_bbox": [
+        49,
+        18,
+        1202,
+        1223
+      ],
+      "target_size": 384,
+      "status": "generated_master",
+      "export_status": "pending"
+    },
+    {
+      "character": 12,
+      "name": "hoyeon",
+      "label": "호연",
+      "direction": "fl",
+      "file": "hoyeon/hoyeon-fl.png",
+      "sha256": "5cc1ac04031fad0169fa6f2203a55377367117a65b822f0cd0da7979cfde1e2c",
+      "size": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "alpha_extrema": [
+        0,
+        255
+      ],
+      "alpha_bbox": [
+        0,
+        48,
+        1234,
+        1254
+      ],
+      "target_size": 384,
+      "status": "generated_master",
+      "export_status": "pending"
+    },
+    {
+      "character": 12,
+      "name": "hoyeon",
+      "label": "호연",
+      "direction": "br",
+      "file": "hoyeon/hoyeon-br.png",
+      "sha256": "2c95696583827af1c8b10f8af6464379e6bbe3a8f8369f21e885afd8dbd0fbba",
+      "size": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "alpha_extrema": [
+        0,
+        255
+      ],
+      "alpha_bbox": [
+        0,
+        10,
+        1244,
+        1254
+      ],
+      "target_size": 384,
+      "status": "generated_master",
+      "export_status": "pending"
+    },
+    {
+      "character": 12,
+      "name": "hoyeon",
+      "label": "호연",
+      "direction": "bl",
+      "file": "hoyeon/hoyeon-bl.png",
+      "sha256": "4edfdf72bb8eabe8fe9683523af207676caca27704bad2ef63dae675f7578390",
+      "size": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "alpha_extrema": [
+        0,
+        255
+      ],
+      "alpha_bbox": [
+        0,
+        15,
+        1234,
+        1230
+      ],
+      "target_size": 384,
+      "status": "generated_master",
+      "export_status": "pending"
+    },
+    {
+      "character": 13,
+      "name": "eunrang",
+      "label": "은랑",
+      "direction": "fr",
+      "file": "eunrang/eunrang-fr.png",
+      "sha256": "5b3b4b91a8d0bf0be691de9c2050ed851d269cd32788083ac5771d6522c3fcf9",
+      "size": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "alpha_extrema": [
+        0,
+        255
+      ],
+      "alpha_bbox": [
+        0,
+        8,
+        1246,
+        1234
+      ],
+      "target_size": 256,
+      "status": "generated_master",
+      "export_status": "pending"
+    },
+    {
+      "character": 13,
+      "name": "eunrang",
+      "label": "은랑",
+      "direction": "fl",
+      "file": "eunrang/eunrang-fl.png",
+      "sha256": "3437632094986c9840af03b61e29267a17f8074434d0aafeb8c48ccc7cbb6b68",
+      "size": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "alpha_extrema": [
+        0,
+        255
+      ],
+      "alpha_bbox": [
+        0,
+        19,
+        1230,
+        1254
+      ],
+      "target_size": 256,
+      "status": "generated_master",
+      "export_status": "pending"
+    },
+    {
+      "character": 13,
+      "name": "eunrang",
+      "label": "은랑",
+      "direction": "br",
+      "file": "eunrang/eunrang-br.png",
+      "sha256": "caef3aa79f8da4aa0885df7726eeb8fc0a41c6b40c1cbe68b573b4cfa764d277",
+      "size": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "alpha_extrema": [
+        0,
+        255
+      ],
+      "alpha_bbox": [
+        0,
+        23,
+        1240,
+        1254
+      ],
+      "target_size": 256,
+      "status": "generated_master",
+      "export_status": "pending"
+    },
+    {
+      "character": 13,
+      "name": "eunrang",
+      "label": "은랑",
+      "direction": "bl",
+      "file": "eunrang/eunrang-bl.png",
+      "sha256": "f36dd4902a7e0c8e4d5e17d4af2ad463c2162c1681b9de00c0a633e3b6e53cb7",
+      "size": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "alpha_extrema": [
+        0,
+        255
+      ],
+      "alpha_bbox": [
+        24,
+        17,
+        1224,
+        1254
+      ],
+      "target_size": 256,
+      "status": "generated_master",
+      "export_status": "pending"
+    },
+    {
+      "character": 14,
+      "name": "sayul",
+      "label": "사율",
+      "direction": "fr",
+      "file": "sayul/sayul-fr.png",
+      "sha256": "c6b8ccee2d5080248db063b25f000c4235780034f6e5d7cb706e79bb841167cd",
+      "size": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "alpha_extrema": [
+        0,
+        255
+      ],
+      "alpha_bbox": [
+        45,
+        18,
+        1242,
+        1254
+      ],
+      "target_size": 384,
+      "status": "generated_master",
+      "export_status": "pending"
+    },
+    {
+      "character": 14,
+      "name": "sayul",
+      "label": "사율",
+      "direction": "fl",
+      "file": "sayul/sayul-fl.png",
+      "sha256": "ce4f87508cbe4e029106bda9ee9af7cd593b36c2bd0d5d37722c2a9d6ebd7048",
+      "size": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "alpha_extrema": [
+        0,
+        255
+      ],
+      "alpha_bbox": [
+        18,
+        7,
+        1240,
+        1254
+      ],
+      "target_size": 384,
+      "status": "generated_master",
+      "export_status": "pending"
+    },
+    {
+      "character": 14,
+      "name": "sayul",
+      "label": "사율",
+      "direction": "br",
+      "file": "sayul/sayul-br.png",
+      "sha256": "778bb87f25eb89b178a43217a049395322af708c24011a659baa385928ced00d",
+      "size": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "alpha_extrema": [
+        0,
+        255
+      ],
+      "alpha_bbox": [
+        0,
+        13,
+        1236,
+        1254
+      ],
+      "target_size": 384,
+      "status": "generated_master",
+      "export_status": "pending"
+    },
+    {
+      "character": 14,
+      "name": "sayul",
+      "label": "사율",
+      "direction": "bl",
+      "file": "sayul/sayul-bl.png",
+      "sha256": "19b84c6e46d24f69392c0a5f58405df3ee7cdf121d3410ef8de1229b3ca06f05",
+      "size": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "alpha_extrema": [
+        0,
+        255
+      ],
+      "alpha_bbox": [
+        0,
+        8,
+        1238,
+        1254
+      ],
+      "target_size": 384,
+      "status": "generated_master",
+      "export_status": "pending"
+    },
+    {
+      "character": 15,
+      "name": "biyeon",
+      "label": "비연",
+      "direction": "fr",
+      "file": "biyeon/biyeon-fr.png",
+      "sha256": "22b40deb00d888b06784a2e05f8a9963c730618fe06c18aa4dd64e051059b9cf",
+      "size": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "alpha_extrema": [
+        0,
+        255
+      ],
+      "alpha_bbox": [
+        0,
+        16,
+        1230,
+        1230
+      ],
+      "target_size": 384,
+      "status": "generated_master",
+      "export_status": "pending"
+    },
+    {
+      "character": 15,
+      "name": "biyeon",
+      "label": "비연",
+      "direction": "fl",
+      "file": "biyeon/biyeon-fl.png",
+      "sha256": "6b7b7f6c2adf2808f2a6e7b4d017c0002224d3a96edaee34626a88513c3c1ad8",
+      "size": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "alpha_extrema": [
+        0,
+        255
+      ],
+      "alpha_bbox": [
+        0,
+        0,
+        1240,
+        1254
+      ],
+      "target_size": 384,
+      "status": "generated_master",
+      "export_status": "pending"
+    },
+    {
+      "character": 15,
+      "name": "biyeon",
+      "label": "비연",
+      "direction": "br",
+      "file": "biyeon/biyeon-br.png",
+      "sha256": "e3850c67c59edefb37e08e13240b73910c745d86ec09fb4129e63e4217ce81b8",
+      "size": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "alpha_extrema": [
+        0,
+        255
+      ],
+      "alpha_bbox": [
+        0,
+        8,
+        1226,
+        1238
+      ],
+      "target_size": 384,
+      "status": "generated_master",
+      "export_status": "pending"
+    },
+    {
+      "character": 15,
+      "name": "biyeon",
+      "label": "비연",
+      "direction": "bl",
+      "file": "biyeon/biyeon-bl.png",
+      "sha256": "a5b0ad1d6598c16b5ea00b10f5fe58843dc84c4197169cd792856b4f0fdc1d0f",
+      "size": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "alpha_extrema": [
+        0,
+        255
+      ],
+      "alpha_bbox": [
+        0,
+        0,
+        1230,
+        1254
+      ],
+      "target_size": 384,
+      "status": "generated_master",
+      "export_status": "pending"
+    },
+    {
+      "character": 16,
+      "name": "hongyeom",
+      "label": "홍염",
+      "direction": "fr",
+      "file": "hongyeom/hongyeom-fr.png",
+      "sha256": "2ff689cd7ea9cc7b1b463490f2e8ed0468cf2645e9320860e3a39244eb855885",
+      "size": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "alpha_extrema": [
+        0,
+        255
+      ],
+      "alpha_bbox": [
+        49,
+        19,
+        1206,
+        1236
+      ],
+      "target_size": 256,
+      "status": "generated_master",
+      "export_status": "pending"
+    },
+    {
+      "character": 16,
+      "name": "hongyeom",
+      "label": "홍염",
+      "direction": "fl",
+      "file": "hongyeom/hongyeom-fl.png",
+      "sha256": "35f3a2c3d30ca2bc18a73ad5d0994cac268b2542ce9a6b708806a77d441f751b",
+      "size": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "alpha_extrema": [
+        0,
+        255
+      ],
+      "alpha_bbox": [
+        0,
+        38,
+        1150,
+        1254
+      ],
+      "target_size": 256,
+      "status": "generated_master",
+      "export_status": "pending"
+    },
+    {
+      "character": 16,
+      "name": "hongyeom",
+      "label": "홍염",
+      "direction": "br",
+      "file": "hongyeom/hongyeom-br.png",
+      "sha256": "abdfd781422ee3f3f16b6f2af7225074db4ef20b4d42a98190a9dde9d4a86f5f",
+      "size": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "alpha_extrema": [
+        0,
+        255
+      ],
+      "alpha_bbox": [
+        0,
+        28,
+        1238,
+        1234
+      ],
+      "target_size": 256,
+      "status": "generated_master",
+      "export_status": "pending"
+    },
+    {
+      "character": 16,
+      "name": "hongyeom",
+      "label": "홍염",
+      "direction": "bl",
+      "file": "hongyeom/hongyeom-bl.png",
+      "sha256": "4795745d60c1ccd69169c443c61911bb56b24aea627f74cea6f3cea4a9dcf75c",
+      "size": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "alpha_extrema": [
+        0,
+        255
+      ],
+      "alpha_bbox": [
+        0,
+        22,
+        1248,
+        1238
+      ],
+      "target_size": 256,
+      "status": "generated_master",
+      "export_status": "pending"
+    },
+    {
+      "character": 17,
+      "name": "haerin",
+      "label": "해린",
+      "direction": "fr",
+      "file": "haerin/haerin-fr.png",
+      "sha256": "6cbc5a6cb0b9290d82e678b71f434126a45dd2d8de6628b62f363c84fe67b910",
+      "size": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "alpha_extrema": [
+        0,
+        255
+      ],
+      "alpha_bbox": [
+        0,
+        26,
+        1135,
+        1254
+      ],
+      "target_size": 256,
+      "status": "generated_master",
+      "export_status": "pending"
+    },
+    {
+      "character": 17,
+      "name": "haerin",
+      "label": "해린",
+      "direction": "fl",
+      "file": "haerin/haerin-fl.png",
+      "sha256": "7a7a34bbe8c5392eaa831326be7fc082de0c4102a321052a5bbb6100223c82bf",
+      "size": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "alpha_extrema": [
+        0,
+        255
+      ],
+      "alpha_bbox": [
+        0,
+        24,
+        1206,
+        1254
+      ],
+      "target_size": 256,
+      "status": "generated_master",
+      "export_status": "pending"
+    },
+    {
+      "character": 17,
+      "name": "haerin",
+      "label": "해린",
+      "direction": "br",
+      "file": "haerin/haerin-br.png",
+      "sha256": "fc0904ab55fbaf001ad878f1f7d054be5e6ddc48cf4d8dc7a332546586bd0008",
+      "size": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "alpha_extrema": [
+        0,
+        255
+      ],
+      "alpha_bbox": [
+        0,
+        19,
+        1234,
+        1254
+      ],
+      "target_size": 256,
+      "status": "generated_master",
+      "export_status": "pending"
+    },
+    {
+      "character": 17,
+      "name": "haerin",
+      "label": "해린",
+      "direction": "bl",
+      "file": "haerin/haerin-bl.png",
+      "sha256": "bf5fced72b53f99167c439979b5318507115bdedccbc2057dc6ab895f4919705",
+      "size": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "alpha_extrema": [
+        0,
+        255
+      ],
+      "alpha_bbox": [
+        0,
+        13,
+        1236,
+        1254
+      ],
+      "target_size": 256,
+      "status": "generated_master",
+      "export_status": "pending"
+    },
+    {
+      "character": 18,
+      "name": "heukcheol",
+      "label": "흑철",
+      "direction": "fr",
+      "file": "heukcheol/heukcheol-fr.png",
+      "sha256": "9e13c7f05aaaf4a7cd1aa27eb63b8de40cd12ef94ff3e00b5510d5f3778727e7",
+      "size": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "alpha_extrema": [
+        0,
+        255
+      ],
+      "alpha_bbox": [
+        37,
+        12,
+        1240,
+        1242
+      ],
+      "target_size": 256,
+      "status": "generated_master",
+      "export_status": "pending"
+    },
+    {
+      "character": 18,
+      "name": "heukcheol",
+      "label": "흑철",
+      "direction": "fl",
+      "file": "heukcheol/heukcheol-fl.png",
+      "sha256": "568e33249944af5fd082ce4bb752d580eb8450bd727cb464863aabdf870297d9",
+      "size": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "alpha_extrema": [
+        0,
+        255
+      ],
+      "alpha_bbox": [
+        0,
+        14,
+        1222,
+        1222
+      ],
+      "target_size": 256,
+      "status": "generated_master",
+      "export_status": "pending"
+    },
+    {
+      "character": 18,
+      "name": "heukcheol",
+      "label": "흑철",
+      "direction": "br",
+      "file": "heukcheol/heukcheol-br.png",
+      "sha256": "06e1cbd95cb3822e07bb6a23fa0d21bf1565c68822b7862b2e8c2ee33388168b",
+      "size": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "alpha_extrema": [
+        0,
+        255
+      ],
+      "alpha_bbox": [
+        0,
+        9,
+        1244,
+        1254
+      ],
+      "target_size": 256,
+      "status": "generated_master",
+      "export_status": "pending"
+    },
+    {
+      "character": 18,
+      "name": "heukcheol",
+      "label": "흑철",
+      "direction": "bl",
+      "file": "heukcheol/heukcheol-bl.png",
+      "sha256": "fb0bdc15076daeb2076af27520e990c83c1504df8d207eb0e85d1f5c6fe32804",
+      "size": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "alpha_extrema": [
+        0,
+        255
+      ],
+      "alpha_bbox": [
+        0,
+        6,
+        1239,
+        1254
+      ],
+      "target_size": 256,
+      "status": "generated_master",
+      "export_status": "pending"
+    },
+    {
+      "character": 19,
+      "name": "mujin",
+      "label": "무진",
+      "direction": "fr",
+      "file": "mujin/mujin-fr.png",
+      "sha256": "fa8d86ba7a0952f8379f31728f8eda0b34f237c539de380a4d53ef424b2ebcca",
+      "size": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "alpha_extrema": [
+        0,
+        255
+      ],
+      "alpha_bbox": [
+        0,
+        24,
+        1204,
+        1254
+      ],
+      "target_size": 256,
+      "status": "generated_master",
+      "export_status": "pending"
+    },
+    {
+      "character": 19,
+      "name": "mujin",
+      "label": "무진",
+      "direction": "fl",
+      "file": "mujin/mujin-fl.png",
+      "sha256": "d8abb87152c6e9bc252a2280940c7cb6a4b65ef6b2163547da3426475ab6990c",
+      "size": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "alpha_extrema": [
+        0,
+        255
+      ],
+      "alpha_bbox": [
+        0,
+        42,
+        1223,
+        1254
+      ],
+      "target_size": 256,
+      "status": "generated_master",
+      "export_status": "pending"
+    },
+    {
+      "character": 19,
+      "name": "mujin",
+      "label": "무진",
+      "direction": "br",
+      "file": "mujin/mujin-br.png",
+      "sha256": "bc68c9c7842d1affdac5dd78b232ecfec0588a3d043fb633c797d576742e6baf",
+      "size": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "alpha_extrema": [
+        0,
+        255
+      ],
+      "alpha_bbox": [
+        0,
+        21,
+        1230,
+        1235
+      ],
+      "target_size": 256,
+      "status": "generated_master",
+      "export_status": "pending"
+    },
+    {
+      "character": 19,
+      "name": "mujin",
+      "label": "무진",
+      "direction": "bl",
+      "file": "mujin/mujin-bl.png",
+      "sha256": "d81986884b3f5f7b654aa4eda804317b376098d408e3a60c2c82070fe64d252b",
+      "size": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "alpha_extrema": [
+        0,
+        255
+      ],
+      "alpha_bbox": [
+        0,
+        16,
+        1236,
+        1254
+      ],
+      "target_size": 256,
+      "status": "generated_master",
+      "export_status": "pending"
+    },
+    {
+      "character": 20,
+      "name": "baekryun",
+      "label": "백륜",
+      "direction": "fr",
+      "file": "baekryun/baekryun-fr.png",
+      "sha256": "ae9a4f4399d78ea8e05202b0407bd5a02700a3fa95c5878d6ee7df6477dcf5e7",
+      "size": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "alpha_extrema": [
+        0,
+        255
+      ],
+      "alpha_bbox": [
+        0,
+        0,
+        1238,
+        1254
+      ],
+      "target_size": 256,
+      "status": "generated_master",
+      "export_status": "pending"
+    },
+    {
+      "character": 20,
+      "name": "baekryun",
+      "label": "백륜",
+      "direction": "fl",
+      "file": "baekryun/baekryun-fl.png",
+      "sha256": "547b5f9713e4c8138b659f662a45c3499b1572e5a99df6d5c65b2b3af752f462",
+      "size": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "alpha_extrema": [
+        0,
+        255
+      ],
+      "alpha_bbox": [
+        0,
+        0,
+        1239,
+        1254
+      ],
+      "target_size": 256,
+      "status": "generated_master",
+      "export_status": "pending"
+    },
+    {
+      "character": 20,
+      "name": "baekryun",
+      "label": "백륜",
+      "direction": "br",
+      "file": "baekryun/baekryun-br.png",
+      "sha256": "797edee2ea07b6fc92c8368399bc86381b830f17addb8c68cf0178b95f0f4b36",
+      "size": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "alpha_extrema": [
+        0,
+        255
+      ],
+      "alpha_bbox": [
+        0,
+        10,
+        1191,
+        1254
+      ],
+      "target_size": 256,
+      "status": "generated_master",
+      "export_status": "pending"
+    },
+    {
+      "character": 20,
+      "name": "baekryun",
+      "label": "백륜",
+      "direction": "bl",
+      "file": "baekryun/baekryun-bl.png",
+      "sha256": "3044eb2d2291d8c6cd74a9eabb68efa0dd02f651f6444ce01d87908e67dd9754",
+      "size": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "alpha_extrema": [
+        0,
+        255
+      ],
+      "alpha_bbox": [
+        0,
+        0,
+        1236,
+        1239
+      ],
+      "target_size": 256,
+      "status": "generated_master",
+      "export_status": "pending"
+    }
+  ]
+}
