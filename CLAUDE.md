@@ -671,3 +671,9 @@
 
 ## 속도 다시 조정 · 2026-11-14
 - 사용자 「속도는 원래의 1.1배, 이동거리도 늘어난 곳의 절반」: `GAME_SPEED` 1.3→1.1, `MARCH_SPEED` 2.4→2.0(1.6에서 늘린 .8의 절반). 위 두 항목의 수치는 이 값으로 대체. 1.5배 때 넣은 붕괴 후퇴 제한·방향 반응 값은 유지. game-speed 검사 범위 1.02~1.2. 2.0에서 walk-facing 접전 등짐이 4.2%(기준 4)로 올라 접전 방향 잠금 `ENG_LOCK` .55→.4(3.52%). game-speed는 loop가 advancePhase에 넘기는 입력을 재도록 바꿈(부하·피격 정지와 무관, 1.05~1.15). 전체 86개 중 asset-library만 기존 실패.
+
+## 안 쓰는 코드 정리(1단계) · 2026-11-14
+- acorn 구문 분석으로 정의 외 참조가 없는 최상위 함수·변수 20개 삭제(약 6.5KB): paintRegionGround·paintRegionPath·paintRegionalDetails·paintHighGround·drawMorale·formLabel·worldRulesShort/WORLD_RULES_SHORT·paySeasonMemory·fallenLines·fallenHeroLines/FALLEN_HERO_LINES·chronRowsOf·CANYON_FACES·HD_BAMBOO_FOOT·PLAN_MAX/RECHARGE/TIME·MEMORY_KINDS·CHRON_CLASH_PLACE. 문자열·HTML·테스트·도구 참조도 확인.
+- `endingEchoes`는 게임에서 호출되지 않지만 story-death가 직접 검사해 남겼다(결말 화면 미연결, 사용자 결정 대기).
+- 2단계(도트 장수·옛 뒷모습·동작 시트·HD 없는 대체 그림 제거)·3단계(art-requests 저장소 밖으로)는 하지 않음.
+
