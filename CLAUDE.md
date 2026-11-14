@@ -677,3 +677,9 @@
 - `endingEchoes`는 게임에서 호출되지 않지만 story-death가 직접 검사해 남겼다(결말 화면 미연결, 사용자 결정 대기).
 - 2단계(도트 장수·옛 뒷모습·동작 시트·HD 없는 대체 그림 제거)·3단계(art-requests 저장소 밖으로)는 하지 않음.
 
+## 공개 배포(Vercel) · 2026-11-14
+- 사용자 「깃허브 주소가 드러나지 않게 배포」→ Vercel 선택. 팀 bridgej(team_gXAWgl10HndGUr4rw91Xii3P)의 프로젝트 `spirit-war`(prj_MV1qCFLQ4e9ie5ER7CZro5XzxKsM), 주소 **https://spirit-war.vercel.app**. create_deployment에 gitSource(github wanderage83-dot/spirit-war ref main)로 배포, 빌드 없음(정적).
+- `.vercelignore`가 art-requests·tests·tools·mockups·asset-library·*.md·ASSET_MANIFEST.json·raw/·*.py·*.sh를 뺀다(README.md·tests 404 확인).
+- 배포 보호: 기본 「all_except_custom_domains」라 vercel.app 주소도 Vercel 로그인이 필요했다 → `ssoProtection.deploymentType='prod_deployment_urls_and_all_previews'`로 바꿔 대표 주소(spirit-war.vercel.app 등 프로덕션 도메인)는 공개, 해시 붙은 개별 배포 주소·미리보기는 로그인 필요.
+- 새 버전 반영: main에 올린 뒤 같은 create_deployment(gitSource ref main, target production)를 다시 부른다(자동 배포 연결 여부는 확인 안 함). 이 컨테이너 네트워크는 vercel.app을 막아 확인은 web_fetch_vercel_url로 한다.
+
