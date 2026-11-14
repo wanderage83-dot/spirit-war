@@ -747,7 +747,7 @@ function drawHD(){if(!HD.on||!pixelBattlefield()||!['playing','planning','paused
  ctx.globalCompositeOperation='source-over';ctx.globalAlpha=1;const vg=ctx.createRadialGradient(W/2,H*.52,Math.min(W,H)*.3,W/2,H*.52,Math.hypot(W,H)*.62);vg.addColorStop(0,'rgba(10,8,20,0)');vg.addColorStop(1,'rgba(10,8,20,.26)');ctx.fillStyle=vg;ctx.fillRect(0,0,W,H);ctx.restore()}
 
 // 모든 전투: 12초 동시 실행. 부대 전체가 하나의 시간표를 공유한다.
-const AP_TURN=12,MARCH_SPEED=1.6;
+const AP_TURN=12,MARCH_SPEED=2.4;
 const AP_MAX={boss:8,hero:8,shield:5,bow:6,horse:10,spear:6},AP_NAMES={sneak:'잠행',ambush:'매복',engage:'접근·공격',move:'이동',attack:'제자리 공격',hold:'진형',retreat:'후퇴',charge:'돌격',face:'방향',skill:'필살기',dragon:'필살기',heal:'필살기',garrison:'주둔·회복',fire:'화공',water:'수공',lure:'유인'};
 let ap={round:1,elapsed:0,plans:new Map(),active:new Map(),done:new Set(),history:[],intent:new Map(),advance:null,feedback:null,reports:[],last:[],matchups:new Map(),lastMatchups:[],applying:false};
 const TEAM_COLORS={ally:'#42d9ef',enemy:'#ff655e'};
