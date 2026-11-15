@@ -707,3 +707,8 @@
 ## 관리자 메뉴 비밀번호 · 2026-11-15
 - 사용자 「관리자메뉴는 비번 1217을 쳐야만 들어가게」. ADMIN_TOOLS.open()이 일시정지·창 정리 뒤 `unlocked`가 아니면 `lock()`(#admin-pw 숫자 입력·들어가기/닫기, 틀리면 「비밀번호가 맞지 않습니다」와 입력 비움), 맞으면 `unlocked=true`·`render()`(옛 open 본문). 비교는 `pwOk(v)`가 간단한 해시(`pwHash`)로 한다(소스에 숫자를 그대로 두지 않을 뿐, 브라우저 코드라 진짜 보안은 아님). 잠금 해제는 메모리에만 있어 새로 고치면 다시 묻는다. Tab 순환에 input 포함.
 - 검사: admin-scenes가 실제 잠금(틀림→Escape→1217→재열기 기억)을 검사. admin-menu·xuan-prologue-admin은 `ADMIN_TOOLS.unlocked=true` 뒤 open.
+
+## 배포용 압축 빌드 · 2026-11-15
+- 사용자 「코드를 알아보기 어렵게 압축해서 배포」. 원본 index.html·단일 파일 원칙은 그대로, 배포 때만 `node build/dist.mjs`가 dist/를 만든다: index.html의 스크립트를 `npx -y terser@5.36.0`(빌드 때만 받음, 저장소에 npm 의존성 없음)로 compress+mangle(toplevel은 그대로 — onclick 문자열이 전역 이름을 부름)·주석 제거, CSS 공백 축소, 그림 폴더 복사(.vercelignore와 같은 것 제외). 801→746KB(대부분 한국어 대사라 크기는 조금 줄고 지역 변수 이름이 바뀜). Vercel 프로젝트 buildCommand `node build/dist.mjs`·outputDirectory `dist`·installCommand 생략. dist/는 .gitignore.
+- 검증: dist를 따로 띄워 tests 87개 실행, vn-intro(동시 실행 부하로 가끔 실패하던 것)만 단독 재실행으로 통과. 타이틀 화면이 지도·전투를 가리던 것: showRealm·launchRealmBattle 첫머리에도 titleHide().
+- 로컬 확인: `node build/dist.mjs && (cd dist && python3 -m http.server 8790)`.

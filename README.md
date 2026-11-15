@@ -458,3 +458,6 @@
 - `node tests/pixel-map.cjs http://127.0.0.1:8782` —15지역·4날씨의 통로/효과/그림/모바일 안내
 - `node tests/terrain-ui.cjs http://127.0.0.1:8782` —날씨 캐시/소품 가림/전체 동료 편성 화면
 - `node tests/fortress-smoke.cjs http://127.0.0.1:8782` 및 `node tests/fortress-combat.cjs http://127.0.0.1:8782` —본진/강화/회복/실제 성벽 교전
+
+
+> 공개 배포본은 `node build/dist.mjs`가 만든 압축본(dist/)이다. 원본 `index.html`은 그대로 두고 배포할 때만 줄인다.
