@@ -1,7 +1,7 @@
 // 사신전기 연대기: 청명·서진 이야기를 한 플레이에서 번갈아, 흑수 충돌은 편 선택
 const{chromium}=require('playwright'),fs=require('fs'),assert=require('node:assert/strict');(async()=>{const exe=['/usr/bin/chromium','/opt/pw-browsers/chromium'].find(p=>fs.existsSync(p)),b=await chromium.launch(exe?{executablePath:exe}:{}),errors=[];
 for(const [vp,side]of[[{width:1280,height:800},'c3'],[{width:390,height:844},'x2'],[{width:844,height:390},'c3']]){const p=await b.newPage({viewport:vp});p.on('pageerror',e=>errors.push(String(e)));p.on('dialog',d=>d.accept());await p.goto(process.argv[2]||'http://127.0.0.1:8782/');await p.waitForTimeout(1200);
-const menu=await p.evaluate(()=>({h:$('#rmodal h3')?.textContent,fit:(m=>m.scrollHeight<=m.clientHeight+1)(document.querySelector('#rmodal .scroll')),rows:[...document.querySelectorAll('#rmodal .route-row')].map(r=>r.querySelector('b').textContent)}));
+const menu=await p.evaluate(()=>(openSaveMenu(true),{h:$('#rmodal h3')?.textContent,fit:(m=>m.scrollHeight<=m.clientHeight+1)(document.querySelector('#rmodal .scroll')),rows:[...document.querySelectorAll('#rmodal .route-row')].map(r=>r.querySelector('b').textContent)}));
 await p.evaluate(()=>{startNewRealm('qing',true);prologueEnd()});await p.waitForTimeout(300);
 const r=await p.evaluate(async side=>{const wait=t=>new Promise(r=>setTimeout(r,t));const flush=async()=>{for(let k=0;k<40;k++){if(prologue){window.__xpro=(window.__xpro||0)+1;window.__xproLen=prologue.list.length;prologueEnd();await wait(5);continue}if(VN){VN.o.choices?vnStop():vnStop(true);await wait(5);continue}const g=document.querySelector('#saga-next,#chron-go');if(g){g.click();await wait(5);continue}break}};
 const log=[],shots=[];let clash=null,guard=0;closeModal();sagaAfterChapter();await flush();

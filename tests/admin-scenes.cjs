@@ -3,7 +3,7 @@
 const{chromium}=require('playwright'),fs=require('fs'),assert=require('node:assert/strict');
 (async()=>{const exe=['/usr/bin/chromium','/opt/pw-browsers/chromium'].find(p=>fs.existsSync(p)),b=await chromium.launch(exe?{executablePath:exe}:{}),p=await b.newPage({viewport:{width:390,height:844}}),errs=[];p.on('pageerror',e=>errs.push(String(e)));
 await p.goto(process.argv[2]||'http://127.0.0.1:8782');
-await p.evaluate(()=>{localStorage.clear();setRoute('qing');newRealm();showRealm();storyState().intro=true;saveRealm()});
+await p.evaluate(()=>{localStorage.clear();setRoute('qing');newRealm();showRealm();titleHide();storyState().intro=true;saveRealm()});
 const before=await p.evaluate(()=>({save:localStorage.getItem(SAVE_KEY),met:localStorage.getItem('spiritwar-met-ever-v1'),cleared:R.saga.cleared.length}));
 const openAdmin=async()=>{await p.click('#rmenu');await p.getByRole('button',{name:'관리자 메뉴 · 임시',exact:true}).click();assert(await p.locator('#admin-panel').isVisible())};
 await openAdmin();
@@ -22,7 +22,7 @@ assert(!st.vn&&st.panel&&st.intro===true&&!st.viewing,JSON.stringify(st));
 await p.selectOption('#admin-route','qing');await p.selectOption('#admin-bond','biyeon');await p.selectOption('#admin-chapter','c16');await p.selectOption('#admin-scene','post');await p.click('#admin-view');
 st=await p.evaluate(()=>({conds:VN.lines.filter(l=>l[3]?.c13).map(l=>l[3].c13)}));assert(st.conds.length&&st.conds.every(x=>x==='biyeon'));
 await p.evaluate(()=>vnStop());
-await p.evaluate(()=>{setRoute('xuan');newRealm();showRealm();storyState().intro=true});await p.evaluate(()=>{ADMIN_TOOLS.hide()});await openAdmin();
+await p.evaluate(()=>{setRoute('xuan');newRealm();showRealm();titleHide();storyState().intro=true});await p.evaluate(()=>{ADMIN_TOOLS.hide()});await openAdmin();
 await p.selectOption('#admin-route','qing');await p.selectOption('#admin-chapter','c2');await p.selectOption('#admin-scene','post');await p.click('#admin-view');
 st=await p.evaluate(()=>VN.lines.some(l=>l[0]==='ruler:qing')&&!VN.lines.some(l=>l[0]==='o_hero'));assert(st,'o_hero mapped to ruler:qing on xuan route');
 await p.evaluate(()=>vnStop());

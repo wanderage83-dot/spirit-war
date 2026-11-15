@@ -698,3 +698,8 @@
 - startTutorial: 지금 R·갈래를 TUT.prevR에 두고 setRoute('qing')·newRealm(새 연습용 R)·launchChapter(c1)(대화·장 카드 없이 바로 전투). 연습 중 `saveRealm`은 감싸서 아무것도 쓰지 않고(true 반환), `realmBattleDone`은 tutEnd로 가로챈다(결과 화면 「천하 지도로」·퇴각 모두). tutEnd가 원래 R·갈래를 되돌리고 완료 창(fromNew면 「이야기 시작」=startNewRealm('qing',true), 아니면 「시작 화면으로」, 「다시 해 보기」).
 - `startNewRealm(r,asked)`: asked 없이 불렸고 튜토리얼 기록도 연대기 자동 저장도 없으면 tutAsk 창부터. 시작 화면 행에 「튜토리얼 · 저장되지 않는 연습 전투」 단추. 검사에서 새 게임을 바로 시작하려면 startNewRealm('qing',true)(chronicle·timeline-card·prologue 갱신).
 - `#tutcoach`(#stage 안 z 6, 원형 메뉴 7 아래): `hudStack`을 감싼 tutPlace가 왼쪽 안내·군량 표시 아래에 두고 #toast를 그 아래로 민다. 가로(높이 ≤500)는 오른쪽 46% 폭. 마지막 단계 뒤·본진 창이 열려 있으면 `.mini` 한 줄. `.tut-hl` 강조(동작 줄이기면 깜박임 없음). `tests/tutorial.cjs`(3화면: 묻기·저장 없음·9단계 실제 조작·승리→이야기 시작·중간 끝내기 뒤 원래 저장 그대로·두 번째부터 묻지 않음).
+
+## 타이틀 화면 · 2026-11-15
+- 사용자 「타이틀 화면에 새 게임·이어하기·튜토리얼을 따로, 튜토리얼은 첫 시작 때 자연스럽게 선택」+「사신전기를 옛스러운 글씨체로」. 튜토리얼 블록 뒤 「타이틀 화면」 블록: `titleInit`(CSS·#titlescreen, fixed z 250)·`titleScreen()`(배경 story/four-kingdoms.webp 느린 확대, 四神戰記·사신전기·부제, 단추 data-t new/cont/tut·수동 저장 링크 man; 저장이 있으면 이어하기가 맨 위 primary)·`titleHide()`(.out 페이드 후 hidden)·`titleOn()`·`titlePick(t)`. 글꼴은 Google Fonts `Song Myung`을 text= 부분집합(사신전기四神戰記)으로만 불러 h1·small에 쓴다(없으면 Nanum Myeongjo).
+- bootRealm이 openSaveMenu(true) 대신 titleScreen(). startNewRealm·resumeRealmSave·startTutorial은 첫머리에서 titleHide()(코드·검사에서 바로 불러도 타이틀이 가리지 않게). 첫 「새 게임」은 기존 tutAsk(튜토리얼부터 / 바로 이야기 시작 / ← 타이틀로). 튜토리얼 끝 창의 버튼은 「타이틀 화면으로」. 게임 중 저장 메뉴(openSaveMenu())에 「타이틀 화면」 단추, 저장 메뉴의 튜토리얼 단추는 타이틀로 옮김.
+- 검사: tutorial.cjs가 타이틀(세 단추 순서·비활성·무스크롤·초점, 저장 뒤 이어하기 맨 위)부터 시작. chronicle·timeline-card는 시작 메뉴 확인 전에 openSaveMenu(true), admin-menu·admin-scenes는 showRealm 뒤 titleHide().

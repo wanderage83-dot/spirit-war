@@ -5,9 +5,11 @@ const{chromium}=require('playwright'),fs=require('fs'),assert=require('node:asse
 const shotDir=process.env.SHOT_DIR;
 for(const vp of[{width:390,height:844},{width:844,height:390},{width:320,height:568}]){const p=await b.newPage({viewport:vp}),errs=[];p.on('pageerror',e=>errs.push(String(e)));
 await p.goto(url);await p.evaluate(()=>localStorage.clear());await p.reload();await p.waitForTimeout(300);
-// 시작 화면 → 새로 시작 → 튜토리얼 묻기
-assert(await p.getByRole('button',{name:/^튜토리얼/}).isVisible(),'start menu tutorial button');
-await p.getByRole('button',{name:'새로 시작',exact:true}).click();
+// 타이틀 화면: 새 게임·이어하기(비활성)·튜토리얼, 한 화면에
+const tt=await p.evaluate(()=>{const el=$('#titlescreen'),bs=[...el.querySelectorAll('.tt-btn')];return{on:titleOn(),labels:bs.map(b=>b.firstChild.textContent.trim()),dis:bs.map(b=>b.disabled),fit:bs.every(b=>{const r=b.getBoundingClientRect();return r.top>=0&&r.bottom<=innerHeight&&r.left>=0&&r.right<=innerWidth}),h1:el.querySelector('h1').getBoundingClientRect().top>=0,focus:document.activeElement?.dataset?.t}});
+assert(tt.on&&tt.fit&&tt.h1,JSON.stringify(tt));assert.deepEqual(tt.labels,['새 게임','이어하기','튜토리얼']);assert.deepEqual(tt.dis,[false,true,false]);assert.equal(tt.focus,'new');
+if(shotDir)await p.screenshot({path:`${shotDir}/title-${vp.width}x${vp.height}.png`});
+await p.click('#titlescreen [data-t="new"]');
 assert(await p.getByRole('button',{name:'튜토리얼부터',exact:true}).isVisible(),'ask modal');
 await p.getByRole('button',{name:'튜토리얼부터',exact:true}).click();
 await p.waitForFunction(()=>TUT.on&&(state==='planning'||state==='playing'));
@@ -50,9 +52,14 @@ await p.evaluate(()=>{if(prologue)prologueEnd(true);closeModal();R.saga.gold=432
 await p.evaluate(()=>{startTutorial()});await p.waitForFunction(()=>TUT.on&&state==='planning');await p.waitForFunction(()=>!$('#tutcoach').hidden,null,{timeout:6000});
 await p.click('#tutcoach button:not(.go)');
 await p.waitForFunction(()=>!TUT.on);
-const back=await p.evaluate(()=>({gold:R.saga.gold,chron:R.chron,state,save:JSON.parse(localStorage.getItem(CHRON_KEY)).saga.gold,modal:$('#rmodal').textContent.includes('튜토리얼을 마쳤습니다')}));
+const back=await p.evaluate(()=>({gold:R.saga.gold,chron:R.chron,state,save:JSON.parse(localStorage.getItem(CHRON_KEY)).saga.gold,modal:$('#rmodal').textContent.includes('튜토리얼을 마쳤습니다'),tbtn:$('#rmodal .rbtn.primary').textContent}));assert.equal(back.tbtn,'타이틀 화면으로');
 assert(back.gold===4321&&back.chron&&back.state==='realm'&&back.save===4321&&back.modal,JSON.stringify(back));
-await p.evaluate(()=>{closeModal();openSaveMenu(true)});await p.getByRole('button',{name:'새로 시작',exact:true}).click();
+// 타이틀로 → 이어하기가 맨 위·주 단추, 튜토리얼 단추로 다시 시작 가능
+await p.click('#rmodal .rbtn.primary');await p.waitForTimeout(100);
+const t2=await p.evaluate(()=>({on:titleOn(),first:$('#titlescreen .tt-btn').dataset.t,prim:$('#titlescreen .tt-btn.primary').dataset.t,sub:$('#titlescreen [data-t="cont"] small').textContent}));
+assert(t2.on&&t2.first==='cont'&&t2.prim==='cont'&&/청명 0\/16/.test(t2.sub),JSON.stringify(t2));
+await p.click('#titlescreen [data-t="cont"]');await p.waitForTimeout(600);assert(await p.evaluate(()=>!titleOn()&&R.saga.gold===4321&&$('#titlescreen').classList.contains('hidden')));
+await p.evaluate(()=>{closeModal();titleScreen()});await p.click('#titlescreen [data-t="new"]');
 assert(!await p.getByRole('button',{name:'튜토리얼부터',exact:true}).isVisible().catch(()=>false),'no ask after done');
 assert.deepEqual(errs,[]);await p.close()}
-console.log('PASS tutorial: first-new ask, no-save practice battle, 9 steps advanced by real actions, base/mini coach, win→story start, quit restores progress, 3 viewports');await b.close()})().catch(e=>{console.error(e);process.exit(1)});
+console.log('PASS title+tutorial: title new/continue/tutorial fit+order, first-new ask, no-save practice battle, 9 steps advanced by real actions, base/mini coach, win→story start, quit restores progress, 3 viewports');await b.close()})().catch(e=>{console.error(e);process.exit(1)});
