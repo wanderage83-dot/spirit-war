@@ -31,6 +31,12 @@ const SETV = `redis.call('SET',KEYS[1],ARGV[1]) return redis.call('INCR',KEYS[2]
 
 module.exports = async (req, res) => {
   res.setHeader('Cache-Control', 'no-store');
+  if (req.method === 'GET' && req.query && req.query.selftest) {
+    const out = { store: !!(RURL && RTOK), password: !!PASS };
+    try { const r = await redis(['EVAL', SYNC, '3', NS + 'pres', NS + 'ver', NS + 'counts', String(Date.now()), 'selftest00', '']); out.sync = Array.isArray(r) && r.length === 3 ? 'ok' : 'odd'; out.online = Array.isArray(r) ? r[1].length : 0; } catch (e) { out.sync = String(e.message).slice(0, 120); }
+    try { const r = await redis(['EVAL', DATA, '6', NS + 'ver', NS + 'chat', NS + 'books', NS + 'quotes', NS + 'club', NS + 'wallet', 'none']); out.data = Array.isArray(r) && r.length === 6 ? 'ok' : 'odd'; } catch (e) { out.data = String(e.message).slice(0, 120); }
+    return res.json(out);
+  }
   if (req.method !== 'POST') return res.status(405).json({ error: 'POST only' });
   if (!RURL || !RTOK) return res.status(503).json({ error: 'no_store' });
   if (!PASS) return res.status(503).json({ error: 'no_password' });
