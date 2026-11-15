@@ -692,3 +692,9 @@
 ## 관리자 메뉴 장면 보기 · 2026-11-14
 - 사용자 「관리자메뉴에 장면별로 보기 기능」. ADMIN_TOOLS에 `sceneList(r,c)`(pov·pre·post·`ch:<선택키>`·그 판 뒤 인연 `bond:<id>`)·`scenes()`(판 select onchange)·`view()`. 판·장면 select를 한 줄 두 칸, 그 아래 「▶ 선택한 장면 보기 · 진행 그대로」. view는 패널만 숨기고(previous 유지·게임 일시정지 그대로) `viewing`으로 관리자 키 가로채기를 끄고 `VN_INTRO=false`로 첫 등장 소개·기록을 막은 채 vnPlay, 닫히면 원래 값·패널 복귀. 다른 갈래 장면의 o_hero는 'ruler:'+그 갈래 진영으로 바꾸고, c13 조건 줄은 admin-bond 선택만. 진행·저장·met 불변.
 - 가로(높이 ≤500)에서 연대기(시점 바꾸기 단추)일 때 넘쳐 `.admin-help` 설명 문단을 숨긴다. `tests/admin-scenes.cjs`, admin-menu·xuan-prologue-admin 회귀 통과.
+
+## 튜토리얼 · 2026-11-15
+- 사용자 「처음 게임할 때 선택할 수 있게 튜토리얼」. ADMIN_TOOLS 블록 앞 「튜토리얼」 블록: `TUT`·`TUT_KEY`('spiritwar-tutorial-v1', 끝내면 'win'/'done')·`tutDone`·`TUT_STEPS`(9단계, `next` 정보 단계 / `done()` 실제 조작 조건: #ring 열림·ap.plans에 이동류·공격류·state playing·ap.round≥2·#production 열림, `hl` 강조 요소, `skip`)·`startTutorial(fromNew)`·`tutRender/tutNext/tutTick(200ms)/tutPlace/tutQuit/tutEnd`·`tutAsk`.
+- startTutorial: 지금 R·갈래를 TUT.prevR에 두고 setRoute('qing')·newRealm(새 연습용 R)·launchChapter(c1)(대화·장 카드 없이 바로 전투). 연습 중 `saveRealm`은 감싸서 아무것도 쓰지 않고(true 반환), `realmBattleDone`은 tutEnd로 가로챈다(결과 화면 「천하 지도로」·퇴각 모두). tutEnd가 원래 R·갈래를 되돌리고 완료 창(fromNew면 「이야기 시작」=startNewRealm('qing',true), 아니면 「시작 화면으로」, 「다시 해 보기」).
+- `startNewRealm(r,asked)`: asked 없이 불렸고 튜토리얼 기록도 연대기 자동 저장도 없으면 tutAsk 창부터. 시작 화면 행에 「튜토리얼 · 저장되지 않는 연습 전투」 단추. 검사에서 새 게임을 바로 시작하려면 startNewRealm('qing',true)(chronicle·timeline-card·prologue 갱신).
+- `#tutcoach`(#stage 안 z 6, 원형 메뉴 7 아래): `hudStack`을 감싼 tutPlace가 왼쪽 안내·군량 표시 아래에 두고 #toast를 그 아래로 민다. 가로(높이 ≤500)는 오른쪽 46% 폭. 마지막 단계 뒤·본진 창이 열려 있으면 `.mini` 한 줄. `.tut-hl` 강조(동작 줄이기면 깜박임 없음). `tests/tutorial.cjs`(3화면: 묻기·저장 없음·9단계 실제 조작·승리→이야기 시작·중간 끝내기 뒤 원래 저장 그대로·두 번째부터 묻지 않음).

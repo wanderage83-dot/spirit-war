@@ -2,7 +2,7 @@
 const{chromium}=require('playwright'),fs=require('fs'),assert=require('node:assert/strict');(async()=>{const exe=['/usr/bin/chromium','/opt/pw-browsers/chromium'].find(p=>fs.existsSync(p)),b=await chromium.launch(exe?{executablePath:exe}:{}),errors=[];
 for(const [vp,side]of[[{width:1280,height:800},'c3'],[{width:390,height:844},'x2'],[{width:844,height:390},'c3']]){const p=await b.newPage({viewport:vp});p.on('pageerror',e=>errors.push(String(e)));p.on('dialog',d=>d.accept());await p.goto(process.argv[2]||'http://127.0.0.1:8782/');await p.waitForTimeout(1200);
 const menu=await p.evaluate(()=>({h:$('#rmodal h3')?.textContent,fit:(m=>m.scrollHeight<=m.clientHeight+1)(document.querySelector('#rmodal .scroll')),rows:[...document.querySelectorAll('#rmodal .route-row')].map(r=>r.querySelector('b').textContent)}));
-await p.evaluate(()=>{startNewRealm();prologueEnd()});await p.waitForTimeout(300);
+await p.evaluate(()=>{startNewRealm('qing',true);prologueEnd()});await p.waitForTimeout(300);
 const r=await p.evaluate(async side=>{const wait=t=>new Promise(r=>setTimeout(r,t));const flush=async()=>{for(let k=0;k<40;k++){if(prologue){window.__xpro=(window.__xpro||0)+1;window.__xproLen=prologue.list.length;prologueEnd();await wait(5);continue}if(VN){VN.o.choices?vnStop():vnStop(true);await wait(5);continue}const g=document.querySelector('#saga-next,#chron-go');if(g){g.click();await wait(5);continue}break}};
 const log=[],shots=[];let clash=null,guard=0;closeModal();sagaAfterChapter();await flush();
 while(guard++<40){const n=chronNext();if(!n)break;if(n.length>1){clash={modal:!!document.querySelector('.chron-pick'),opts:document.querySelectorAll('.chron-side').length,fits:(m=>m.scrollHeight<=m.clientHeight+1)(document.querySelector('#chronscreen .chron-tl'))};chronPick(side);closeModal()}
@@ -14,7 +14,7 @@ assert(r.log.every(s=>s[0]===(s[2]==='x'?'x':'q')),'각 장은 자기 군주 갈
 assert(r.clash.modal&&r.clash.opts===2&&r.clash.fits,JSON.stringify(r.clash)+'흑수 편 선택 창');assert.equal(r.key,'spiritwar-chronicle-v2');assert(r.saved);
 assert.equal(menu.h,'사신전기');assert(menu.fit,'시작 메뉴 무스크롤');assert.equal(menu.rows[0],'사신전기');
 // 이어하기: 저장을 다시 불러와도 두 갈래 유지
-const res=await p.evaluate(()=>{localStorage.removeItem(CHRON_KEY);startNewRealm();prologueEnd();R.saga.cleared.push('c1');saveRealm();resumeRealmSave(CHRON_KEY);const xp=prologue?.list.length;prologueEnd();return{route:ROUTE,twin:R.twin?.saga.route,chron:R.chron,turn:!!document.querySelector('#chron-go'),xp}});
+const res=await p.evaluate(()=>{localStorage.removeItem(CHRON_KEY);startNewRealm('qing',true);prologueEnd();R.saga.cleared.push('c1');saveRealm();resumeRealmSave(CHRON_KEY);const xp=prologue?.list.length;prologueEnd();return{route:ROUTE,twin:R.twin?.saga.route,chron:R.chron,turn:!!document.querySelector('#chron-go'),xp}});
 assert.deepEqual(res,{route:'xuan',twin:'qing',chron:true,turn:true,xp:3},JSON.stringify(res));
 await p.close()}
 assert.deepEqual(errors,[]);console.log('PASS chronicle: single save, qing/xuan alternate in 25 steps, clash side choice (both sides), proxy clear, xuan final not ending, resume switches, 3 viewports');await b.close()})();
