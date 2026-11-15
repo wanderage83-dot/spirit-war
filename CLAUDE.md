@@ -712,3 +712,7 @@
 - 사용자 「코드를 알아보기 어렵게 압축해서 배포」. 원본 index.html·단일 파일 원칙은 그대로, 배포 때만 `node build/dist.mjs`가 dist/를 만든다: index.html의 스크립트를 `npx -y terser@5.36.0`(빌드 때만 받음, 저장소에 npm 의존성 없음)로 compress+mangle(toplevel은 그대로 — onclick 문자열이 전역 이름을 부름)·주석 제거, CSS 공백 축소, 그림 폴더 복사(.vercelignore와 같은 것 제외). 801→746KB(대부분 한국어 대사라 크기는 조금 줄고 지역 변수 이름이 바뀜). Vercel 프로젝트 buildCommand `node build/dist.mjs`·outputDirectory `dist`·installCommand 생략. dist/는 .gitignore.
 - 검증: dist를 따로 띄워 tests 87개 실행, vn-intro(동시 실행 부하로 가끔 실패하던 것)만 단독 재실행으로 통과. 타이틀 화면이 지도·전투를 가리던 것: showRealm·launchRealmBattle 첫머리에도 titleHide().
 - 로컬 확인: `node build/dist.mjs && (cd dist && python3 -m http.server 8790)`.
+
+## 필살기 컷인·돌격 충돌 강조 · 2026-11-15
+- 사용자 「게임 효과를 멋있게」 중 1(필살기 컷인)·3(돌격·충돌 강조) 선택. slashFx 앞 블록: `ultCutin(id,name,sub,col)`·`cutinNext`·`cutinReset`(큐 최대 3, 차례 재생 1150ms, 동작 줄이기 700ms 페이드)·`#cutin`(#stage 안 z 8, .ci-dim·.ci-band 진영 ink 띠·.ci-art vnSprite(fcSrc, 왼쪽 원본은 .lf로 거울)·.ci-name Song Myung). playing이면 `slowmo=1.05`. useHeroSkill·resolveSpell의 powerBanner를 컷인으로 바꿈(ultimates 검사는 #cutin .ci-name을 읽음). reset·showRealm이 cutinReset.
+- `chargeImpact(u,t)`(performAttack 근접 명중 tag 'charge'): fx `shock`(drawGroundFx 지면 충격파 두 겹+그늘)·`chunk` 9개(흙덩이, 중력), shake 10. `tagPop(t,tag)`(dmgNumber, back·side만, 같은 squad+tag 1.2초에 한 번 `tagPopAt`): fx `tagpop` 「배후!」/「측면!」 30px 팝, 기존 상성 설명 줄 위(y−132). 돌격은 기존 「돌격 충돌 ×n」 설명이 있어 글자 없음. 피해 숫자 charge 38·back 33·side 26, 치명 팝 1+1. 질주선 5줄·길게, run≥170이면 진영색(TRAIL_COL)·굵게. chunk·tagpop은 fx 루프의 upright 보정 목록에 추가. 동작 줄이기면 shock·chunk·tagpop 없음. 판정·수치·저장 불변. `tests/cutin-charge.cjs`.
