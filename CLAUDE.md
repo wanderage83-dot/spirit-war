@@ -703,3 +703,7 @@
 - 사용자 「타이틀 화면에 새 게임·이어하기·튜토리얼을 따로, 튜토리얼은 첫 시작 때 자연스럽게 선택」+「사신전기를 옛스러운 글씨체로」. 튜토리얼 블록 뒤 「타이틀 화면」 블록: `titleInit`(CSS·#titlescreen, fixed z 250)·`titleScreen()`(배경 story/four-kingdoms.webp 느린 확대, 四神戰記·사신전기·부제, 단추 data-t new/cont/tut·수동 저장 링크 man; 저장이 있으면 이어하기가 맨 위 primary)·`titleHide()`(.out 페이드 후 hidden)·`titleOn()`·`titlePick(t)`. 글꼴은 Google Fonts `Song Myung`을 text= 부분집합(사신전기四神戰記)으로만 불러 h1·small에 쓴다(없으면 Nanum Myeongjo).
 - bootRealm이 openSaveMenu(true) 대신 titleScreen(). startNewRealm·resumeRealmSave·startTutorial은 첫머리에서 titleHide()(코드·검사에서 바로 불러도 타이틀이 가리지 않게). 첫 「새 게임」은 기존 tutAsk(튜토리얼부터 / 바로 이야기 시작 / ← 타이틀로). 튜토리얼 끝 창의 버튼은 「타이틀 화면으로」. 게임 중 저장 메뉴(openSaveMenu())에 「타이틀 화면」 단추, 저장 메뉴의 튜토리얼 단추는 타이틀로 옮김.
 - 검사: tutorial.cjs가 타이틀(세 단추 순서·비활성·무스크롤·초점, 저장 뒤 이어하기 맨 위)부터 시작. chronicle·timeline-card는 시작 메뉴 확인 전에 openSaveMenu(true), admin-menu·admin-scenes는 showRealm 뒤 titleHide().
+
+## 관리자 메뉴 비밀번호 · 2026-11-15
+- 사용자 「관리자메뉴는 비번 1217을 쳐야만 들어가게」. ADMIN_TOOLS.open()이 일시정지·창 정리 뒤 `unlocked`가 아니면 `lock()`(#admin-pw 숫자 입력·들어가기/닫기, 틀리면 「비밀번호가 맞지 않습니다」와 입력 비움), 맞으면 `unlocked=true`·`render()`(옛 open 본문). 비교는 `pwOk(v)`가 간단한 해시(`pwHash`)로 한다(소스에 숫자를 그대로 두지 않을 뿐, 브라우저 코드라 진짜 보안은 아님). 잠금 해제는 메모리에만 있어 새로 고치면 다시 묻는다. Tab 순환에 input 포함.
+- 검사: admin-scenes가 실제 잠금(틀림→Escape→1217→재열기 기억)을 검사. admin-menu·xuan-prologue-admin은 `ADMIN_TOOLS.unlocked=true` 뒤 open.

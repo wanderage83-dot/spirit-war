@@ -6,7 +6,12 @@ await p.goto(process.argv[2]||'http://127.0.0.1:8782');
 await p.evaluate(()=>{localStorage.clear();setRoute('qing');newRealm();showRealm();titleHide();storyState().intro=true;saveRealm()});
 const before=await p.evaluate(()=>({save:localStorage.getItem(SAVE_KEY),met:localStorage.getItem('spiritwar-met-ever-v1'),cleared:R.saga.cleared.length}));
 const openAdmin=async()=>{await p.click('#rmenu');await p.getByRole('button',{name:'관리자 메뉴 · 임시',exact:true}).click();assert(await p.locator('#admin-panel').isVisible())};
-await openAdmin();
+// 비밀번호: 틀리면 못 들어가고, 1217이면 들어감(새로 고칠 때까지 기억)
+await openAdmin();assert(await p.locator('#admin-pw').isVisible()&&!await p.locator('#admin-chapter').count());
+await p.fill('#admin-pw','0000');await p.keyboard.press('Enter');assert(await p.evaluate(()=>!ADMIN_TOOLS.unlocked&&$('#admin-note').textContent.includes('맞지 않')&&$('#admin-pw').value===''));
+await p.keyboard.press('Escape');assert(await p.evaluate(()=>!ADMIN_TOOLS.previous&&$('#admin-panel').classList.contains('hidden')));
+await openAdmin();await p.fill('#admin-pw','1217');await p.keyboard.press('Enter');assert(await p.locator('#admin-chapter').isVisible());
+await p.click('#admin-panel button:has-text("닫기 · 게임 계속")');await openAdmin();assert(await p.locator('#admin-chapter').isVisible(),'remembered until reload');
 // 장면 목록: 군주 시점·전투 전·뒤·선택·인연
 const lists=await p.evaluate(()=>({c6:ADMIN_TOOLS.sceneList('qing',sagaCh('c6')).map(x=>x[0]),c8:ADMIN_TOOLS.sceneList('qing',SAGA_Q.find(c=>c.id==='c8')).map(x=>x[0]),c13:ADMIN_TOOLS.sceneList('qing',SAGA_Q.find(c=>c.id==='c13')).map(x=>x[0]),x8:ADMIN_TOOLS.sceneList('xuan',SAGA_X.find(c=>c.id==='x8')).map(x=>x[0]),x9:ADMIN_TOOLS.sceneList('xuan',SAGA_X.find(c=>c.id==='x9')).map(x=>x[0])}));
 assert.deepEqual(lists.c6,['pov','pre','post']);assert(lists.c8.includes('bond:bi')&&lists.c8.includes('bond:dan'));assert(lists.c13.includes('ch:yeonhwa')&&lists.c13.includes('ch:biyeon'));assert.deepEqual(lists.x8,['pov','pre','post']);assert(lists.x9.includes('bond:seol2'));
@@ -34,4 +39,4 @@ await p.evaluate(()=>{setRoute('qing')});
 const after=await p.evaluate(()=>({save:localStorage.getItem(SAVE_KEY),met:localStorage.getItem('spiritwar-met-ever-v1')}));assert.equal(after.met,before.met);
 // 3화면 무스크롤
 for(const v of[{width:320,height:568},{width:390,height:844},{width:844,height:390}]){await p.setViewportSize(v);await p.waitForTimeout(80);const f=await p.evaluate(()=>{const bx=$('#admin-panel .admin-box').getBoundingClientRect();return{fit:bx.top>=0&&bx.bottom<=innerHeight+1&&bx.right<=innerWidth+1,h:bx.height}});assert(f.fit,JSON.stringify({v,f}))}
-assert.deepEqual(errs,[]);console.log('PASS admin scene viewer: lists pov/pre/post/choice/bond, plays without progress/intro change, keys pass to dialogue, hero mapping, bond filter, 3 viewports');await b.close()})().catch(e=>{console.error(e);process.exit(1)});
+assert.deepEqual(errs,[]);console.log('PASS admin password 1217 + scene viewer: lists pov/pre/post/choice/bond, plays without progress/intro change, keys pass to dialogue, hero mapping, bond filter, 3 viewports');await b.close()})().catch(e=>{console.error(e);process.exit(1)});
