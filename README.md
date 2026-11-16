@@ -1,6 +1,6 @@
 # 두 사람의 링
 
-선수 2명(홍코너·청코너)과 관중 30명이 들어오는 3D 대결 방. 정적 `index.html`과 Vercel 함수 `api/ring.js`, 저장소는 Upstash Redis(REST).
+선수 2명(홍코너·청코너)과 관중 15명이 들어오는 3D 대결 방. 정적 `index.html`과 Vercel 함수 `api/ring.js`, 저장소는 Upstash Redis(REST).
 
 - 이 브랜치는 사신전기와 공유 기록이 없는 별도 역사다. **main에 병합하지 않는다.**
 - 환경 변수: `RING_PASSWORD`(입장 암호), `KV_REST_API_URL`/`KV_REST_API_TOKEN`(Vercel Storage에서 Upstash를 연결하면 자동).

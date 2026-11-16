@@ -1,4 +1,4 @@
-<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="description" content="두 사람이 링에 올라 한 판 붙고, 서른 명이 관중석에서 응원하는 3D 방"><meta property="og:title" content="두 사람의 링"><meta property="og:description" content="선수 2명 · 관중 30명. 링에 오를지 관중석에 앉을지 골라서 들어오세요"><title>두 사람의 링</title>
+<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="description" content="두 사람이 링에 올라 한 판 붙고, 열다섯 명이 관중석에서 응원하는 3D 방"><meta property="og:title" content="두 사람의 링"><meta property="og:description" content="선수 2명 · 관중 15명. 링에 오를지 관중석에 앉을지 골라서 들어오세요"><title>두 사람의 링</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Gowun+Dodum&display=swap">
 <style>
@@ -157,7 +157,7 @@ form.send input{flex:1}
 
 <div class="app">
   <header>
-    <h1>두 사람의 링 <small>선수 2 · 관중 30</small></h1>
+    <h1>두 사람의 링 <small>선수 2 · 관중 15</small></h1>
     <span class="sp"></span>
     <span class="pill" id="online">연결 중…</span>
     <button id="btnRole" type="button">자리 바꾸기</button>
@@ -233,11 +233,11 @@ form.send input{flex:1}
 <div class="modal" id="mRole" hidden role="dialog" aria-modal="true" aria-labelledby="hRole">
   <div class="card">
     <h2 id="hRole">어디로 들어갈까요?</h2>
-    <div class="note">링에는 두 사람만 오를 수 있어요. 관중석은 서른 자리입니다. 나중에 「자리 바꾸기」로 옮길 수 있어요.</div>
+    <div class="note">링에는 두 사람만 오를 수 있어요. 관중석은 열다섯 자리입니다. 나중에 「자리 바꾸기」로 옮길 수 있어요.</div>
     <div class="roles">
       <button type="button" class="role red" data-r="red"><span class="ic">🥊</span><span><span class="rn">홍코너 선수</span><br><span class="rc" id="rcRed">비어 있음</span></span></button>
       <button type="button" class="role blue" data-r="blue"><span class="ic">🥊</span><span><span class="rn">청코너 선수</span><br><span class="rc" id="rcBlue">비어 있음</span></span></button>
-      <button type="button" class="role gal" data-r="gal"><span class="ic">👀</span><span><span class="rn">관중석</span><br><span class="rc" id="rcGal">0 / 30</span></span></button>
+      <button type="button" class="role gal" data-r="gal"><span class="ic">👀</span><span><span class="rn">관중석</span><br><span class="rc" id="rcGal">0 / 15</span></span></button>
     </div>
     <div class="note" id="roleMsg"></div>
     <div class="row" style="justify-content:space-between;align-items:center"><button type="button" id="roleLook">캐릭터 꾸미기</button><button type="button" id="roleCancel">닫기</button></div>
@@ -667,7 +667,7 @@ function onPeers(list){const seen=new Set();for(const s of list){const id=s.id;i
   if(s.act&&s.act.ts!==a.actTs){a.actTs=s.act.ts;a.act=s.act.k==='cheer'?'cheer':null;a.cheerSide=s.act.side==='b'?'b':'r';a.actAt=Date.now()}}
  for(const [k,a] of [...peers])if(!seen.has(k)){if(a.obj)scene.remove(a.obj);peers.delete(k)}
  me.slotId=uid;me.ready=!!mySide()&&match[mySide()+'r']==='1';
- const c=roleCount(),o=$('online');o.textContent='';const b1=document.createElement('b');b1.textContent=(c.red+c.blue)+'/2';const b2=document.createElement('b');b2.textContent=c.gal+'/30';o.append('선수 ',b1,' · 관중 ',b2);
+ const c=roleCount(),o=$('online');o.textContent='';const b1=document.createElement('b');b1.textContent=(c.red+c.blue)+'/2';const b2=document.createElement('b');b2.textContent=c.gal+'/15';o.append('선수 ',b1,' · 관중 ',b2);
  renderWho();renderRoleCounts()}
 function renderWho(){const el=$('whoList');el.textContent='';const list=[...(me.role?[me]:[]),...peers.values()].sort((a,b)=>({red:0,blue:1,gal:2}[a.role]-{red:0,blue:1,gal:2}[b.role]));
  if(!list.length){const e=document.createElement('div');e.className='note';e.textContent='아직 아무도 없어요.';el.append(e)}
@@ -678,8 +678,8 @@ setInterval(renderWho,3000);
 
 // ---------- role picking
 function renderRoleCounts(){const c=roleCount();const nm=role=>{if(me.role===role)return '지금 내 자리';for(const p of peers.values())if(p.role===role)return (p.nick||'손님')+' 님이 있어요';return '비어 있음'};
- $('rcRed').textContent=nm('red');$('rcBlue').textContent=nm('blue');$('rcGal').textContent=c.gal+' / 30';
- document.querySelectorAll('#mRole .role').forEach(b=>{const r=b.dataset.r;b.disabled=r==='gal'?(c.gal>=30&&me.role!=='gal'):!slotFree(r)&&me.role!==r})}
+ $('rcRed').textContent=nm('red');$('rcBlue').textContent=nm('blue');$('rcGal').textContent=c.gal+' / 15';
+ document.querySelectorAll('#mRole .role').forEach(b=>{const r=b.dataset.r;b.disabled=r==='gal'?(c.gal>=15&&me.role!=='gal'):!slotFree(r)&&me.role!==r})}
 function openRole(msg){if(!look.nick||!KEY){openLook();return}$('roleMsg').textContent=msg||'';renderRoleCounts();$('mRole').hidden=false;$('roleCancel').hidden=!me.role}
 function closeRole(){if(!me.role)return;$('mRole').hidden=true}
 document.querySelectorAll('#mRole .role').forEach(b=>b.onclick=()=>{audioOn();takeRole(b.dataset.r)});

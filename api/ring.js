@@ -1,4 +1,4 @@
-// 두 사람의 링: presence(선수 2·관중 30), 경기 판정, 대화, 전적 — Upstash Redis(REST)에 저장한다.
+// 두 사람의 링: presence(선수 2·관중 15), 경기 판정, 대화, 전적 — Upstash Redis(REST)에 저장한다.
 const crypto = require('crypto');
 const RURL = process.env.KV_REST_API_URL || process.env.UPSTASH_REDIS_REST_URL;
 const RTOK = process.env.KV_REST_API_TOKEN || process.env.UPSTASH_REDIS_REST_TOKEN;
@@ -67,7 +67,7 @@ if st~='' then
  local role=string.match(st,'"role":"(%a+)"') or ''
  if role~='' and role~=live[id] then
   local c=0 for k,r in pairs(live) do if k~=id and r==role then c=c+1 end end
-  if c>=((role=='gal') and 30 or 1) then ok=0 end
+  if c>=((role=='gal') and 15 or 1) then ok=0 end
  end
  if ok==1 then redis.call('HSET',P,id,st) live[id]=role end
 end
