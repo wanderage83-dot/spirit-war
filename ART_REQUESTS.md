@@ -776,3 +776,38 @@ Canva 크레딧이 없어 `tools/pixel-walk.py`로 장수 20명×4방향×4동�
 ### 게임에 넣기(그림이 오면 Claude가 처리)
 - PNG를 아무 폴더에 올리고 「올렸다」고 알려 준다. Claude가 흰 배경 제거·자르기·높이 맞춤 후 `characters/illust/dir/<파일 이름>/<방향>.webp`·`characters/illust/walk/<파일 이름>/<방향>-1..4.webp`로 저장하고, 발 위치를 재고, 전장 장수 그림을 일러스트로 교체하며 도트 경로(`PIXEL_LEADERS`·`characters/pixel/`)를 끈다.
 - 1단계만 먼저 와도 방향 그림은 교체할 수 있다(걷기는 몸 기우뚱으로 대신). 2단계까지 오면 걷기 프레임도 쓴다.
+
+---
+
+## 요청 11 · 공병·투석기 — 상태: 요청서 작성(2026-11-18), 그림 대기
+
+공병대(아군 은랑의 부대, 적은 5·9·12·14·16장·현무편 6·8·10장의 수비 부대 하나)는 지금 **창병 그림에 작은 망치 표시**만 얹어 쓰고, 투석기는 코드로 그린 나무 막대 그림이다. 장수가 아닌 무명 병사이므로 **그림 수는 최소로**: 공병 1명 × 4방향(4장) + 투석기 2장 = **모두 6장**. 걷기는 그리지 않는다(지금처럼 코드 걸음). 적군·다른 진영 아군은 게임이 같은 그림에 진영색을 입혀 쓰므로 따로 그리지 않는다.
+
+### 11-1. 공병 기본(fr, 앞-오른쪽) — `spear.webp` 1장 첨부
+`spear.webp`는 크기·자세·구도·비율 참고용이다(창병을 그대로 그리라는 뜻이 아님).
+
+> Same canvas size, pose, framing, scale and cute chibi SD proportions as the attached soldier, facing the same direction (front three-quarter view toward the lower RIGHT, seen slightly from above), but redesigned as a COMBAT ENGINEER of the same army: a sturdy, cheerful craftsman-soldier rather than a front-line warrior. Rounded padded cloth cap with a small blue-and-gold band instead of a plumed helmet, rolled-up sleeves, a thick brown leather work apron over light blue padded armor, a tool belt with pouches, a coiled rope and a few wooden pegs at the hip, a small wooden plank or bundle of short beams strapped on the back. He rests a big two-handed wooden mallet with an iron-bound head on one shoulder (this is his weapon). Looks lighter-armored and less fierce than the spearman. Palette: the army's blue and gold accents with warm wood brown and leather tan. Clean dark-brown outlines, soft cel shading, bright colors. Single character only, full body, transparent background, no shadow, no ground, no text, nothing cropped.
+
+### 11-2. 방향 3장(fl·br·bl) — 11-1 결과 1장 첨부
+요청 4의 기본 문장과 방향 문구를 그대로 쓰고, `{병종 문장}` 자리에 아래를 넣는다.
+- `A combat engineer in a padded cloth cap and leather work apron, a big iron-bound wooden mallet resting on the same shoulder as the reference, tool belt, coiled rope and a bundle of short beams on the back.`
+- 맨 끝에 `Keep the mallet on the same shoulder and the same design and colors exactly as the reference (do not mirror the character).`
+- 뒷모습(br·bl)은 등의 나무 묶음과 밧줄이 보이게.
+
+### 11-3. 투석기 2장 — 첨부 없이(또는 `characters/props/cart-engineer.webp`를 화풍 참고로 첨부)
+공통 규칙(위)의 1024×768 소품 규격을 따른다: 오른쪽을 향한 3/4 옆모습, 바퀴 아래가 그림 맨 아래 3~5% 위, 사람 없음.
+- **catapult-ready**(장전) → `A small wooden field catapult (mangonel) for a cute chibi fantasy war game, front three-quarter view facing RIGHT, seen slightly from above. Four sturdy wooden wheels, an A-frame of thick beams lashed with rope and iron bands, a long throwing arm pulled DOWN and locked, its leather sling/cup at the back holding one round grey stone, a twisted rope torsion bundle at the pivot. Hand-built, slightly rough carpentry look, warm wood brown, iron grey, tan rope, small blue cloth tied on the frame. No people, no animals. Clean dark-brown outlines, soft cel shading, bright colors. Transparent background, no shadow, no ground, no text, nothing cropped.`
+- **catapult-fire**(발사 직후) → 같은 문장에서 장전 부분을 `the long throwing arm swung UP and forward against the front crossbar just after launching, the empty sling hanging, a few wood chips and a puff of dust at the pivot`으로 바꾼다. **바퀴·틀의 위치와 크기는 catapult-ready와 똑같이**(두 장을 번갈아 보여 준다).
+
+### 파일 이름·올리는 곳
+- 공병: `eng-fr.png`·`eng-fl.png`·`eng-br.png`·`eng-bl.png` → `characters/soldier-dir/raw/`
+- 투석기: `catapult-ready.png`·`catapult-fire.png` → `characters/props/raw/`
+
+### 확인 기준
+- [ ] 공병 4장이 같은 인물(모자·앞치마·망치 어깨 같음), 창병·방패병과 한눈에 구별됨
+- [ ] 방향이 맞고 좌우 반전 없음, 전신·망치 끝 안 잘림, 배경 투명
+- [ ] 투석기 두 장의 바퀴·틀 위치가 같고 팔만 다름, 사람 없음
+
+### 게임에 넣기(그림이 올라오면 Claude가 연결)
+- 공병: fr은 루트 `eng.webp`(지금 `artSrc`의 eng→spear 대체를 없앰), fl·br·bl은 `characters/soldier-dir/eng/`에 높이 384로 넣고 `SOLDIER_DIR_READY.eng`·`SOLDIER_FOOT.eng`(눈으로 잰 발)를 더한다. `tools/soldier-dir.py`의 병종 목록에 eng 추가. 망치 표시(`engBadge`)는 뺀다.
+- 투석기: `characters/props/catapult-{ready,fire}.webp`, `drawCatapult`가 코드 그림 대신 쏜 뒤 약 2초 동안 fire, 그 밖 ready를 그리고 진영색 깃발·체력 막대는 지금처럼 코드로 얹는다. 그림이 없으면 지금 코드 그림을 쓴다.
