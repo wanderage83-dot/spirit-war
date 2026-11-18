@@ -1,11 +1,12 @@
 // (2026-11-06 방패병 속도 44→50으로 싸움이 빨리 끝나 c5 최대 참여 때 각도 169°가 되어 기준을 170→160으로 낮춤)
+// (2026-11-18 공병(eng)은 체력이 약해 일찍 무너지므로 표적 부대에서 뺌)
 // 측면 감싸기: 앞줄이 맞붙어 싸우면 뒷줄 근접 병사는 앞줄 등 뒤에 줄 서 있지 않고 ① 길이 트인 옆 적 ② 대상 둘레 빈 자리 ③ 줄 끝 옆걸음으로 돌아 들어간다(wrapPoint).
 // 트인 들판에서 우리 방패병 부대가 서 있는 적 방패병 부대를 정면으로 칠 때, 실제 12초 3턴(같은 공격 명령) 에서 적이 살아 있는 동안(첫 5초 접근 제외)의 평균 참여 병사 수, 최대 참여 때와 그 병사들이 둘러싼 각도 폭을 잰다.
 // Requires Playwright and Chromium. Serve the repository and pass its URL.
 const{chromium}=require('playwright'),fs=require('fs'),assert=require('node:assert/strict');(async()=>{const exe=['/usr/bin/chromium','/opt/pw-browsers/chromium'].find(p=>fs.existsSync(p)),b=await chromium.launch(exe?{executablePath:exe}:{}),p=await b.newPage({viewport:{width:1280,height:800}}),errors=[];p.on('pageerror',e=>errors.push(String(e)));await p.goto(process.argv[2]||'http://127.0.0.1:8782/');await p.waitForTimeout(1500);
 const all=[];for(const cid of(process.argv[3]||'c5,c11').split(',')){const r=await p.evaluate(async cid=>{PASS_LINES=false;setRoute('qing');newRealm();showRealm();const c=SAGA.find(c=>c.id===cid);R.saga.act=c.act;launchChapter(c);hideBattleVoice&&hideBattleVoice();await new Promise(r=>setTimeout(r,300));
  const g=groups.map((_,i)=>i).find(g=>g>0&&apUnits(g).length>=8&&apUnits(g).filter(isSoldier).every(v=>v.type==='shield'))??groups.map((_,i)=>i).find(g=>g>0&&apUnits(g).length>=8),A=apUnits(g);
- const eSq=[...new Set(units.filter(v=>v.side&&v.hp>0&&v.squad&&!v.guardLord&&v.type!=='boss'&&isSoldier(v)&&attackRange(v)<=120).map(v=>v.squad))].map(k=>units.filter(v=>v.squad===k&&v.hp>0)).sort((a,b)=>b.length-a.length)[0];
+ const eSq=[...new Set(units.filter(v=>v.side&&v.hp>0&&v.squad&&!v.guardLord&&v.type!=='boss'&&isSoldier(v)&&v.type!=='eng'&&attackRange(v)<=120).map(v=>v.squad))].map(k=>units.filter(v=>v.squad===k&&v.hp>0)).sort((a,b)=>b.length-a.length)[0];
  let o=null;for(let yy=WH*.62;yy>WH*.4&&!o;yy-=40)for(let xx=WW*.3;xx<WW*.7&&!o;xx+=40){let ok=true;for(let dx=-560;dx<=560&&ok;dx+=56)for(let dy=-700;dy<=420&&ok;dy+=56)if(!walkable(xx+dx,yy+dy))ok=false;if(ok)o={x:xx,y:yy}}
  for(const v of units)if(v.hp>0&&!A.includes(v)&&!eSq.includes(v)&&!['keep','gate','cart'].includes(v.type)&&Math.hypot(v.x-o.x,v.y-o.y)<1500){if(v.side)v.hp=0;else{const q=nearestCell(v.x,Math.max(v.y,o.y+1600));v.x=v.rx=q.x;v.y=v.ry=q.y}}
  const put=(us,cx,cy)=>{const c=centroid(us);for(const v of us){const q=nearestCell(cx+(v.x-c.x)*.9,cy+(v.y-c.y)*.9);v.x=v.rx=q.x;v.y=v.ry=q.y;v.path=null;v.squadSlot=null;v.still=2}};put(eSq,o.x,o.y-260);put(A,o.x,o.y+120);for(const v of eSq){v.order='hold';v.post={x:v.x,y:v.y};v.speed=0;v.damage=0}
