@@ -31,5 +31,7 @@ assert(r.p17>=15&&!r.cat17&&r.cat&&r.catG===-2&&!r.inSoldier&&!r.inApUnits,'투�
 assert(r.hit[0]>0&&r.hit[1]>0,'범위 피해');assert.deepEqual(r.noCrew,[0,false],'공병 없으면 안 쏨');
 assert(r.reset===0&&r.rebuilt===1,'다시 짓기');if(r.gate!=null)assert(Math.abs(r.gate-1.6)<.05,'성문 1.6배 '+r.gate);
 assert.equal(r.types,'eng,eng,eng,bow,horse,bow,shield');assert(r.xuanSq===1&&r.baiSq===2&&r.enemyEng>=6&&r.nc9===0&&r.nc12===0&&r.nc7===0,'적 공병 수 '+JSON.stringify(r));assert(r.enemyCat>=1&&r.baiCat[0]===true&&r.baiCat[1]>1000,'백호 적 투석기 12초·사거리');assert(r.baiAlly&&r.baiAlly[0]&&r.baiAlly[1]>=135,'아군 백호 투석기 12초·튼튼');
+const art=await p.evaluate(async()=>{for(let i=0;i<40&&!(unitArt.has('eng0')&&soldierDir.get('eng')?.bl&&catImg('ready')&&catImg('fire'));i++)await new Promise(r=>setTimeout(r,100));return{fr:!!unitArt.get('eng0'),dirs:Object.keys(soldierDir.get('eng')||{}).sort().join(),cat:!!catImg('ready')&&!!catImg('fire'),src:artSrc('eng')}});
+assert(art.fr&&art.dirs==='bl,br,fl'&&art.cat&&art.src.endsWith('eng.webp'),'공병·투석기 그림 '+JSON.stringify(art));
 for(const vp of[{width:390,height:844},{width:844,height:390}]){await p.setViewportSize(vp);await p.evaluate(()=>{measure&&measure();draw()})}
-assert.deepEqual(errs,[]);console.log('PASS engineers: 현무 1(도겸)·백호 2(은랑·사율), 백호 12s 강화, catapult build 18s, splash, crew needed, rebuild after destroyed, gate x1.6, enemy engineers in listed chapters');await b.close()})().catch(e=>{console.error(e);process.exit(1)});
+assert.deepEqual(errs,[]);console.log('PASS engineers: 전용 그림(공병 4방향·투석기 2장), 현무 1(도겸)·백호 2(은랑·사율), 백호 12s 강화, catapult build 18s, splash, crew needed, rebuild after destroyed, gate x1.6, enemy engineers in listed chapters');await b.close()})().catch(e=>{console.error(e);process.exit(1)});
