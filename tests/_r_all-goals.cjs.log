@@ -1,0 +1,28 @@
+{"r":"qing","id":"c1","t":"boss","st0":"playing","how":"boss","after":"ending","win":true,"chip":"","over":"over","overlay":true,"title":"성을 지켜냈다","btn":"천하 지도로 →","cleared":true}
+{"r":"qing","id":"c2","t":"hold","st0":"playing","how":"hold","after":"ending","win":true,"chip":"부두 확보 4/4턴","over":"over","overlay":true,"title":"목표 달성 · 부두 확보 4/4턴","btn":"천하 지도로 →","cleared":true}
+{"r":"qing","id":"c3","t":"rout","st0":"playing","how":"rout","after":"ending","win":true,"chip":"현무 부대 붕괴 3/3","over":"over","overlay":true,"title":"목표 달성 · 현무 부대 붕괴 3/3","btn":"천하 지도로 →","cleared":true}
+{"r":"qing","id":"c4","t":"boss","st0":"playing","how":"boss","after":"ending","win":true,"chip":"","over":"over","overlay":true,"title":"성을 지켜냈다","btn":"천하 지도로 →","cleared":true}
+{"r":"qing","id":"c5","t":"reach","st0":"playing","how":"reach","after":"ending","win":true,"chip":"청명 → 서쪽 길목 도달","over":"over","overlay":true,"title":"목표 달성 · 청명 → 서쪽 길목 도달","btn":"천하 지도로 →","cleared":true}
+{"r":"qing","id":"c6","t":"escort","st0":"playing","how":"escort","after":"ending","win":true,"chip":"공병 수레 호송 1/1","over":"over","overlay":true,"title":"목표 달성 · 공병 수레 호송 1/1","btn":"천하 지도로 →","cleared":true}
+{"r":"qing","id":"c7","t":"boss","st0":"playing","how":"boss","after":"ending","win":true,"chip":"적장 격파 · 남은 8턴","over":"over","overlay":true,"title":"목표 달성 · 적장 격파","btn":"천하 지도로 →","cleared":true}
+{"r":"qing","id":"c8","t":"escort","st0":"playing","how":"escort","after":"ending","win":true,"chip":"피난 수레 호송 3/2","over":"over","overlay":true,"title":"목표 달성 · 피난 수레 호송 3/2","btn":"천하 지도로 →","cleared":true}
+{"r":"qing","id":"c9","t":"mask","st0":"playing","how":"mask","after":"ending","win":true,"chip":"귀왕의 면갑 깨기","over":"over","overlay":true,"title":"목표 달성 · 귀왕의 면갑 깨기","btn":"천하 지도로 →","cleared":true}
+{"r":"qing","id":"c10","t":"destroy","st0":"playing","how":"destroy","after":"ending","win":true,"chip":"유도 깃발 파괴 3/3","over":"over","overlay":true,"title":"목표 달성 · 유도 깃발 파괴 3/3","btn":"천하 지도로 →","cleared":true}
+{"r":"qing","id":"c11","t":"hold","st0":"playing","how":"hold","after":"ending","win":true,"chip":"연구소 출입구 확보 2/2턴","over":"over","overlay":true,"title":"목표 달성 · 연구소 출입구 확보 2/2턴","btn":"천하 지도로 →","cleared":true}
+{"r":"qing","id":"c12","t":"hold","st0":"playing","how":"hold","after":"ending","win":true,"chip":"공방 확보 3/3턴","over":"over","overlay":true,"title":"목표 달성 · 공방 확보 3/3턴","btn":"천하 지도로 →","cleared":true}
+{"r":"qing","id":"c13","t":"holdAll","st0":"playing","how":"holdAll","after":"ending","win":true,"chip":"보급소 확보 3/3","over":"over","overlay":true,"title":"목표 달성 · 보급소 확보 3/3","btn":"천하 지도로 →","cleared":true}
+{"r":"qing","id":"c14","t":"destroy","st0":"playing","how":"destroy","after":"ending","win":true,"chip":"귀문 파괴 2/2","over":"over","overlay":true,"title":"목표 달성 · 귀문 파괴 2/2","btn":"천하 지도로 →","cleared":true}
+{"r":"qing","id":"c15","t":"destroy","st0":"playing","how":"destroy","after":"ending","win":true,"chip":"관문 파괴 1/1 또는 적장 격파","over":"over","overlay":true,"title":"목표 달성 · 관문 파괴 1/1 또는 적장 격파","btn":"천하 지도로 →","cleared":true}
+{"r":"qing","id":"c16","t":"final","st0":"playing","how":"final","after":"ending","win":true,"chip":"왕인 제단 파괴","over":"over","overlay":true,"title":"목표 달성 · 왕인 제단 파괴","btn":"천하 지도로 →","cleared":true}
+{"r":"xuan","id":"x1","t":"boss","st0":"playing","how":"boss","after":"ending","win":true,"chip":"","over":"over","overlay":true,"title":"성을 지켜냈다","btn":"천하 지도로 →","cleared":true}
+{"r":"xuan","id":"x2","t":"rout","st0":"playing","how":"rout","after":"ending","win":true,"chip":"청룡 부대 붕괴 3/3","over":"over","overlay":true,"title":"목표 달성 · 청룡 부대 붕괴 3/3","btn":"천하 지도로 →","cleared":true}
+{"r":"xuan","id":"x3","t":"survive","st0":"playing","how":"survive","after":"ending","win":true,"chip":"","over":"over","overlay":true,"title":"끝까지 버텼다","btn":"천하 지도로 →","cleared":true}
+{"r":"xuan","id":"x4","t":"hold","st0":"playing","how":"hold","after":"ending","win":true,"chip":"협곡 출구 확보 4/4턴","over":"over","overlay":true,"title":"목표 달성 · 협곡 출구 확보 4/4턴","btn":"천하 지도로 →","cleared":true}
+{"r":"xuan","id":"x5","t":"survive","st0":"playing","how":"survive","after":"ending","win":true,"chip":"","over":"over","overlay":true,"title":"끝까지 버텼다","btn":"천하 지도로 →","cleared":true}
+{"r":"xuan","id":"x6","t":"mask","st0":"playing","how":"mask","after":"ending","win":true,"chip":"귀왕의 면갑 깨기","over":"over","overlay":true,"title":"목표 달성 · 귀왕의 면갑 깨기","btn":"천하 지도로 →","cleared":true}
+{"r":"xuan","id":"x7","t":"hold","st0":"playing","how":"hold","after":"ending","win":true,"chip":"연구소 출입구 확보 2/2턴","over":"over","overlay":true,"title":"목표 달성 · 연구소 출입구 확보 2/2턴","btn":"천하 지도로 →","cleared":true}
+{"r":"xuan","id":"x8","t":"boss","st0":"playing","how":"boss","after":"ending","win":true,"chip":"","over":"over","overlay":true,"title":"적의 장수를 쓰러뜨렸다","btn":"천하 지도로 →","cleared":true}
+{"r":"xuan","id":"x9","t":"escort","st0":"playing","how":"escort","after":"ending","win":true,"chip":"보급 수레 호송 1/1","over":"over","overlay":true,"title":"목표 달성 · 보급 수레 호송 1/1","btn":"천하 지도로 →","cleared":true}
+{"r":"xuan","id":"x10","t":"destroy","st0":"playing","how":"destroy","after":"ending","win":true,"chip":"북문 파괴 1/1","over":"over","overlay":true,"title":"목표 달성 · 북문 파괴 1/1","btn":"천하 지도로 →","cleared":true}
+[{"id":"c2","need":4,"turns":4,"state":"ending"},{"id":"c11","need":2,"turns":2,"state":"ending"},{"id":"c12","need":3,"turns":3,"state":"ending"},{"id":"x4","need":4,"turns":4,"state":"ending"},{"id":"x7","need":2,"turns":2,"state":"ending"}]
+PASS 26 chapters end on goal, result screen and chapter cleared; hold goals end after their turns

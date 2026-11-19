@@ -1,0 +1,20 @@
+{"l0":[1,false,false],"l1":[2,3,false,5],"cap":[20,20,3],"retro":[false,false,"brush",false],"curve":{"muk10":0.6641704725313144,"un10":0.280757356378684,"dan10":0.47368421052631576,"lv1":0,"diff":13,"n":13,"mono":true},"base":[165,21],"grown":[340.3410047482671,32.158063938526084,2.0626727560501035,1.5313363780250517],"eq":"갑옷,무기,장신구","gear":[1.12,1.06,0.94,85.12,110.00000000000001],"gear0":[76,100,1],"def":3.5999999999999943,"def0":4.5,"kills":3,"rep":{"rank":"S","mvp":"o_muk"},"result":{"rows":4,"rank":"전공 S","first":"saga-next","scroll":0,"gold":143,"base":110,"xpMuk":72,"xpDan":17,"xpWant":17},"lootN":1,"rl":1,"loot":{"n":3,"li":true,"hiR":true},"lootBad":0,"shopOpen":true,"shopCats":"무기,갑옷,장신구,보급","pages":true,"dropBuy":0,"buy":[380,1],"sell":[440,0],"locked":[440,0],"unlocked":1,"sup":[340,100,2,0,2],"sup2":[340,2],"btn0":true,"btn1":[false,true,"🔥 봉화 올리기 · 원군"],"fire":[true,true,4,false],"btn2":[false,"🔥 봉화 4턴 뒤"],"again":0}
+320 {"dock":{"in":true,"scroll":0,"btns":["🪙상점","⚔장수","출진 준비 ›"],"party":4,"vis":true},"coin":"🪙 400","rend":"none","sc":{"shop무기":0,"shop갑옷":0,"shop장신구":0,"shop보급":0,"roster":0,"growth":0,"prep0":0,"prep1":0,"prep2":0},"stats":3,"gearCells":0}
+node:internal/process/promises:394
+    triggerUncaughtException(err, true /* fromPromise */);
+    ^
+
+AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+
+  assert(v.stats===3&&v.gearCells===3)
+
+    at /home/user/spirit-war/tests/_r_growth-shop-beacon.cjs:42:375 {
+  generatedMessage: true,
+  code: 'ERR_ASSERTION',
+  actual: false,
+  expected: true,
+  operator: '==',
+  diff: 'simple'
+}
+
+Node.js v22.23.4

@@ -739,3 +739,12 @@
 - `#dramachip`(`dramaText`/`dramaUI`, hudStack 왼쪽 쌓기·튜토리얼 쌓기 목록에 추가) 「🛡 포위 · ○○ 도착까지 n턴 버텨라」, step 1~2일 때만.
 - 전장 대화 `btalk(lines,done)`·`btalkShow/Next/Stop/On`·`BT`: `#btalk`(position fixed 아래, z 60, 전장은 보임), 초상 talkPortrait·이름 vnName·진영색 vnFaction ink, 서술(null)은 기울임. `btalkOk`: 화자 null·o_hero·ruler:·출진한 장수(groups leader)만. 누르기/Enter 다음, Esc·건너뛰기 전부, 끝나면 선택 부대 고리 다시 열기. showRealm·dramaInit이 닫는다. ultCutin은 ruler: id면 그 진영 ink. 사신기.md 「전투 중 위기·구원 대화」. 저장 구조 불변. `tests/battle-drama.cjs`(3장×3화면).
 
+## 목표 표식·부두·장비 칸 장착·중간 서술 · 2026-11-19
+- 사용자 지적: 장비 장착 방법을 모름, 성장 곡선 이름(조숙형 등) 표시 말고 설정값만, 3장 승리 후 진행, 승리 조건 지형·건물 표시, 부두가 산 가운데, 대사 2줄, 대화 중간 서술도 첫머리처럼 비주얼노벨 풍.
+- 3장: 강제 달성·실제 교전 시뮬레이션 모두 rout 3 → ending → 결과 → 천하 지도 → c4로 정상. 재현 못 함. 목표 띠가 「현무 부대 붕괴 0/3 · 관문 0/2 돌파」로 관문을 승리 조건처럼 보여 혼동 가능 → apUI 목표 띠를 `goalText()+'　｜　🚪 관문 n/m 열림'`로 분리(passText 자체는 그대로, gate-pass 검사 유지).
+- `goalMarks()`/`goalObjs(objs)`(draw의 engObjs 뒤): hold 🛡(dock ⚓)·reach ⚑·escort 🏁 지점, destroy 대상 ✖, mask/boss/final/alt boss는 보이는 적장 👑. upright 빛기둥(lighter)+흔들리는 원형 표식, 배율 min(2.4,max(1,.5/viewScale)).
+- 부두: c2 goal `dock:1`. goalInit hold에서 `dockSpot(s)`가 지정 지점에서 가장 가까운 water까지 방향을 찾아 spot을 물가 150 앞(nearestCell)으로, `s.dock{a,x,y}`. drawGoal 첫머리 `drawDock`(지면층 잔교·말뚝·배 두 척). 통행·판정 불변.
+- 장수 창: `.gr-curve` 문구 삭제(HERO_GROWTH 곡선 값은 그대로 적용). 장비 칸 `.gr-slot` 버튼 → `gearPick(id,sl)`(`gearOwned(sl)` 가방 목록, 장착=equipItem, 「벗기」=equipItem 빈 값, 없으면 상점 안내). .gr-stat 글자 nowrap(휴대폰 큰 글씨에서 세로로 접히던 것).
+- vnShow: 화자 없는 줄은 위치와 상관없이 novel 덮개, 본문은 그 서술 묶음(a0~i)만. 「대화로 ›」는 지금 묶음 다음 대사로, 뒤에 대사가 없으면 숨김.
+- 대사: c3 연백·청명 「살살」 두 줄, c2 비연 밤배 장면(서술 「다가왔다」·「위로하러 온 것도 아니면서」·「……옆에 앉아도 될까요?」). 사신기.md 동기화. `tests/goal-marks-gear.cjs`, growth-shop-beacon 장비 칸 선택자 갱신.
+
