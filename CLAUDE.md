@@ -747,4 +747,4 @@
 - 장수 창: `.gr-curve` 문구 삭제(HERO_GROWTH 곡선 값은 그대로 적용). 장비 칸 `.gr-slot` 버튼 → `gearPick(id,sl)`(`gearOwned(sl)` 가방 목록, 장착=equipItem, 「벗기」=equipItem 빈 값, 없으면 상점 안내). .gr-stat 글자 nowrap(휴대폰 큰 글씨에서 세로로 접히던 것).
 - vnShow: 화자 없는 줄은 위치와 상관없이 novel 덮개, 본문은 그 서술 묶음(a0~i)만. 「대화로 ›」는 지금 묶음 다음 대사로, 뒤에 대사가 없으면 숨김.
 - 대사: c3 연백·청명 「살살」 두 줄, c2 비연 밤배 장면(서술 「다가왔다」·「위로하러 온 것도 아니면서」·「……옆에 앉아도 될까요?」). 사신기.md 동기화. `tests/goal-marks-gear.cjs`, growth-shop-beacon 장비 칸 선택자 갱신.
-
+- 2026-11-20 후속(「승리 조건 건물에 중요 표시 했나」): goalMarks에 빠진 것 보충 — holdAll(c13)은 home 외 보급소 세 곳 🚩/확보 ✔(h 330, 부대 이름표 위), escort는 살아 있는 수레 🛡(small), goal 없는 saga 판(c1·c4·x1·x8)은 survive가 아니면 보이는 적장 👑. rout(c3·x2)는 지정 건물이 없어 표식 없음(목표 띠로 안내). goal-marks-gear 검사 추가.

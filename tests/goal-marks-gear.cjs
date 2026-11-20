@@ -6,7 +6,7 @@ const r=await p.evaluate(async()=>{const wait=t=>new Promise(r=>setTimeout(r,t))
  await open('c2');const s=goalState;o.dock=!!s.dock;let wd=1e9;for(let a=0;a<6.3;a+=.1)for(let r=0;r<700;r+=20)if(terrainAt(s.spot.x+Math.cos(a)*r,s.spot.y+Math.sin(a)*r)==='water'){wd=Math.min(wd,r);break}o.waterNear=wd;o.walk=walkable(s.spot.x,s.spot.y);o.mark2=goalMarks().map(m=>m.ic).join('');
  await open('c3');o.mark3=goalMarks().length;await wait(80);o.chip3=document.querySelector('#goalchip').textContent;
  await open('c10');o.mark10=goalMarks().map(m=>m.ic).join('');
- await open('c9');o.mark9=goalMarks().map(m=>m.ic).join('');
+ await open('c9');o.mark9=goalMarks().map(m=>m.ic).join('');await open('c13');o.mark13=goalMarks().map(m=>m.ic).join('');supplySites.find(d=>d.id==='west').capture=1;o.mark13b=goalMarks().map(m=>m.ic).join('');await open('c6');o.mark6=goalMarks().map(m=>m.ic).join('');
  // 그리기 호출에 표식 객체가 들어감
  await open('c2');focusPoint(goalState.spot.x,goalState.spot.y);const objs=[];goalObjs(objs);o.objs=objs.length;
  // 장수 창
@@ -17,7 +17,7 @@ const r=await p.evaluate(async()=>{const wait=t=>new Promise(r=>setTimeout(r,t))
  // 대사
  const all=JSON.stringify(SAGA_Q);o.lines=!/살살 하겠소/.test(all)&&/옆에 앉아도 될까요/.test(all);
  return o});
-assert.ok(r.dock&&r.waterNear<=260&&r.walk,'부두는 물가 '+JSON.stringify(r));assert.equal(r.mark2,'⚓');assert.equal(r.mark3,0,'붕괴 목표엔 지점 표식 없음');assert.match(r.chip3,/🚪 관문 \d\/\d 열림/);assert.ok(!/돌파/.test(r.chip3));assert.ok(/✖/.test(r.mark10),'파괴 대상 '+r.mark10);assert.ok(/👑/.test(r.mark9),'면갑 적장 '+r.mark9);assert.ok(r.objs>=1);
+assert.ok(r.dock&&r.waterNear<=260&&r.walk,'부두는 물가 '+JSON.stringify(r));assert.equal(r.mark2,'⚓');assert.equal(r.mark3,0,'붕괴 목표엔 지점 표식 없음');assert.match(r.chip3,/🚪 관문 \d\/\d 열림/);assert.ok(!/돌파/.test(r.chip3));assert.ok(/✖/.test(r.mark10),'파괴 대상 '+r.mark10);assert.ok(/👑/.test(r.mark9),'면갑 적장 '+r.mark9);assert.ok(r.objs>=1);assert.equal([...r.mark13].filter(c=>c==='🚩').length,3,'보급소 세 곳 '+r.mark13);assert.ok(/✔/.test(r.mark13b),'확보한 보급소 '+r.mark13b);assert.ok(/🏁/.test(r.mark6)&&/🛡/.test(r.mark6),'호송 도착·수레 '+r.mark6);
 assert.ok(!r.curve,'성장 곡선 문구 없음');assert.equal(r.slots,3);assert.ok(r.pickN>=1);assert.equal(r.eq,'glaive');assert.equal(r.off,null);assert.equal(r.bag2,r.bag+1,'벗으면 가방으로');
 assert.ok(r.lead&&r.mid&&r.skipTo===4&&r.after,'중간 서술 소설식 '+JSON.stringify(r));assert.ok(r.lines,'대사 수정');console.log(w+'x'+h,JSON.stringify(r));await p.close()}
 assert.deepEqual(errors,[]);console.log('goal-marks-gear ok');await b.close()})().catch(e=>{console.error(e);process.exit(1)});
