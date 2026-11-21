@@ -761,3 +761,7 @@
 - 사용자 「종종 진동 화면이 계속된다」: 흔들림 `shake`는 update(실행 중)에서만 줄었는데, 계획·일시정지·종료 상태에서 shake를 올리는 일(구원군 타격·성문/목표 파괴·필살기·투석기 등)이 생기면 0으로 내려가지 않아 draw가 계속 흔들었다. draw가 실제 시간(`draw.sn`, 최대 .1초)으로 실행 중이 아니거나 hitStop 중이면 shake를 40/초씩 줄인다(실행 중 감쇠는 기존 update 그대로).
 - 사용자 「맵 뒤의 여백은 물이 아닌 한 검은색」: draw 첫 채움을 pixelColors().sky(하늘색)에서 '#000'으로. 맵 가장자리 두께(drawPixelMapSkirt)·청룡성 강이 흘러나가는 단면의 물색은 그대로. `tests/shake-backdrop.cjs`(이전 코드에서 실패 확인).
 
+## 원형 메뉴 다섯 묶음 통폐합 · 2026-11-21
+- 사용자 「주둔과 휴식과 다음 부대 등 같은 메뉴가 너무 많다, 통폐합」. 최상단 최대 14개(계속 공격·공격·이동·진형·돌격·잠행·매복·필살기·계략·군주 필살기·방향·주둔·후퇴·넘기기)를 ringItems의 `part(k)` 묶음 다섯으로: atk(cont·attack「새 대상」·charge) / mov(move·sneak·retreat) / wait(hold·garrison·ambush·face→하위 face) / tech(skill·spell-dragon·spell-heal·strat-*) / skip. 묶음 안에 항목이 하나면 그 항목이 묶음 자리에 바로 나온다(attack 하나면 이름 「공격」). 옛 sub 이름 strat·spell은 tech로 연다. 가운데 「◀ 뒤로」: face→wait, 그 밖→최상단.
+- 항목 key(move·attack·cont·sneak·ambush·hold·garrison·retreat·skill·spell-*·strat-*·face-*·skip)와 실행 함수는 그대로. `ringKeys(g,off)`가 하위까지 펼친 key 목록(검사용, off면 ':off'). 검사 hud-food·ring-back-base·ring-move-continue·stealth-ambush·strats-ring·ultimates는 openRing(g,'mov'|'atk'|'tech')·ringKeys로, ring-tap-glide는 「이동」 묶음을 눌러 하위가 열리는지와 실제 누른 횟수 ≥20(이전엔 'move'를 못 찾아 0번 누르고 통과하던 것)을 본다. 튜토리얼·도움말 문구 「✦ 기술」.
+

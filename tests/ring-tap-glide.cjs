@@ -7,8 +7,8 @@ let ok=0,fail=0,why=[];
 for(let it=0;it<24;it++){const g=1+it%3,delay=[0,40,80,120,160,220,300,500][it%8];
  await p.evaluate(g=>{closeRing();ring.pick=false;mode=null;apReadyClose&&apReadyClose();selected=-1;choose(g)},g);
  await p.waitForTimeout(delay);
- const pt=await p.evaluate(()=>{const b=[...document.querySelectorAll('#ring:not(.hidden) .ring-item')].find(b=>b.dataset.k==='move');if(!b)return null;const r=b.getBoundingClientRect();return{x:r.left+r.width/2,y:r.top+r.height/2}});
+ const pt=await p.evaluate(()=>{const b=[...document.querySelectorAll('#ring:not(.hidden) .ring-item')].find(b=>b.dataset.k==='mov');if(!b)return null;const r=b.getBoundingClientRect();return{x:r.left+r.width/2,y:r.top+r.height/2}});
  if(!pt){await p.waitForTimeout(60);it--;if(why.length>200)break;why.push('noring@'+delay);continue}
  if(vp.hasTouch){await p.touchscreen.tap(pt.x,pt.y)}else{await p.mouse.move(pt.x,pt.y);await p.mouse.down();await p.waitForTimeout(110);await p.mouse.up()}
- await p.waitForTimeout(60);const r=await p.evaluate(()=>ring.pick==='move'||ring.pick===true||mode==='move'||!!ring.pick);if(r)ok++;else{fail++;why.push('fail@'+delay)}}
-console.log(vp.width,'ok',ok,'fail',fail,why.filter(w=>w.startsWith('fail')).join(' '));assert.equal(fail,0,vp.width+' 메뉴 누르기 실패 '+fail);await p.close()}console.log('PASS ring menu taps land during camera glide/open animation, touch + mouse');await b.close()})();
+ await p.waitForTimeout(60);const r=await p.evaluate(()=>ring.sub==='mov'&&!$('#ring').classList.contains('hidden'));if(r)ok++;else{fail++;why.push('fail@'+delay)}}
+console.log(vp.width,'ok',ok,'fail',fail,why.filter(w=>w.startsWith('fail')).join(' '));assert.equal(fail,0,vp.width+' 메뉴 누르기 실패 '+fail);assert.ok(ok>=20,vp.width+' 실제로 누른 횟수 '+ok);await p.close()}console.log('PASS ring menu taps land during camera glide/open animation, touch + mouse');await b.close()})();
