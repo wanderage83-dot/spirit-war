@@ -6,6 +6,13 @@
 
 ## 과거 작업 기록
 
+## 2026-11-21 10:40 KST · chat
+- 커밋: docs: md 원칙에 「읽을 때도 Drive 폴더 먼저」 추가
+- 파일: CLAUDE.md, HANDOFF.md
+- 이어서 작업할 때 Drive 'Md 파일 저장소'에서 프로젝트 이름으로 최신 md부터 읽도록
+- 남은 일: 없음
+- 주의: 없음
+
 ## 2026-11-21 10:35 KST · chat
 - 커밋: docs: CLAUDE.md에 md 파일 저장 원칙 추가
 - 파일: CLAUDE.md, HANDOFF.md
