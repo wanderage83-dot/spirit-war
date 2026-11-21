@@ -10,7 +10,7 @@ import {tmpdir} from 'node:os';
 
 const ROOT=join(dirname(fileURLToPath(import.meta.url)),'..'),OUT=join(ROOT,'dist'),TERSER='terser@5.36.0';
 // .vercelignore와 같은 것 + 빌드 자체
-const SKIP=new Set(['art-requests','tests','tools','mockups','asset-library','build','dist','.git','.vercel','node_modules','__pycache__','ASSET_MANIFEST.json','index.html']);
+const SKIP=new Set(['art-requests','tests','tools','mockups','asset-library','build','dist','.git','.vercel','node_modules','__pycache__','ASSET_MANIFEST.json','index.html','notes']);
 const skip=n=>SKIP.has(n)||n.startsWith('.')||/\.(md|py|sh)$/.test(n)||n==='raw';
 
 rmSync(OUT,{recursive:true,force:true});mkdirSync(OUT,{recursive:true});

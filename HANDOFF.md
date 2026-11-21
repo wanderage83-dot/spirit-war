@@ -6,6 +6,13 @@
 
 ## 과거 작업 기록
 
+## 2026-11-21 11:05 KST · chat
+- 커밋: docs: md 원칙 개정 — Claude Code 작업 md는 저장소 notes/에 보관
+- 파일: CLAUDE.md, HANDOFF.md, 배포 제외 설정
+- 원장 의도 정정: GitHub에 연결된 Claude Code가 만든 md는 Drive가 아니라 notes/YYYY-MM-DD_내용.md로 커밋. 채팅·저장소 밖 md만 Drive
+- 남은 일: 없음
+- 주의: notes/는 배포 제외(.assetsignore 등)
+
 ## 2026-11-21 10:40 KST · chat
 - 커밋: docs: md 원칙에 「읽을 때도 Drive 폴더 먼저」 추가
 - 파일: CLAUDE.md, HANDOFF.md
