@@ -1,4 +1,4 @@
-// 시야·잠행·매복·기습: 숲·덤불 은폐(220)·등 뒤 45%, 잠행(+1 AP·느림·260), 매복(덤불에서만·250 안 적이 오면 덮침), 기습 배율 ×1.5·기절·사기 −30·8초 재사용, 마지막 본 자리 표시, 고리 항목.
+// 시야·잠행·매복·기습: 숲·덤불 은폐(220)·등 뒤 45%, 잠행(+1 AP·느림·260), 매복(덤불에서만·250 안 적이 오면 덮침), 기습 배율 ×2(총 8 상한)·기절·진형 붕괴·사기 −30·8초 재사용, 마지막 본 자리 표시, 고리 항목.
 // Requires Playwright and Chromium. Serve the repository and pass its URL.
 const{chromium}=require('playwright'),fs=require('fs'),assert=require('node:assert/strict');(async()=>{const exe=['/usr/bin/chromium','/opt/pw-browsers/chromium'].find(p=>fs.existsSync(p)),b=await chromium.launch(exe?{executablePath:exe}:{}),errs=[],URL=process.argv[2]||'http://127.0.0.1:8782/';
 const p=await b.newPage({viewport:{width:1280,height:800}});p.on('pageerror',e=>errs.push(String(e)));await p.goto(URL);await p.waitForTimeout(1200);
@@ -37,8 +37,8 @@ return o});
 console.log(JSON.stringify(r));
 assert(r.cov&&r.open,'은폐 칸·트인 칸');assert(r.farHid&&r.frontSeen&&r.rearHid&&r.rearClose,'숲 은폐 220·등 뒤 45%');assert(r.fogOffSeen,'FOG_ON=false면 은폐 없음');assert(r.ghost,'마지막 본 자리');
 assert(r.allyHid&&!r.foeTarget,'숨은 아군은 적이 고르지 않음');
-assert.equal(r.mul,1.5,'기습 ×1.5');assert(r.stun>=.8&&r.moraleDrop===30,'기절·사기 −30');assert.equal(r.coolMul,1,'다른 부대 8초 안 재기습 없음');if(r.mateMul!=null)assert.equal(r.mateMul,1.5,'같은 부대 동시 타격 배율');if(r.capMul!=null)assert(r.capMul<=Math.max(1,6/r.capTotal)+1e-3,'총 배율 6 상한');
+assert.equal(r.mul,2,'기습 ×2');assert(r.stun>=1.2&&r.moraleDrop===30,'기절·사기 −30');assert.equal(r.coolMul,1,'다른 부대 8초 안 재기습 없음');if(r.mateMul!=null)assert.equal(r.mateMul,2,'같은 부대 동시 타격 배율');if(r.capMul!=null)assert(r.capMul<=Math.max(1,8/r.capTotal)+1e-3,'총 배율 8 상한');
 assert.equal(r.sneakKind,'sneak');assert(r.sneakCost>=r.moveCost+1||r.sneakCost===8,'잠행 +1 AP');assert(r.sneakMv&&r.stealth,'잠행 중 숨음');assert(r.stealthAfter,'잠행 뒤 숨어 대기');
 assert(r.plainRejected,'들판 매복 거절');assert(r.ambushPlanned&&r.ambushing&&r.ambushHid,'덤불 매복');assert(r.sprung&&r.sprungOrder>0&&/매복|기습/.test(r.banner)&&r.foeLoss>0&&r.ambushSurprise,'적 접근 시 매복 발동·기습 피해');
 for(const [k,x] of Object.entries(r).filter(([k])=>/^ring\d/.test(k))){const g=+k.slice(4);if(x.type==='horse'){assert(!x.ks.some(s=>/^sneak|^ambush/.test(s)),'기병 잠행·매복 없음')}else{assert.equal(x.ks.some(s=>s.startsWith('sneak')),g>0,'잠행 '+g);assert(x.ks.some(s=>s.startsWith('ambush')),'매복 항목 '+g)}}
-assert(r.arcOk);assert.deepEqual(errs,[]);console.log('PASS cover/rear sight, ghosts, hidden allies ignored, sneak +1AP, ambush spring, surprise x1.5/stun/morale/cooldown/cap, ring items');await b.close()})();
+assert(r.arcOk);assert.deepEqual(errs,[]);console.log('PASS cover/rear sight, ghosts, hidden allies ignored, sneak +1AP, ambush spring, surprise x2/stun/morale/cooldown/cap, ring items');await b.close()})();

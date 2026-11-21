@@ -1,0 +1,19 @@
+// 전략성 1·2·3: 계획 중 적 시야 부채꼴(정면 260+퍼짐, 등 뒤 ×.45, 잠행 고르기 때 진하게), 배후 충격(돌아서느라 1.2초 기절·사기 −22·4초 재사용), 기습 ×2·기절 1.2·진형 붕괴 1턴(창진·방패 진형 보너스 없음).
+// Requires Playwright and Chromium. Serve the repository and pass its URL.
+const{chromium}=require('playwright'),fs=require('fs'),assert=require('node:assert/strict');(async()=>{const exe=['/usr/bin/chromium','/opt/pw-browsers/chromium'].find(p=>fs.existsSync(p)),b=await chromium.launch(exe?{executablePath:exe}:{}),errs=[],URL=process.argv[2]||'http://127.0.0.1:8782/';
+const p=await b.newPage({viewport:{width:1280,height:800}});p.on('pageerror',e=>errs.push(String(e)));await p.goto(URL);await p.waitForTimeout(1200);
+const r=await p.evaluate(async()=>{const wait=t=>new Promise(r=>setTimeout(r,t));const o={};const L=u=>u.hp>0&&!['keep','gate','cart','cat','boss'].includes(u.type)&&!u.structure&&!u.fence;
+titleHide&&titleHide();closeModal();setRoute('qing');newRealm();showRealm();const c=SAGA.find(c=>c.id==='c2');R.saga.act=c.act;launchChapter(c);await wait(300);
+const A=units.filter(u=>!u.side&&L(u)),E=units.filter(u=>u.side&&L(u)&&!u.guardLord&&!u.commander&&u.type!=='hero');
+// 1. 시야 부채꼴: 보이는 적 부대마다 경로를 그린다, 잠행 고르기면 진하게
+E.forEach(u=>u.seen=true);focusPoint(E[0].x,E[0].y);const ar=CanvasRenderingContext2D.prototype.arc;let n=0;CanvasRenderingContext2D.prototype.arc=function(...a){n++;return ar.apply(this,a)};const fills=[];const fs0=Object.getOwnPropertyDescriptor(CanvasRenderingContext2D.prototype,'fillStyle');
+state='planning';drawSightCones();o.arcs=n;n=0;SIGHT_CONES=false;drawSightCones();o.off=n;SIGHT_CONES=true;state='playing';n=0;drawSightCones();o.playing=n;CanvasRenderingContext2D.prototype.arc=ar;
+state='planning';ring.pick='sneak';let st=[];const orig=CanvasRenderingContext2D.prototype.fill;CanvasRenderingContext2D.prototype.fill=function(...a){st.push(this.fillStyle);return orig.apply(this,a)};drawSightCones();CanvasRenderingContext2D.prototype.fill=orig;o.strong=st.some(s=>String(s).includes('0.12'));ring.pick=null;state='playing';
+// 2. 배후 충격
+const t=E.find(x=>x.type==='spear'||x.type==='shield')||E[0],tq=units.filter(v=>v.hp>0&&v.squad===t.squad&&isSoldier(v));tq.forEach((v,i)=>{v.x=t.x+(i%3)*40;v.y=t.y+Math.floor(i/3)*40;v.dir=0;v.stun=0});t.dir=0;const u=A.find(x=>x.type!=='horse')||A[0];u.x=t.x-70;u.y=t.y;u.hidT=-99;rearHit.clear();const m0=mor(t.squad);m0.v=100;m0.rout=0;const mb=matchupInfo(u,t);o.aspect=mb.aspect;attackDamage(u,t,mb);o.rearStun=tq.every(v=>v.stun>=1.2);o.rearMor=100-m0.v;tq.forEach(v=>v.stun=0);attackDamage(u,t,mb);o.cool=tq.every(v=>v.stun===0);
+// 정면은 충격 없음
+rearHit.clear();t.dir=Math.PI;tq.forEach(v=>v.stun=0);m0.v=100;attackDamage(u,t,matchupInfo(u,t));o.frontNo=tq.every(v=>v.stun===0)&&m0.v===100;
+// 3. 기습 ×2·진형 붕괴
+const sp=E.find(x=>x.type==='spear');surprised.clear();rearHit.clear();if(sp){sp.order='hold';sp.still=5;sp.stun=0;sp.moving=false;sp.broke=0;o.bracedBefore=braced(sp);sp.dir=Math.PI;u.x=sp.x-70;u.y=sp.y;const mm=matchupInfo(u,sp);u.hidT=-99;const base=attackDamage(u,sp,mm);u.hidT=time;surprised.clear();sp.stun=0;const sur=attackDamage(u,sp,mm);o.mul=+(sur/base).toFixed(3);o.surStun=sp.stun;o.broke=units.filter(v=>v.hp>0&&v.squad===sp.squad).every(v=>v.broke>time);sp.stun=0;o.bracedAfter=braced(sp);o.guardAfter=matchupInfo(u,sp).guard}
+return o});
+console.log(JSON.stringify(r));assert(r.arcs>=4&&r.off===0&&r.playing===0,'계획 중에만 시야 부채꼴');assert(r.strong,'잠행 고르기 때 진하게');assert.equal(r.aspect,'back');assert(r.rearStun&&r.rearMor>=22,'배후 충격');assert(r.cool,'4초 재사용');assert(r.frontNo,'정면은 충격 없음');if(r.mul!=null){assert.equal(r.mul,2,'기습 ×2');assert(r.surStun>=1.2&&r.broke,'기절·진형 붕괴');assert(r.bracedBefore&&!r.bracedAfter&&r.guardAfter===1,'창진·진형 보너스 해제')}assert.deepEqual(errs,[]);console.log('PASS sight cones, rear shock, surprise x2 + formation break');await b.close()})();

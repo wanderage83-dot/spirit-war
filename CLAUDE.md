@@ -765,3 +765,8 @@
 - 사용자 「주둔과 휴식과 다음 부대 등 같은 메뉴가 너무 많다, 통폐합」. 최상단 최대 14개(계속 공격·공격·이동·진형·돌격·잠행·매복·필살기·계략·군주 필살기·방향·주둔·후퇴·넘기기)를 ringItems의 `part(k)` 묶음 다섯으로: atk(cont·attack「새 대상」·charge) / mov(move·sneak·retreat) / wait(hold·garrison·ambush·face→하위 face) / tech(skill·spell-dragon·spell-heal·strat-*) / skip. 묶음 안에 항목이 하나면 그 항목이 묶음 자리에 바로 나온다(attack 하나면 이름 「공격」). 옛 sub 이름 strat·spell은 tech로 연다. 가운데 「◀ 뒤로」: face→wait, 그 밖→최상단.
 - 항목 key(move·attack·cont·sneak·ambush·hold·garrison·retreat·skill·spell-*·strat-*·face-*·skip)와 실행 함수는 그대로. `ringKeys(g,off)`가 하위까지 펼친 key 목록(검사용, off면 ':off'). 검사 hud-food·ring-back-base·ring-move-continue·stealth-ambush·strats-ring·ultimates는 openRing(g,'mov'|'atk'|'tech')·ringKeys로, ring-tap-glide는 「이동」 묶음을 눌러 하위가 열리는지와 실제 누른 횟수 ≥20(이전엔 'move'를 못 찾아 0번 누르고 통과하던 것)을 본다. 튜토리얼·도움말 문구 「✦ 기술」.
 
+
+## 적 시야 부채꼴·배후 충격·기습 강화 · 2026-11-21
+- 사용자 「잠행해서 뒤통수치는 전략 유도」 중 1·2·3 선택. `drawSightCones()`(draw의 drawCmdFx 뒤·drawGhosts 앞, `SIGHT_CONES=false`면 끔): planning에서 보이는(seen) 적 부대마다 지휘관 dir 기준 정면 ±acos(−.35) 반지름 HIDE_SNEAK+퍼짐, 나머지 등 뒤 HIDE_SNEAK×SIGHT_REAR+퍼짐 부채꼴, 안쪽 정면 점선 HIDE_SNEAK_COVER+퍼짐(숲 속 잠행). ring.pick==='sneak'이거나 선택 부대가 stealth면 진하게+「👁 발각」·「등 뒤 · 사각」. computeVision 판정을 부대 중심+퍼짐으로 근사한 표시이며 판정은 그대로.
+- `rearShock(u,t)`(attackDamage의 back flank 분기): t.squad 병사 중 300 안 `REAR_STUN`1.2초 기절, 사기 −`REAR_MOR`22(0 이하면 routSquad), 부대당 `REAR_CD`4초(`rearHit`, visionReset 초기화). 양 진영 공통, 장수·구조물 제외.
+- 기습(surpriseMul): 배율 상한 `SURPRISE_MAX`2(총 배율 8 상한), 기절 1.2, 대상 부대 전원 `u.broke=time+AP_TURN` → braced·matchupInfo guard·shaken의 방패 진형 경감이 꺼짐. 배너·예측·HELP 문구 갱신. `tests/strategy-plus.cjs`, stealth-ambush 기대값 ×2·8 상한.
